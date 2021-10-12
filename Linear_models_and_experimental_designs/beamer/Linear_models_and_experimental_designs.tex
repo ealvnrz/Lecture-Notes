@@ -1708,11 +1708,10 @@ computacional}\label{aplicaciuxf3n-computacional}}
 
 \end{frame}
 
-\hypertarget{diagnuxf3stico-y-medidas-correctivas}{%
-\subsection{Diagnóstico y medidas
-correctivas}\label{diagnuxf3stico-y-medidas-correctivas}}
+\hypertarget{diagnuxf3stico}{%
+\subsection{Diagnóstico}\label{diagnuxf3stico}}
 
-\begin{frame}{Diagnóstico y medidas correctivas}
+\begin{frame}{Diagnóstico}
 
 Cuando realizamos un modelo de regresión, como por ejemplo el modelo de
 regresión lineal simple antes visto, frecuentemente no podemos estar
@@ -1767,7 +1766,7 @@ regresión:
 lineal simple, los errores \(\varepsilon_i\) se asumen \textbf{variables
 aleatorias normales independientes, con media 0 y varianza constante
 \(\sigma^2\)}. Si el modelo es apropiado para los datos disponibles, el
-resudio observado \(e_i\) deben reflejar las propiedades que se
+residuo observado \(e_i\) deben reflejar las propiedades que se
 asumieron para \(\varepsilon_i\).
 
 Esta es la idea básica del \textbf{análisis de residuos}, una
@@ -1838,7 +1837,7 @@ análisis. debido a que la desviación estándar de los términos de error
 
 Si \(\sqrt{MSE}\) fuese una estimación de la desviación estándar de los
 residuos \(e_i\), llamaríamos \(e_{i}^{*}\) residuos
-\emph{studentizados}. Sim embargo, la desviación estándar de \(e_i\) es
+\emph{studentizados}. Sin embargo, la desviación estándar de \(e_i\) es
 compleja y varía para los diferentes residuos \(e_i\), y \(\sqrt{MSE}\)
 es \textbf{sólo una aproximación} de la desviación estándar de \(e_i\).
 
@@ -1929,7 +1928,7 @@ gráfico de los residuos.
 \begin{frame}{No consistencia de la varianza del error}
 \protect\hypertarget{no-consistencia-de-la-varianza-del-error}{}
 
-Graficar los residuos vs la variable predictora or vs los valores
+Graficar los residuos vs la variable predictora o vs los valores
 ajustados, no solo es útil para estudiar si una función de regresión
 lineal es apropiada pero además nos sirve para examinar si la varianza
 de los errores es constante.
@@ -1992,7 +1991,7 @@ estudiados informalmente examinando los residuos de varias maneras.
   los errores.
 \item
   \textbf{Gráfico de probabilidad normal}: Otra posibilidad es realizar
-  un grafico de probabilidad normal de los residuos. En donde se grafica
+  un gráfico de probabilidad normal de los residuos. En donde se grafica
   cada residuo vs el valor esperado bajo normalidad.
 \end{itemize}
 
@@ -2020,11 +2019,81 @@ variable.
 
 \end{frame}
 
-\hypertarget{regresiuxf3n-lineal-muxfaltiple}{%
-\section{Regresión Lineal
-Múltiple}\label{regresiuxf3n-lineal-muxfaltiple}}
+\begin{frame}{Test relacionados con los residuos}
+\protect\hypertarget{test-relacionados-con-los-residuos}{}
 
-\begin{frame}{Regresión Lineal Múltiple}
+El análisis de residuos mediante gráficos es inherentemente subjetivo.
+Aún así, este análisis subjetivo de una variedad de gráficos de residuos
+frecuentemente revela dificultades en la implementación del modelo más
+claramente que un test formal.
+
+\begin{itemize}
+\tightlist
+\item
+  Test de aleatoriedad: Durbin-Watson Test
+\item
+  Test para la consistencia de varianza: Brown-Forsythe test y
+  Breusch-Pagan test
+\item
+  Test de normalidad: Test Chi-cuadrado, Kolmogorov-Smirnov, Lilliefors
+  test.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Medidas correctivas}
+\protect\hypertarget{medidas-correctivas}{}
+
+Si el modelo de regresión lineal simple no es apropiado para el conjunto
+de datos que se está analizando, se tienen dos opciones:
+
+\begin{itemize}
+\tightlist
+\item
+  Abandonar el modelo de regresión lineal simple y desarrollar otro
+  modelo
+\item
+  Aplicar alguna transformación a los datos tal que el modelo de
+  regresión lineal simple sea apropiado para los datos transformados.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  \textbf{No linealidad de la función de regresión}: Cuando la función
+  de regresión no es lineal, un enfoque directo es modificar el modelo
+  de regresión, por ejemplo elevando al cuadrado las variables
+  predictoras.
+\item
+  \textbf{No consistencia de la varianza del error}: Cuando la varianza
+  del error no es constante, pero varía de manera sistemática, un
+  enfoque directo es modificar el modelo para permitir el uso de
+  \textbf{mínimos cuadrados ponderados} para estimar los parámetros.
+  También es posible realizar transformaciones para solucionar la
+  problemática.
+\item
+  \textbf{No independencia de los errores}: Cuando los errores están
+  correlacionados, un forma de solucionar el problema es trabajar con un
+  modelo que utilice errores. (En series de tiempo verán modelos de este
+  estilo)
+\item
+  \textbf{No normalidad de los errores}: Falta de normalidad y errores
+  no constantes, por lo general ocurren de manera simultánea.
+  Afortunadamente, usualmente transformaciones apropiadas que
+  estabilicen la varianza sirven también para aproximadamente normalizar
+  los errores.
+\item
+  \textbf{Omisión de variables predictoras}: En este caso debemos
+  modificar el modelo, más adelante veremos como seleccionar las
+  variables a incluir en el modelo.
+\item
+  \textbf{Observaciones extremas}: Si los datos outliers no pueden ser
+  descartados, es posible utilizar métodos de estimación que asignan
+  menos peso a las observaciones extremas. \# Regresión Lineal Múltiple
+\end{itemize}
 
 Como lo hemos mencionado antes, extenderemos las nociones del análisis
 de regresión lineal simple al caso general. Pero antes:
@@ -2040,7 +2109,7 @@ de regresión lineal simple al caso general. Pero antes:
 \end{frame}
 
 \hypertarget{modelo-de-regresiuxf3n-lineal-general}{%
-\subsection{Modelo de regresión lineal
+\section{Modelo de regresión lineal
 general}\label{modelo-de-regresiuxf3n-lineal-general}}
 
 \begin{frame}{Modelo de regresión lineal general}
@@ -2154,7 +2223,7 @@ clases mediante \(c-1\) variables indicadoras.}
 \begin{frame}
 
 Por ejemplo, si en el ejemplo anterior se agrega una variable
-cualitativa que representa el estado de discapicidad. Podemos agregar
+cualitativa que representa el estado de discapacidad. Podemos agregar
 dos variable indicadoras \(X_3\) y \(X_4\) como:
 
 \[X_3=\begin{cases}1 \hspace{20pt} \text{si el paciente no es discapacitado}\\  0 \hspace{20pt} \text{en otro caso}\end{cases}\]
@@ -2297,6 +2366,300 @@ no lineal sería:
 
 Este último modelo no puede ser expresado en la forma de un modelo de
 regresión lineal.
+
+\end{frame}
+
+\hypertarget{modelo-de-regresiuxf3n-lineal-general-en-tuxe9rminos-matriciales}{%
+\subsection{Modelo de regresión lineal general en términos
+matriciales}\label{modelo-de-regresiuxf3n-lineal-general-en-tuxe9rminos-matriciales}}
+
+\begin{frame}{Modelo de regresión lineal general en términos
+matriciales}
+
+El modelo de regresión lineal general que hemos estudiado puede ser
+expresado:
+
+\[Y_i=\beta_0 X_{i0}+\beta_1 X_{i1}+\beta_2 X_{i2} + \cdots + \beta_{p-1}X_{i,p-1}+\varepsilon_i\]
+Si definimos:
+
+\[Y_{n\times 1}=\begin{bmatrix}
+Y_1\\
+Y_2\\
+\vdots\\
+Y_n
+\end{bmatrix}\hspace{30pt}
+X_{n\times p}=\begin{bmatrix}
+1 & X_{11} & X_{12} & \cdots & X_{1,p-1}\\
+1 & X_{21} & X_{22} & \cdots & X_{2,p-1}\\
+\vdots & \vdots & & \vdots\\
+1 & X_{n1} & X_{n2} & \cdots & X_{n,p-1}\\
+\end{bmatrix}\]
+
+y,
+
+\[\beta_{p\times 1}=\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\vdots\\
+\beta_{p-1}
+\end{bmatrix}\hspace{30pt}
+\varepsilon_{n\times 1}=\begin{bmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_n
+\end{bmatrix}
+\]
+
+\end{frame}
+
+\begin{frame}
+
+Notamos que los vectores \(Y\) y \(\varepsilon\) son los mismo que para
+un modelo de regresión lineal simple.
+
+Así, podemos reescribir el modelo de regresión general como:
+
+\[Y_{n\times 1}=X_{n\times p}\ \beta_{p\times 1}+\varepsilon_{n\times 1}\]
+
+En donde,
+
+\begin{itemize}
+\tightlist
+\item
+  \(Y\) es un vector de respuestas
+\item
+  \(\beta\) es un vector de parámetros
+\item
+  \(X\) es una matriz de constantes
+\item
+  \(\varepsilon\) es un vector de variables aleatorias normales
+  independientes con \(\mathbb{E}(\varepsilon)=0\) y matriz de
+  varianza-covarianza:
+\end{itemize}
+
+\[\mathbb{V}(\varepsilon)=\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0\\
+0 & \sigma^2 & \cdots & 0\\
+\vdots & \vdots & & \vdots\\
+0 & 0 &  \cdots & \sigma^2\\
+\end{bmatrix}=\sigma^2 I\]
+
+en donde, \(I\) es la matriz identidad.
+
+\end{frame}
+
+\begin{frame}
+
+En consecuencia, el vector aleatorio \(Y\) tiene esperanza:
+
+\[\mathbb{E}(Y)_{n\times 1}=X\ \beta\]
+
+y varianza:
+
+\[\mathbb{V}(Y)_{n\times n}=\sigma^2 I\]
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-los-coeficientes-de-regresiuxf3n}{%
+\subsection{Estimación de los coeficientes de
+regresión}\label{estimaciuxf3n-de-los-coeficientes-de-regresiuxf3n}}
+
+\begin{frame}{Estimación de los coeficientes de regresión}
+
+El método de estimación de mínimos cuadrados, puede ser generalizado de
+la manera:
+
+\[Q=\sum_{i=1}^{n}(Y_i-\beta_0-\beta_1 X_{i1}-\cdots-\beta_{p-1} X_{i,p-1})^2\]
+
+Los estimadores mínimos cuadrados son los valores de
+\(\beta_0,\beta_1,\dots,\beta_{p-1}\) que minimizan \(Q\). Si llamamos
+\(b\) al vector de coeficientes de regresión \(b_0,b_1,\dots,b_{p-1}\).
+Así, las ecuaciones normales para el modelo de regresión lineal general
+pueden ser reescritas en términos matriciales como:
+
+\[X'Xb=X'Y\]
+
+Luego, despejando b, se tiene que:
+
+\[b=(X'X)^{-1}X'Y\]
+
+\end{frame}
+
+\begin{frame}
+
+Alternativamente, podemos utilizar el método de máxima verosimilitud en
+donde tenemos que maximizar la siguiente función de verosimilitud:
+
+\[L(\beta,\sigma^2)=\dfrac{1}{(2\pi \sigma^2)^{\pi/2}} \exp \left[ -\dfrac{1}{2\sigma^2}\sum_{i=1}^{n}(Y_i-\beta_0-\beta_1 X_{i1}-\cdots-\beta_{p-1} X_{i,p-1})^2 \right]\]
+
+De igual manera que en el caso de regresión lineal simple, los
+coeficientes que se obtienen mediante este método serán los mismos
+obtenidos bajo mínimos cuadrados.
+
+\end{frame}
+
+\hypertarget{valores-ajustados-y-residuos}{%
+\subsection{Valores ajustados y
+residuos}\label{valores-ajustados-y-residuos}}
+
+\begin{frame}{Valores ajustados y residuos}
+
+Sea \(\hat{Y}\) el vector de valores ajustados y \(e_i=Y_i-\hat{Y}_i\)
+el vector de residuos denotado por \(e\), entonces:
+
+\[\hat{Y}_{n\times 1}=\begin{bmatrix}
+\hat{Y}_1\\
+\hat{Y}_2\\
+\vdots\\
+\hat{Y}_n
+\end{bmatrix}\hspace{30pt}
+e_{n\times 1}=\begin{bmatrix}
+e_1\\
+e_2\\
+\vdots\\
+e_n
+\end{bmatrix}
+\]
+
+por lo que valores ajustados pueden ser escritos como:
+
+\[\hat{Y}_{n\times 1}=Xb\]
+
+y los residuos como:
+
+\[e_{n\times 1}=Y-\hat{Y}=Y-Xb\]
+
+\end{frame}
+
+\begin{frame}
+
+El vector de valores ajustados \(\hat{Y}\) puede ser expresado en
+términos de una matriz \(H\):
+
+\[\hat{Y}_{n\times 1}=HY\] donde, \[H_{n\times n}=X(X'X)^{-1}X'\] De
+manera similar, el vector de residuos puede ser expresado:
+
+\[e_{n\times 1}=(I-H)Y\]
+
+y la matriz de varianza-covarianza de los residuos como:
+
+\[\mathbb{V}(e)_{n\times n}=\sigma^2(I-H)\]
+
+el cual es estimado como:
+
+\[\widehat{\mathbb{V}(e)}_{n\times n}=MSE(I-H)\]
+
+\end{frame}
+
+\hypertarget{anuxe1lisis-de-varianza}{%
+\subsection{Análisis de varianza}\label{anuxe1lisis-de-varianza}}
+
+\begin{frame}{Análisis de varianza}
+
+Al igual que antes, podemos reescribir la suma de cuadrados y cuadrados
+medios en términos matriciales. Así:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{SSTO}:
+  \(Y'Y-\left( \dfrac{1}{n}\right)Y'JY= Y'\left[I -\left( \dfrac{1}{n}\right)J\right] Y\)
+\item
+  \textbf{SSE}: \(e'e= (Y-Xb)'(Y-Xb)=Y'Y-b'X'Y=Y'(I-H)Y\)
+\item
+  \textbf{SSR}:
+  \(b'X'Y-\left( \dfrac{1}{n}\right)Y'JY=Y'\left[ H - \left( \dfrac{1}{n}\right) J\right]Y\)
+\end{itemize}
+
+donde la matriz \(J\) es una matriz \(n \times n\) de 1s, y \(H\) es la
+matriz definida anteriormente. De manera similar, los grados de libertad
+asociados estarán dados por:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{SSTO}: \(n-1\)
+\item
+  \textbf{SSE}: \(n-p\)
+\item
+  \textbf{SSR}: \(p-1\)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Al igual que antes, definimos los cuadrados medios como:
+
+\begin{itemize}
+\tightlist
+\item
+  \(MSR=\dfrac{SSR}{p-1}\)
+\item
+  \(MSE=\dfrac{SSE}{n-p}\)
+\end{itemize}
+
+En un modelo de regresión lineal simple, la esperanza del error
+cuadrático medio es \(\sigma^2\), pero en el caso de un modelo de
+regresión lineal general, se tiene que es \(\sigma^2\) más una cantidad
+no negativa. Por ejemplo, en el caso de \(p-1=2\), se tiene.
+
+\[\mathbb{E}(MSR)=\sigma^2+\dfrac{1}{2}\left[\beta_{1}^{2}\sum (X_{i1}-\overline{X}_1)^2+(X_{i2}-\overline{X}_2)^2]+2\beta_1\beta_2 \sum (X_{i1}-\overline{X}_1)(X_{i2}-\overline{X}_2)\right]\]
+
+Notamos que si \(\beta_1\) y \(\beta_2\) son iguales a cero, entonces
+\(\mathbb{E}(MSR)=\sigma^2\). En caso contrario,
+\(\mathbb{E}(MSR)>\sigma^2\).
+
+\end{frame}
+
+\begin{frame}
+
+Por lo que podemos resumir estos resultados, en una tabla ANOVA:
+
+\begin{table}[]
+\begin{tabular}{llll}
+Fuente de Variación & SS                                      & g.l. & MS                     \\
+Regresión           & $SSR = b'X'Y-\left( \dfrac{1}{n}\right)Y'JY$ & p-1   & $MSR=\dfrac{SSR}{p-1}$              \\
+Error               & $SSE = Y'Y-b'X'Y$        & $n-p$  & $MSE=\dfrac{SSE}{n-p}$ \\
+Total               & $SSTO=Y'Y-\left( \dfrac{1}{n}\right)Y'JY$      & $n-1$  &                       
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\hypertarget{test-f-para-la-relaciuxf3n-de-regresiuxf3n}{%
+\subsection{Test F para la relación de
+regresión}\label{test-f-para-la-relaciuxf3n-de-regresiuxf3n}}
+
+\begin{frame}{Test F para la relación de regresión}
+
+Para probar si existe una relación de regresión entre la variable
+respuesta \(Y\) y el conjunto de variables \(X_1,\dots,X_{p-1}\), esto
+es:
+
+\begin{align*}
+H_0 &=\beta_1=\beta_2=\cdots=\beta_{p-1}=0\\
+H_a &= \text{ Al menos un }\beta_k \neq 0, \hspace{10pt}k=1,\dots,p-1
+\end{align*}
+
+Usamos el estadístico de prueba:
+
+\[F^{*}=\dfrac{MSR}{MSE}\]
+
+y la regla de decisión para controlar el error tipo I a un nivel
+\((1-\alpha)\) es:
+
+\begin{itemize}
+\item
+  Si \(F^* \leq F(1-\alpha; p-1,n-p)\), optamos por \(H_0\)
+\item
+  Si \(F^* > F(1-\alpha; p-1, n-p)\), optamos por \(H_1\)
+\end{itemize}
+
+La existencia de una relación de regresión por si sola, no asegura que
+predicciones útiles pueden ser obtenidas usándola. Notar que si
+\(p-1=1\), entonces se reduce al test \(F\) antes visto.
 
 \end{frame}
 

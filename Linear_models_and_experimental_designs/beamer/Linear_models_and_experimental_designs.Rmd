@@ -947,7 +947,7 @@ Como lo hemos mencionado antes, extenderemos las nociones del análisis de regre
 * ¿Existe un mínimo o máximo de variables a utilizar?
 
 
-##  Modelo de regresión lineal general
+#  Modelo de regresión lineal general
 
 Definimos el modelo de regresión lineal general con errores normales de la siguiente manera:
 
@@ -1103,7 +1103,204 @@ $$Y_i=\beta_0 \exp (\beta_1 X_i) + \varepsilon$$
 
 Este último modelo no puede ser expresado en la forma de un modelo de regresión lineal.
 
+## Modelo de regresión lineal general en términos matriciales
+
+El modelo de regresión lineal general que hemos estudiado puede ser expresado:
+
+$$Y_i=\beta_0 X_{i0}+\beta_1 X_{i1}+\beta_2 X_{i2} + \cdots + \beta_{p-1}X_{i,p-1}+\varepsilon_i$$
+Si definimos:
+
+$$Y_{n\times 1}=\begin{bmatrix}
+Y_1\\
+Y_2\\
+\vdots\\
+Y_n
+\end{bmatrix}\hspace{30pt}
+X_{n\times p}=\begin{bmatrix}
+1 & X_{11} & X_{12} & \cdots & X_{1,p-1}\\
+1 & X_{21} & X_{22} & \cdots & X_{2,p-1}\\
+\vdots & \vdots & & \vdots\\
+1 & X_{n1} & X_{n2} & \cdots & X_{n,p-1}\\
+\end{bmatrix}$$
+
+y,
+
+$$\beta_{p\times 1}=\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\vdots\\
+\beta_{p-1}
+\end{bmatrix}\hspace{30pt}
+\varepsilon_{n\times 1}=\begin{bmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_n
+\end{bmatrix}
+$$
+
+---
+
+Notamos que los vectores $Y$ y $\varepsilon$ son los mismo que para un modelo de regresión lineal simple.
+
+Así, podemos reescribir el modelo de regresión general como:
+
+$$Y_{n\times 1}=X_{n\times p}\ \beta_{p\times 1}+\varepsilon_{n\times 1}$$
+
+En donde,
+
+* $Y$ es un vector de respuestas
+* $\beta$ es un vector de parámetros
+* $X$ es una matriz de constantes
+* $\varepsilon$ es un vector de variables aleatorias normales independientes con $\mathbb{E}(\varepsilon)=0$ y matriz de varianza-covarianza:
+
+$$\mathbb{V}(\varepsilon)=\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0\\
+0 & \sigma^2 & \cdots & 0\\
+\vdots & \vdots & & \vdots\\
+0 & 0 &  \cdots & \sigma^2\\
+\end{bmatrix}=\sigma^2 I$$
+
+en donde, $I$ es la matriz identidad.
+
+---
+
+En consecuencia, el vector aleatorio $Y$ tiene esperanza:
+
+$$\mathbb{E}(Y)_{n\times 1}=X\ \beta$$
+
+y varianza:
+
+$$\mathbb{V}(Y)_{n\times n}=\sigma^2 I$$
 
 
+## Estimación de los coeficientes de regresión
 
+El método de estimación de mínimos cuadrados, puede ser generalizado de la manera:
+
+$$Q=\sum_{i=1}^{n}(Y_i-\beta_0-\beta_1 X_{i1}-\cdots-\beta_{p-1} X_{i,p-1})^2$$
+
+Los estimadores mínimos cuadrados son los valores de $\beta_0,\beta_1,\dots,\beta_{p-1}$ que minimizan $Q$. Si llamamos $b$ al vector de coeficientes de regresión $b_0,b_1,\dots,b_{p-1}$. Así, las ecuaciones normales para el modelo de regresión lineal general pueden ser reescritas en términos matriciales como:
+
+$$X'Xb=X'Y$$
+
+Luego, despejando b, se tiene que:
+
+$$b=(X'X)^{-1}X'Y$$
+
+---
+
+Alternativamente, podemos utilizar el método de máxima verosimilitud en donde tenemos que maximizar la siguiente función de verosimilitud:
+
+$$L(\beta,\sigma^2)=\dfrac{1}{(2\pi \sigma^2)^{\pi/2}} \exp \left[ -\dfrac{1}{2\sigma^2}\sum_{i=1}^{n}(Y_i-\beta_0-\beta_1 X_{i1}-\cdots-\beta_{p-1} X_{i,p-1})^2 \right]$$
+
+De igual manera que en el caso de regresión lineal simple, los coeficientes que se obtienen mediante este método serán los mismos obtenidos bajo mínimos cuadrados.
+
+## Valores ajustados y residuos
+
+Sea $\hat{Y}$ el vector de valores ajustados y $e_i=Y_i-\hat{Y}_i$ el vector de residuos denotado por $e$, entonces:
+
+$$\hat{Y}_{n\times 1}=\begin{bmatrix}
+\hat{Y}_1\\
+\hat{Y}_2\\
+\vdots\\
+\hat{Y}_n
+\end{bmatrix}\hspace{30pt}
+e_{n\times 1}=\begin{bmatrix}
+e_1\\
+e_2\\
+\vdots\\
+e_n
+\end{bmatrix}
+$$
+
+por lo que valores ajustados pueden ser escritos como:
+
+$$\hat{Y}_{n\times 1}=Xb$$
+
+y los residuos como:
+
+$$e_{n\times 1}=Y-\hat{Y}=Y-Xb$$
+
+---
+
+El vector de valores ajustados $\hat{Y}$ puede ser expresado en términos de una matriz $H$:
+
+$$\hat{Y}_{n\times 1}=HY$$
+donde,
+$$H_{n\times n}=X(X'X)^{-1}X'$$
+De manera similar, el vector de residuos puede ser expresado:
+
+$$e_{n\times 1}=(I-H)Y$$
+
+y la matriz de varianza-covarianza de los residuos como:
+
+$$\mathbb{V}(e)_{n\times n}=\sigma^2(I-H)$$
+
+el cual es estimado como:
+
+$$\widehat{\mathbb{V}(e)}_{n\times n}=MSE(I-H)$$
+
+
+## Análisis de varianza
+
+Al igual que antes, podemos reescribir la suma de cuadrados y cuadrados medios en términos matriciales. Así:
+
+* **SSTO**: $Y'Y-\left( \dfrac{1}{n}\right)Y'JY= Y'\left[I -\left( \dfrac{1}{n}\right)J\right] Y$
+* **SSE**: $e'e= (Y-Xb)'(Y-Xb)=Y'Y-b'X'Y=Y'(I-H)Y$
+* **SSR**: $b'X'Y-\left( \dfrac{1}{n}\right)Y'JY=Y'\left[ H - \left( \dfrac{1}{n}\right) J\right]Y$
+
+donde la matriz $J$ es una matriz $n \times n$ de 1s, y $H$ es la matriz definida anteriormente. De manera similar, los grados de libertad asociados estarán dados por:
+
+
+* **SSTO**: $n-1$
+* **SSE**: $n-p$
+* **SSR**: $p-1$
+
+---
+
+Al igual que antes, definimos los cuadrados medios como:
+
+* $MSR=\dfrac{SSR}{p-1}$
+* $MSE=\dfrac{SSE}{n-p}$
+
+En un modelo de regresión lineal simple, la esperanza del error cuadrático medio es $\sigma^2$, pero en el caso de un modelo de regresión lineal general, se tiene que es $\sigma^2$ más una cantidad no negativa. Por ejemplo, en el caso de $p-1=2$, se tiene.
+
+$$\mathbb{E}(MSR)=\sigma^2+\dfrac{1}{2}\left[\beta_{1}^{2}\sum (X_{i1}-\overline{X}_1)^2+(X_{i2}-\overline{X}_2)^2]+2\beta_1\beta_2 \sum (X_{i1}-\overline{X}_1)(X_{i2}-\overline{X}_2)\right]$$
+
+Notamos que si $\beta_1$ y $\beta_2$ son iguales a cero, entonces $\mathbb{E}(MSR)=\sigma^2$. En caso contrario, $\mathbb{E}(MSR)>\sigma^2$.
+
+---
+
+Por lo que podemos resumir estos resultados, en una tabla ANOVA:
+
+\begin{table}[]
+\begin{tabular}{llll}
+Fuente de Variación & SS                                      & g.l. & MS                     \\
+Regresión           & $SSR = b'X'Y-\left( \dfrac{1}{n}\right)Y'JY$ & p-1   & $MSR=\dfrac{SSR}{p-1}$              \\
+Error               & $SSE = Y'Y-b'X'Y$        & $n-p$  & $MSE=\dfrac{SSE}{n-p}$ \\
+Total               & $SSTO=Y'Y-\left( \dfrac{1}{n}\right)Y'JY$      & $n-1$  &                       
+\end{tabular}
+\end{table}
+
+## Test F para la relación de regresión
+
+Para probar si existe una relación de regresión entre la variable respuesta $Y$ y el conjunto de variables $X_1,\dots,X_{p-1}$, esto es:
+
+\begin{align*}
+H_0 &=\beta_1=\beta_2=\cdots=\beta_{p-1}=0\\
+H_a &= \text{ Al menos un }\beta_k \neq 0, \hspace{10pt}k=1,\dots,p-1
+\end{align*}
+
+Usamos el estadístico de prueba:
+
+$$F^{*}=\dfrac{MSR}{MSE}$$
+
+y la regla de decisión para controlar el error tipo I a un nivel $(1-\alpha)$ es:
+
+* Si $F^* \leq F(1-\alpha; p-1,n-p)$, optamos por $H_0$
+
+* Si $F^* > F(1-\alpha; p-1, n-p)$, optamos por $H_1$
+
+La existencia de una relación de regresión por si sola, no asegura que predicciones útiles pueden ser obtenidas usándola. Notar que si $p-1=1$, entonces se reduce al test $F$ antes visto.
 
