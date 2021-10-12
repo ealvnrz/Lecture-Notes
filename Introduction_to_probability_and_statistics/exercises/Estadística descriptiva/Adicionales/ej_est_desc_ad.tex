@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[margin=1.5cm,bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{epsfig}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphics,color, epstopdf}
+\setlength{\headheight}{70pt} 
+\setlength{\headsep}{20pt} 
+\pagestyle{fancy}
+\lhead{\includegraphics[width=3cm,height=1.5cm]{uv_logo_alta_rgba.png}}
+\chead{ Universidad de Valpara\'iso \\ Facultad de Ciencias \\ Instituto de Estad\'istica }
+\rhead{Profesor: Eloy Alvarado}
+
+\begin{document}
+\begin{center}
+\textbf{Ejercicios}
+\end{center}
+\begin{enumerate}
+\item La siguiente tabla da el número de accidentes y fatalidades en vuelos de aerolíneas comerciales en los Estados Unidos entre los años 1985 y 2006.
+\begin{table}[h!]
+\centering
+\begin{tabular}{llllllll}
+\hline
+Año  & Vuelos & Accidentes Fatales & Fatalidades & Año  & Vuelos & Accidentes Fatales & Fatalidades \\ \hline
+1985 & 6.1    & 4                  & 197         & 1996 & 7.9    & 3                  & 342         \\
+1986 & 6.4    & 2                  & 5           & 1997 & 9.9    & 3                  & 3           \\
+1987 & 6.6    & 4                  & 231         & 1998 & 10.5   & 1                  & 1           \\
+1988 & 6.7    & 3                  & 285         & 1999 & 10.9   & 2                  & 12          \\
+1989 & 6.6    & 11                 & 278         & 2000 & 11.1   & 2                  & 89          \\
+1990 & 7.8    & 6                  & 39          & 2001 & 10.6   & 6                  & 531         \\
+1991 & 7.5    & 4                  & 62          & 2002 & 10.3   & 0                  & 0           \\
+1992 & 7.5    & 4                  & 33          & 2003 & 10.2   & 2                  & 22          \\
+1993 & 7.7    & 1                  & 1           & 2004 & 10.8   & 1                  & 13          \\
+1994 & 7.8    & 4                  & 239         & 2005 & 10.9   & 3                  & 22          \\
+1995 & 8.1    & 2                  & 166         & 2006 & 11.2   & 2                  & 50         
+\end{tabular}
+\caption{Fuente: U.S. Airline Safety, Scheduled Commercial Carriers, 1985-2006}
+\end{table}
+\begin{enumerate}[a)]
+\item Represente el número de accidentes aéreos anuales en una tabla de frecuencias
+\item Muestre el gráfico de polígono de frecuencias del número de accidentes aéreos anuales.
+\item Muestre el gráfico de frecuencia relativa acumulada del número de accidentes aéreos anuales.
+\item Encuentre la media muestral (promedio) del número de accidentes aéreos anuales.
+\item Encuentre la mediana muestral del número de accidentes aéreos anuales.
+\item Encuentre la moda muestral del número de accidentes aéreos anuales.
+\item Encuentre la desviación estándar muestral del número de accidentes aéreos anuales.
+
+\end{enumerate}
+
+\item Usando los datos del ejercicio anterior:
+\begin{enumerate}[a)]
+\item Represente el número de fatalidades aéreas anuales en un histograma.
+\item Represente el número de fatalidades aéreas anuales en un diagrama de tallo y hoja.
+\item Encuentre la media muestral del número de fatalidades aéreas anuales.
+\item Encuentre la mediana muestral del número de fatalidades aéreas anuales.
+\item Encuentre la desviación estándar muestral del número de fatalidades aéreas anuales.
+\end{enumerate}
+\item La siguiente tabla entrega los puntajes ganadores de los torneos \textit{Master Golf} entre los años 1973 y 1998. 
+
+
+\begin{table}[h]
+\centering
+
+
+\begin{tabular}{lllclllc}
+\hline
+Año  & \multicolumn{2}{c}{Nombre} & Puntaje & Año  & \multicolumn{2}{c}{Nombre} & Puntaje \\ \hline
+1973 & Tommy      & Aaron         & 283     & 1986 & Jack         & Nicklaus    & 279     \\
+1974 & Gary       & Player        & 278     & 1987 & Larry        & Mize        & 285     \\
+1975 & Jack       & Nicklaus      & 276     & 1988 & Sandy        & Lyle        & 281     \\
+1976 & Ray        & Floyd         & 271     & 1989 & Nick         & Faldo       & 283     \\
+1977 & Tom        & Watson        & 276     & 1990 & Nick         & Faldo       & 278     \\
+1978 & Gary       & Player        & 277     & 1991 & Ian          & Woosnam     & 277     \\
+1979 & Fuzzy      & Zoeller       & 280     & 1992 & Fred         & Couples     & 275     \\
+1980 & Seve       & Ballesteros   & 275     & 1993 & Bernhard     & Langer      & 277     \\
+1981 & Tom        & Watson        & 280     & 1994 & José         & Olazábal    & 279     \\
+1982 & Craig      & Stadler       & 284     & 1995 & Ben          & Crenshaw    & 274     \\
+1983 & Seve       & Ballesteros   & 280     & 1996 & Nick         & Faldo       & 276     \\
+1984 & Ben        & Crenshaw      & 277     & 1997 & Tiger        & Woods       & 270     \\
+1985 & Bernhard   & Langer        & 282     & 1998 & Mark         & O’Meara     & 279    
+\end{tabular}
+\end{table}
+\begin{enumerate}[a)]
+\item Construir una diagrama de tallo y Hoja.
+\item Encontrar la media muestral de los puntajes ganadores de estos años.
+
+\end{enumerate}
+\newpage
+\item Un total de 100 personas trabajan en una compañía A, mientras que un total de 110 personas trabajan en una compañía B. Suponga que el total de sueldo de los trabajadores de la compañía A es mayor al de la compañía B.
+\begin{enumerate}[a)]
+\item Bajo el supuesto anterior. ¿Qué implica esto sobre la mediana de los sueldos de la compañía A con respecto a la mediana de los sueldos de la compañía B?
+\item Bajo el supuesto anterior. ¿Qué implica esto sobre el promedio de los sueldos de la compañía  A con respecto al promedio de los sueldos de la compañía B?
+
+\end{enumerate}
+\item La media muestral y varianza muestral de cinco datos son, $\overline{x}=104$ y $S^2=16$, respectivamente. Si tres de los datos son: $102,100$ y $105$. ¿Cuáles son los otros dos valores?
+
+
+\newpage
+
+\end{enumerate}
+
+\newpage
+\begin{center}
+\textbf{Respuestas}
+\begin{enumerate}
+\item 
+\begin{enumerate}[a)]
+\item[d)] $3.18$
+\item[e)] $3$
+\item[f)] $2$
+\item[g)] $\sqrt{5.39}$
+\end{enumerate}
+\item
+\begin{enumerate}[a)]
+\item[c)] 119.14
+\item[d)] 44.5
+\item[e)] 144.785
+\end{enumerate}
+\item \begin{enumerate}[a)]
+\item[b)] 278
+\end{enumerate}
+\item 
+\begin{enumerate}[a)]
+\item[a)] No existe una implicancia.
+\item[b)] Implica que el promedio de los sueldos de la compañía A es mayor al promedio de sueldos de la compañía B.
+
+\end{enumerate}
+\item Como $\sum x_i = n \overline{x}$ y $(n-1)S^2=\sum x_{i}^{2} - n\overline{x}^2$, vemos que si $x$ e $y$ son los valores desconocidos, entonces $x+y=213$ y,
+$$x^2+y^2=5(104)^2+64-102^2-100^2-105^2=22,715$$
+Por lo tanto,
+$$x^2+(213-x)^2=22,715$$
+Resuelva esta ecuación para $x$ y luego obtenga $y$ mediante: $y=213-x$.
+
+\end{enumerate}
+ 
+\end{center}
+
+\end{document}

@@ -1,0 +1,4239 @@
+\documentclass[10pt,english,ignorenonframetext,,aspectratio=149]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,english]{babel}
+\fi
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Comment these out if you don't want a slide with just the
+% part/section/subsection/subsubsection title:
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \let\insertsectionnumber\relax
+  \let\sectionname\relax
+  \frame{\sectionpage}
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Teoría del Muestreo}
+\author{Eloy Alvarado Narváez}
+\date{}
+
+%% Here's everything I added.
+%%--------------------------
+
+\usepackage{graphicx}
+\usepackage{rotating}
+%\setbeamertemplate{caption}[numbered]
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+%\mode<presentation>
+\usepackage{wasysym}
+%\usepackage{amsmath}
+
+
+% Get rid of navigation symbols.
+%-------------------------------
+\setbeamertemplate{navigation symbols}{}
+
+% Optional institute tags and titlegraphic.
+% Do feel free to change the titlegraphic if you don't want it as a Markdown field.
+%----------------------------------------------------------------------------------
+\institute{Instituto de Estadística \newline Universidad de Valparaíso}
+
+% \titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~/Dropbox/teaching/clemson-academic.png}} % <-- if you want to know what this looks like without it as a Markdown field. 
+% -----------------------------------------------------------------------------------------------------
+\titlegraphic{\includegraphics[width=0.3\paperwidth]{logo.png}}
+
+% Some additional title page adjustments.
+%----------------------------------------
+\setbeamertemplate{title page}[]
+%\date{}
+\setbeamerfont{subtitle}{size=\small}
+
+\setbeamercovered{transparent}
+
+% Some optional colors. Change or add as you see fit.
+%---------------------------------------------------
+\definecolor{clemsonpurple}{HTML}{000000}
+\definecolor{clemsonorange}{HTML}{F66733}
+\definecolor{uiucblue}{HTML}{003C7D}
+\definecolor{uiucorange}{HTML}{F47F24}
+
+\definecolor{yellow}{HTML}{FFCC00}
+\definecolor{blue}{HTML}{003399}
+%\definecolor{black}{HTML}{000000}
+
+% Some optional color adjustments to Beamer. Change as you see fit.
+%------------------------------------------------------------------
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{title}{fg=black,bg=white}
+\setbeamercolor{local structure}{fg=black}
+\setbeamercolor{section in toc}{fg=black,bg=white}
+% \setbeamercolor{subsection in toc}{fg=clemsonorange,bg=white}
+\setbeamercolor{footline}{fg=black!50, bg=white}
+\setbeamercolor{block title}{fg=black,bg=white}
+
+
+\let\Tiny=\tiny
+
+
+% Sections and subsections should not get their own damn slide.
+%--------------------------------------------------------------
+\AtBeginPart{}
+\AtBeginSection{}
+\AtBeginSubsection{}
+\AtBeginSubsubsection{}
+
+% Suppress some of Markdown's weird default vertical spacing.
+%------------------------------------------------------------
+\setlength{\emergencystretch}{0em}  % prevent overfull lines
+\setlength{\parskip}{0pt}
+
+
+% Allow for those simple two-tone footlines I like. 
+% Edit the colors as you see fit.
+%--------------------------------------------------
+\defbeamertemplate*{footline}{my footline}{%
+    \ifnum\insertpagenumber=1
+    \hbox{%
+        \begin{beamercolorbox}[wd=\paperwidth,ht=.8ex,dp=1ex,center]{}%
+      % empty environment to raise height
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+    \else%
+        \Tiny{%
+            \hfill%
+		\vspace*{1pt}%
+            \insertframenumber/\inserttotalframenumber \hspace*{0.1cm}%
+            \newline%
+            \color{blue}{\rule{\paperwidth}{0.4mm}}\newline%
+            \color{yellow}{\rule{\paperwidth}{.4mm}}%
+        }%
+    \fi%
+}
+
+% Various cosmetic things, though I must confess I forget what exactly these do and why I included them.
+%-------------------------------------------------------------------------------------------------------
+\setbeamercolor{structure}{fg=blue}
+\setbeamercolor{local structure}{parent=structure}
+\setbeamercolor{item projected}{parent=item,use=item,fg=black,bg=white}
+\setbeamercolor{enumerate item}{parent=item}
+
+% Adjust some item elements. More cosmetic things.
+%-------------------------------------------------
+\setbeamertemplate{itemize item}{\color{black}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{black}\scriptsize{$\bullet$}}
+\setbeamertemplate{itemize/enumerate body end}{\vspace{.6\baselineskip}} % So I'm less inclined to use \medskip and \bigskip in Markdown.
+
+% Automatically center images
+% ---------------------------
+% Note: this is for ![](image.png) images
+% Use "fig.align = "center" for R chunks
+
+\usepackage{etoolbox}
+
+\AtBeginDocument{%
+  \letcs\oig{@orig\string\includegraphics}%
+  \renewcommand<>\includegraphics[2][]{%
+    \only#3{%
+      {\centering\oig[{#1}]{#2}\par}%
+    }%
+  }%
+}
+
+% I think I've moved to xelatex now. Here's some stuff for that.
+% --------------------------------------------------------------
+% I could customize/generalize this more but the truth is it works for my circumstances.
+
+\ifxetex
+\setbeamerfont{title}{family=\fontspec{Titillium Web}}
+\setbeamerfont{frametitle}{family=\fontspec{Titillium Web}}
+\usepackage[font=small,skip=0pt]{caption}
+ \else
+ \fi
+
+% Okay, and begin the actual document...
+
+
+
+\usepackage{tikz}
+\usebackgroundtemplate{
+  \tikz[overlay,remember picture] 
+  \node[opacity=0.3, at=(current page.south west),anchor=south west,inner sep=10pt]{
+    \includegraphics[width=1.5cm]{logo}};
+}
+\begin{document}
+\frame{\titlepage}
+
+
+
+\hypertarget{muestreo-por-conglomerado}{%
+\section{Muestreo por Conglomerado}\label{muestreo-por-conglomerado}}
+
+\begin{frame}{Muestreo por Conglomerado}
+
+\begin{itemize}
+\item
+  Recuerdo de Muestreo I
+\item
+  Unidad primaria de muestreo
+\item
+  Estratos vs Conglomerados
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{introducciuxf3n}{%
+\subsection{Introducción}\label{introducciuxf3n}}
+
+\begin{frame}{Introducción}
+
+¿Cuándo se usa un muestreo por conglomerado?
+
+\begin{itemize}
+\tightlist
+\item
+  Construir un marco de muestreo en donde las unidades observables son
+  difícil, caro o imposible de muestrear. Así, un muestreo por
+  conglomerado nos permitiría facilitar el proceso.
+\item
+  La población está ya organizada en conglomerados, por lo que obtener
+  información de ellos será más sencillo que otras técnicas de muestreo.
+\end{itemize}
+
+Si bien, es posible encontrar semejanzas entre muestro por conglomerado
+y muestreo estratificado, pues en ambas técnicas se selecciona un
+\emph{grupo} de elementos de la población, pero su proceso de selección
+son \textbf{distintos}.
+
+\end{frame}
+
+\hypertarget{ejemplo}{%
+\subsection{Ejemplo}\label{ejemplo}}
+
+\begin{frame}{Ejemplo}
+
+Asumamos que tenemos un población de \(H\) estratos, y cada estrato
+tiene \(n_h\) elementos.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{../../resources/pob1.png}
+\caption{Población}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+Si realizamos un muestreo estratificado:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{../../resources/strat1.png}
+\caption{Estratos}
+\end{figure}
+
+En este caso, la varianza del estimador \(\overline{y}_U\) depende de la
+variabilidad de los valores \textbf{DENTRO} de los estratos.
+
+\end{frame}
+
+\begin{frame}
+
+Si realizamos un muestreo por conglomerado:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{../../resources/cong1.png}
+\caption{Conglomerados}
+\end{figure}
+
+En este caso, los estratos son la unidad de muestreo. Mientras más
+conglomerados muestreamos, más pequeña nuestra varianza. La varianza del
+estimador \(\overline{y}_U\) depende principalmente de la variablidad
+\textbf{ENTRE} las medias de los conglomerados.
+
+\end{frame}
+
+\hypertarget{notaciuxf3n-utilizada}{%
+\subsection{Notación utilizada}\label{notaciuxf3n-utilizada}}
+
+\begin{frame}{Notación utilizada}
+
+Bajo un \textbf{muestreo aleatorio simple}, las unidades muestrales son
+también los elementos observados. Bajo un \textbf{muestreo por
+conglomerado}, las unidades muestrales son los \textbf{conglomerados}
+(unidad primaria de muestreo) y los elementos observados son las
+\textbf{unidades secundarias de muestreo} en cada conglomerado.
+
+\vspace{10pt}
+
+El universo \(\mathcal{U}\) es la población de \(N\) \emph{unidades
+primarias de muestreo}. (UPM) \(\mathcal{S}\) refiere a las muestras de
+unidades primarias de muestreo escogidas desde la población de \(N\)
+\emph{unidades primarias de muestreo}.
+
+\vspace{10pt}
+
+\(\mathcal{S}_i\) refiere a la muestra de \emph{unidades secundarias de
+muestreo} escogidas desde la \(i-\)ésima unidad primaria de muestreo.
+
+\end{frame}
+
+\begin{frame}
+
+Las medidas son:
+
+\(y_{ij}:\) medición del elemento \(j-\)ésimo en la \(i-\)ésima unidada
+primaria de muestreo.
+
+\vspace{10pt}
+
+Es claro ver que la notación es algo engorrosa debido a que se debe
+especificar las unidades primarias y secundarias, esto es, 2 subíndices.
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Nivel: UPM - Cantidades poblacionales}
+
+\(N=\) Número de \textbf{UPM} en la población.
+
+\(M_i=\) Número de \textbf{USM} en la \textbf{UPM} \(i\)-ésima.
+
+\(\displaystyle M_0=\sum_{i=1}^{N} M_i=\) Número total de \textbf{USM}
+en la población.
+
+\(\displaystyle t_i=\sum_{j=1}^{M_i} y_{ij}=\) Total en la \textbf{UPM}
+\(i\)-ésima.
+
+\(\displaystyle t=\sum_{i=1}^{N} t_i=\sum_{i=1}^{N}\sum_{j=1}^{M_i} y_{ij}=\)
+total poblacional.
+
+\(\displaystyle \mathcal{S}_{t}^{2}=\dfrac{1}{N-1}\sum_{i=1}^{N} \left( t_i -\dfrac{t}{N}\right)^2=\)
+varianza poblacional del total de \textbf{UPM}.
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Nivel: USM - Cantidades poblacionales}
+
+\(\displaystyle \overline{y}_u=\sum_{i=1}^{N}\sum_{j=1}^{M_i} \dfrac{y_{ij}}{M_0}=\)
+media poblacional.
+
+\(\displaystyle \overline{y}_{iU}=\sum_{j=1}^{M_i}\dfrac{y_{ij}}{M_i}=\dfrac{t_i}{M_i}=\)
+media poblacional en la \textbf{UPM} \(i\)-ésima.
+
+\(\displaystyle \mathcal{S}^2=\sum_{i=1}^{N}\sum_{j=1}^{M_i}\dfrac{(y_{ij}-\overline{y}_U)^2}{M_0 -1}=\)
+varianza poblacional.
+
+\(\displaystyle \mathcal{S}_{i}^{2}=\sum_{j=1}^{M_i}\dfrac{(y_{ij}-\overline{y}_{iU})^2}{M_i-1}=\)
+varianza poblacional dentro de cada \textbf{UPM} \(i\)-ésima.
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Cantidades muestrales}
+
+\(n\)= número de \textbf{UPM} en la muestra.
+
+\(m_i\)= número de \textbf{USM} en la muestra desde la \textbf{UPM}
+\(i\)-ésima.
+
+\(\displaystyle \overline{y}_i=\sum_{j\in \mathcal{S}_i}\dfrac{y_{ij}}{m_i}=\)
+media muestral para la \textbf{UPM} \(i\)-ésima.
+
+\(\displaystyle \hat{t}_i=\sum_{j\in\mathcal{S}_i} \dfrac{M_i}{m_i}y_{ij}=\)
+estimación del total para la \textbf{UPM} \(i\)-ésima.
+
+\(\displaystyle \hat{t}_{unb}=\sum_{i\in S} \dfrac{N}{n}\hat{t}_i=\)
+estimador insesgado del total de la población.
+
+\(\displaystyle s_{t}^{2}=\dfrac{1}{n-1}\sum_{i\in S} \left( \hat{t}_i -\dfrac{\hat{t}_{unb}}{N}\right)^2=\)
+varianza muestral total.
+
+\(\displaystyle s_{i}^{2}=\sum_{j\in S_i}\dfrac{(y_{ij}-\overline{y}_i)^2}{m_i -1}=\)
+varianza muestral dentro de cada \textbf{UPM} \(i\)-ésima.
+
+\(w_{ij}=\) Pesos muestrales (ponderaciones muestrales) para la
+\textbf{USM} en la \textbf{UPM} \(i\)-ésima.
+
+\end{frame}
+
+\hypertarget{muestreo-por-conglomerado-unietuxe1pico}{%
+\subsection{Muestreo por conglomerado
+unietápico}\label{muestreo-por-conglomerado-unietuxe1pico}}
+
+\begin{frame}{Muestreo por conglomerado unietápico}
+
+En un muestreo por conglomerado unietápico se tienen dos posibilidades:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Todos} los elementos que componen un conglomerado son
+  muestreados.
+\item
+  \textbf{Ninguno} de los elementos que componen un conglomerado son
+  muestreados.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{cuuxe1ndo-utilizamos-un-muestreo-por-conglomerado-unietuxe1pico}{%
+\subsection{¿Cuándo utilizamos un muestreo por conglomerado
+unietápico?}\label{cuuxe1ndo-utilizamos-un-muestreo-por-conglomerado-unietuxe1pico}}
+
+\begin{frame}{¿Cuándo utilizamos un muestreo por conglomerado
+unietápico?}
+
+Este tipo de muestreo es usualmente utilizado cuando el costo de
+muestrear las \textbf{USM} es despreciable comparado con el costo de
+muestrear las \textbf{UPM}.
+
+\textbf{Ejemplo:}
+
+Para encuentas educacionales, la \textbf{UPM} natural es son los cursos;
+todos los estudiantes en una clase son usualmente incluidos como
+\textbf{USM} ya que el costo de agregarlos -entregándoles el
+cuestionario- es despreciable.
+
+En una población de \(N\) \textbf{UPM}, la \(i\)-ésima \textbf{UPM}
+contiene \(M_i\) \textbf{USM} (elementos). En el diseño más simple, se
+realiza un \textbf{M.A.S} de \(n\) \textbf{UPM} desde la población y se
+mide la variable de interés en \textbf{CADA} elementos de las
+\textbf{UPM} muestreadas. Así, para un muestreo por conglomerado
+unietápico \(M_i=m_i\).
+
+\end{frame}
+
+\hypertarget{conglomerados-de-igual-tamauxf1o-estimaciuxf3n}{%
+\subsection{Conglomerados de igual tamaño:
+Estimación}\label{conglomerados-de-igual-tamauxf1o-estimaciuxf3n}}
+
+\begin{frame}{Conglomerados de igual tamaño: Estimación}
+
+Consideremos el caso más sencillo: cada \textbf{UPM} tiene la misma
+cantidad de elementos, con \(M_i=m_i=M\). Naturalmente, este caso no es
+usual en conglomerados de personas pero puede ocurrir en muestreos en el
+área de agricultura e industria.
+
+La estimación de la media poblacional y totales es sencilla: tratamos
+cada media o total de las \textbf{UPM} como las observaciones e
+ignoramos los elementos individuales.
+
+\end{frame}
+
+\begin{frame}
+
+Así, tenemos un \textbf{M.A.S} de \(n\) datos,
+\(\{ t_i ,i\in \mathcal{S}\}: t_i\) es el total de todos los elementos
+en la \textbf{UPM} \(i-\)ésima. Entonces,
+\[\overline{t}_{\mathcal{S}}=\sum_{i\in \mathcal{S}} \dfrac{t_i}{n}\]
+estima el promedio total de los conglomerados. Por ejemplo:
+
+En una encuesta de hogares que desea estimar el salario de casas para
+dos personas, \(t_i\) es el total del salario para el hogar \(i-\)ésimo.
+\(\overline{t}_U\) es el salario promedio por hogar, y
+\(\overline{y}_U\) es el salario promedio por persona. Para estimar el
+salario total \(t\), podemos utilizar el estimador:
+\[\hat{t}=\dfrac{N}{n}\sum_{i\in S} t_i\]
+
+\end{frame}
+
+\begin{frame}
+
+y los resultados vistos bajo un \textbf{M.A.S.} son válidos para
+\(\hat{t}\) pues tenemos un muestreo aleatorio simple de \(n\) unidades
+desde una población de tamaño \(N\). Como resultado, \(\hat{t}\) es un
+estimador insesgado de \(t\), con varianza dada por:
+\[\mathbb{V}[ \hat{t} ]=N^2 \left( 1- \dfrac{n}{N}\right) \dfrac{S_{t}^{2}}{n}\]
+y error estándar,
+\[SE[ \hat{t} ]=N \sqrt{\left( 1- \dfrac{n}{N}\right) \dfrac{s_{t}^{2}}{n}}\]
+donde \(S_{t}^{2}\) y \(s_{t}^{2}\) son la varianza poblaciones y
+muestral, respectivamente, del total de las \textbf{UPM}.
+
+\end{frame}
+
+\begin{frame}
+
+Estas varianzas definidas por:
+\[S_{t}^{2}=\dfrac{1}{N-1}\sum_{i=1}^{N} \left( t_i - \dfrac{t}{N}\right)^2\]
+y,
+\[s_{t}^{2}=\dfrac{1}{n-1}\sum_{i\in \mathcal{S}} \left( t_i - \dfrac{\hat{t}}{N}\right)^2\]
+
+\end{frame}
+
+\begin{frame}
+
+Para estimar \(\overline{y}_U\), se divide la estimación total por el
+número de personas, obteniendo:
+\[\hat{\overline{y}}=\dfrac{\hat{t}}{NM}\] con,
+\[\mathbb{V}[\hat{\overline{y}}]=\left(1-\dfrac{n}{N}\right)\dfrac{S_{t}^{2}}{nM^2}\]
+y,
+\[SE[\hat{\overline{y}}]=\dfrac{1}{M}\sqrt{\left(1-\dfrac{n}{N}\right)\dfrac{s_{t}^{2}}{n}}\]
+Si se dan cuenta, no hay nada nuevo en aplicar un muestreo por
+conglomerado unietápico: simplemente usamos los resultados de un
+\textbf{M.A.S} con los totales por \textbf{UPM} como las observaciones.
+
+\end{frame}
+
+\hypertarget{ejemplo-1}{%
+\subsection{Ejemplo}\label{ejemplo-1}}
+
+\begin{frame}{Ejemplo}
+
+Un estudiante desea estimar las notas promedios (GPA) de los alumnos que
+se hospedan en los dormitorios universitarios. En vez de obtener una
+lista de todos los estudiantes de su dormitorio y realizar un
+\textbf{M.A.S.}, él nota que los dormitorios consisten en 100
+habitaciones, cada una con 4 estudiantes; escoge 5 de esas habitaciones
+al azar y luego consulta a cada persona en aquellas 5 habitaciones cual
+es su GPA. Los resultados son los siguientes:
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{../../resources/ej1.png}
+
+\begin{itemize}
+\tightlist
+\item
+  Calcular \(\hat{t},s_{t}^2,\hat{\overline{y}}\) y
+  \(SE[\hat{\overline{y}}]\)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Un muestreo unietápico con un \textbf{M.A.S.} de \textbf{UPM} produce
+una muestra auto-ponderada. El peso o ponderación para cada observación
+es:
+\[w_{ij}=\dfrac{1}{\mathbb{P}\{ j\text{-ésima } \textbf{USM} \text{ de la } i\text{-ésima } \textbf{UPM } \text{esté en la muestra}\}}=\dfrac{N}{n}\]
+Para el ejemplo anterior, se tiene: \begin{align*}
+\hat{t}&=\sum_{i\in \mathcal{S}}\sum_{j\in \mathcal{S}_i} w_{ij}y_{ij}\\
+&= \dfrac{N}{n}(3.08+2.6+\cdots+3.28+3.2)\\
+&= \dfrac{100}{5}(56.52)=1130.4
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Así, al igual que en un muestreo estratificado, podemos estimar el total
+poblacional sumando el producto de los valores observados y las
+ponderaciones muestrales. La media poblacional es estimada por:
+\begin{align*}
+\hat{\overline{y}}&=\dfrac{\sum_{i\in \mathcal{S}}\sum_{j\in \mathcal{S}_i} w_{ij}y_{ij}}{\sum_{i\in \mathcal{S}}\sum_{j\in \mathcal{S}_i} w_{ij}}\\
+&= \dfrac{1130.4}{NM}\\
+&= 2.826
+\end{align*}
+
+\end{frame}
+
+\hypertarget{conglomerados-de-igual-tamauxf1o-teoruxeda}{%
+\subsection{Conglomerados de igual tamaño:
+Teoría}\label{conglomerados-de-igual-tamauxf1o-teoruxeda}}
+
+\begin{frame}{Conglomerados de igual tamaño: Teoría}
+
+En un muestreo por conglomerado unietápico, cuando cada \textbf{UPM}
+tiene \(M\) \textbf{USM}, la variabilidad del estimador insesgado de
+\(t\) depende en su totalidad de la variabilidad \textbf{ENTRE} las
+\textbf{UPM}, debido a que:
+\[S_{t}^{2}=\sum_{i=1}^{N}\dfrac{(t_i-\overline{t}_U)^2}{N-1}=\sum_{i=1}^{N} \dfrac{M^2(\overline{y}_{iU}-\overline{y}_U)^2}{N-1}=M(MSB)\]
+En donde \(MSB\), hace referencia a \emph{between mean square} o media
+cuadrática \textbf{ENTRE} conglomerados. Así, para un muestreo por
+conglomerado, se tiene:
+\[\mathbb{V}[\hat{t}_{cluster}]=N^2\left(1-\dfrac{n}{N}\right)\dfrac{M(MSB)}{n}\]
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{../../resources/anova_cong.png}
+
+\end{frame}
+
+\begin{frame}
+
+Podemos notar que:
+
+\begin{itemize}
+\tightlist
+\item
+  Si \(MSB/MSW\) es grande bajo un muestreo por conglomerado, entonces
+  este muestreo disminuirá su precisión. En esta situación, \(MSB\) es
+  relativamente grande debido a que mide la variable \emph{ENTRE}
+  conglomerados: elementos en diferentes conglomerados usualmente varían
+  más que los elementos en el mismo conglomerado, debido a que los
+  conglomerados tienen diferentes medias.
+\item
+  Si \(MSW\) es bajo, entonces la varianza elemento a elemento
+  \emph{DENTRO} de los conglomerados es baja y en consecuencia, los
+  elementos son relativamente homogéneos.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Comparemos el muestreo por conglomerado con un muestreo aleatorio
+simple. Si, en vez de tomar una muestra de conglomerados de \(M\)
+elementos cada uno de los \(n\) elementos, tomamos un \textbf{M.A.S.}
+con \(nM\) observaciones, entonces la varianza de la estimación total
+sería:
+\[\mathbb{V}[\hat{t}_{M.A.S}]=(NM)^2 \left(1-\dfrac{nM}{NM}\right) \dfrac{S^2}{nM}=N^2\left(1-\dfrac{n}{M}\right)\dfrac{MS^2}{n}\]
+Si comparamos este valor con el equivalente bajo un muestreo por
+conglomerado, vemos que si \(MSB > S^2\), entonces el muestreo por
+conglomerado es menos eficiente que un \textbf{M.A.S.}.
+
+\end{frame}
+
+\hypertarget{coeficiente-correlaciuxf3n-intraclase}{%
+\subsection{Coeficiente Correlación
+intraclase}\label{coeficiente-correlaciuxf3n-intraclase}}
+
+\begin{frame}{Coeficiente Correlación intraclase}
+
+El coeficiente de correlación intraclase (ICC en inglés), nos cuantifica
+cuan similares son los elementos en el mismo conglomerado. Nos da una
+\textbf{medida de homogeneidad} dentro de los conglomerados. Este
+coeficiente es definido como el coeficiente de correlación de Pearson
+para los \(NM(M-1)\) pares \((y_{ij},y_{ik})\) para \(i\) entre \(1\) y
+\(N\) y \(j\neq k\), puede ser escrito en términos de los valores
+poblaciones de la tabla ANOVA: \[ICC=1-\dfrac{M}{M-1}\dfrac{SSW}{SSTO}\]
+En donde, \(SSW\) y \(STTO\) hace referencia a la suma cuadrada dentro y
+total de los conglomerados, respectivamente, por sus siglas en inglés.
+
+\end{frame}
+
+\begin{frame}
+
+Debido a que \(0\leq SSW/SSTO \leq 1\), sigue de lo anterior que:
+\[-\dfrac{1}{M-1} \leq ICC \leq 1\] Si los conglomerados son
+perfectamente homogéneos (\(SSW=0\)), entonces \(ICC=1\). Asimismo, la
+ecuación anterior implica que:
+\[MSB=\dfrac{NM-1}{M(N-1)}S^2[1+(M-1)ICC]\]
+
+\end{frame}
+
+\begin{frame}
+
+¿Cuánta precisión perdemos al tomar un muestreo por conglomerado?
+
+\[\dfrac{\mathbb{V}[\hat{t}_{cluster}]}{\mathbb{V}[\hat{t}_{M.A.S.}]}=\dfrac{MSB}{S^2}=\dfrac{NM-1}{M(N-1)}[1+(M+1)ICC]\]
+Si \(N\) (el número de \textbf{UPM}) es grande, entonces
+\(NM-1\approx M(N-1)\), así la razón anterior es aproximadamente
+\(1+(M-1)ICC\).
+
+Si fijamos \(ICC=1/2,M=5\) entonces \(1+(M-1)ICC=3\), por lo que
+necesitaríamos medir 300 elementos usando un muestreo por conglomerado
+para obtener la misma precisión que con un \textbf{M.A.S.} de 100
+elementos.
+
+Debido a que usualmente es más barato recolectar datos bajo un
+\textbf{M.C.}, esperamos tener mayor precisión por unidad monetaria
+utilizada en este muestreo.
+
+\end{frame}
+
+\begin{frame}
+
+Con respecto al coeficiente de correlación intraclase:
+
+\begin{itemize}
+\tightlist
+\item
+  Si los conglomerados ocurren naturalmente en la población, el
+  coeficiente \textbf{ICC} es usualmente positivo, esto es: elementos
+  dentro de un mismo conglomerado tienden a ser más similares entre sí
+  que elementos seleccionados aleatoriamente desde la población.
+\item
+  El coeficiente \textbf{ICC} es negativo si los elementos dentro de un
+  conglomerado están \textit{más} dispersos que los de un grupo escogido
+  aleatoriamente. Esto fuerza a las medias de los conglomerados a ser
+  casi iguales, pues \(SSTO=SSW+SSB\), si la suma cuadrada total
+  (\(SSTO\)) es tomada fija y \(SSW\) es grande, entonces \(SSB\) debe
+  ser pequeña.
+\item
+  Si \(ICC<0\), un muestreo por conglomerado es más eficiente que un
+  \textbf{M.A.S} de elementos. Tener un coeficiente negativo es raro
+  para conglomerados formados naturalmente.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+El coeficiente \textbf{ICC} está sólo definido para conglomerados de
+igual tamaño. Una medida alternativa de homogeneidad en poblaciones
+generales es el \(R^2\) ajustado, definido como:
+\[R_{a}^{2}=1-\dfrac{MSW}{S^2}\] Si todos las \textbf{UPM} son del mismo
+tamaño, entonces el incremento en la varianza debido a un muestreo por
+conglomerado es:
+\[\dfrac{\mathbb{V}[\hat{t}_{cluster}]}{\mathbb{V}[\hat{t}_{M.A.S.}]}=\dfrac{MSB}{S^2}=\dfrac{MSB}{S^2}=1+\dfrac{N(M-1)}{N-1}R_{a}^{2}\]
+Es claro ver que \(R_{a}^2\) es cercano al \textbf{ICC} para muchas
+poblaciones. \(R_{a}^{2}\) es la cantidad relativa de variabilidad en la
+población explicada por las medias de las \textbf{UPM}, ajustada por los
+grados de libertad.
+
+\end{frame}
+
+\hypertarget{ejemplo-2}{%
+\subsection{Ejemplo}\label{ejemplo-2}}
+
+\begin{frame}{Ejemplo}
+
+Consideremos dos poblaciones artificiales, cada una teniendo 3
+\textbf{UPM} con 3 elementos por \textbf{UPM}.
+
+\includegraphics{../../resources/ej2.png}
+
+Los elementos son los mismo en las dos poblaciones, por lo que comparten
+los valores \(\overline{y}_U=20\) y \(S^2=84.5\). En la población A, las
+\textbf{UPM} son similares y la mayor parte de la variabilidad ocurre
+dentro de las \textbf{UPM}; en la población B, la mayor parte de la
+variablidad ocurre entre las \textbf{UPM}.
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{../../resources/ej2_2.png}
+
+\begin{itemize}
+\tightlist
+\item
+  Calcular las tablas de ANOVA para ambas poblaciones.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{../../resources/ej2_3.png}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  La población A tiene mayor variación dentro de las \textbf{UPM}, pero
+  poca variación entre las medias de las \textbf{UPM}, esto se ve
+  reflejado en los valores negativos del \textbf{ICC} y \(R_{a}^2\).
+  Elementos en el mismo conglomerado son menos similares entre si que
+  los de un grup de elementos escogidos al azar desde la población
+  entera. En este caso, un muestreo por conglomerado es más eficiente.
+\item
+  Caso contrario sucede en la población B: la mayor variabilidad ocurre
+  entre las \textbf{UPM}, y los conglomerados son relativamente
+  homogéneos. Así, el \textbf{ICC} y \(R_{a}^{2}\) son muy cercanos a 1,
+  indicando que muy poca nueva información será recogida al muestrear
+  más de un elemento por \textbf{UPM}. En este caso, un muestreo por
+  conglomerado unietápico es mucho menos eficiente que un
+  \textbf{M.A.S.}.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{conglomerados-de-distinto-tamauxf1o-estimaciuxf3n}{%
+\subsection{Conglomerados de distinto tamaño:
+Estimación}\label{conglomerados-de-distinto-tamauxf1o-estimaciuxf3n}}
+
+\begin{frame}{Conglomerados de distinto tamaño: Estimación}
+
+\textbf{Estimador insesgado}
+
+Bajo un muestreo por conglomerado unietápico de tamaño \(n\) de \(N\)
+\textbf{UPM}, sabamos como estimar el total y media poblacional de dos
+maneras: usando estimación insesgada y usando estimación por razón. Un
+estimador insesgado de \(t\) es calculado exactamente como antes, esto
+es: \[\hat{t}_{unb}=\dfrac{N}{n}\sum_{i\in S} t_i\] y,
+\[SE[\hat{t}_{unb}]=N\sqrt{\left(1-\dfrac{n}{N}\right)\dfrac{s_{t}^{2}}{n}}\]
+La diferencia entre conglomerados de igual y distinto tamaño es que la
+variación entre los totales de los conglomerados individuales \(t_i\) es
+más probable que sea grande cuando los conglomerados tienen diferente
+tamaño.
+
+\end{frame}
+
+\begin{frame}
+
+La probabilidad que una \textbf{UPM} esté en la muestra es \(n/N\), al
+igual que en un \textbf{M.A.S.} de tamaño \(n\) desde \(N\)
+\textbf{UPM}. Debido a que un \textbf{M.C} unietápico es utilizado, una
+\textbf{USM} es incluida en la muestra cada vez que su \textbf{UPM} es
+incluida en la muestra. Así,
+\[w_{ij}=\dfrac{1}{\mathbb{P}\{ j\text{-ésima } \textbf{USM} \text{ de la } i\text{-ésima } \textbf{UPM } \text{esté en la muestra}\}}=\dfrac{N}{n}\]
+Un muestreo por conglomerado unietápico procude una muestra
+autoponderada cuando las \textbf{UPM} son seleccionadas con igual
+probabilidades. Así, usando las ponderaciones se puede reescribir el
+estimador insesgado como:
+\[\hat{t}_{unb}=\sum_{i\in \mathcal{S}}\sum_{j\in \mathcal{S}_j}w_{ij}y_{ij}\]
+
+\end{frame}
+
+\begin{frame}
+
+Podemos utilizar las ecuaciones anteriores para obtener un estimador
+insesgado para \(\overline{y}_U\) y para encontrar su error estándar.
+Definimos: \[M_0=\sum_{i=1}^{N} M_i\] como el número total de
+\textbf{USM} en la población; entonces
+\(\widehat{\overline{y}_{unb}}=\widehat{t}_{unb}/M_0\) y
+\(SE[\widehat{\overline{y}_{unb}}]=SE[\hat{t}_{unb}]/M_0\).
+
+El estimador insesgado de la media \(\widehat{\overline{y}_{unb}}\)
+puede ser ineficiente cuando los valores de \(M_i\) son desiguales, pues
+dependen de la variabilidad de los totales por conglomerado.
+Adicionalmente, se requiere conocimiento de \(M_0\).
+
+\end{frame}
+
+\hypertarget{conglomerados-de-distinto-tamauxf1o-estimador-de-razuxf3n}{%
+\subsection{Conglomerados de distinto tamaño: Estimador de
+razón}\label{conglomerados-de-distinto-tamauxf1o-estimador-de-razuxf3n}}
+
+\begin{frame}{Conglomerados de distinto tamaño: Estimador de razón}
+
+Usualmente esperamos que \(t_i\) esté positivamente correlacionado con
+\(M_i\). Si las \textbf{UPM} son comunas, esperaremos que el número
+total de hogares viviendo en pobreza en una comuna \(i (t_i)\) sea
+aproximadamente proporcional al número total de hogares en la comuna
+\(i (M_i)\). La media poblacional \(\overline{y}_U\) es la razón:
+
+\[\overline{y}_U=\dfrac{\sum_{i}^{N}t_i}{\sum_{i=1}^{N}M_i}=\dfrac{t}{M_0}\]
+donde \(t_i\) y \(M_i\) son usualmente positivamente correlacionados.
+Así,
+\[\widehat{\overline{y}_r}=\dfrac{\widehat{t}_{unb}}{\widehat{M}_0}=\dfrac{\sum_{i\in \mathcal{S}}t_i}{\sum_{i\in \mathcal{S}}M_i}=\dfrac{\sum_{i\in \mathcal{S}}M_i \overline{y}_i}{\sum_{i\in \mathcal{S}}M_i}= \dfrac{ \sum_{i\in \mathcal{S}} \sum_{i\in \mathcal{S}_j} w_{ij}y_{ij}}{\sum_{i\in \mathcal{S}} \sum_{i\in \mathcal{S}_j} w_{ij}}\]
+Dado que un \textbf{M.A.S.} de conglomerados es seleccionado, todos las
+ponderaciones son las mismas, esto es: \(w_{ij}=N/n\).
+
+\end{frame}
+
+\begin{frame}
+
+Si las \(M_i\) son desiguales y un tamaño de muestra diferente de \(n\)
+es obtenido, el denominador será diferente. Así,
+
+\begin{align*}
+SE[\widehat{\overline{y}_r}]&=\sqrt{ \left(1-\dfrac{n}{N}\right)\dfrac{1}{n\overline{M}^2}\dfrac{\sum_{i\in \mathcal{S} (t_i-\widehat{\overline{y}_r}M_i)^2}}{n-1}}\\
+&=\sqrt{ \left(1-\dfrac{n}{N}\right)\dfrac{1}{n\overline{M}^2}\dfrac{\sum_{i\in \mathcal{S}} M_{i}^{2}(\overline{y}_i-\widehat{\overline{y}_r})^2}{n-1}}
+\end{align*}
+
+La varianza del estimador de razón depende de la variabiidad de las
+medias por elemento en los conglomerados, y puede ser mucho menor que la
+del estimador insesgado. Si el número total de elementos en la
+población, \(M_0=\sum_{i=1}^{N} M_i\) es conocido, podemos utilizar el
+estimador de razón para estimar el total poblacional:
+\(\hat{t}_r=M_0 \hat{\overline{y}_r}\) con
+\(SE[\hat{t_r}]=M_0 SE[\hat{\overline{y}_r}]\).
+
+\end{frame}
+
+\hypertarget{muestreo-por-conglomerado-bietuxe1pico}{%
+\subsection{Muestreo por conglomerado
+bietápico}\label{muestreo-por-conglomerado-bietuxe1pico}}
+
+\begin{frame}{Muestreo por conglomerado bietápico}
+
+Como vimos antes, bajo un muestreo por conglomera unietápico se observan
+todas las \textbf{USM} dentro de las \textbf{UPM} seleccionadas. En
+muchas ocaciones, los elementos dentro de los conglomerados son bastante
+similares entre si, por lo que medir todos los elementos dentro de cada
+uno de ellos se vuelve un pérdida de recursos. Alternativamente, es
+posible que sea costoso la medición de las \textbf{USM} respecto al
+costo de muestrear las \textbf{UPM}. En aquellas situaciones, puede ser
+más barato tomar una submuestra dentro de cada \textbf{UPM}. Así, las
+etapas dentro de un muestreo por conglomerado bietápico son:
+
+\begin{itemize}
+\tightlist
+\item
+  Seleccionar un \textbf{M.A.S.} \(\mathcal{S}\) de \(n\) \textbf{UPM}
+  de la población de \(N\) conglomerados.
+\item
+  Seleccionar un \textbf{M.A.S.} de \textbf{USM} para cada \textbf{UPM}
+  seleccionada. El \textbf{M.A.S.} de \(m_i\) elementos de la
+  \(i-\)ésima \textbf{UPM} se denota por \(\mathcal{S}_i\).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{../../resources/cong_bi_1.png}
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{../../resources/cong_bi_2.png}
+
+\end{frame}
+
+\begin{frame}
+
+Notamos que la diferencia entre un muestreo por conglomerado unietápico
+y un bietápico está en la última etapa. El muestreo de \textbf{USM}
+requiere la indexación doble que hablamos al inicio del curso.
+
+Las estimaciones puntuales de \(t\) y \(\overline{y}_U\) son análogas a
+las vistas para un muestreo por conglomerado unietápico, pero las
+fórmulas de varianza se vuelven más complicadas.
+
+\end{frame}
+
+\begin{frame}
+
+Bajo un muestreo por conglomerado unietápico, podemos estimar la
+población total mediante:
+\[\hat{t}_{unb}=\dfrac{N}{n}\sum_{i\in S} t_i\] El total por
+conglomerado \(t_i\) era conocido debido a que muestreamos cada
+\textbf{USM} en las \textbf{UPM} seleccionadas.
+
+Bajo un muestreo por conglomerado \emph{bietápico}, debido a que no
+muestramos todas las \textbf{USM} en las \textbf{UPM} obtenidas, debemos
+estimar los totales para cada uno de los conglomerados mediante:
+\[\widehat{t}_i=\sum_{j\in \mathcal{S}_i}\dfrac{M_i}{m_i}y_{ij}=M_i \overline{y}_i\]
+
+\end{frame}
+
+\begin{frame}
+
+y un estimador insesgado del total poblacional es:
+\[\hat{t}_{unb}=\dfrac{N}{n}\sum_{i\in \mathcal{S}} \hat{t}_i=\dfrac{N}{n} \sum_{i\in \mathcal{S}} M_i \overline{y}_i=\sum_{i\in \mathcal{S}} \sum_{j\in \mathcal{S}_i}\dfrac{N}{n} \dfrac{M_i}{m_i} y_{ij}\]
+Para estimar los totales y medias muestrales por conglomerado, la
+mayoría de estadísticos utiliza ponderaciones muestrales. La ecuación
+anterior sugiere que el peso (ponderación) de la \(j-\)ésima
+\textbf{USM} de la \(i-\)ésima \textbf{UPM} es
+\[\dfrac{N}{n}\dfrac{M_i}{m_i},\] y podemos comprobar que esto es así al
+calcular la probabilidad que un elemento particular pertenezca a la
+muestra, esto es:
+
+\end{frame}
+
+\begin{frame}
+
+\footnotesize
+
+\begin{align*}
+&\mathbb{P}\{ j\text{-ésima } \textbf{USM} \text{ de la } i\text{-ésima } \textbf{UPM } \text{esté en la muestra}\}=\\
+&\mathbb{P}\{i\text{-ésima}  \textbf{ UPM } \text{ seleccionada}\}\times\mathbb{P}\{j\text{-ésima}  \textbf{USM } \text{ seleccionada} \vert i\text{-ésima}  \textbf{ UPM } \text{ seleccionada} \}\\
+&= \dfrac{n}{N}\dfrac{m_i}{M_i}
+\end{align*}
+
+Así, el peso de que un elemento pertenezca a la muestra es el recíproco
+de su probabilidad de selección: \[w_{ij}=\dfrac{NM_i}{n m_i}\]
+
+\end{frame}
+
+\begin{frame}
+
+Bajo un muestreo por conglomerado bietápico, los \(\hat{t}_i\) son
+\textbf{variables aleatorias}, por lo que la varianza de
+\(\hat{t}_{unb}\) tiene dos componentes:
+
+\begin{itemize}
+\tightlist
+\item
+  La variabilidad entre las \textbf{UPM}.
+\item
+  La variabilidad dentro de las \textbf{UPM}.
+\end{itemize}
+
+En el caso unietápico, sólo nos preocupabamos por la primera componente
+pues la varianza sólo dependía de ello. En el caso bietápico, la
+varianza de \(\hat{t}_i\) será la varianza utietápico más un término
+adicional que toma en cuanta la estimación de \(\hat{t}_i\) en vez de su
+medición directa. Así,
+\[\mathbb{V}[ \hat{t}_{unb} ]=N^2 \left( 1- \dfrac{n}{N}\right) \dfrac{S_{t}^{2}}{n}+\dfrac{N}{n}\sum_{i=1}^{N} \left( 1 -\dfrac{m_i}{M_i}\right)M_{i}^{2} \dfrac{S_{i}^{2}}{m_i} \]
+en donde \(S_{t}^{2}\) es la varianza población del total de
+conglomerados, y \(S_{i}^{2}\) es la varianza poblacional de los
+elementos dentro del conglomerado \(i-\)ésimo.
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{¿Qué sucede en el caso \(m_i=M_i\)?}
+
+Ahora, al igual que siempre, debemos estimar la varianza de nuestra
+estimación \(\hat{t}_{unb}\). Por lo que, sea:
+\[\displaystyle s_{t}^{2}=\dfrac{1}{n-1}\sum_{i\in S} \left( \hat{t}_i -\dfrac{\hat{t}_{unb}}{N}\right)^2\]
+la varianza muestral entre las estimaciones totales de los conglomerados
+y sea:
+\[\displaystyle s_{i}^{2}=\dfrac{1}{m_i-1}\sum_{j\in S_i} \left( y_{ij} - \overline{y}_i\right)^2\]
+la varianza muestral de las \textbf{USM} dentro del conglomerado
+(\textbf{UPM}) \(i-\)ésima.
+
+\end{frame}
+
+\begin{frame}
+
+El estimados insesgado de la varianza \(\mathbb{V}[ \hat{t}_{unb} ]\)
+estará dado por:
+\[\widehat{\mathbb{V}[ \hat{t}_{unb} ]}=N^2 \left( 1- \dfrac{n}{N}\right) \dfrac{s_{t}^{2}}{n}+\dfrac{N}{n}\sum_{i\in \mathcal{S}} \left( 1 -\dfrac{m_i}{M_i}\right)M_{i}^{2} \dfrac{s_{i}^{2}}{m_i} \]
+y su error estándar estimado, será la raíz cuadrada de la expresión
+anterior.
+
+\begin{itemize}
+\tightlist
+\item
+  En el caso en que \(N\) sea grande, la contribución del segundo
+  término de la varianza es despreciable.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Al igual que en el caso unietápico, utilizamos estimación por razón para
+la media poblacional. Así, nuestro estimador de razón estará dado por:
+\[\widehat{\overline{y}_r}=\dfrac{\sum_{i\in \mathcal{S}}\hat{t}_i}{\sum_{i\in \mathcal{S}}M_i}=\dfrac{\sum_{i\in \mathcal{S}}M_i \overline{y}_i}{\sum_{i\in \mathcal{S}}M_i}\]
+en donde, la única diferencia con el caso unietápico es el reemplazo de
+\(t_i\) por \(\hat{t}_i\). Y su cálculo, utilizando sus ponderaciones:
+\[\widehat{\overline{y}_r}=\dfrac{\widehat{t}_{unb}}{\widehat{M}_0}= \dfrac{ \sum_{i\in \mathcal{S}} \sum_{i\in \mathcal{S}_j} w_{ij}y_{ij}}{\sum_{i\in \mathcal{S}} \sum_{i\in \mathcal{S}_j} w_{ij}}\]
+
+\end{frame}
+
+\begin{frame}
+
+Los pesos son distintos, pero la forma del estimador es la misma que
+antes. Así, la varianza del estimador es:
+\[\widehat{\mathbb{V}[ \hat{\overline{y}}_{r} ]}=\dfrac{1}{\overline{M}^2}\left( 1- \dfrac{n}{N}\right) \dfrac{s_{r}^{2}}{n}+\dfrac{1}{nN\overline{M}^2}\sum_{i\in \mathcal{S}} M_{i}^2 \left( 1 -\dfrac{m_i}{M_i}\right)\dfrac{s_{i}^{2}}{m_i} \]
+en donde \(s_{i}^2\) está dado por:
+\[\displaystyle s_{i}^{2}=\dfrac{1}{m_i-1}\sum_{j\in S_i} \left( y_{ij} - \overline{y}_i\right)^2\]
+y,
+\[s_{r}^2=\dfrac{1}{n-1}\sum_{i\in \mathcal{S}} (M_i\overline{y}_i-M_i\hat{\overline{y}}_r)^2\]
+En donde \(\overline{M}\) es el tamaño promedio de los conglomerados. Y
+al igual que antes, el segundo término en la estimación de la varianza
+conforme \(N\) es grande.
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Tarea: Estudiar ejemplo 5.7, página 186. Sampling: Design and
+analysis, Lohr.}
+
+\end{frame}
+
+\hypertarget{ejemplo-3}{%
+\subsection{Ejemplo}\label{ejemplo-3}}
+
+\begin{frame}{Ejemplo}
+
+Supongamos que queremos estimar el número promedio de patas de los
+perros de hogares de rescate en una ciudad. Esta ciudad tiene dos
+hogares: \textbf{Puppy Palace} con 30 cachorros y \textbf{Dog's Life}
+con 10 cachorros.
+
+Seleccionamos un hogar con probabilidad \textbf{1/2}. Luego que el hogar
+es seleccionado, escogemos dos cachorros aleatoriamente de aquel hogar y
+usamos \(\hat{\overline{y}}_{unb}\) para estimar el número promedio de
+patas de los cachorros.
+
+\end{frame}
+
+\begin{frame}
+
+Supongamos que seleccionamos el hogar \textbf{Puppy Palace}, sin mayor
+sorpresa, ambos cachorros observados tienen 4 patas, por lo que
+\(\hat{t}_{PP}=30\times 4=120\). Luego usamos:
+\[\hat{t}_{unb}=\dfrac{N}{n}\sum_{i\in \mathcal{S}} \hat{t}_i=\dfrac{N}{n} \sum_{i\in \mathcal{S}} M_i \overline{y}_i=\sum_{i\in \mathcal{S}} \sum_{j\in \mathcal{S}_i}\dfrac{N}{n} \dfrac{M_i}{m_i} y_{ij}\]
+un estimador insesgado para el número total de patas en ambos hogares
+es: \[\hat{t}_{unb}=\dfrac{2}{1}\hat{t}_{PP}=240\] Luego, dividimos el
+número total de patas estimadas por el número total de cachorros/perros
+para estimar el número medio de patas por perro, \(240/40=6\).
+
+\end{frame}
+
+\begin{frame}
+
+Si ahora seleccionamos el hogar \textbf{Dog's Life},
+\(\hat{t}_{DL}=10\times 4=40\) y
+\[\hat{t}_{unb}=\dfrac{2}{1}\hat{t}_{DL}=80\] al seleccionar el hogar
+\textbf{Dog's Life}, el estimador insesgado del número medio de patas
+por cachorro/perro es \(80/40=2\).
+
+Claramente, estos no son un buen estimador del número de patas por
+cachorro. Pero el estimar es matemáticamente insesgado: \((6+2)/2=4\),
+por lo que promediar todos los posibles resultados muestrales nos da el
+número correcto.
+
+\end{frame}
+
+\begin{frame}
+
+La mala calidad del estimador se ve reflejado en la gran magnitud de la
+varianza del estimador, ya que: \begin{align*}
+\mathbb{V}[ \hat{t}_{unb} ]&=N^2 \left( 1- \dfrac{n}{N}\right) \dfrac{S_{t}^{2}}{n}+\dfrac{N}{n}\sum_{i=1}^{N} \left( 1 -\dfrac{m_i}{M_i}\right)M_{i}^{2} \dfrac{S_{i}^{2}}{m_i}\\
+&=2^2 \left( 1- \dfrac{1}{2}\right) \dfrac{S_{t}^{2}}{1}+\dfrac{2}{1}\sum_{i=1}^{2} \left( 1 -\dfrac{m_i}{M_i}\right)M_{i}^{2} \dfrac{S_{i}^{2}}{m_i} \\
+&=\dfrac{1}{2}(4)(3200)=6400
+\end{align*} En cambio, el estimador de razón es mejor debido a que: Si
+\textbf{Puppy palace} es seleccionado,
+\(\hat{\overline{y}}_r=120/30=4\); si \textbf{Dog's Life} es
+seleccionado, \(\hat{\overline{y}}_r=40/10=4\). Debido a que la
+estimación es la misma para todas las posibles muestras:
+\(\mathbb{V}[\hat{\overline{y}}_r]=0\)
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  En general, el estimador insesgado del total poblacional es
+  ineficiente si los conglomerados son desiguales y \(t_i\) es
+  aproximadamente proporcional a \(M_i\). La varianza de
+  \(\hat{t}_{unb}\) depende de la varianza de los \(t_i\) y la varianza
+  puede ser de gran magnitud si los \(M_i\) son desiguales.
+\item
+  El estimador de razón, generalmente funciona bien cuando \(t_i\) es
+  aproximadamente proporcional a \(M_i\). Acá consideramos \(t_i\) la
+  variable de interés y \(M_i\) la variable auxiliar. (Recordar Muestreo
+  I)
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{diseuxf1ando-un-muestreo-por-conglomerado}{%
+\subsection{Diseñando un muestreo por
+conglomerado}\label{diseuxf1ando-un-muestreo-por-conglomerado}}
+
+\begin{frame}{Diseñando un muestreo por conglomerado}
+
+\begin{itemize}
+\tightlist
+\item
+  Discusión diseño de muestreos
+\item
+  Pasos para diseñar un muestreo por conglomerado
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{problemuxe1ticas-en-un-muestreo}{%
+\subsection{Problemáticas en un
+muestreo}\label{problemuxe1ticas-en-un-muestreo}}
+
+\begin{frame}{Problemáticas en un muestreo}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Cuál es la precisión necesitada?
+\item
+  ¿De qué tamaño deberían ser las \textbf{UPM}?
+\item
+  ¿Cuántas \textbf{USM} deberían ser muestreadas de cada \textbf{UPM}
+  seleccionada de la muestra?
+\item
+  ¿Cuántas \textbf{UPM} deberían ser muestreadas?
+\end{itemize}
+
+La primera pregunta debe ser respondida en \textbf{cualquier} tipo de
+diseño de muestreo. Para responder la segunda y cuarta pregunta. se
+necesita saber el costo de muestrear una \textbf{UPM} para posibles
+tamaños de los mismos, el costo de muestrear una \textbf{USM} y la
+medida de homogeneidad (\(R_{a}^2\) o ICC) para los posibles tamaños de
+conglomerados.
+
+\end{frame}
+
+\hypertarget{escogiendo-el-tamauxf1o-de-las-upm}{%
+\subsection{Escogiendo el tamaño de las
+UPM}\label{escogiendo-el-tamauxf1o-de-las-upm}}
+
+\begin{frame}{Escogiendo el tamaño de las UPM}
+
+Usualmente el tamaño de las \textbf{UPM} son una \emph{unidad natural},
+pero existen muestreos en los cuales el investigador puede escoger una
+gran gama de tamaños para las \textbf{UPM}, por ejemplo:
+
+\begin{itemize}
+\tightlist
+\item
+  grupo de individuos
+\item
+  áreas de distintos tamaños
+\end{itemize}
+
+Un principio general para muestreos sobre \emph{áreas} es que a mayor
+tamaño de las \textbf{UPM}, mayor será la variabilidad esperada dentro
+de cada \textbf{UPM}. Por lo que se espera tener un \(R_{a}^2\) e ICC
+menores en magnitud con tamaños de conglomerado grandes que pequeños.
+
+Sin embargo, si el tamaño de las \textbf{UPM} es muy grande, se podría
+perder la disminución de costos de un muestreo por conglomerado.
+
+\end{frame}
+
+\hypertarget{ejemplo-4}{%
+\subsection{Ejemplo}\label{ejemplo-4}}
+
+\begin{frame}{Ejemplo}
+
+En un estudio de cierto tipo de escarabajos en un determinado sitio, se
+evalúa cuantos tallos/ramas han de ser muestreadas por sitio bajo un
+muestreo por conglomerado. Así se presentan los siguientes datos:
+
+\includegraphics[width=0.8\textwidth,height=\textheight]{../../resources/ej3.png}
+
+En donde el precisión relativa es calculada como:
+\[1000/\text{costo}*CV(\hat{\overline{y}})\] ¿Qué configuración sería la
+más adecuada?
+
+\end{frame}
+
+\hypertarget{escogiendo-los-tamauxf1os-de-las-usm}{%
+\subsection{Escogiendo los tamaños de las
+USM}\label{escogiendo-los-tamauxf1os-de-las-usm}}
+
+\begin{frame}{Escogiendo los tamaños de las USM}
+
+El objetivo de un diseño muestral es generalmente obtener la mayor
+información posible por el mínimo costo e inconveniencias. Ahora nos
+concentraremos en diseñar un muestreo por conglomerado bietápico en
+donde las \textbf{UPM} tienen el mismo número de \textbf{USM}. Un
+enfoque para iguales tamaños de conglomerados, es \textbf{minimizar la
+varianza}:
+
+\[\mathbb{V}[ \hat{t}_{unb} ]=N^2 \left( 1- \dfrac{n}{N}\right) \dfrac{S_{t}^{2}}{n}+\dfrac{N}{n}\sum_{i=1}^{N} \left( 1 -\dfrac{m_i}{M_i}\right)M_{i}^{2} \dfrac{S_{i}^{2}}{m_i} \]
+
+\textbf{para un costo fijo}
+
+\end{frame}
+
+\begin{frame}
+
+Si definimos \(M_i=M\) y \(m_i=m\) para todos los conglomerados,
+entonces \(\mathbb{V}[\hat{\overline{y}}]\) puede ser escrito como:
+\[\mathbb{V}[\hat{\overline{y}_{unb}}]=\left(1-\dfrac{n}{N}\right)\dfrac{MSB}{nM}+\left(1-\dfrac{m}{M}\right)\dfrac{MSW}{nm}\]
+En donde \textbf{MSB} e \textbf{MSW} son los mismos que definidos en la
+tabla anova anteriormente. Podemos analizar varios casos:
+
+\begin{itemize}
+\tightlist
+\item
+  Si \textbf{MSW}=0 entonces \(R_{a}^2=1\), y cada elemento de los
+  conglomerados es igual a la media del conglomerado. Por lo que tomar
+  más de un dato por \textbf{UPM} no entrega información adicional y
+  aumenta el costo global.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Para otros valores de \(R_{a}^2\), el óptimo depende del costo relativo
+de muestrear las \textbf{UPM} y \textbf{USM}. Consideremos una función
+simple de costo: \[\text{Costo total}= C = c_1 n + c_2 n m\] donde
+\(c_1\) es el costo por \textbf{UPM} (sin incluir es costo de medir las
+\textbf{USM}) y \(c_2\) es el costo de medir cada \textbf{USM}. Así,
+\[n_{opt}=\dfrac{C}{c_1+c_2m_{opt}}\] y,
+\[m_{opt}=\sqrt{\dfrac{c_1 M (N-1)(1-R_{a}^{2})}{c_2(NM-1)R_{a}^{2}}}\]
+
+\end{frame}
+
+\begin{frame}
+
+minimizan la varianza para un costo total fijo \(C\). Por lo que, varios
+valores pueden satisfacer nuestras condiciones, por lo que compararlo
+con la varianza proyectada del estimar nos dará más información para
+poder determinar los tamaños. Una forma rápida de determinar los tamaños
+que buscamos es mediante gráficos.
+
+\includegraphics[width=0.8\textwidth,height=\textheight]{../../resources/ej4.png}
+
+\end{frame}
+
+\hypertarget{escogiendo-el-tamauxf1o-de-muestra-nuxfamero-de-upm}{%
+\subsection{Escogiendo el tamaño de muestra (Número de
+UPM)}\label{escogiendo-el-tamauxf1o-de-muestra-nuxfamero-de-upm}}
+
+\begin{frame}{Escogiendo el tamaño de muestra (Número de UPM)}
+
+Luego de que el tamaño de los conglomerados es determinado y la fracción
+de elementos a muestrear de ellos, nos concentramos en el número de
+conglomerados a muestrear. Como cualquier diseño de muestreo, diseñar un
+muestreo por conglomerado es un proceso iterativo:
+
+\begin{itemize}
+\tightlist
+\item
+  Determinar la precisión deseada
+\item
+  Escoger los tamaños de los conglomerados y subelementos a muestrear.
+\item
+  Estimar la varianza que se podrá logar con aquella configuración.
+\item
+  Escoger el tamaño \(n\) para alcanzar la precisión deseada
+\item
+  iterar. (agregar estratificaciones/variables auxiliares/etc) hasta que
+  el costo del diseño esté dentro del presupuesto.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Si los conglomerados son de igual tamaño e ignoramos el factor de
+corrección, se tiene que:
+\[\mathbb{V}[\widehat{\overline{y}_{unb}}]\leq \dfrac{1}{n}\left[ \dfrac{MSB}{M}+\left(1-\dfrac{m}{M}\right)\dfrac{MSW}{M}\right]=\dfrac{1}{n}v\]
+y un intervalo de confianza \(100(1-\alpha)\%\) aproximado será:
+\[\widehat{\overline{y}_{unb}}\pm z_{\alpha/2}\sqrt{\dfrac{1}{n}v}\] Si
+deseamos alcanzar el error de estimación \(e\), fijamos
+\(n=z_{\alpha/2}^{2} v /e^2\). Esto presupone que se tiene conocimiento
+anterior de término \(v\), usualmento obtenido de muestreos anteriores.
+
+\end{frame}
+
+\hypertarget{muestreo-con-probabilidades-desiguales.}{%
+\section{Muestreo con Probabilidades
+desiguales.}\label{muestreo-con-probabilidades-desiguales.}}
+
+\hypertarget{muestreo-con-probabilidades-desiguales}{%
+\subsection{Muestreo con Probabilidades
+desiguales:}\label{muestreo-con-probabilidades-desiguales}}
+
+\begin{frame}{Muestreo con Probabilidades desiguales:}
+
+\textbf{Introducción}
+
+Hasta ahora, hemos visto sólo tipos de muestreo en donde se tiene la
+misma probabilidad de escoger las unidades muestrales. Estos diseños son
+bastante sencillos de diseñar y explicar, sin embargo, no son siempre
+viables en la práctica, y de serlo pueden no ser tan eficiente como un
+diseño usando probabilidades desiguales.
+
+\end{frame}
+
+\hypertarget{lectura-complementaria}{%
+\subsection{Lectura Complementaria}\label{lectura-complementaria}}
+
+\begin{frame}{Lectura Complementaria}
+
+\textbf{Sección 6.2.1: Selecting primary sampling units: Caso particular
+en donde sólo seleccionamos una sola UPM}. Sampling: Design and
+Analysis, Lohr.
+
+\end{frame}
+
+\begin{frame}
+
+Supongamos que \(n>1\), y que el muestreo considera reemplazo. Un diseño
+con reemplazo significa que las probabilidades de selección no cambian
+luego de obtener la primera unidad. Sea:
+\[\psi_i=\mathbb{P}( \text{Seleccionar la unidad }i \text{ en la primera selección})\]
+Si muestreamos con reemplazo, entonces \(\psi_i\) es también la
+probabilidad que la unidad \(i\) sea seleccionada en la segunda
+selección o cualquiera subsiguiente.
+
+La idea de un muestreo con probabilidades desiguales es sencilla:
+Seleccionar \(n\) \textbf{UPM} con reemplazo. Luego estimar el total
+poblacional, usando los estimados antes vistos, de forma separada para
+cada \textbf{UPM} obtenida.
+
+\end{frame}
+
+\begin{frame}
+
+Algunas \textbf{UPM} podrían ser seleccionadas más de una vez; las
+estimaciones del total poblacional, calculadas usando una \textbf{UPM}
+en particular, es incluida cuantas veces ese \textbf{UPM} fue
+seleccionada.
+
+Debido a que las \textbf{UPM} son seleccionadas con reemplazo, tenemos
+\(n\) estimaciones del total poblacional independientes. Usando estos
+valores podemos estimar el total poblacional al calcular el promedio de
+esas \(n\) estimaciones de \(t\). Finalmente, su varianza estimada será
+la varianza muestral de esas \(n\) estimaciones independientes de \(t\),
+divida por \(n\).
+
+\end{frame}
+
+\hypertarget{muestreo-unietuxe1pico-con-probabilidades-desiguales}{%
+\subsection{Muestreo Unietápico con Probabilidades
+desiguales:}\label{muestreo-unietuxe1pico-con-probabilidades-desiguales}}
+
+\begin{frame}{Selección de UPM}
+\protect\hypertarget{selecciuxf3n-de-upm}{}
+
+Existen varias formas de muestrear las \textbf{UPM} con probabilidades
+desiguales. Todas requieren que se tenga una medida del tamaño para cada
+\textbf{UPM} en la población. El \textbf{Método cumulativo de tamaño}
+extiende el proceso en el cual se generan números aleatorios y las
+\textbf{UPM} correspondientes a esos números son seleccionadas en la
+muestra.
+
+\end{frame}
+
+\hypertarget{ejemplo-5}{%
+\subsection{Ejemplo}\label{ejemplo-5}}
+
+\begin{frame}{Ejemplo}
+
+Consideremos la población de clases de introducción a la estadística en
+alguna universidad, como en la tabla adjunta.
+
+\includegraphics[width=0.45\textwidth,height=\textheight]{../../resources/ej5.png}
+
+\end{frame}
+
+\begin{frame}
+
+La universidad tiene 15 de tales clases; la clase \(i\) tiene \(M_i\)
+elementos, para un total de \(647\) estudiantes en los cursos de
+introducción a la estadística. Decidimos muestrear 5 clases con
+reemplazo y probabilidad proporcional a \(M_i\), y luego recolectar los
+cuestionarios para cada estudiante muestreado. Para este ejemplo, se
+tiene que \(\psi_i=M_i/647\)
+
+\end{frame}
+
+\begin{frame}
+
+Para seleccionar la muestra, generamos 5 enteros aleatorios con
+reemplazo entre 1 y 647. Luego, las \textbf{UPM} a escoger en la muestra
+serán aquellas cuyos rangos acumulados \(M_i\) incluyen los números
+generados aleatoriamente.
+
+Supongamos que los números generados son: \[\{ 487, 369, 221,326,282\}\]
+Por lo que las unidades muestrales serán: \[\{13,9,6,8,7\}\]
+
+\end{frame}
+
+\begin{frame}
+
+Este método permite que la misma unidad pueda aparecer más de una vez en
+la muestra, por ejemplo: para números aleatorios:
+\[\{553,082,245,594,150\}\] la muestra será: \[\{ 14,3,6,14,5\}\] Otra
+forma de hacerlo, cuando los \(\psi_i\) no son proporcionales a \(M_i\)
+es hacer un rango acumulado \(\psi_i\) en vez de \(M_i\), y generar
+números aleatorios entre 0 y 1.
+
+\end{frame}
+
+\hypertarget{muxe9todo-de-lahiri}{%
+\subsection{Método de Lahiri}\label{muxe9todo-de-lahiri}}
+
+\begin{frame}{Método de Lahiri}
+
+El \textbf{Método de Lahiri} puede ser más trazable que el método
+cumulativo cuando los tamaños de las \textbf{UPM} son grandes. Es un
+ejemplo de un método de \emph{rechazo}, pues genera un par de números
+aleatorios para seleccionar \textbf{UPM} y luego rechaza algunas de
+ellas si el tamaño de la \textbf{UPM} es muy pequeño.
+
+Sea \(N=\) número de \textbf{UPM} en una población y \(\max M_i =\)
+máximo tamaño de \textbf{UPM}. El método procede como:
+
+\begin{itemize}
+\tightlist
+\item
+  Obtener un número aleatorio entre 1 y \(N\). Este indica que
+  \textbf{UPM} se está considerando.
+\item
+  Obtener un número aleatorio entre 1 y \(\max M_i\). Si este número
+  aleatorio es menor o igual a \(M_i\), entonces se incluye la
+  \(i-\)ésima \textbf{UPM} en la muestra; caso contrario, se vuelve al
+  paso 1.
+\item
+  Repetir hasta alcanzar el tamaño de muestra deseado.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{ejemplo-6}{%
+\subsection{Ejemplo}\label{ejemplo-6}}
+
+\begin{frame}{Ejemplo}
+
+Utilizando el ejemplo anterior, aplicaremos el método de Lahiri.
+
+\includegraphics[width=0.7\textwidth,height=\textheight]{../../resources/ej6.png}
+
+Se tiene que la clase más grande tiene \(\max M_i = 100\) estudiantes,
+por lo que generamos un par de enteros aleatorios, el primero entre 1 y
+15, y el segundo entre 1 y 100, hasta que la muestra tiene 5
+elementos.Así, las \textbf{UPM} a muestrear son: \[\{ 12,14,14,5,1\}\]
+
+\end{frame}
+
+\hypertarget{teoruxeda-de-estimaciuxf3n}{%
+\subsection{Teoría de Estimación}\label{teoruxeda-de-estimaciuxf3n}}
+
+\begin{frame}{Teoría de Estimación}
+
+Debido a que estamos muestreando con reemplazo, la muestra puede
+contener la misma \textbf{UPM} más de una vez. Sea \(\mathcal{R}\) el
+conjunto de \(n\) unidades en la muestra, incluidas las repetidas. Por
+ejemplo: \[\mathcal{R}=\{ 12,14,14,5,1\}\] La \textbf{UPM} está incluida
+dos veces en el conjunto. Cuando muestreamos \(n\) \textbf{UPM} con
+reemplazo, tenemos \(n\) estimados independientes de \(t\), por lo que
+los promediamos:
+\[\widehat{t_{\psi}}=\dfrac{1}{n} \sum_{i\in \mathcal{R}} \dfrac{t_i}{\psi_i}=\dfrac{1}{n}\sum_{i\in \mathcal{R}} u_i=\overline{u}\]
+Estimamos \(\mathbb{V}[\widehat{t_{\psi}}]\) como:
+\[\widehat{\mathbb{V}[\widehat{t_{\psi}}]}=\dfrac{S_{u}^{2}}{n}=\dfrac{1}{n}\dfrac{1}{n-1}\sum_{i\in \mathcal{R}} (u_i-\overline{u})^2=\dfrac{1}{n}\dfrac{1}{n-1}\sum_{i\in \mathcal{R}} \left( \dfrac{t_i}{\psi_i}-\widehat{t_{\psi}}\right)^2\]
+
+\end{frame}
+
+\begin{frame}
+
+El estimador \(\widehat{t_{\psi}}\) es llamado el estimador
+\textbf{Hansen-Hurwitz}. La estimación
+\(\widehat{\mathbb{V}[\widehat{t_{\psi}}]}\) es la varianza estimada de
+los promedios \(\overline{u}\) desde un muestreo aleatorio simple con
+reemplazo.
+
+\textbf{¿Son \(\widehat{t_{\psi}}\) y
+\(\widehat{\mathbb{V}(\widehat{t_{\psi}})}\) estimadores insesgados para
+\(t\) y \(\mathbb{V}[\widehat{t_{\psi}}]\), respectivamente?}
+
+La respuesta es afirmativa. Para demostrar esta propiedad necesitamos
+variables aleatorios que hagan el seguimiento de cuales \textbf{UPM}
+aparecen múltiples veces en la muestra. Definamos:
+\[Q_i=\text{ Número de veces que la unidad }i \text{ aparece en la muestra;}\]
+\(Q_i\) es un análogo -con reemplazo- de la variable aleatoria \(Z_i\)
+que indica la inclusión de una muestra bajo un muestreo aleatorio simple
+sin reemplazo que vimos en el curso anterior.
+
+\end{frame}
+
+\hypertarget{estimador-hansen-hurwitz}{%
+\subsection{Estimador Hansen-Hurwitz}\label{estimador-hansen-hurwitz}}
+
+\begin{frame}{Estimador Hansen-Hurwitz}
+
+Así, \(\widehat{t_\psi}\) es el promedio de todos los
+\(\dfrac{t_i}{\psi_i}\) de las unidades escogidas para pertenecer en la
+muestra, incluyendo las unidades cuantas veces hayan aparecido en la
+muestra:
+\[\widehat{t_\psi}=\dfrac{1}{n}\sum_{i\in \mathcal{R}}\dfrac{t_i}{\psi_i}=\dfrac{1}{n}\sum_{i=1}^{N} Q_i \dfrac{t_i}{\psi_i}\]
+Si una unidad aparece \(k\) veces en la muestra, esta es contada \(k\)
+veces en el estimador. Notar que: \(\sum_{i=1}^{N} Q_i = n\) y
+\(\mathbb{E}(Q_i)=n \psi_i\), por lo que \(\widehat{t_\psi}\) es un
+estimador insesgado de t.
+
+\end{frame}
+
+\begin{frame}
+
+Para calcular la varianza, notamos que \(\widehat{t_\psi}\) es el
+promedio de \(n\) observaciones independientes, cada una con varianza
+\[\sum_{i=1}^{N}\psi_i\left(\dfrac{t_i}{\psi}-t\right)^2\] Por lo que,
+\[\mathbb{V}[\widehat{t_\psi}]=\dfrac{1}{n}\sum_{i=1}^{N}\psi_i \left( \dfrac{t_i}{\psi_i}-t\right)^2\]
+Esta ecuación incluye un promedio ponderado de los \(N\) valores de
+\(\dfrac{t_i}{\psi_i}-t\), ponderamos por las probabilidades desiguales
+de selección \(\psi_i\).
+
+\end{frame}
+
+\begin{frame}
+
+Para mostrar que la estimador de la varianza es insesgado para
+\(\mathbb{V}[\widehat{t_\psi}]\), la escribimos en términos de la
+variable aleatoria \(Q_i\):
+\[\widehat{\mathbb{V}[\widehat{t_\psi}]}=\dfrac{1}{n} \dfrac{1}{n-1}\sum_{i \in \mathcal{R}} \left(\dfrac{t_i}{\psi_i}-\widehat{t}_\psi\right)^2= \dfrac{1}{n} \dfrac{1}{n-1} \sum_{i=1}^{N} Q_i \left( \dfrac{t_i}{\psi_i}-\widehat{t_\psi}\right)^2\]
+Ahora como es usual, para mostrar que un estimador es insesgado debemos
+obtener su esperanza.
+
+\end{frame}
+
+\begin{frame}
+
+\begin{align*}
+\mathbb{E}[\widehat{\mathbb{V}(\widehat{t_\psi})}]&=\dfrac{1}{n(n-1)}\sum_{i=1}^{N}\mathbb{E}\left[Q_i \left(\dfrac{t_i}{\psi_i}-\widehat{t_\psi}\right)^2\right]\\
+&=\dfrac{1}{n(n-1)}\mathbb{E}\left[ \sum_{i=1}^{N} Q_i \left( \dfrac{t_i}{\psi_i}-t +t -\widehat{t_\psi}\right)^2\right]\\
+&=\dfrac{1}{n(n-1)}\mathbb{E}[  \sum_{i=1}^{N} Q_i \left( \dfrac{t_i}{\psi_i}-t\right)^2+\sum_{i=1}^{N} Q_i (\widehat{t_\psi}-t)^2\\
+&-2\sum_{i=1}^{N} Q_i \left( \dfrac{t_i}{\psi_i}-t\right) (\widehat{t_\psi}-t)]\\
+&=\dfrac{1}{n(n-1)}\mathbb{E}\left[ \sum_{i=1}^{N} Q_i \left( \dfrac{t_i}{\psi_i}-t\right)^2+n(\widehat{t_\psi}-t)^2-2n(\widehat{t_\psi}-t)^2\right]\\
+&=\dfrac{1}{n(n-1)}\left[ \sum_{i=1}^{N} n\psi_i \left(\dfrac{t_i}{\psi_i}-t\right)^2-n\mathbb{V}(\widehat{t_\psi})\right]=\mathbb{V}(\widehat{t_\psi})
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+En el caso en que \(N\) sea pequeño o algún \(\psi_i\) sea muy grande,
+es posible que la muestra consista en sólo un mismo elemento muestreado
+\(n\) veces. En tal caso, la varianza estimada será cero; de ocurrir es
+mejor realizar un muestreo sin reemplazo.
+
+Estimamos la media poblacional \(\overline{y}_U\) como:
+\[\widehat{\overline{y}_\psi}=\dfrac{\widehat{t_\psi}}{\widehat{M_0}_\psi}\]
+donde,
+\[\widehat{M_0}_\psi=\dfrac{1}{n}\sum_{i \in \mathcal{R}}\dfrac{M_i}{\psi_i}\]
+estima el número total de elementos en la población;
+\(\widehat{\overline{y}_\psi}\) es un cuociente, por lo mediante métodos
+indirectos podemos obtener:
+\[\widehat{\mathbb{V}[\widehat{\overline{y}_\psi}}]=\dfrac{1}{(\widehat{M_0}_\psi)^2}\dfrac{1}{n}\dfrac{1}{n-1}\sum_{i\in \mathcal{R}}\left( \dfrac{t_i}{\psi_i}-\dfrac{\widehat{\overline{y}_\psi}M_i}{\psi_i}\right)^2\]
+
+\end{frame}
+
+\hypertarget{ejercicio}{%
+\subsection{Ejercicio}\label{ejercicio}}
+
+\begin{frame}{Ejercicio}
+
+Utilizando el ejemplo de las clases introductorias de estadística,
+anteriormente al usar el método de Lahiri se obtuvo la muestra
+\(\{ 12,14,14,5,1\}.\) La respuesta \(t_i\) es el número total de horas
+que los estudiantes en la clase \(i\) estudiaron estadística la semana
+pasada, con los siguientes datos:
+
+\includegraphics[width=0.5\textwidth,height=\textheight]{../../resources/ej7.png}
+
+\end{frame}
+
+\begin{frame}
+
+Obtener las siguientes cantidades:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\widehat{t}_\psi\)
+\item
+  \(SE(\widehat{t}_\psi\))
+\item
+  \(\widehat{\overline{y}_\psi}\)
+\item
+  \(\widehat{\mathbb{V}[\widehat{\overline{y}_\psi}]}\)
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{diseuxf1ando-las-probabilidades-de-selecciuxf3n}{%
+\subsection{Diseñando las probabilidades de
+selección}\label{diseuxf1ando-las-probabilidades-de-selecciuxf3n}}
+
+\begin{frame}{Diseñando las probabilidades de selección}
+
+En general, queremos escoger los \(\psi_i\) tales que la varianza de
+\(\widehat{t}_\psi\) sea lo más pequeña posible. Idealmente,
+escogeríamos \(\psi_i=t_i\) (así \(\widehat{t}_\psi=t\) para todas las
+muestras y \(\mathbb{V}[\widehat{t}_\psi]=0\), pero esto no es práctico
+debido a que no se sabe apriori los \(t_i\) hasta después de la muestra.
+
+\end{frame}
+
+\begin{frame}
+
+Debido a que muchos de los totales en una \textbf{UPM} están
+relacionados con el número de elementos en el mismo, usualmente tomamos
+los \(\psi_i\) como la proporción de elementos en la \textbf{UPM}
+\(i-\)ésima o el tamaño relativo del mismo. Así, \textbf{UPM} más
+grandes tendrán mayor probabilidad de ser escogidos que sus pares con
+menos elementos.
+
+Sea \(M_i\) el número de elementos en la \textbf{UPM} \(i-\)ésima y
+\(M_0=\sum_{i=1}^{N} M_i\) el número de elementos en la población,
+establecimos \(\psi_i = M_i / M_0\).
+
+Bajo esta elección, tendremos un muestreo con \textbf{probabilidades
+proporcionales al tamaño}. (Al igual que en el ejemplo anterior).
+
+\end{frame}
+
+\hypertarget{lectura-complementaria-1}{%
+\subsection{Lectura complementaria}\label{lectura-complementaria-1}}
+
+\begin{frame}{Lectura complementaria}
+
+\textbf{Sección 6.2.4 \emph{Weights in Unequal-Probability Sampling with
+Replacement.} }
+
+Forma alternativa de estimación de los parámetros poblacionales
+utilizando los pesos \(w_{ij}\).
+
+\end{frame}
+
+\hypertarget{muestreo-bietuxe1pico-con-probabilidades-desiguales}{%
+\subsection{Muestreo bietápico con probabilidades
+desiguales}\label{muestreo-bietuxe1pico-con-probabilidades-desiguales}}
+
+\begin{frame}{Muestreo bietápico con probabilidades desiguales}
+\protect\hypertarget{muestreo-bietuxe1pico-con-probabilidades-desiguales-1}{}
+
+Los estimadores para un muestreo bietápico con probabilidades desiguales
+son similares a los del caso unietápico. El procedimiento es como sigue:
+
+\begin{itemize}
+\tightlist
+\item
+  Tomar una muestra de \(i\) \textbf{UPM} con reemplazo, escogiendo la
+  \(i-\)ésima \textbf{UPM} con probabilidad conocida \(\psi_i\).
+\item
+  \(Q_i\) cuenta el número de veces que la \textbf{UPM} \(i-\)ésima es
+  escogida.
+\item
+  Tomamos una \textbf{muestra probabilística} de \(m_i\) subunidades de
+  la \textbf{UPM} \(i-\)ésima.
+\end{itemize}
+
+La única diferencia del caso biétapico con su versión unietápica, es que
+en el actual, debemos estimar \(t_i\).
+
+Otro punto a notar, es que el paso 3 requiere un \textbf{muestreo
+probabilístico}, este siendo usualmente un \textbf{M.A.S.} o
+\textbf{M.S.}
+
+\end{frame}
+
+\begin{frame}
+
+Este submuestreo debe cumplir dos condiciones:
+
+\begin{itemize}
+\tightlist
+\item
+  Cada vez que la \textbf{UPM} \(i-\)ésima es seleccionada para
+  pertenecer a la muestra, el mismo diseño de submuestreo es usado para
+  seleccionar la \textbf{USM} de esa \textbf{UPM}. Diferentes
+  submuestreos de la misma \textbf{UPM}, sin embargo, deben ser
+  muestreados independientemente, sino la \textbf{estimación de la
+  varianza no será insesgada}.
+\item
+  La \(j-\)ésima submuestra tomada desde la \(i-\)ésima \textbf{UPM} es
+  seleccionada de tal manera que \(\mathbb{E}[\widehat{t}_{ij}]=t_i\).
+  Debido a que el mismo procedimiento es usado cada vez que la
+  \textbf{UPM} \(i-\)ésima es seleccionada para pertenecer a la muestra.
+  Podemos definir
+  \(\mathbb{V}[\widehat{t_{ij}}]=V_i \hspace{5px} \forall j\).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Los estimadores del caso unietápico son modificados para que permitan la
+selección de algunos elementos más de una sola vez. Así,
+\[\widehat{t_\psi}=\dfrac{1}{n}\sum_{i=1}^{N} \sum_{j=1}^{Q_i} \dfrac{\widehat{t_{ij}}}{\psi_i}\]
+y,
+\[\widehat{\mathbb{V}[\widehat{t_\psi}]}= \dfrac{1}{n} \dfrac{1}{n-1} \sum_{i=1}^{N}  \sum_{j=1}^{Q_i} \left( \dfrac{\widehat{t_{ij}}}{\psi_i}-\widehat{t_\psi}\right)^2\]
+
+\end{frame}
+
+\begin{frame}
+
+En resumen, los pasos para realizar un \textbf{muestreo bietápico con
+probabilidades desiguales con reemplazo}:
+
+\begin{itemize}
+\tightlist
+\item
+  Determinar las probabilidades de selección \(\psi_i\), el número \(n\)
+  de \textbf{UPM} a muestrear y el procedimiento de submuestreo a usar
+  en cada \textbf{UPM} escogida.
+\item
+  Seleccionar las \(n\) \textbf{UPM} con probabilidaes \(\psi_i\) y con
+  reemplazo. Usando alguno de los métodos estudiados: Método cumulativa
+  o de Lahiri (existen otros).
+\item
+  Realizar submuestreo como se estipulo en el paso 1, si se repite
+  alguna \textbf{UPM}, las muestras han de ser independientes.
+\item
+  Estimar el total poblacional \(t\) para cada \textbf{UPM} en la
+  muestra. El resultado serán \(n\) estimaciones en la forma
+  \(\widehat{t_{ij}}/\psi_i\).
+\item
+  \(\widehat{{t}_\psi}\) es el promedio de esas \(n\) estimaciones.
+\item
+  Finalmente, la desviación estándar de nuestra estimación será la raíz
+  de la varianza de los valores calculados en el paso 4.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{ejemplo-7}{%
+\subsection{Ejemplo}\label{ejemplo-7}}
+
+\begin{frame}{Ejemplo}
+
+El ejemplo es similar al que ya hemos visto antes, pero ahora se desea
+estimar los \(t_i\).
+
+\includegraphics[width=1\textwidth,height=\textheight]{../../resources/ej8.png}
+
+Calcule:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\widehat{\overline{y}_\psi}\) y su desviación estándar.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{muestreo-con-probabilidades-desiguales-sin-reemplazo}{%
+\subsection{Muestreo con probabilidades desiguales sin
+reemplazo}\label{muestreo-con-probabilidades-desiguales-sin-reemplazo}}
+
+\begin{frame}{Muestreo con probabilidades desiguales sin reemplazo}
+\protect\hypertarget{muestreo-con-probabilidades-desiguales-sin-reemplazo-1}{}
+
+Generalmente, muestrear con reemplazo es menos eficiente que muestrear
+sin reemplazo. El primer caso es más fácil de estudiar y análizar las
+muestrear. Sin embargo, en muestreos grandes con estratos/grupos
+pequeños, las ineficiencias pueden sobrepasar nuestras ganancias. Es
+claro que la complejidad de los muestreos sin reemplazo viene del hecho
+que las probabilidades de selección cambian al escoger un elemento y sus
+sucesiones.
+
+\end{frame}
+
+\hypertarget{ejemplo-8}{%
+\subsection{Ejemplo}\label{ejemplo-8}}
+
+\begin{frame}{Ejemplo}
+
+Consideremos la siguiente información:
+
+\includegraphics[width=0.5\textwidth,height=\textheight]{../../resources/ej9.png}
+Seleccionemos 2 \textbf{UPM} sin reemplazo y probabilidades desiguales.
+Como antes, se tiene que:
+\[\psi_i=\mathbb{P}(\text{ Seleccionar la unidad i-ésima en la primera elección })\]
+
+\end{frame}
+
+\begin{frame}
+
+Supongamos que escogemos la tienda A, por lo que:
+\[\mathbb{P}( \text{ tienda A es escogida en la primera elección })=\psi_A=\dfrac{1}{16}\]
+
+Así, la probabilidad para la segunda elección en el caso que esta sea la
+tienda B:
+
+\[\mathbb{P}(\text{Tienda B es escogida en la 2da elección}|\text{Tienda A es escogida en la 1ra elección})\]
+
+será
+\(=\dfrac{\dfrac{2}{16}}{1-\dfrac{1}{16}}=\dfrac{\psi_B}{1-\psi_A}\)
+
+\end{frame}
+
+\begin{frame}
+
+El denominador es la suma de los \(\psi_i\) para las tiendas B,C y D. En
+general se tiene:
+
+\begin{align*}
+&\mathbb{P}(\text{ unidad i sea escogida primero, unidad k sea escogida segunda })\\
+&= \mathbb{P}(\text{unidad i sea escogida 1ro})\mathbb{P}(\text{unidad k escogida 2do} | \text{unidad i escogida 1ra})\\
+&= \psi_i \dfrac{\psi_k}{1-\psi_i}
+\end{align*} De forma similar: \begin{align*}
+&\mathbb{P}(\text{ unidad k sea escogida primero, unidad i sea escogida segunda })\\
+&= \psi_k \dfrac{\psi_i}{1-\psi_k}
+\end{align*}
+
+\textbf{Notar que estas probabilidades no son las mismas, pues el orden
+de selección hace diferencia.}
+
+\end{frame}
+
+\begin{frame}
+
+Al sumar las probabilidades de las dos opciones, podemos encontrar la
+probabilidad que la muestra de tamaño 2 consista en las \textbf{UPM}
+\(i\) y \(k\).
+
+Para \(n=2\),
+\[\mathbb{P}(\text{ unidad i y k en la muestra })=\psi_i\dfrac{\psi_k}{1-\psi_i}+\psi_k\dfrac{\psi_i}{1-\psi_k}=\pi_{ik}\]
+La probabilidad que la \textbf{UPM} \(i-\)ésima esté en la muestra es
+entonces: \[\pi_i=\sum_{S: i\in \mathcal{S}}P(\mathcal{S})\]
+
+\end{frame}
+
+\begin{frame}
+
+La siguiente tabla muestras las probabilidades \(\pi_i\) y \(\pi_{ik}\)
+para las tiendas:
+
+\includegraphics[width=1\textwidth,height=\textheight]{../../resources/ej9_1.png}
+
+\end{frame}
+
+\hypertarget{estimador-horvitz-thompson-para-muestreo-unietuxe1pico}{%
+\subsection{Estimador Horvitz-Thompson para Muestreo
+unietápico}\label{estimador-horvitz-thompson-para-muestreo-unietuxe1pico}}
+
+\begin{frame}{Estimador Horvitz-Thompson para Muestreo unietápico}
+\protect\hypertarget{estimador-horvitz-thompson-para-muestreo-unietuxe1pico-1}{}
+
+Asumamos que tenemos una muestra sin reemplazo de \(n\) \textbf{UPM}, y
+sabemos la \textbf{probabilidad de inclusión}:
+\[\pi_{ik}=\mathbb{P}(\text{unidades i y k están en la muestra})\] La
+probabilidad de inclusión \(\pi_i\) puede ser calculada como la suma de
+las probabilidades de todas las muestras que contienen la unidad
+\(i-\)ésima y tiene la propiedad que: \[\sum_{i=1}^{N} \pi_i=n\] Y para
+los \(\pi_{ik}\) se tiene: \[\sum_{k=1,k\neq i}^{N}=(n-1)\pi_i\]
+
+\end{frame}
+
+\begin{frame}
+
+Dentro de este contexto, tenemos el estimador \textbf{Horvitz-Thompson
+(HT)} para el total poblacional, definido como:
+\[\widehat{t}_{HT}=\sum_{i\in \mathcal{S}} \dfrac{t_i}{\pi_i}=\sum_{i=1}^{N} Z_i \dfrac{t_i}{\pi_i}\]
+Donde \(Z_i=1\) si la \textbf{UPM} \(i-\)ésima está en la muestra, y 0
+en caso contrario.
+
+El estimador \textbf{HT} es insesgado* para \(t\). Ya que
+\(\mathbb{P}(Z_i=1)=\pi_i\) se tiene:
+\[\mathbb{E}[\widehat{t}_{HT}]=\sum_{i=1}^{N} \pi_i \dfrac{t_i}{\pi_i}=t\]
+
+\textbf{Revisar Teorema 6.2, Sampling: Design and Analysis, Lohr.}
+
+\end{frame}
+
+\begin{frame}
+
+Es posible mostrar que la varianza del estimador \textbf{HT}, está dada
+por: (HT y Sen-Yates-Grundy) \begin{align*}
+\mathbb{V}[\widehat{t}_{HT}]&=\sum_{i=1}^{N} \dfrac{1-\pi_i}{\pi_i}t_{i}^{2}+\sum_{i=1}^{N}\sum_{k\neq i}^{N} \dfrac{\pi_{ik}-\pi_i\pi_k}{\pi_i\pi_k}t_it_k\\
+&=\dfrac{1}{2}\sum_{i=1}^{N}\sum_{k=1,k\neq i}^{N} (\pi_i \pi_k - \pi_{ik})\left( \dfrac{t_i}{\pi_i}-\dfrac{t_k}{\pi_k}\right)^2
+\end{align*} Es claro notar que la varianza del estimador \textbf{HT} es
+0 si \(t_i\) es proporcional a \(\pi_i\).
+
+\textbf{Cuando las probabilidades de inclusión \(\pi_i\) o las
+probabilidades conjuntas de inclusión \(\pi_{ik}\) son desiguales, al
+sustituir las cantidades muestrales se llegan a estimadores diferentes
+de la varianza.}
+
+\end{frame}
+
+\hypertarget{ejemplo-9}{%
+\subsection{Ejemplo}\label{ejemplo-9}}
+
+\begin{frame}{Ejemplo}
+
+Utilizando los mismos datos del ejemplo de las tiendas. Para seleccionar
+la primera \textbf{UPM}, primero generamos un número aleatorio entre
+\(\{1,\dots,16\}\); Supongamos que salió el 12, el cual nos dice que la
+tienda \(D\) fue escogida, luego generamos un segundo número aleatorio
+entre \(\{ 1,...,6\}\); supongamos que salió el 6, el cual nos dice que
+la tienda \(C\) es escogida 2da.
+
+Así, el estimador \textbf{Horvitz-Thompson} para el total poblacional
+(ventas totales) para la muestra \(\{ C,D \}\) es:
+
+\[\widehat{t}_{HT}=\sum_{i\in \mathcal{S}}\dfrac{t_i}{\pi_i}=\dfrac{245}{0.9002}+\dfrac{24}{0.5393}=316.6639\]
+
+\end{frame}
+
+\begin{frame}
+
+Debido a que en este ejemplo sabemos la población entera, podemos
+calcular la varianza teórica de \(\widehat{t}_{HT}\) como:
+\[\mathbb{V}[\widehat{t}_{HT}]=\dfrac{1}{2}\sum_{i=1}^{N}\sum_{k\neq i}^{N} (\pi_i \pi_k -\pi_{ik})\left(\dfrac{t_i}{\pi_i}-\dfrac{t_k}{\pi_k}\right)^2=4383,6\]
+Como se dijo antes, las varianzas dan distinto si utilizamos el
+estimador HT o su equivalente SYG (tras reemplazar por las cantidades
+muestrales), respectivamente:
+
+\begin{align*}
+\widehat{\mathbb{V}_{HT}[\widehat{t}_{HT}]}&=\sum_{i \in \mathcal{S}} \dfrac{1-\pi_i}{{\pi_i}^2}t_{i}^{2}+\sum_{i\in \mathcal{S}}\sum_{k\in \mathcal{S},k \neq i} \dfrac{\pi_{ik}-\pi_i\pi_k}{\pi_{ik}}\dfrac{t_i}{\pi_i}\dfrac{t_k}{\pi_k}\\
+\widehat{\mathbb{V}_{SYG}[\widehat{t}_{HT}]}&=\dfrac{1}{2}\sum_{i\in \mathcal{S}}\sum_{k\in \mathcal{S},k \neq i} \dfrac{(\pi_i \pi_k - \pi_{ik})}{\pi_{ik}}\left( \dfrac{t_i}{\pi_i}-\dfrac{t_k}{\pi_k}\right)^2
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Luego, reemplazando estos valores se obtiene para la muestra obtenida:
+\[\widehat{\mathbb{V}_{HT}[\widehat{t}_{HT}]}=6782.8\] y,
+\[\widehat{\mathbb{V}_{SYG}[\widehat{t}_{HT}]}=3259.8\] Debido a que
+todos los valores en esta población son conocidos, podemos examinar los
+estimadores para todas las muestras posibles. Las cuales se resumen en
+la siguiente tabla.
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics[width=0.9\textwidth,height=\textheight]{../../resources/ej10.png}
+
+Notamos que para el caso de la varianza HT, 3 elementos dan
+\textbf{varianza negativa}. Esto a pesar de que ambas estimaciones de la
+varianza son \textbf{estimaciones insesgadas} para la varianza teórica.
+
+\end{frame}
+
+\begin{frame}
+
+Es fácil comprobar que:
+
+\[\sum_{\text{ posibles muestras } \mathcal{S}}\mathbb{P}(\mathcal{S})\widehat{\mathbb{V}_{HT}(\widehat{t}_{HT},\mathcal{S}})=\sum_{\text{ posibles muestras } \mathcal{S}}\mathbb{P}(\mathcal{S})\widehat{\mathbb{V}_{HT}(\widehat{t}_{SYG},\mathcal{S}})= 4383.6\]
+
+Este ejemplo muestra las posibles complicaciones que aparecen al estimar
+la varianza de \(\widehat{t}_{HT}\). Los estimadores insesgado para la
+varianza de \(\widehat{t}_{HT}\), pueden tomar valores negativos en
+ambos casos (HT y SYG) bajo ciertos \textbf{diseños con probabilidades
+desiguales}.
+
+\begin{itemize}
+\tightlist
+\item
+  Bajo distintas muestras la varianza podría escaparse demasiado.
+\item
+  La estabilidad de la misma -aveces- puede ser mejorada mediante una
+  cuidadosa elección del plan de muestreo, pero en general, los cálculos
+  son bastante incómodos.
+\item
+  Adicionalmente, en la práctica, ambos estimadores son díficiles de
+  implementar debido a que requiere el conocimiento de la probabilidad
+  de inclusión conjunto \(\pi_{ik}\).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Alternativa}
+\protect\hypertarget{alternativa}{}
+
+La alternativa a los métodos anteriores, propuesto por Durbin (1953).
+\[\widehat{\mathbb{V}_{WR}(\widehat{t}_{HT}})=\dfrac{1}{n}\dfrac{1}{n-1}\sum_{i\in \mathcal{S}}\left(\dfrac{t_i}{\psi_i}-\widehat{t}_{HT}\right)^2=\dfrac{n}{n-1}\sum_{i\in \mathcal{S}}\left(\dfrac{t_i}{\pi_i}-\dfrac{\widehat{t}_{HT}}{n}\right)^2\]
+Este estimador soluciona los problemas de inestabilidad y costo
+computacional, pero fundamentalmente es errado, debido a que
+\textbf{propone no tomar en cuenta que la muestra no contempla
+reemplazo}, y utiliza los resultados de su análogo con reemplazo.
+
+\end{frame}
+
+\hypertarget{selecciuxf3n-de-upm-1}{%
+\subsection{Selección de UPM}\label{selecciuxf3n-de-upm-1}}
+
+\begin{frame}{Selección de UPM}
+
+Existen bastantes métodos para seleccionar las \textbf{UPM} sin
+reemplazo tal que las probabilidades deseadas de inclusión se cumplan.
+En la práctica, un muestreo sistemático es el más usado para la
+selección de las \textbf{USM}. De ser este el caso, para la estimación
+de la varianza HT, se debe utilizar el estimador propuesto por Durbin.
+
+El estudio de los procedimiento para seleccionar las \textbf{UPM} es un
+tema en sí, y escapan de lo que estudiaremos en el curso. Pero se pondrá
+a disposición un libro especializado en el tema.
+
+\end{frame}
+
+\hypertarget{estimador-horvitz-thompson-para-muestreo-bietuxe1pico}{%
+\subsection{Estimador Horvitz-Thompson para Muestreo
+Bietápico}\label{estimador-horvitz-thompson-para-muestreo-bietuxe1pico}}
+
+\begin{frame}{Estimador Horvitz-Thompson para Muestreo Bietápico}
+
+El estimador HT para muestreo bietápico es similar al caso unietápico:
+\[\widehat{t}_{HT}=\sum_{i\in \mathcal{S}} \dfrac{t_i}{\pi_i}=\sum_{i=1}^{N} Z_i \dfrac{t_i}{\pi_i}\]
+En donde reemplazado \(t_i\) por un estimador insesgado
+\(\widehat{t}_i\) de los totales por \textbf{UPM} para el valor
+desconocido de \(t_i\), esto es:
+\[\widehat{t}_{HT}=\sum_{i\in \mathcal{S}} \dfrac{\widehat{t}_i}{\pi_i}=\sum_{i=1}^{N} Z_i \dfrac{\widehat{t}_i}{\pi_i}\]
+donde \(Z_i=1\) si la \textbf{UPM} \(i-\)ésima pertenece a la muestra, y
+\(0\) en caso contrario. El estimador HT para muestreo con
+probabilidades desiguales bietápico es insesgado para \(t\) siempre y
+cuando \(\mathbb{E}[\widehat{t}_i]=t_i\) para cada \textbf{UPM}.
+
+\end{frame}
+
+\begin{frame}
+
+Es posible mostrar que la varianza de este estimador es: \begin{align*}
+\mathbb{V}[\widehat{t}_{HT}]&=\sum_{i=1}^{N} \dfrac{1-\pi_i}{\pi_i}t_{i}^{2}+\sum_{i=1}^{N}\sum_{k\neq i}^{N} \dfrac{\pi_{ik}-\pi_i\pi_k}{\pi_i\pi_k}t_it_k+\sum_{i=1}^{N} \dfrac{\mathbb{V}[\widehat{t}_i]}{\pi_i}\\
+&=\dfrac{1}{2}\sum_{i=1}^{N}\sum_{k=1,k\neq i}^{N} (\pi_i \pi_k - \pi_{ik})\left( \dfrac{t_i}{\pi_i}-\dfrac{t_k}{\pi_k}\right)^2+\sum_{i=1}^{N}\dfrac{\mathbb{V}[\widehat{t}_i]}{\pi_i}
+\end{align*} En donde nuevamente, la varianza se expresa en sus formas
+HT y SYG, respectivamente. El último término representa la variabilidad
+adicional debido a la estimación de los \(t_i\).
+
+\end{frame}
+
+\begin{frame}
+
+Así, el estimador HT para las varianzas anteriores bajo un muestreo por
+conglomerado (y prob. desiguales) bietápico son: \begin{align*}
+\widehat{\mathbb{V}_{HT}[\widehat{t}_{HT}]}&=\sum_{i \in \mathcal{S}} \dfrac{1-\pi_i}{{\pi_i}^2}\widehat{t}_{i}^{2}+\sum_{i\in \mathcal{S}}\sum_{k\in \mathcal{S},k \neq i} \dfrac{\pi_{ik}-\pi_i\pi_k}{\pi_{ik}}\dfrac{\widehat{t}_i}{\pi_i}\dfrac{\widehat{t}_k}{\pi_k}+\sum_{i\in \mathcal{S}} \dfrac{\widehat{\mathbb{V}[\widehat{t}_i]}}{\pi_i}\\
+\widehat{\mathbb{V}_{SYG}[\widehat{t}_{HT}]}&=\dfrac{1}{2}\sum_{i\in \mathcal{S}}\sum_{k\in \mathcal{S},k \neq i} \dfrac{(\pi_i \pi_k - \pi_{ik})}{\pi_{ik}}\left( \dfrac{\widehat{t}_i}{\pi_i}-\dfrac{\widehat{t}_k}{\pi_k}\right)^2+\sum_{i\in \mathcal{S}} \dfrac{\widehat{\mathbb{V}[\widehat{t}_i]}}{\pi_i}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Al igual como discutimos antes, estas varianzas no son estables por lo
+que es recomendable utilizar el propuesto por Durbin.
+\[\widehat{\mathbb{V}_{WR}(\widehat{t}_{HT}})=\dfrac{1}{n}\dfrac{1}{n-1}\sum_{i\in \mathcal{S}}\left(\dfrac{n\widehat{t}_i}{\pi_i}-\widehat{t}_{HT}\right)^2=\dfrac{n}{n-1}\sum_{i\in \mathcal{S}}\left(\dfrac{\widehat{t}_i}{\pi_i}-\dfrac{\widehat{t}_{HT}}{n}\right)^2\]
+
+\end{frame}
+
+\hypertarget{muestreo-complejo}{%
+\section{Muestreo Complejo}\label{muestreo-complejo}}
+
+\hypertarget{introducciuxf3n-1}{%
+\subsection{Introducción}\label{introducciuxf3n-1}}
+
+\begin{frame}{Introducción}
+
+A lo largo del curso (y el anterior) hemos vistos los diseños muestrales
+por separado pero en la práctica, muchos muestreos utilizan muestreos
+complejos, esto es, un diseño muestral que utiliza -en varias etapas-
+los componentes singulares que hemos estudiado.
+
+Bajo este contexto, la estación de desviaciones típicas se vuelven
+complejas sobre todo si estamos en presencia de un muestreo sin
+reemplazo. Para solucionar lo anterior, pesos muestrales (factores de
+expansión) y efectos de diseño son utilizados.
+
+\end{frame}
+
+\hypertarget{ensamblaje}{%
+\subsection{Ensamblaje}\label{ensamblaje}}
+
+\begin{frame}{Ensamblaje}
+
+Hemos visto la mayoría delos componentes utilizados en un muestreo
+complejo: Muestreo aleatorio simple, estimación de razón, estratos (y
+estratificación) y conglomerados. Ahora, nos concentraremos en estudiar
+como juntar estos componentes en un diseño. Haremos un pequeño repaso de
+los componentes que utilizaremos.
+
+\end{frame}
+
+\begin{frame}{Bloques muestrales}
+\protect\hypertarget{bloques-muestrales}{}
+
+\textbf{Muestreo por conglomerado con reemplazo:}
+
+Seleccionamos una muestra de \(n\) conglomerados con reemplazo;
+\textbf{UPM} \(i-\)ésima es seleccionada con probabilidad \(\psi_i\) en
+la selección. Estimamos el total para la \textbf{UPM} \(i-\)ésima usando
+el estimador insesgado \(\widehat{t}_i\). Luego, consideramos los \(n\)
+valores de \(u_i=\hat{t}_i/\psi_i\) como observaciones. Estimamos la
+población total como \(\overline{u}\), y estimamos la varianza del total
+poblacional como \(s_{u}^{2}/n\).
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Muestreo por conglomerado sin reemplazo:}
+
+Seleccionamos una muestra de \(n\) \textbf{UPM} sin reemplazo; \(\pi_i\)
+es la probabilidad que la \(i-\)ésima \textbf{UPM} sea incluida en la
+muestra. Estimamos el total para la \textbf{UPM} \(i-\)ésima usando el
+estimador insesgado \(\widehat{t}_i\) y calculamos el estimador
+insesgado de la varianza \(\widehat{\mathbb{V}(\hat{t}_i})\).
+
+Luego estimamos la población total con el estimador \textbf{HT}:
+
+\[\hat{t}_{HT}=\sum_{i\in \mathcal{S}}\dfrac{\hat{t}_i}{\pi_i}\]
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Estratificación:}
+
+Sean \(\hat{t}_1,\dots,\hat{t}_H\) los estimadores insesgados de los
+totales por estrato \(t_1,\dots,t_H\) y sean
+\(\widehat{\mathbb{V}(\hat{t}_1)},\dots,\widehat{\mathbb{V}(\hat{t}_H)}\)
+los estimadores insesgados de la varianza. Luego estimamos el total
+poblacional como:
+
+\[\hat{t}=\sum_{h=1}^{H}\hat{t}_h\] y su varianza por:
+
+\[\widehat{\mathbb{V}(\hat{t})}=\sum_{h=1}^{H} \widehat{\mathbb{V}(\hat{t}_h)}\]
+
+\end{frame}
+
+\hypertarget{ejemplo-muestreo-complejo}{%
+\subsection{Ejemplo Muestreo Complejo}\label{ejemplo-muestreo-complejo}}
+
+\begin{frame}{Ejemplo Muestreo Complejo}
+
+\begin{quote}
+La malaria ha sido un serio problema de salud en Gambia. Su prevalencia
+se ve reducida con el uso de redes impregnadas con insecticida en las
+camas de los hogares, pero sólo es efectivo si las redes tienen un uso
+masivo.
+\end{quote}
+
+\begin{quote}
+En 1991, se realizó una encuenta nacional diseñada para estimar la
+prevalencia de redes en área rurales. El marco muestral consistió en
+todas las villas rurales de menos de 3000 personas en Gambia. Las villas
+fueron estratificadas en tres regiones geográficas. (Oeste, Centro y
+Este) y si la villa en cuestión disponía de una clínica de salud
+pública.
+\end{quote}
+
+\begin{quote}
+En cada región 5 distritos fueron escogidos con probabilidad
+proporcional a la población del distrito usando datos censales.
+\%\textgreater\% En cada distrito 4 villas fueron escogidas, nuevamente
+con probabilidad proporcional a la población censal: 2 villas con
+Clínicas y 2 villas sin clínicas.
+\end{quote}
+
+\end{frame}
+
+\begin{frame}
+
+Finalmente, 6 recintos fueron escogidos -más o menos- aleatoriamente
+desde cada villa, y el investigador obtuvo el número de camas y redes,
+junto con otra información, para cada recinto.
+
+En resumen:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lll}
+Etapa & Unidad Muestral & Estratificación    \\ \hline
+1     & Distrito        & Región             \\
+2     & Villa           & Clínica/No-Clínica \\
+3     & Recinto         &                   
+\end{tabular}
+\end{table}
+
+Para calcular las estimaciones de las desviaciones típicas usando las
+fórmulas que hemos visto, se debiese empezar en la etapa 3 y luego
+avanzar hasta la 1ra etapa.
+
+\end{frame}
+
+\begin{frame}
+
+El procedimiento para estimar el número total de redes (sin usar
+estimación de razón):
+
+\begin{itemize}
+\item
+  Registrar el número total de redes para cada recinto.
+\item
+  Estimar el número total de redes para cada villa como (número total de
+  recintos en la villa) \(\times\) (número promedio de redes por
+  recinto). Estimar la varianza del número total de redes, por villa.
+\item
+  Estimar el número total de redes por villa con clínica en cada
+  distrito y su varianza (usando fórmulas de un muestro con
+  probabilidades desiguales). Repetir lo mismo para villas sin clínica.
+\item
+  Sumar las estimaciones de cada estrato (con y sin clínica) para
+  estimar el número de redes en cada distrito; sumar las varianzas
+  estimadas de los dos estratos para estimar la varianza del distrito.
+\item
+  Estimar el número total de redes y su varianza, para cada distrito.
+  Luego, utilizar un muestreo por conglomerado bietápico para estimar el
+  número total de redes por región.
+\item
+  Finalmente, sumar las estimaciones totales de cada región para estimar
+  el número total de redes en Gambia. Sumar las varianzas regionales
+  para proceder como en un muestreo estratificado.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-razuxf3n-en-muestras-complejas}{%
+\subsection{Estimación de razón en muestras
+complejas}\label{estimaciuxf3n-de-razuxf3n-en-muestras-complejas}}
+
+\begin{frame}{Estimación de razón en muestras complejas}
+
+La estimación por razón, puede ser usada en cualquier nivel de la
+encuesta, pero usualmente es usada en las últimas etapas. Los principios
+de esta técnica de estimación son los mismo para cualquier diseño
+probabilístico usado dentro de cada estrato en un muestreo estratificado
+a etapas.
+
+Supongamos que la población total \(t_x\) es conocida para la variable
+auxiliar \(x\), y que \(\hat{t}_y\) y \(\hat{t}_x\) son estimadores
+insesgado para sus equivalentes poblacionales.
+
+El \textbf{Estimador de razón combinado} de la población total para la
+variable \(y\) es: \[\hat{t}_{yrc}=\hat{B}t_x\] donde,
+\[\hat{B}=\dfrac{\hat{t}_y}{\hat{t}_x}\]
+
+\end{frame}
+
+\begin{frame}
+
+Es posible mostrar que el error medio cuadrático de \(\hat{t}_{yrc}\)
+puede ser estimado como:
+
+\[\widehat{\mathbb{V}(\hat{t}_{yrc})}=\left(\dfrac{t_x}{\hat{t}_x}\right)^2\left[\widehat{\mathbb{V}(\hat{t}_{y})}+\hat{B}^2 \widehat{\mathbb{V}(\hat{t}_{x})}-2\hat{B}\widehat{COV(\hat{t}_y,\hat{t}_x)}\right]\]
+El \textbf{Estimador de razón separado} aplica una estimación de razón
+dentro de cada estrato primero, luego combina los estratos:
+
+\[\hat{t}_{yrs}=\sum_{h=1}^{H}\hat{t}_{yhr}=\sum_{h=1}^{H}t_{xh}\dfrac{\hat{t}_{yh}}{\hat{t}_{xh}}\]
+con
+\[\widehat{\mathbb{V}(\hat{t}_{yrs})}=\sum_{h=1}^{H}\widehat{\mathbb{V}(\hat{t}_{yhc})}\]
+
+\end{frame}
+
+\hypertarget{simplicidad-en-los-diseuxf1os}{%
+\subsection{Simplicidad en los
+diseños}\label{simplicidad-en-los-diseuxf1os}}
+
+\begin{frame}{Simplicidad en los diseños}
+
+Todos estos componentes del diseño han mostrado ser más eficientes en
+una encuesta tras realizarla. A veces, es posible tentarse con la
+utilización de un muestreo complejo, pero se debe investigar si ha
+habido estudios anteriores y asegurarse que efectivamente la
+implementación de un muestreo complejo es más eficiente.
+
+En muchos casos, un muestreo más simple puede dar la misma información
+por unidad monetaria gastada que un muestreo complejo: es más fácil de
+analizar, administrar y los datos son menos propensos a ser
+interpretados erróneamente en investigaciones posteriores.
+
+\end{frame}
+
+\hypertarget{pesos-muestrales-factores-de-expansiuxf3n}{%
+\subsection{Pesos muestrales (factores de
+expansión)}\label{pesos-muestrales-factores-de-expansiuxf3n}}
+
+\begin{frame}{Construcción de los pesos muestrales}
+\protect\hypertarget{construcciuxf3n-de-los-pesos-muestrales}{}
+
+En la mayoría de encuestas a gran escala, los pesos son usados para
+calcular las estimaciones puntuales. Hasta ahora hemos visto este uso en
+muestreo aleatorio simple, estratificado y por conglomerado. Bajo un
+muestreo sin reemplazo, los pesos muestrales para una unidad observada
+es siempre el recíproce de la probabilidad que esa unidad sea incluida
+en la muestra. Recordemos que para una muestreo estratificado,
+
+\[\hat{t}_{est}=\sum_{h=1}^{H}\sum_{j\in \mathcal{S}_h} w_{hj}y_{hj}\]
+
+donde los pesos muestrales \(w_{hj}=(N_h/n_h)\) pueden ser vistos como
+el número de observaciones en la población representadas por la unidad
+muestral \(y_{hj}\)
+
+\end{frame}
+
+\begin{frame}
+
+La probabilidad de seleccionar la \(j-\)ésima unidad en el \(h-\)ésimo
+estrato para pertenecer a la muestra es \(\pi_{hj}=n_h/N_h\), así el
+peso \(w_{hj}\) es el inverso de \(\pi_{hj}\).
+
+La suma de los pesos muestrales en un muestreo estratificado es igual al
+tamaño poblacional \(N\); cada unidad muestreada \emph{representa}
+cierto número de unidades en la población, así, la muestra completa
+\emph{representa} la población total. La estimación de
+\(\overline{y}_U\) bajo un muestreo estratificado está dado por:
+\[\overline{y}_{str}=\dfrac{\sum_{h=1}^{L}\sum_{j\in\mathcal{S}_h}w_{hj}y_{hj}}{\sum_{h=1}^{L}\sum_{j\in\mathcal{S}_h}w_{hj}}\]
+
+\end{frame}
+
+\begin{frame}
+
+La misma forma de los estimadores es usado bajo un muestreo por
+conglomerado y en su forma general bajo un muestreo con probabilidades
+desiguales. Bajo un muestreo por conglomerado con igual probabilidades,
+por ejemplo:
+\[w_{ij}=\dfrac{N M_i}{n m_i}=\dfrac{1}{\text{Prob. j-ésima USM en la i-ésima UPM esté en la muestra}}\]
+nuevamente,
+\[\hat{t}=\sum_{i\in \mathcal{S}}\sum_{j\in \mathcal{S}_i}w_{ij}y_{ij}\]
+
+\end{frame}
+
+\begin{frame}
+
+y el estimador de la media poblacional es:
+
+\[\dfrac{\hat{t}}{\sum_{i\in \mathcal{S}}\sum_{j\in \mathcal{S}_i}w_{ij}}\]
+
+Para un muestreo por conglomerado con probabilidades desiguales, cuando
+\(\pi_i\) es la probabilidad que la \(i-\)ésima \textbf{UPM} esté en la
+muestra y \(\pi_{j|i}\) es la probabilidad que la \(j-\)ésima
+\textbf{USM esté en la muestra dado que la \(i-\)ésima }UPM** está en la
+muestra, los pesos muestrales son:
+\[w_{ij}=\dfrac{1}{(\pi_i\pi_{j|i})}\]
+
+\end{frame}
+
+\begin{frame}
+
+Para un muestreo por conglomerado a tres etapas, el principio se
+extiende: Sea \(w_p\) los pesos para las \textbf{UPM}, \(w_{s|p}\) es el
+peso para la \textbf{USM}, y \(w_{t|s,p}\) el peso asociado a la unidad
+terciaria muestral \textbf{UTM}. Luego, el peso muestral total para una
+unidad observada es:
+
+\[w=w_p\times w_{s|p} \times w_{t|s,p}\]
+
+Toda la información necesaria para construir las estimaciones puntuales
+está contenida en los pesos muestrales, pero estos no dan información on
+como encontrar los errores estándar de las estimaciones, por lo que
+saber sólo los pesos muestrales no servirá para hacer estadística
+inferencial.
+
+\end{frame}
+
+\begin{frame}
+
+Las varianzas dependen de las probabilidad que cualquier par de
+observaciones sean seleccionadas para estar en la muestra, y requiere
+más conocimiento del diseño muestral que el dado por los pesos
+muestrales.
+
+En lo que sigue del curso, consideraremos diseños estratificados
+multietápico, por lo que especificaremos la notación a utilizar.
+
+\end{frame}
+
+\begin{frame}
+
+Consideramos \(y_i\) la medición de la unidad \(i-\)ésima y \(w_i\) su
+peso asociado. Así, para una muestra aleatoria estratificada, \(y_i\) es
+una observación dentro de un estrato en particular, y \(w_i=N_h/n_h\),
+donde la unidad \(i-\)ésima está en el estrato \(h\). Esta notación nos
+permite escribir el estimador general para el total poblacional como:
+
+\[\hat{t}_y=\sum_{i\in \mathcal{S}}w_i y_i\]
+
+donde todas las mediciones están al nivel de la observación. El
+estimador general para la media poblacional está dado por:
+
+\[\hat{\overline{y}}=\dfrac{\hat{t}_y}{\sum_{i\in\mathcal{S}}w_i}\] El
+denominador estima el número de observaciones en la población.
+
+\end{frame}
+
+\hypertarget{ejemplo-10}{%
+\subsection{Ejemplo}\label{ejemplo-10}}
+
+\begin{frame}{Ejemplo}
+
+En el ejemplo de Gambia, el muestreo fue diseñado de tal forma que
+dentro de cada región cada recinto tendría la misma probabilidad de ser
+incluidos en la muestra; las probabilidades variaron sólo debido a que
+los diferentes distritos tienen diferentes números de personas en villas
+con clínica y debido a que el número de recintos podría no ser siempre
+exactamente proporcional a la población de la villa.
+
+Por ejemplo, para villas con clínicas de la región central, la
+probabilidad que un recinto dado sea incluido en la muestra fue:
+
+\begin{align*}
+&\mathbb{P}(\text{distrito seleccionado})\times \mathbb{P}(\text{villa seleccionada}|\text{distrito seleccionado})\\
+&\times \mathbb{P}(\text{recinto seleccionado}|\text{distrito y villa seleccionada})\\
+&\propto \dfrac{D1}{R} \times \dfrac{V}{D2}\times \dfrac{1}{C}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+donde,
+
+\begin{itemize}
+\tightlist
+\item
+  \(C=\) número de recintos en la villa
+\item
+  \(V=\) número de personas en la villa
+\item
+  \(D1=\) número de personas en el distrito
+\item
+  \(D2=\) número de personas en el distrito en villas con clínicas
+\item
+  \(R=\) número de personas en villas con clínicas en todos los
+  distritos centrales.
+\end{itemize}
+
+Debido a que el número de recintos en una villa será aproximadamente
+proporcional al número de personas en la villa, \(V/C\) debería ser
+aproximadamente el mismo para todos los recintos.
+
+El valor de \(R\) es también el mismo para todos los recintos dentro de
+una región. Los pesos para cada región, los recíprocos de las
+probabilidades de inclusión, difieren bastante debido a la variabilidad
+del término \(D1/D2\).
+
+Conforme \(R\) varía de estrato en estrato, recintos en estratos con más
+población tienen mayor pesos que en los mismos en estratos con menos
+gente.
+
+\end{frame}
+
+\hypertarget{muestras-autoponderadas-y-no-autoponderadas}{%
+\subsection{Muestras autoponderadas y no
+autoponderadas}\label{muestras-autoponderadas-y-no-autoponderadas}}
+
+\begin{frame}{Muestras autoponderadas y no autoponderadas}
+
+Bajo una muestra autoponderada, los pesos muestrales son todos iguales.
+Este tipo de muestras, bajo la ausencia de error no muestrales, puede
+ser considerada representativa de la población debido a que cada
+observación representa la misma cantidad de unidades no observadas en la
+población.
+
+En este contexto, método estadísticos clásicos pueden ser utilizados
+para obtener las estimaciones puntuales.
+
+\end{frame}
+
+\begin{frame}
+
+La mayoría de las muestras autoponderadas usadas en la práctica no son
+M.A.S., sin embargo, estratificación es usada -comúnmente- para reducir
+la varianza y obtener estimaciones separadas sobre particularidades de
+interés; agrupamiento por conglomerados, usualmente con probabilidades
+desiguales, es usada -comúnmente- para reducir costos.
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-la-funciuxf3n-de-distribuciuxf3n}{%
+\subsection{Estimación de la función de
+distribución}\label{estimaciuxf3n-de-la-funciuxf3n-de-distribuciuxf3n}}
+
+\begin{frame}{Estimación de la función de distribución}
+
+Hasta ahora nos hemos concentrado en estimar los parámetros
+poblacionales de usual interés: media, total y proporciones.
+
+Históricamente, la teoría de muestreo fue desarrollada principalmente
+para encontrar estos 3 estadísticos básicos y responder preguntas
+básicas como: \textbf{``¿Qué porcentaje de\ldots?''}
+
+En la práctica, otros estadísticos podrían de ser interés, como por
+ejemplo la mediana y percentiles en general.
+
+\end{frame}
+
+\begin{frame}
+
+Podemos estimar estos estadísticos (pero no sus desviaciones estándar)
+mediante los pesos muestrales. Estos pesos nos permiten construir una
+\textbf{distribución empírica} para la población.
+
+Supongamos que los valores para la población de \(N\) unidades son
+conocidos. Entonces, cualquier cantidad de interés puede ser calculada a
+partir de la \textbf{función de masa de probabilidad},
+
+\[f(y)=\dfrac{\text{número de unidades cuyos valores son } y}{N}\]
+
+o la \textbf{función de distribución acumulada} (cdf),
+
+\[F(y)=\dfrac{\text{número de unidades con valor} \leq y}{N}=\sum_{x\leq y} f(x)\]
+
+\end{frame}
+
+\begin{frame}
+
+En teoría de probabilidad, estas son las pmf y cdf para una variable
+aleatoria \(Y\), donde \(Y\) es el valor obtenido desde una muestra
+aleatoria de tamaño uno desde la población. Así,
+\(f(y)=\mathbb{P}(Y=y)\) y, \(F(y)=\mathbb{P}(Y\leq y)\). Claramente,
+\(\sum f(y)=F(\infty)=1\)
+
+\textbf{Cualquier cantidad poblacional puede ser calculada desde la masa
+la función de masa de probabilidad o cdf.}
+
+\end{frame}
+
+\begin{frame}
+
+La media poblacional es:
+
+\[\overline{y}_{U}=\sum_{\text{ valores de y en la pob.}} yf(y)\] de
+igual manera la varianza poblacional, puede ser escrita usando la
+función de masa de probabilidad:
+
+\begin{align*}
+S^2&=\dfrac{1}{N-A}\sum_{i=1}^{N}(y_i-\overline{y}_U)^2\\
+&=\dfrac{N}{N-1}\sum_{y}f(y)\left[y-\sum_{x}xf(x)\right]^2\\
+&=\dfrac{N}{N-1}\left[\sum_{y}y^2 f(y) - \left(\sum_{x}xf(x)\right)^2\right]
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Si la \textbf{cdf} \(F\) fuese continua, la mediana poblacional como el
+valor \(m\) que satisface \(F(m)=1/2\). Pero debido a que \(F\) salta en
+los valores de \(y\) en la población, es posible que la función \(F(y)\)
+no contenga al valor \(1/2\).
+
+Para solucionar lo anterior, definimos la \textbf{mediana de población
+finita} como el valor \(m\) que satisface \(F(m)=1/2\) si es que ese
+valor existe; en caso contrario, la mediana poblacional es cualquier
+valor en el intervalo \([m_1,m_2]\), donde \(m_1\) es el mayor valor de
+\(y\) en la población tal que \(F(y)<1/2\) y \(m_2\) es el menor valor
+de \(y\) tal que \(F(y)>1/2\).
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics[width=1\textwidth,height=\textheight]{../../resources/cdf.jpg}
+
+\end{frame}
+
+\begin{frame}
+
+En general, \(\theta_q\) es un \(q(100\%)\) cuantíl si \(F(\theta_q)=q\)
+si es que ese valor existe; en caso contrario, \(\theta_q\in [a,b]\)
+donde \(a\) es el mayor valor de \(y\) en la población tal que
+\(F(y)<q\) y \(b\) es el menor valor de \(y\) tal que \(F(y)>q\).
+
+Si es que \(q<1/N, \theta_q\) es el menor valor de \(y\) y si
+\(q>1-1/N, \theta_q\) es el mayor valor de \(y\).
+
+\end{frame}
+
+\begin{frame}
+
+Los pesos muestrales nos permiten construir la función de cuantía
+empírica y cdfs para los datos. Así, definimos la \textbf{función de
+cuantía empírica (epmf)} como:
+
+\[\hat{f}(y)=\dfrac{\sum_{i\in \mathcal{S};y_i=y}w_i}{\sum_{i\in \mathcal{S}}w_i}\]
+
+y la \textbf{función de distribución empírica} como:
+
+\[\hat{F}(y)=\sum_{x\leq y}\hat{f}(x)\]
+
+\end{frame}
+
+\begin{frame}
+
+Para una muestra auto-ponderada, \(\hat{f}(y)\) se reduce a la
+frecuencia relativa de \(y\) en la muestra.
+
+Para una muestra no auto-ponderada, \(\hat{f}(y)\) y \(\hat{F}(y)\) son
+intentos de reconstruir las funciones poblaciones \(f\) y \(F\) desde la
+muestra.
+
+\textbf{Tarea: Leer sección 7.4 Plotting Data from a Complex Survey}
+
+\end{frame}
+
+\hypertarget{efectos-de-diseuxf1o}{%
+\subsection{Efectos de diseño}\label{efectos-de-diseuxf1o}}
+
+\begin{frame}{Efectos de diseño}
+
+\textbf{¿Cómo podemos saber si un plan de muestreo es \textit{mejor} que
+simplemente hacer un M.A.S?}
+
+En 1951, Cornfield sugirió medir la efectividad de un plan de muestreo
+como el cociente entre las estimaciones de las varianzas dadas por un
+M.A.S y un muestreo complejo. Luego en 1965, Kish llamó al reciproco de
+este valor \textbf{efectos de diseño (deff)} y lo utilizó para cualquier
+diseño muestral.
+
+Así,
+\[deff(\text{Plan,Estadístico})=\dfrac{\mathbb{V}(\textbf{Estimador del plan de muestreo})}{\mathbb{V}(\textbf{Estimador bajo un M.A.S.})}\]
+cabe destacar que el contraste se hace con un M.A.S. con el mismo número
+de observaciones. Por ejemplo, para una muestra de tamaño \(n\),
+tendríamos:
+\[deff(\text{plan},\hat{\overline{y}})=\dfrac{\mathbb{V}(\hat{\overline{y}})}{\left(1-\dfrac{n}{N}\right)\dfrac{S^2}{n}}\]
+
+\end{frame}
+
+\begin{frame}
+
+Si bien los efectos de diseño, nos sirven para calcular la precisión
+ganada (o pérdida) al usar un muestreo más \emph{complicado} que un
+M.A.S.; no nos evita el tener que calcular varianzas.
+
+Es esperable que para distintas cantidades poblaciones a estimar,
+tengamos diferentes efectos de diseño. Kish mostró, como los
+\textbf{efectos de diseño} nos permiten utilizar conocimiento previo
+para nuestreo plan actual de muestreo.
+
+\end{frame}
+
+\begin{frame}
+
+En general la varianza bajo un M.A.S. es más fácil de obtener que
+\(\mathbb{V}(\hat{\overline{y}})\):
+
+\begin{itemize}
+\tightlist
+\item
+  Si estamos estimando una proporción, la varianza bajo un M.A.S. es
+  aproximadamente \(p(1-p)/n\).
+\item
+  Si estamos estimando otro tipo de media, la varianza bajo un M.A.S. es
+  aproximadamente \(S^2/n\).
+\end{itemize}
+
+Así, si el efecto de diseño es aproximadamente conocido, la varianza del
+estimador bajo un muestreo complejo puede ser estimada mediante
+\(deff\times \mathbb{V}_{M.A.S.}\).
+
+\end{frame}
+
+\begin{frame}
+
+Por ejemplo, podemos estimar la varianza de una proporción estimada
+como:
+
+\[\widehat{\mathbb{V}(\hat{p})}=deff\times \dfrac{\hat{p}(1-\hat{p})}{n}\]
+
+Hasta ahora hemos visto los efectos de diseño de varios muestreos pero
+no los hemos nombrado como tal.
+
+En terminos generales, queremos que nuestros efecto de diseño , para un
+estimación en particular sea menor a 1, pero otras consideraciones deben
+ser evaluadas.
+
+\textbf{Recordar, que al realizar un plan de muestreo en la práctica:
+los costos asociados al plan de muestreo influyen en la precisión a
+obtener.}
+
+\end{frame}
+
+\hypertarget{efectos-de-diseuxf1o-e-i.c.}{%
+\subsection{Efectos de diseño e
+I.C.}\label{efectos-de-diseuxf1o-e-i.c.}}
+
+\begin{frame}{Efectos de diseño e I.C.}
+
+Si los efectos de diseño para cada estadístico son conocidos, es posible
+construir intervalos de confianza estándar para la media y el total.
+Considerando una muestra de \(n\) unidades desde una población de tamaño
+\(N\) y \(\hat{p}\) es la estimación del parámetro de interés, entonces.
+un I.C. del \(95\%\) para \(p\) (asumiendo factor de corrección
+\(\approx 1\)), está dado por:
+
+\[\hat{p}\mp 1.96 \sqrt{deff}\sqrt{\dfrac{\hat{p}(1-\hat{p})}{n}}\]
+
+Cuando estimamos la media en vez de la proporción, si la muestra es lo
+suficientemente grande para utilizar el teorema del límite central, un
+I.C. del \(95\%\) está dado por:
+
+\[\hat{\overline{y}}\mp 1.96 \sqrt{deff}\sqrt{\dfrac{S^2}{n}}\]
+
+\end{frame}
+
+\begin{frame}
+
+Ciertos autores (y softwares), a veces, utilizan en vez \textbf{deff} el
+concepto de \textbf{deft} que son bastante similares, pero este último
+en vez de dividir las varianzas divide las desviaciones típicas y asume
+un factor de corrección igual a 1.
+
+\end{frame}
+
+\hypertarget{efectos-de-diseuxf1o-y-tamauxf1os-de-muestra}{%
+\subsection{Efectos de diseño y tamaños de
+muestra}\label{efectos-de-diseuxf1o-y-tamauxf1os-de-muestra}}
+
+\begin{frame}{Efectos de diseño y tamaños de muestra}
+
+Los efectos de diseño son extremadamente útiles para estimar el tamaño
+de muestra necesario en un estudio. Este fue el objetivo principal
+presentado por Cornfield. En su problemática, el máximo error permitido
+fue especificado en un \(20\%\) del valor real de la proporción, esto
+es: \(0.2\times p\). Así, el tamaño de muestra necesario bajo un M.A.S.
+estará dado por:
+
+\[n=\dfrac{1.96^2p(1-p)}{(0.2p)^2}\]
+
+por lo que si la proporción real es \(1\%\), \(n=9508\). En su problema,
+se deseaba analizar la alternativa de muestreo por bloques o
+individualmente; tras obtener los efectos de diseño por estudios
+pasados: \(deff=7.4\).
+
+El estudio por bloques promediaba 4600 individuos (U.M), por lo que
+sugierió que 140.000 UM era lo ideal.
+
+\end{frame}
+
+\begin{frame}
+
+Si se conoce el efecto de diseño para un estudio similar (conocimientos
+previos), sólo se necesita estimar el tamaño de muestra que se
+necesitaria bajo un M.A.S. y luego multiplicar aquel tamaño por
+\textbf{deff} para obtener el número de observaciones necesarias bajo un
+muestreo complejo.
+
+\textbf{Se sugiere separar los efectos de diseño por estrato.}
+\vspace{10pt}
+
+\textbf{Tarea: Leer caso estudio: Sección 7.6 The National Crime
+Victimization Survey}
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-la-varianza-en-muestreos-complejos}{%
+\subsection{Estimación de la varianza en muestreos
+complejos}\label{estimaciuxf3n-de-la-varianza-en-muestreos-complejos}}
+
+\begin{frame}{Estimación de la varianza en muestreos complejos}
+
+La media y total poblacional son fácilmente estimados usando los pesos
+muestrales, no así estimar sus varianzas; en el ejemplo del país Gambia
+esbozamos el procedimiento para estimar la varianza bajos distintos
+niveles de estratificación (y de conglomerado), en donde empezamos en
+los niveles más bajo y luego combinamos los resultados para llegar al
+nivel global.\\
+~\\
+
+A lo largo de los muestreos estudiados, hemos explicitado las fórmulas
+de las varianzas; siendo unas más complejas que otras, como es el caso
+bietápico en un muestreo por conglomerado (Sin reemplazo).\\
+~\\
+
+Ahora nos concentraremos en describir varios métodos para estimar la
+varianza de la estimación del total y otros estadísticos bajo un
+muestreo complejo.
+
+\end{frame}
+
+\hypertarget{muxe9todos-de-linealizaciuxf3n}{%
+\subsection{Métodos de
+linealización}\label{muxe9todos-de-linealizaciuxf3n}}
+
+\begin{frame}{Métodos de linealización}
+
+Todas las fórmulas de varianza que hemos visto (desde M.A.S. hasta
+muestreo con probabilidades desiguales) eran para estimadores de media y
+totales. Estas fórmulas pueden ser usadas para encontrar la varianza
+para cualquier combinación lineal de medias y totales estimados.
+
+\end{frame}
+
+\begin{frame}
+
+Sea \(y_{ij}\) la respuesta de la unidad \(i\) al item \(j\). Supongamos
+que \(\hat{t}_1,\dots,\hat{t}_k\) son estimadores insesgados de los
+\(k\) totales poblacionales \(t_1,\dots,t_k\) con
+\(\hat{t}_j=\sum_{i\in \mathcal{S}} w_i y_{ij}\). Entonces, para
+cualquier constante \(a_1,\dots,a_k\) podemos definir una nueva
+variable:
+
+\[q_i=\sum_{j=1}^{k} a_j y_{ij}\]
+
+tal que:
+
+\[\hat{t}_q=\sum_{i\in \mathcal{S}}w_i q_i=\sum_{j=1}^{k} a_j \hat{t}_j\]
+
+\[\mathbb{V}\left( \sum_{j=1}^{k}a_j \hat{t}_j\right)=\mathbb{V}(\hat{t}_q)=\sum_{j=1}^{k}a_{j}^2 \mathbb{V}(\hat{t}_j)+2\sum_{j=1}^{k-1}\sum_{l=j+1}^{k} a_j a_l COV(\hat{t}_j,\hat{t}_l)\]
+
+\end{frame}
+
+\begin{frame}
+
+Así, si \(t_1\) es el número total de dólares reportados por víctimas de
+robo, \(t_2\) es el número de días laborales de ausencia debido al
+delito, y \(t_3\) es el total de sus costos médicos, una medida para las
+consecuencia financieras del robo (asumiendo \(\$150\) por día no
+trabajado) podría ser \(\hat{t}_1+150\hat{t}_2+\hat{t}_3\), y su
+varianza estaría dada por:
+
+\begin{align*}
+\mathbb{V}(\hat{t}_1+150\hat{t}_2+\hat{t}_3)&=\mathbb{V}(\hat{t}_q)\\
+&=\mathbb{V}(\hat{t}_1)+150^2\mathbb{V}(\hat{t}_2)+\mathbb{V}(\hat{t}_3)\\
+&+300 COV(\hat{t}_1,\hat{t}_2)+2 COV(\hat{t}_1,\hat{t}_3)+300 COV(\hat{t}_2,\hat{t}_3)
+\end{align*}
+
+donde \(q_i=y_{i1}+150y_{i2}+y_{i3}\) es la pérdida financiera debido al
+robo para la persona \(i-\)ésima.
+
+\end{frame}
+
+\begin{frame}
+
+Supongamos ahora que estamos interesados en la proporción de la pérdida
+total contabilizada por el robo de propiedad, \(t_1/t_q\). Este no es un
+estadístico lineal, ya que \(t_1/t_q\) no puede ser expresado en la
+forma \(a_1t_1+a_2t_2\) para constantes \(a_1,a_2\).\\
+~\\
+Pero el teorema de Taylor (de cálculo) nos permite \textbf{linealizar} a
+función suave no lineal \(h(t_1,t_2,\dots,t_k)\) del total poblacional;
+el teorema de Taylor nos entrega las constantes \(a_0,a_1,\dots,a_k\)
+tal que:
+
+\[h(t_1,\dots,t_k)\approx a_0 +\sum_{j=1}^{k}a_jt_j\]
+
+Así \(\mathbb{V}[h(\hat{t}_1,\dots,\hat{t}_k)]\) puede ser aproximado
+por \(\mathbb{V}(\sum_{j=1}^{k}a_j\hat{t_{j}})\), el cual sabemos
+calcular por la fórmula antes dada.
+
+\end{frame}
+
+\begin{frame}
+
+La cantidad \(\theta=p(1-p)\), donde \(p\) es la proporción poblacional,
+puede ser estimada por \(\hat{\theta}=\hat{p}(1-\hat{p})\). Asumiendo
+que \(\hat{p}\) es un estimador insesgado de \(p\) y que
+\(\mathbb{V}(\hat{p})\) es conocido. Sea \(h(x)=x(1-x)\), entonces
+\(\theta=h(p)\) y \(\hat{\theta}=hat(\hat{p})\). Obviamente \(h\) es una
+función no-lineal de \(x\), pero la función puede ser aproximada en
+cualquier punto cercado \(a\) por la línea tangente a la función:\\
+~\\
+\includegraphics[width=0.7\textwidth,height=\textheight]{../../resources/taylor_ej_1.jpg}
+
+\end{frame}
+
+\hypertarget{ejemplo-11}{%
+\subsection{Ejemplo}\label{ejemplo-11}}
+
+\begin{frame}{Ejemplo}
+
+La versión -de primer orden- del teorema de Taylor, establece que si la
+segunda derivada de \(h\) es continua, entonces:
+
+\[h(x)=h(a)+h'(a)(x-a)+\int_{a}^{x} (x-t)h''(t)dt\]
+
+bajo condiciones regulares -usualmente satisfechas dentro del contexto
+de estadística-, el último término es relativamente pequeño a los dos
+primeros, usando la aproximación:
+
+\begin{align*}
+h(\hat{p})&\approx h(p)+h'(p)(\hat{p}-p)\\
+&=p(1-p)+(1-2p)(\hat{p}-p)
+\end{align*} Así,
+\[\mathbb{V}[h(\hat{p})]\approx (1-2p)^2\mathbb{V}(\hat{p}-p)\]
+
+como \(\mathbb{V}(\hat{p})\) es conocido, la varianza aproximada de
+\(h(\hat{p})\) puede ser estimada por:
+\[\widehat{\mathbb{V}[h(\hat{p})}]=(1-2\hat{p})^2\widehat{V}(\hat{p})\]
+
+\end{frame}
+
+\begin{frame}{Procedimiento general}
+\protect\hypertarget{procedimiento-general}{}
+
+El procedimiento para linealizar un estimador de la varianza de un
+estimador no-lineal de medias o totales:
+
+\begin{itemize}
+\item
+  Expresar la cantidad de interés como una función de medias o totales
+  de variables medidas o calculadas a partir de la muestra. En general,
+  \(\theta=h(t_1,t_2,\dots,t_k)\) o
+  \(\theta=h(\overline{y}_{1U},\dots,\overline{y}_{kU})\).
+\item
+  Encontrar las derivadas parciales de \(h\) con respecto a cada
+  argumento. Las derivadas parciales, evaluadas en las cantidades
+  poblaciones, desde la constantes de linealización \(a_j\).
+\item
+  Aplicar el teorema de Taylor para linealizar la estimación:
+  \[h(\hat{t}_1,\dots,\hat{t}_k)\approx h(t_1,\dots,t_k)+\sum_{j=1}^{k}a_j(\hat{t}_j-t_j)\]
+  donde,
+  \[a_j=\dfrac{\partial h(c_1,c2,\dots,c_k)}{\partial c_j}\Bigg\vert_{t_1,\dots,t_k}\]
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  Definir la nueva variable \(q\) por
+\end{itemize}
+
+\[q_i=\sum_{j=1}^{k}a_j y_{ij}\]
+
+Ahora encontramos las varianzas estimadas de
+\(\hat{t}_q=\sum_{i\in\mathcal{S}}w_iq_i\), sustituyendo estimadores por
+las cantidades poblaciones desconocidas. Esto generalmente aproxima la
+varianza de \(\hat{\theta}=h(\hat{t}_1,\dots,\hat{t}_k)\)
+
+\end{frame}
+
+\hypertarget{ejemplo-estimador-de-razuxf3n}{%
+\subsection{Ejemplo: Estimador de
+Razón}\label{ejemplo-estimador-de-razuxf3n}}
+
+\begin{frame}{Ejemplo: Estimador de Razón}
+
+En el curso pasado vimos los estimadores de razón: estimaciones
+puntuales, varianzas y su sesgos asociados, en donde bajo un M.A.S. el
+estimador:
+
+\[\hat{B}=\overline{y}/\overline{x}=\hat{t}_y/\hat{t}_x\]
+
+Que nosotros notamos por la letra \(R\) en Muestreo I, y su varianza
+estimada:
+
+\[\widehat{\mathbb{V}(\hat{B})}=\left(1-\dfrac{n}{N}\right)\dfrac{s_{e}^2}{n\overline{x}^2}\]
+
+donde \(s_{e}^2\) es la varianza muestral de los residuos
+\(e_i=y_i - \hat{B}x_i\). Para llegar a esta aproximación de la
+varianza, lo que utilizamos (implícitamente) fue el teorema de Taylor.
+
+\end{frame}
+
+\begin{frame}
+
+Siguiendo los pasos que antes establecimos:
+
+\begin{itemize}
+\tightlist
+\item
+  Expresamos el estimador \(B\) como función de los totales
+  poblacionales. Sea \(h(c,d)=d/c\), así
+  \[B=h(t_x,t_y)=\dfrac{t_y}{t_x}\] y,
+  \[\hat{B}=h(\hat{t}_x,\hat{t}_y)=\dfrac{\hat{t}_y}{\hat{t}_x}\]
+\end{itemize}
+
+Asumiendo que los estimadores \(\hat{t}_x\) y \(\hat{t}_y\) son
+insesgados.
+
+\begin{itemize}
+\tightlist
+\item
+  Las derivadas parciales son:
+  \[\dfrac{\partial h(c,d)}{\partial c}=-\dfrac{d}{c^2}\] y,
+  \[\dfrac{\partial h(c,d)}{\partial d}=\dfrac{1}{c}\] evaluadas en
+  \(c=t_x\) y \(d=t_y\), los valores son \(-t_y/t_{x}^2\) y \(1/t_x\).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  Por teorema de Taylor: \begin{align*}
+  \hat{B}&=h(\hat{t}_x,\hat{t}_y)\\
+  &\approx h(t_x,t_y)+\dfrac{\partial h(c,d)}{\partial c}\Bigg\vert_{t_x,t_y} (\hat{t}_x-t_x)+\dfrac{\partial h(c,d)}{\partial d}\Bigg\vert_{t_x,t_y}(\hat{t}_t-t_t)
+  \end{align*}
+\end{itemize}
+
+Luego, usando las derivadas parciales se tiene que:
+\[\hat{B}-B\approx -\dfrac{t_y}{t_{x}^2}(\hat{t}_x-t_x)+\dfrac{1}{t_x}(\hat{t}_y-t_y)\]
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  El error cuadrático medio (mse) de \(\hat{B}\) es: \begin{align*}
+  \mathbb{E}[(\hat{B}-B)^2]&\approx \mathbb{E}\left[ \left(-\dfrac{t_y}{t_{x}^2}(\hat{t}_x-t_x)+\dfrac{1}{t_x}(\hat{t}_y-t_y)\right)\right]\\
+  &=\dfrac{1}{t_{x}^2}(B^2\mathbb{V}(\hat{t}_x)+\mathbb{V}(\hat{t}_y)-2BCOV(\hat{t}_x,\hat{t}_y))
+  \end{align*}
+\item
+  Sustituyendo estimadores de las cantidades desconocidas, definimos:
+  \[q_i=\dfrac{1}{\hat{t}_x}[t_i-\hat{B}x_i]=\dfrac{1}{\hat{t}_x}e_i\]
+\end{itemize}
+
+Finalmente, encontramos
+\(\widehat{\mathbb{V}(\hat{B})}=\widehat{\mathbb{V}(\hat{t}_q)}=\widehat{\mathbb{V}(\hat{t}_e)}/\hat{t}_{x}^{2}\)
+
+\end{frame}
+
+\hypertarget{ventajas-y-desventajas}{%
+\subsection{Ventajas y desventajas}\label{ventajas-y-desventajas}}
+
+\begin{frame}{Ventajas y desventajas}
+
+\begin{itemize}
+\item
+  \textbf{Ventajas:} Si las derivadas parciales son conocidas, el
+  procedimiento de linialización casi siempre da una varianza estimada
+  para un estadístico dado, y este puede ser utilizado en diseños
+  muestrales generales. La teoría respecto a este tipo de aproximación
+  está bastante desarrollada y por ende, implementado en varios
+  softwares.
+\item
+  \textbf{Desventajas:} Los cálculos no son sencillos, y el método es
+  difícil de aplicar con función complejas que incorporen ponderaciones.
+  Se debe encontrar una expresión analítica para las derivadas parciales
+  de \(h\) o calcular las derivadas parciales \textbf{numéricamente}. Un
+  fórmula de varianza es necesaria para cada estadístico a estimar, por
+  lo que requiere mayor tiempo de programación; un método diferente es
+  necesario para cada estadístico. \textbf{No todos los estadísticos
+  pueden ser expresados como función suave de los totales poblacionales}
+  (por ejemplo los cuantiles). La precisión depende del tamaño de
+  muestra (la estimación de la varianza suele subestimar si la varianza
+  no es lo suficientemente grande).
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{muxe9todos-de-agrupaciuxf3n-aleatoria}{%
+\subsection{Métodos de agrupación
+aleatoria}\label{muxe9todos-de-agrupaciuxf3n-aleatoria}}
+
+\begin{frame}{Replicación de un diseño muestral.}
+\protect\hypertarget{replicaciuxf3n-de-un-diseuxf1o-muestral.}{}
+
+Supongamos que un diseño muestral básico es \textbf{replicado
+independientemente} \(R\) veces.\\
+~\\
+\textbf{Independientemente} hace referencia a que cada uno de los \(R\)
+conjuntos de variables aleatorias usadas para seleccionar la muestra es
+independiente de los otros conjuntos. \emph{Después de cada muestra, las
+unidades muestrales son reemplazadas en la población, estando disponible
+para futuras muestras.}\\
+~\\
+Las \(R\) muestras replicadas producen \(R\) estimaciones independientes
+de la cantidad de interés; la variabilidad dentro de esas estimaciones
+pueden ser usadas para estimar la varianza de \(\hat{\theta}\).
+Mahalanobis (1939,1946) describe los primeros usos de este método, que
+el llama \emph{``redes replicadas de unidades muestrales"}
+
+\end{frame}
+
+\begin{frame}
+
+Sea
+
+\begin{align*}
+\theta&=\text{ parámetro de interés}\\
+\hat{\theta}_r&=\text{ estimación de } \theta \text{ calculada desde la }r\text{-ésima réplica}\\
+\tilde{\theta}&=\dfrac{1}{R}\sum_{r=1}^{R} \hat{\theta}_i
+\end{align*}
+
+Si \(\hat{\theta}_r\) es un estimador insesgado de \(\theta\), también
+lo es \(\tilde{\theta}\), y:
+
+\[\widehat{\mathbb{V}_1(\tilde{\theta})}=\dfrac{1}{R}\dfrac{1}{R-1} \sum_{r=1}^{R} (\hat{\theta}_r-\tilde{\theta})^2\]
+es un estimador insesgado de \(\mathbb{V}(\tilde{\theta})\). Notar que
+\(\widehat{\mathbb{V}_1(\tilde{\theta})}\) es la varianza muestral de
+las \(R\) estimaciones independientes de \(\theta\) dividida por \(R\)
+(estimador usual de la varianza de una media muestral).
+
+\end{frame}
+
+\begin{frame}{Dividiendo la muestra en grupos aleatorios}
+\protect\hypertarget{dividiendo-la-muestra-en-grupos-aleatorios}{}
+
+En la práctica, las submuestras no son usualmente obtenidas
+independientemente, pero la muestra completa es seleccionada de acuerdo
+al diseño muestral. La muestra completa es dividida en \(R\) grupos, por
+lo que cada grupo forma una versión miniatura del muestreo, reflejando
+el diseño muestral. Los grupos son tratados como si fueran réplicas
+independientes del diseño muestral básico.
+
+\end{frame}
+
+\begin{frame}
+
+Si la muestra es un \textbf{M.A.S.} de tamaño \(n\), los grupos son
+formados de forma aleatoria repartiendo las \(n\) observaciones entre
+\(R\) grupos, cada uno de tamaño \(n/R\).\\
+~\\
+Estos pseudo grupo no son del todo replicadas independientes debido a
+que una unidad muestral puede sólo ser incluida en uno de los grupos; si
+la población es relativamente grande al tamaño muestral, es posible
+tratar los grupos como si estos fueran réplicas independientes.
+
+\end{frame}
+
+\begin{frame}
+
+En un \textbf{muestreo por conglomerado}, las \textbf{UPM} son divididas
+aleatoriamente entre los \(R\) grupos. Las \textbf{UPM} llevan consigo
+todas las unidades dentro de sí al grupo asignado, por lo que cada grupo
+aleatorio es una muestra por conglomerado\\
+~\\
+En un \textbf{muestreo estratificado multietápico}, un grupo aleatorio
+contiene una muestra de \textbf{UPM} de cada estrato. Notamos que si
+\(k\) \textbf{UPM} son muestreadas en el estrato más pequeño, a lo más
+\(k\) grupo aleatorios pueden ser formados.\\
+~\\
+Si \(\theta\) es una cantidad no lineal, \(\tilde{\theta}\) -en general-
+no será igual a \(\hat{\theta}\)(el estimador calculado directamente
+desde la muestra completa).
+
+\end{frame}
+
+\hypertarget{ventajas-y-desventajas-1}{%
+\subsection{Ventajas y desventajas}\label{ventajas-y-desventajas-1}}
+
+\begin{frame}{Ventajas y desventajas}
+
+\begin{itemize}
+\item
+  \textbf{Ventajas:} Ningún software especial es necesario para estimar
+  la varianza, y es bastante sencillo calcular la estimación de la
+  varianza. El método está bien definido para problemas
+  multiparamétricos o no-paramétricos. Puede ser utilizado para estimar
+  varianzas para percentiles y funciones no suaves.
+\item
+  \textbf{Desventajas:} El número de grupos aleatorios es usualmente
+  pequeño, esto provoca estimaciones imprecisas de la varianza. Si
+  \(\hat{\theta}\) es un estadístico no lineal, \(\tilde{\theta}\) puede
+  tener un sesgo grande si el número de observaciones en cada grupo es
+  pequeño. Generalmente, son necesarios \(~10\) grupos para obtener un
+  estimador estable de la varianza y evitar inflar el intervalo de
+  confianza (debido al cuantíl t y un \(n\) bajo para g.l). Ajustar los
+  grupos aleatorios puede ser complicado bajo diseños muestrales
+  complicados, debido a que cada grupo debe tener la misma estructura de
+  diseño que el muestro completo.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{muxe9todos-de-remuestreo-y-replicaciuxf3n}{%
+\subsection{Métodos de Remuestreo y
+replicación:}\label{muxe9todos-de-remuestreo-y-replicaciuxf3n}}
+
+\begin{frame}{Métodos de Remuestreo y replicación:}
+
+Debido a que éstas técnicas pueden ser estudiadas en extenso, nos
+concentraremos -brevemente- en las dos técnicas más utilizadas:
+
+\begin{itemize}
+\tightlist
+\item
+  Jacknife
+\item
+  Bootstrap
+\end{itemize}
+
+pero existen \textbf{bastantes} otros métodos.
+
+\end{frame}
+
+\hypertarget{jackknife}{%
+\subsection{Jackknife}\label{jackknife}}
+
+\begin{frame}{Jackknife}
+
+El método \textbf{jackknife} extiende el método de agrupación aleatoria
+al permitir que los grupos replicados se superpongan. Inicialmente, este
+método fue introducido como un método para reducir el sesgo (Quenouille,
+1956); en 1958, Tukey propuso utilizarlo para estimar varianzas y
+calcular intervalos de confianza.\\
+~\\
+Estudiaremos el método \emph{delete-1 jackknife}, pero existen otras
+formas para este método.
+
+\end{frame}
+
+\begin{frame}
+
+Para un M.A.S., sea \(\hat{\theta}_{(j)}\) el estimador con la misma
+forma que \(\hat{\theta}\), pero sin usar la observación \(j-\)ésima,
+así, si \(\hat{\theta}=\overline{y}\) entonces,
+
+\[\hat{\theta}_{(j)}=\overline{y}_{(j)}=\sum_{i\neq j} y_i/(n-1)\]
+
+Para un M.A.S., definimos el estimador \emph{delete-1 jackknife} como:
+
+\[\widehat{\mathbb{V}_{JK}(\hat{\theta})}=\dfrac{n-1}{n}\sum_{j=1}^{n} (\hat{\theta}_{(j)}-\hat{\theta})^2\]
+
+\end{frame}
+
+\hypertarget{ventajas-y-desventajas-2}{%
+\subsection{Ventajas y desventajas}\label{ventajas-y-desventajas-2}}
+
+\begin{frame}{Ventajas y desventajas}
+
+\begin{itemize}
+\item
+  \textbf{Ventajas:} El método Jackknife es multipropósito. El mismo
+  procedimiento es usado para estimar la varianza para cada estadístico
+  en el cual jackknife puede ser usado. Jackknife entrega un estimador
+  consistente de la varianza cuando \(\theta\) es una función suave de
+  totales poblacionales.
+\item
+  \textbf{Desventajas:} Para algunos diseños muestrales, jackknife puede
+  requerir una cantidad grande de cálculos (haciéndolo
+  computacionalmente costoso). Jackknife no funciona muy bien para
+  estimar la varianza de algunos estadísticos que no son funciones
+  suaves de los totales poblacionales (por ejemplo, jackknife no entrega
+  un estimador consistente para la varianza de cuantiles en un M.A.S.).
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{bootstrap}{%
+\subsection{Bootstrap}\label{bootstrap}}
+
+\begin{frame}{Bootstrap}
+
+Al igual que Jackknife, los resultados teóricos de la técnica bootstrap
+fueron primeramente desarrollados para áreas de estadísticas que no eran
+la teoría de muestreo.\\
+~\\
+Supongamos que \(\mathcal{S}\) es una muestra desde un M.A.S. con
+reemplazo de tamaño \(n\). Nosotros esperamos que al obtener la muestra,
+esta reproduzca las propiedades de la población completa. Luego,
+consideramos la muestra \(\mathcal{S}\) como si fuera la población
+entera, y tomamos \textbf{remuestras} desde \(\mathcal{S}\).\\
+~\\
+Si la muestra realmente es similar a la población \textbf{-Si la función
+de masa de probabilidad empírica de la muestra es similar a la función
+de masa de probabilidad de la población-}, entonces las muestras
+generadas desde la función de masa de probabilidad empírica deberían
+comportarse como muestras obtenidas desde la población.
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  \textbf{Ventajas:} Bootstrap funciona con funciones suaves de medias
+  poblacionales y para algunas función no-suaves como los cuantiles para
+  diseños muestrales generales. Bootstrap permite encontrar intervalos
+  de confianza directamente.
+\item
+  \textbf{Desventajas:} Bajo ciertas configuraciones, bootstrap podría
+  requerir más cálculos que Jackknife u otros métodos, ya que \(R\) (las
+  réplicas) es usualmente un número grande. Las estimaciones bajo este
+  método difieren cuando un conjunto diferente de muestras obtenidas por
+  bootstrap son utilizadas.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{funciones-de-varianza-generalizadas}{%
+\subsection{Funciones de varianza
+generalizadas}\label{funciones-de-varianza-generalizadas}}
+
+\begin{frame}{Funciones de varianza generalizadas}
+
+Las funciones de varianza generalizadas son un modelo matemático que
+describe la \textbf{relación entre los valores poblacionales a ser
+estimados (como los totales poblacionales) y la varianza de su
+estimador}.\\
+~\\
+Por ejemplo, en el caso \emph{The National Crime Victimization Survey},
+los investigadores postulan que:
+
+\[\widehat{\mathbb{V}(\hat{t})}=a\hat{t}^2+b\hat{t}\]
+
+En donde \(\hat{t}\) es el número estimado de personas afectadas por un
+tipo de crimen en particular.\\
+~\\
+\textbf{¿Cómo fue encontrada esta expresión?}
+
+\end{frame}
+
+\begin{frame}
+
+El procedimiento general para construir una función de varianza
+generalizada es:
+
+\begin{itemize}
+\tightlist
+\item
+  Usando replicación (u otro método), estimar las varianzas de las \(k\)
+  totales poblaciones de especial interés,
+  \(\hat{t}_1,\hat{t}_2,\dots,\hat{t}_k\). Sean \(v_i\) las varianzas
+  relativas para \(\hat{t}_i\).
+\end{itemize}
+
+\[v_i=\dfrac{\widehat{\mathbb{V}(\hat{t}_i)}}{\hat{t}_{i}^{2}}\hspace{20pt}i=1,2,\dots,k\]
+
+\begin{itemize}
+\tightlist
+\item
+  Postular un modelo que relacione \(v_i\) con \(\hat{t}_i\). Un ejemplo
+  de modelo es: \[v_i=\alpha+\dfrac{\beta}{\hat{t}_i}\] Esto es un
+  modelo de regresión lineal en donde la variable respuesta es \(v_i\) y
+  la variable explicativa es \(\dfrac{1}{\hat{t}_i}\).
+\item
+  Usar métodos de estimación usuales para encontrar las estimaciones de
+  \(\alpha\) y \(\beta\): a y b, respectivamente.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  Usar la ecuación de regresión para predecir la varianza relativa de un
+  total estimado
+\end{itemize}
+
+\[\hat{t}_{nuevo}:\hat{v}_{nuevo}=a+b/\hat{t}_{nuevo}\]
+
+Debido a que \(\hat{v}_{nuevo}\) es la predicción del valor de la
+varianza relativa
+\(\dfrac{\widehat{\mathbb{V}(\hat{t}_{nuevo})}}{\hat{t}_{nuevo}^{2}}\),
+la función de varianza generalizada estimada de
+\(\mathbb{V}(\hat{t}_{nuevo})\) es:
+
+\[\widehat{\mathbb{V}(\hat{t}_{nuevo})}=a\hat{t}_{nuevo}^{2}+b\hat{t}_{nuevo}\]
+
+\end{frame}
+
+\hypertarget{ventajas-y-desventajas-3}{%
+\subsection{Ventajas y desventajas}\label{ventajas-y-desventajas-3}}
+
+\begin{frame}{Ventajas y desventajas}
+
+\begin{itemize}
+\item
+  \textbf{Ventajas:} Las F.V.G. pueden ser usadas cuando no se entrega
+  suficiente información en conjuntos de datos públicos que nos permitan
+  calcular directamente los errores estándar. Usualmente quienes dirigen
+  los muestreos, pueden calcular las F.V.G. y además tienen mayor
+  información para estimar las varianzas que la entrega al público
+  general. Las F.V.G. ayudan a ahorrar tiempo en la confección de
+  reportes anuales y sirven para diseñar estudios similares en el
+  futuro.
+\item
+  \textbf{Desventajas:} El modelo que relaciona \(v_i\) con
+  \(\hat{t}_i\) puede no ser apropiado para la cantidad de interés, lo
+  que puede resultar en estimaciones de variable no confiables; todas
+  las propiedades de predicción de regresiones lineales se heredan.
+  \textbf{Si una subpoblación tiene un número alto de conglomerados (y
+  por consecuencia un alto deff), la estimación por F.G.V puede ser muy
+  pequeña.}
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{intervalos-de-confianza}{%
+\subsection{Intervalos de Confianza}\label{intervalos-de-confianza}}
+
+\begin{frame}{Intervalos de Confianza}
+
+Muchos de los resultados teóricos de los métodos de estimación de
+varianza que hemos vistos, asumen que:
+
+\[\dfrac{(\hat{\theta}-\theta)}{\sqrt{\widehat{\mathbb{V}(\hat{\theta})}}}\longrightarrow N(\mu,\sigma^2)\]
+
+Lo que nos permite construir intervalos de confianza usuales, de la
+forma:
+
+\[\hat{\theta}\pm 1.96 \sqrt{\widehat{\mathbb{V}(\hat{\theta})}}\]
+
+\end{frame}
+
+\begin{frame}
+
+Alternativamente, el cuantil normal puede ser cambiado por un cuantil
+t-student con g.d.l = número de grupos - 1 para métodos de agrupación
+aleatoria y, g.d.l= número de \textbf{UPM} - número de
+\textbf{estratos}\\
+~\\
+El intervalo de confianza calculado directamente por bootstrap también
+es válido.
+
+\end{frame}
+
+\begin{frame}
+
+A modo general, los supuestos de los métodos que hemos vistos son:
+
+\begin{itemize}
+\tightlist
+\item
+  La cantidad de interés \(\theta\) puede ser expresada como una función
+  suave de los totales poblacionales; más precisamente,
+  \(\theta=h(t_1,t_2,\dots,t_k)\) donde las segundas derivadas parciales
+  de \(h\) son continuas.
+\item
+  Los tamaños de muestra son relativemente grandes: ya sea el número de
+  \emph{UPM} muestradas en cada estrato es grande, o el muestreo
+  contiene un gran número de estratos. Además, para construir un I.C.
+  usando una distribución normal, los tamaños de muestras deben ser lo
+  suficientemente grandes para que la distribución muestral de
+  \(\hat{\theta}\) sea aproximadamente normal.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Pero, ¿Qué sucede en los casos en donde no tenemos los supuestos
+anteriores? Por ejemplo en la mediana, ya que \(F^{-1}\) y
+\(\hat{F}^{-1}\) no son funciones suaves.\\
+~\\
+Si asumimos que las poblaciones y muestras son lo suficientemente
+grandes tal que estas cantidades pueden ser aproximadas por funciones
+continuas, tenemos algunos resultados clásicos en los métodos
+estudiados.
+
+\end{frame}
+
+\begin{frame}
+
+Los métodos de agrupación aleatoria funcionan bien, si el número de
+grupos aleatorios \(R\) es \emph{moderado}. Sea \(\hat{\theta}_{q}(r)\)
+el cuantil estimado para el grupo aleatorio \(r\). Entonces, un I.C.
+para \(\theta_q\) es:
+
+\[\hat{\theta}_{q}\pm t \sqrt{ \dfrac{1}{R}\dfrac{1}{R-1} \sum_{r=1}^{R} (\hat{\theta}_q(r)-\theta_q)^2 }\]
+donde \(t\) es el cuantil apropiado de una distribución \(t\) con
+\(R-1\) grados de libertad.
+
+\end{frame}
+
+\begin{frame}
+
+Un forma alternativa para construir los I.C. propuesto por Woodruff en
+1952, basa su construcción en utilizar la función inversa de la
+distribución de probabilidad y su equivalente empírico. Primeramente, es
+claro notar que un intervalo de confianza del 95\% para \(F(y)\) está
+dado por:
+\[\hat{F}(y)\pm 1.96 \sqrt{ \widehat{\mathbb{V}[\hat{F}(y)}]}\] Luego,
+tras trabajando con la argumento de la probabilidad convenientemente, es
+posible establecer que un I.C. del 95\% para el cuantil \(\theta_q\)
+está dado por:
+
+\[\left[ \hat{F}^{-1}  \{ q-1.96 \sqrt{ \widehat{\mathbb{V}[\hat{F}(y)}]} \} , \hat{F}^{-1}  \{ q+1.96 \sqrt{ \widehat{\mathbb{V}[\hat{F}(y)}]} \right]\]
+
+\end{frame}
+
+\begin{frame}
+
+Hay bastantes detalles técnicos con este tipo de confección de
+intervalos de confianza, debido que \(F\) y \(\hat{F}\) son funciones
+escalonadas; tienen saltos en los valores de \(y\) en la población y
+muestra.\\
+~\\
+A modo general, para que el método funcione, los saltos deben ser
+\emph{pequeños} y la distribución muestral de \(\hat{F}(y)\) debe ser
+aproximadamente normal.
+
+\end{frame}
+
+\hypertarget{software-estaduxedstico-para-teoruxeda-de-muestreo}{%
+\section{Software estadístico para teoría de
+muestreo}\label{software-estaduxedstico-para-teoruxeda-de-muestreo}}
+
+\begin{frame}{Software estadístico para teoría de muestreo}
+
+En lo que sigue del curso con focalizaremos en la aplicación
+computacional de la teoría que hemos aprendido a lo largo de Muestreo I
+y II. Aplicando los diseños muestrales simples individualmente, hasta
+llegar a una configuración de muestreo complejo. Utilizaremos \textbf{R}
+como principal herramienta.
+
+\end{frame}
+
+\hypertarget{muestreo-aleatorio-simple}{%
+\subsection{Muestreo Aleatorio Simple}\label{muestreo-aleatorio-simple}}
+
+\begin{frame}[fragile]{Muestreo Aleatorio Simple}
+
+Como lo hemos hecho antes, utilizaremos el paquete \textbf{survey}
+disponible en el CRAN.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(survey)}
+\KeywordTok{data}\NormalTok{(api)}
+\end{Highlighting}
+\end{Shaded}
+
+Primero cargamos la librería y los datos que utilizaremos. Los datos
+describen el desempeño de un conjunto de estudiantes en las escuelas del
+Estado de California, Estados Unidos. (\emph{API, por academic
+performance index})
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+Primero debemos describir el conjunto de dato a R, para ello utilizamos
+el el comando \textbf{svydesign}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{srs_design<-}\KeywordTok{svydesign}\NormalTok{(}\DataTypeTok{id=}\OperatorTok{~}\DecValTok{1}\NormalTok{, }\DataTypeTok{fpc=}\OperatorTok{~}\NormalTok{fpc, }\DataTypeTok{data=}\NormalTok{apisrs)}
+\NormalTok{srs_design}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Independent Sampling design
+## svydesign(id = ~1, fpc = ~fpc, data = apisrs)
+\end{verbatim}
+
+El argumento \textbf{id=\textasciitilde1} indica que se tomaron muestras
+de escuelas individuales. El argumento \textbf{fpc=\textasciitilde fpc}
+indica que la variable \textbf{fpc} en el conjunto de datos contiene el
+tamaño poblacional. La notación \textbf{\textasciitilde{}} indica que la
+variable está contenida en el conjunto de datos especificado.
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+Las funciones \textbf{svymean() y svytotal()} estiman la media y total
+poblacional, respectivamente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svytotal}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll, srs_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          total     SE
+## enroll 3621074 169520
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll, srs_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          mean     SE
+## enroll 584.61 27.368
+\end{verbatim}
+
+En este caso, el factor de corrección tiene muy poco impacto en las
+estimaciones, y podría haber sido ignorado.
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+Si el tamaño de la población no se especifica, es necesario especificar
+las probabilidades de inclusión (o probabilidades muestrales) o los
+pesos muestrales (factores de expansión o ponderadores). La variable
+\textbf{pw} en el conjunto de datos hace referencia a los pesos
+muestrales \(6194/200=30.97\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nofpc<-}\StringTok{ }\KeywordTok{svydesign}\NormalTok{(}\DataTypeTok{id=}\OperatorTok{~}\DecValTok{1}\NormalTok{, }\DataTypeTok{weights=}\OperatorTok{~}\NormalTok{pw,}\DataTypeTok{data=}\NormalTok{apisrs)}
+\NormalTok{nofpc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Independent Sampling design (with replacement)
+## svydesign(id = ~1, weights = ~pw, data = apisrs)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svytotal}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll, nofpc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          total     SE
+## enroll 3621074 172325
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll, nofpc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          mean     SE
+## enroll 584.61 27.821
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+Las funciones \textbf{svymean() y svytotal()} también pueden ser
+aplicados a variables categóricas (o \emph{factores}). En este caso, se
+creará una tabla de estimaciones poblaciones para cada categoría del
+factor. La variable \textbf{stype} indica que tipo de escuela es la
+observación: \emph{Elementary, Middle School o High School}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svytotal}\NormalTok{(}\OperatorTok{~}\NormalTok{stype, srs_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          total     SE
+## stypeE 4397.74 196.00
+## stypeH  774.25 142.85
+## stypeM 1022.01 160.33
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+Múltiples variables puede ser analizadas en la misma función
+\textbf{svymean() y svytotal()}, y contrastes puede ser obtenidos desde
+los resultados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{means<-}\StringTok{ }\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{api00}\OperatorTok{+}\NormalTok{api99, srs_design)}
+\NormalTok{means}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         mean     SE
+## api00 656.58 9.2497
+## api99 624.68 9.5003
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svycontrast}\NormalTok{(means, }\KeywordTok{c}\NormalTok{(}\DataTypeTok{api00=}\DecValTok{1}\NormalTok{, }\DataTypeTok{api99=}\OperatorTok{-}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          contrast     SE
+## contrast     31.9 2.0905
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{srs_design<-}\KeywordTok{update}\NormalTok{(srs_design, }\DataTypeTok{apidiff=}\NormalTok{api00}\OperatorTok{-}\NormalTok{api99)}
+\NormalTok{srs_design<-}\KeywordTok{update}\NormalTok{(srs_design, }\DataTypeTok{apipct=}\NormalTok{apidiff}\OperatorTok{/}\NormalTok{api99)}
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{apidiff}\OperatorTok{+}\NormalTok{apipct, srs_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              mean     SE
+## apidiff 31.900000 2.0905
+## apipct   0.056087 0.0041
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+En lo anterior, la función \textbf{svycontrast()} calcula la diferencia
+entre los medias de los años 1999 y 2000:
+
+\[(1- \text{media } 2000)+(-1 \times \text{media } 1999)\]
+
+Una notación alternativa es:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svycontrast}\NormalTok{(means, }\KeywordTok{quote}\NormalTok{(api00}\OperatorTok{-}\NormalTok{api99))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          nlcon     SE
+## contrast  31.9 2.0905
+\end{verbatim}
+
+La función \textbf{update()} crea variables adicionales en el objeto del
+diseño muestral (srs\_design). Notar que estas funciones entregan un
+nuevo objeto del diseño muestral que se asignar a alguna variable.
+
+\end{frame}
+
+\hypertarget{muestreo-estratificado}{%
+\subsection{Muestreo Estratificado}\label{muestreo-estratificado}}
+
+\begin{frame}{Muestreo Estratificado}
+
+Como ya sabemos, los \textbf{M.A.S.} no son generalmente utilizados a
+gran escala, pues otros diseños muestrales dan el mismo nivel de
+precisión a un menor costo. Para este diseño muestral, utilizaremos un
+muestreo estratificado aleatorio de 200 escuelas desde los datos
+\textbf{API}. La muestra es estratificada por tipo de escuela, con
+\(n_E= 100, n_M=50, n_H=50\) por \emph{Elementary Schools}, \emph{Middle
+Schools} y \emph{High Schools}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{strat_design<-}\KeywordTok{svydesign}\NormalTok{(}\DataTypeTok{id=}\OperatorTok{~}\DecValTok{1}\NormalTok{, }\DataTypeTok{strata=}\OperatorTok{~}\NormalTok{stype, }\DataTypeTok{fpc=}\OperatorTok{~}\NormalTok{fpc, }\DataTypeTok{data=}\NormalTok{apistrat)}
+\NormalTok{strat_design}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Stratified Independent Sampling design
+## svydesign(id = ~1, strata = ~stype, fpc = ~fpc, data = apistrat)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svytotal}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll, strat_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          total     SE
+## enroll 3687178 114642
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll, strat_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          mean     SE
+## enroll 595.28 18.509
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svytotal}\NormalTok{(}\OperatorTok{~}\NormalTok{stype, strat_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        total SE
+## stypeE  4421  0
+## stypeH   755  0
+## stypeM  1018  0
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}
+
+En lo anterior, el argumento \textbf{strata=\textasciitilde stype}
+especifica la variable estratificadora. En este caso, la variable
+\textbf{fpc} indica el tamaño poblacional \textbf{por estrato}, y no la
+población entera como su equivalente bajo un \textbf{M.A.S.}, esto es:
+\(4421\) \emph{Elementary Schools},\(1018\) \emph{Middle Schools} y
+\(755\) \emph{High Schools}.\\
+~\\
+La estratificación ha reducido los desviaciones estándar
+significativemente. La estratificación por tipo de escuela es sólo
+posible si el tipo para cada escuela en la población es conocido de
+antemano, esta información extra de la población es la fuente del
+aumento en la precisión de las estimaciones.\\
+~\\
+No existe una ganancia en el desempeño académico en sí, que tiene una
+distribución similar en todas las escuelas. En el otro extremo, la
+estimación del número de escuelas para cada tipo, calculada por
+\textbf{svytotal(\textasciitilde stype, strat\_design)}, no tiene
+dispersión, y \textbf{R} entrega desviación estándar 0, pues saber el
+tipo de cada escuela en la población implica saber el número de escuelas
+de cada tipo.
+
+\end{frame}
+
+\begin{frame}{Pesos muestrales replicados}
+\protect\hypertarget{pesos-muestrales-replicados}{}
+
+Las desviaciones estándar de la media u otras cantidades poblacionales,
+son por definición, la desviación estándar de aquellas cantidades
+poblaciones a lo largo de muchas muestras independientes de los datos.
+Como ya hemos estudiados, podemos realizar métodos de replicación o
+remuestreo para estimar las desviaciones estándar de cantidades
+poblacionales de interés, en lo que sigue mostraremos como crear los
+pesos muestrales replicados en R, para ello utilizamos la función
+\textbf{as.svrepdesign()}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boot_design<-}\KeywordTok{as.svrepdesign}\NormalTok{(strat_design, }\DataTypeTok{type=}\StringTok{"bootstrap"}\NormalTok{,}
+                            \DataTypeTok{replicates=}\DecValTok{100}\NormalTok{)}
+\NormalTok{jk_design<-}\KeywordTok{as.svrepdesign}\NormalTok{(strat_design)}
+\NormalTok{boot_design}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: as.svrepdesign.default(strat_design, type = "bootstrap", replicates = 100)
+## Survey bootstrap with 100 replicates.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jk_design}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: as.svrepdesign.default(strat_design)
+## Stratified cluster jackknife (JKn) with 200 replicates.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll,boot_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          mean     SE
+## enroll 595.28 18.468
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll,jk_design)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          mean     SE
+## enroll 595.28 18.509
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}
+
+Existen varias ventajas de los diseños con pesos muestrales replicados,
+la principal es poder determinar la estimación de varianza dentro de la
+misma especificación del diseño, además de poder calcular desviaciones
+estándar para diferencias entre distintas subpoblaciones para
+estadísticos arbitrarios. Comparación de medias y proporciones es
+posible para cualquier objeto de diseño muestral usando regresión.
+
+\end{frame}
+
+\hypertarget{otras-cantidades-poblacionales}{%
+\subsection{Otras cantidades
+poblacionales}\label{otras-cantidades-poblacionales}}
+
+\begin{frame}{Otras cantidades poblacionales}
+
+La meadiana es un ejemplo de un estadístico definido implícitamente en
+vez de explicitamente en término de medias o totales poblacionales. Las
+medianas y otras cantidades presentan algunas dificultades técnicas en
+la estimación. Incluso bajo un \emph{M.A.S} la mediana no es única bajo
+un tamaño de muestra par: cualquier número entre las observaciones de al
+medio es una válida opción.\\
+La función \textbf{svyquantile()} interpola linealmente entre las dos
+observaciones adyacentes cuando el cuantíl no es único.
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svyquantile}\NormalTok{(}\OperatorTok{~}\NormalTok{api00, strat_design, }\KeywordTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{), }\DataTypeTok{ci=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $api00
+##      quantile ci.2.5 ci.97.5       se
+## 0.25      565    535     597 15.71945
+## 0.5       668    642     694 13.18406
+## 0.75      756    726     778 13.18406
+## 
+## attr(,"hasci")
+## [1] TRUE
+## attr(,"class")
+## [1] "newsvyquantile"
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}{Estimaciones en subpoblaciones}
+\protect\hypertarget{estimaciones-en-subpoblaciones}{}
+
+Dado que cada estrato en un muestreo estratificado es un muestreo
+aleatorio simple separado, es fácil entregar estimaciones para las
+medias, totales y otros estadísticos para cada estrato. Para
+subpoblaciones que no son los estratos, la situación es algo más
+complicada. El paquete survey entrega un forma fácil de resolver este
+problema.\\
+~\\
+En los datos \textbf{API} la variable \textbf{emer} es el porcentaje de
+profesores con sólo certificación de enseñanza de emergencia, un
+indicador de la dificultad en contratar profesores en la escuela.\\
+~\\
+Alrededor de 20\% de las escuelas no tienen profesores con una
+certificación de emergencia y alrededor del mismo número tiene más de
+20\% de sus profesores con certificación de emergencia. Podemos estimar
+la media en el \emph{Academic Performance Index} y el número total de
+estudiantes en ambos subconjuntos.
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emerg_high<-}\KeywordTok{subset}\NormalTok{(strat_design, emer}\OperatorTok{>}\DecValTok{20}\NormalTok{)}
+\NormalTok{emerg_low<-}\KeywordTok{subset}\NormalTok{(strat_design, emer}\OperatorTok{==}\DecValTok{0}\NormalTok{)}
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{api00}\OperatorTok{+}\NormalTok{api99, emerg_high)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         mean     SE
+## api00 558.52 21.708
+## api99 523.99 21.584
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svymean}\NormalTok{(}\OperatorTok{~}\NormalTok{api00}\OperatorTok{+}\NormalTok{api99, emerg_low)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         mean     SE
+## api00 749.09 17.516
+## api99 720.07 19.061
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svytotal}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll,emerg_high)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         total     SE
+## enroll 762132 128674
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{svytotal}\NormalTok{(}\OperatorTok{~}\NormalTok{enroll,emerg_low)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         total    SE
+## enroll 461690 75813
+\end{verbatim}
+
+\end{frame}
+
+\hypertarget{muestreo-por-conglomerado-multietuxe1picos}{%
+\subsection{Muestreo por conglomerado /
+multietápicos}\label{muestreo-por-conglomerado-multietuxe1picos}}
+
+\begin{frame}{Muestreo por conglomerado / multietápicos}
+
+Para el caso de muestreo por conglomerado en donde tenemos varios etapas
+(o niveles), la única diferencia que debemos hacer es en el argumento
+\textbf{id}, en donde este se reemplaza por la columna que identifica la
+unidad muestral, en los distintos niveles.\\
+~\\
+Por ejemplo, consideremos un muestreo por conglomerado bietápico (o a
+dos etapas) de la población de los datos \textbf{API}, en donde se
+tienen 40 distritos escolares, luego 5 escuelas dentro de cada distrito
+(o para todas las escuelas si es que hay menos de 5)\\
+~\\
+El diseño tiene un tamaño poblacional de 757 en la primera etapa, para
+el número de distritos escolares en California. En el segundo nivel, el
+muestreo de escuelas es \textbf{dentro} de cada distrito, por lo que el
+tamaño poblacional es el número de escuelas en aquel distrito. Cada
+argumento debe ser agregado al igual que al realizar modelos en R, en
+este caso, uno para cada etapa. Al igual que en el M.A.S., los pesos
+pueden no ser agregados si estos pueden ser obtenidos a partir de los
+tamaños poblacionales.
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clus2_design<-}\KeywordTok{svydesign}\NormalTok{(}\DataTypeTok{id=}\OperatorTok{~}\NormalTok{dnum}\OperatorTok{+}\NormalTok{snum, }\DataTypeTok{fpc=}\OperatorTok{~}\NormalTok{fpc1}\OperatorTok{+}\NormalTok{fpc2, }\DataTypeTok{data=}\NormalTok{apiclus2)}
+\NormalTok{clus2_design}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2 - level Cluster Sampling design
+## With (40, 126) clusters.
+## svydesign(id = ~dnum + snum, fpc = ~fpc1 + fpc2, data = apiclus2)
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Estratos con una sola UPM}
+\protect\hypertarget{estratos-con-una-sola-upm}{}
+
+Cuando un estrato en la población tiene solo una potencial \textbf{UPM},
+el fracción de muestreo para este estrato debe ser del 100\%, sino sería
+0\%. El estrato puede no contribuir a la varianza en el primer nivel,
+pero puede contribuir a la varianza en las siguientes etapas del
+muestreo.\\
+~\\
+La mejor forma de tratar este tipo de estratos, es combinarlos con otro
+que sea lo más similar posible. En caso de que lo anterior no es posible
+o no fue realizado, el comportamiento del paquete \textbf{survey} es
+entregar un error, pero existen dos aproximaciones que pueden resolver
+la problemática. Estas son:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{survey.lonely.psu =} \StringTok{"adjust"}\NormalTok{)}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{survey.lonely.psu =} \StringTok{"average"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}
+
+La primera entrega una estimación conservadora de la varianza que usa
+los residuos de la media poblacional en vez de los de la media del
+estrato. La segunda, asigna la contribución a la varianza como el
+promedio de todos los estratos con una \textbf{UPM} adicional. La opción
+\textbf{adjust} es conservadora, y la opción \textbf{average} tiene por
+objetivo los diseños donde \textbf{UPM} unitarias son el resultado de
+observaciones sin respuesta o cuando los estratos son relativamente
+comparables.
+
+\end{frame}
+
+\hypertarget{otros-tuxf3picos-en-muestreo}{%
+\subsection{Otros tópicos en
+muestreo}\label{otros-tuxf3picos-en-muestreo}}
+
+\begin{frame}{Otros tópicos en muestreo}
+
+Con lo que hemos visto en curso, ya hemos completado los tópicos
+elementales de la teoría clásica de muestreo, pero es posible seguir
+estudiando estos tópicos en detalle. En lo que sigue, mencionaremos
+tópicos relevantes dentro del área y referimos a libros específicos.
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  Un revisión detallada de lo que hemos visto en esta sección, junto con
+  tópicos relacionados a \textbf{gráficos} en muestreo complejo usando
+  R, puede ser estudiada en: \emph{Complex survey: A Guide to Analysis
+  Using R, Thomas Lumley}.
+\item
+  Para una revisión más exhaustiva y con detalles sobre los algoritmos
+  utilizados en teoría de muestreo, implementados en el paquete
+  \emph{sampling} del CRAN, puede ser estudiada en: \emph{Sampling
+  algorithms, Yves Tillé}.
+\item
+  Para una revisión de la teoría de muestreo con miras en aplicación en
+  industria (Control de calidad), referimos a \emph{Theory of Sampling
+  and Sampling Practice, Francis F. Pitard}.
+\item
+  Para una revisión exhaustiva de los tópicos que hemos visto a lo largo
+  del curso -centrado en la teoría-, referimos a \emph{Survey Sampling,
+  Theory and Applications, Raghunath Arnab}.
+\item
+  Para la teoría de muestreo de áreas, referimos a \emph{Survey
+  Sampling, Leslie Kish}.
+\item
+  Para la teoría de muestreo aplicados a \emph{Remote Sensing} y
+  \emph{GIS (Geographic Information Systems)}, referimos a
+  \emph{Sampling Methods, Remote Sensing and GIS Multiresource Forest
+  Inventory, Kohl, Magnussen, Marchetti}.
+\end{itemize}
+
+\end{frame}
+
+
+%\section[]{}
+%\frame{\small \frametitle{Table of Contents}
+%\tableofcontents}
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{epsfig}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphics,color, epstopdf}
+\setlength{\headheight}{70pt} 
+\setlength{\headsep}{20pt} 
+\pagestyle{fancy}
+\lhead{}
+\chead{Universidad de Valparaíso \\ Facultad de Ciencias \\ Instituto de Estadística }
+\rhead{Profesor: Eloy Alvarado}
+
+\begin{document}
+\begin{center}
+\textbf{Ejercicios Test de hipótesis - Media poblacional}
+\end{center}
+\begin{enumerate}
+\item Los siguientes datos representan los tiempos de armado para 20 unidades seleccionadas
+aleatoriamente: 9.8, 10.4, 10.6, 9.6, 9.7, 9.9, 10.9, 11.1, 9,6, 10.2, 10.3, 9.6, 9.9, 11,2, 10.6, 9.8, 10.5, 10.1,
+10.5, 9.7. Supóngase que el tiempo necesario para armar una unidad es una variable aleatoria
+normal con una desviación estándar de 0.6 minutos. Con base en esta muestra, ¿existe alguna
+razón para creer, a un nivel de significancia del 0.05, que el tiempo de armado promedio es mayor de 10 minutos?
+
+\item Al director del departamento de deportes de una escuela estadounidense le preguntan si los jugadores del equipo de \textit{football} les va igual de bien académicamente que a otros estudiantes pertenecientes a otras ramas de deportes. Se sabe por estudios previos, que el promedio de notas de los estudiantes de otras ramas es de 3.1. Después de una iniciativa para ayudar a mejorar las notas de los estudiantes, el director muestrea 20 jugadores de \textit{football} y encuentra que su promedio de notas es de 3.18 con una desviación estándar de 0.54. ¿Hubo un incremento significativo? Use un nivel de significancia del $5\%$
+
+\item El \textit{CEO} de una empresa manufacturadora de baterias afirma que la duración promedio de su producto es de $300$ horas bajo condiciones normales. Un investigador selecciona aleatoriamente $20$ baterías desde la línea de producción y prueba estas baterías. Tras probarlas, el investigador obtiene que la duración media de la muestra es de $270$ horas con desviación estándar $50$ horas. ¿Se tiene evidencia suficiente que sugiera que la afirmación del \textit{CEO} sea falsa?
+
+
+\item Una tienda de textos universitarios estipula que el costo promedio de los libros para el primer año de estudios es de $\$ 52$ USD con una desviación estándar de $\$4.5$ USD. Un grupo de estudiantes de estadística piensa que el costo promedio es mayor. Para ello, los estudiantes seleccionan una muestra aleatoria de tamaño 100. Asumiendo que el promedio de su muestra aleatoria es $\$52.8$. ¿Existe evidencia estadística suficiente para pensar que el costo promedio es mayor? Utilice un nivel de significancia del $5\%$.
+
+\item Cierto químico contaminante de un río ha sido constante a lo largo de muchos años con media $\mu=34$ ppm (partes por millón) con desviación estándar $\sigma=8$ ppm. Un grupo de representantes de la empresa que descarga sus desechos en aquel río, afirma que ellos han disminuido el promedio de este componente en el río utilizando cierto tipo de filtrados. En contraste, un grupo de ecologistas realizará una prueba para comprobar si esta afirmación es correcta. Se realiza una muestra aleatoria de tamaño 50, de la que obtiene un promedio de $32.5$ ppm. Utilizando un nivel de significancia del $4\%$, ¿Existe evidencia estadística suficiente para reafirmar la afirmación de la empresa?
+\end{enumerate}
+
+
+
+
+
+\newpage
+\begin{center}
+\textbf{Respuestas}
+\end{center}
+\begin{enumerate}
+\item $Z=-2.981424 < Z_{0.95}$ por lo que no se rechaza la hipótesis nula.
+
+\item $H_0: \mu=3.1 \hspace{10pt}, H_1: \mu \neq 3.1$ y el estadístico $T=0.66 \in [-2.093,+2.093]$, por lo que no se rechaza la hipótesis nula, por lo que el promedio de notas de los jugadores de \textit{football} no es significativamente diferente que los de otras ramas.
+
+\item $H_0: \mu=300 \hspace{10pt}, H_1: \mu \neq 300$ y el estadístico $T=-2.68 \notin [-2.093,+2.093]$, por lo que rechazamos la hipótesis nula.
+
+\item $H_0: \mu=52  \hspace{10pt}, H_1: \mu > 52$ y el estadístico $Z=1.78 > 1.65$, por lo que rechazamos la hipótesis nula.
+
+\item $H_0: \mu=34  \hspace{10pt}, H_1: \mu < 34$ y el estadístico $Z=-1.33 > -1.75$, por lo que no rechazamos la hipótesis nula.
+\end{enumerate}
+\end{document}

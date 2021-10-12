@@ -1,0 +1,212 @@
+---
+title: "Ejercicios Prueba 2"
+author: "Eloy Alvarado Narváez"
+output: html_document
+---
+## Muestreo Complejo
+### Ejercicios Introductorios
+
+
+```{r echo=FALSE, warning=FALSE}
+setwd("C:/Users/Eloy/Google Drive/EST/Docencia/2020/IEST 412 - Muestreo II/Ejercicios/Prueba 2")
+set.seed(7589)
+```
+
+6. Use the data in file integerwt.dat for this exercise. The strata are constructed with
+$N_1=200,N_2=800,N_3=400,N_4=600$.
+    a. Take a stratified random sample with $n_1 = 50, n_2 =50, n_3 =20,$ and $n_4 =25$.
+    Calculate the sampling weight wi for each observation in your sample (the sample sizes were selected so that each weight is an integer).
+    b. Using the weights, estimate $\overline{y}_U, S^2$, and the 25th, 50th and 75th percentiles of the population.
+    c. Now create a "pseudo-population" by constructing a data set in which the data value $y_i$ is replicates $w_i$ times. Your pseudo-population should have $N=2000$ observation. Estimate the same quantities in (b) using the pseudo-population and usual formulas for an SRS. How do the estimates compare with the estimates from (b)?
+
+\textbf{Resolución}    
+
+
+```{r warning=FALSE}
+data<-read.csv("integerwt.csv")
+head(data)
+library(splitstackshape)
+size<-c(50,50,20,25)
+muestra<-stratified(data,"stratum", c("1"=50,"2"=50,"3"=20,"4"=25))
+muestra
+mean(data$y)
+```
+Alternativamente a usar el paquete \textit{splitstackshape}, la muestra puede ser hecha utilizando la función sample, subseccionando los datos originales. Calculamos los pesos muestrales, y las estimaciones pedidas.
+```{r warning=FALSE}
+pesos=c(200,800,400,600)/size
+pesos_agr=c(rep(pesos[1],50),rep(pesos[2],50),rep(pesos[3],20),rep(pesos[4],25))
+datos_agr=cbind(muestra,pesos_agr)
+t_total_est=sum(datos_agr$pesos_agr*datos_agr$y)
+t_total_est
+y_barra_est=t_total_est/sum(datos_agr$pesos_agr)
+y_barra_est
+sum(datos_agr$pesos_agr)
+library(Hmisc)
+wtd.quantile(datos_agr$y,weights = datos_agr$pesos_agr)
+```
+Creamos la "pseudo-población"
+```{r warning=FALSE}
+pseudo_pob=c(rep(datos_agr$y,datos_agr$pesos_agr))
+head(pseudo_pob)
+length(pseudo_pob)
+y_barra_est_mas=sum(pseudo_pob)/length(pseudo_pob)
+y_barra_est
+t_total_est_mas=length(pseudo_pob)*y_barra_est
+t_total_est_mas
+quantile(pseudo_pob,c(.25,.5,.75))
+wtd.quantile(pseudo_pob)
+```
+Si nos fijamos, las estimaciones son las mismas, por lo que podemos ver lo que hice inherentemente el uso de pesos: reconstruye la población repitiendo los datos de cada estrato. 
+
+### Trabajando con datos muestrales
+
+7. Using the data in nybight.dat, find the empirical mass function of number of species caught per trawl in 1974. Be sure to use the sampling
+weights.
+
+Obtenemos la función de distribución acumulada empírica:
+```{r warning=FALSE}
+data=read.csv("nybight.csv")
+head(data)
+ecdf_val=wtd.Ecdf(data$catchnum,weights=data$catchwt)
+plot(ecdf_val$x,ecdf_val$ecdf, type="s")
+epmf=c(ecdf_val$ecdf[1],diff(ecdf_val$ecdf))
+plot(ecdf_val$x,epmf, type="h")
+```
+
+
+
+8. Using the data in teachers.dat, use the sampling weights
+to find the empirical mass function of the number of hours worked. What is the design
+effect?
+
+Realizamos el procedimiento anterior e introducimos (en donde veremos en detalle su uso más adelante) el paquete \textit{survey}
+```{r warning=FALSE}
+data=read.csv("teachers.csv")
+head(data)
+ecdf_val=wtd.Ecdf(data$hrwork,weights=data$size)
+plot(ecdf_val$x,ecdf_val$ecdf, type="s")
+epmf=c(ecdf_val$ecdf[1],diff(ecdf_val$ecdf))
+plot(ecdf_val$x,epmf, type="h")
+library(survey)
+options(survey.lonely.psu = "adjust")
+dstrat=svydesign(id=~1,strata=~school, weights=~size, data=data)
+svymean(~hrwork, dstrat, deff=TRUE)
+#Acá un detalle en cuanto a los datos faltantes
+```
+9. Using the data in measles.dat , what is the design effect
+for percentage of parents who received a consent form? For the percentage of children
+who had previously had measles?
+
+Utilizamos el paquete survey, y las nociones de como pasar entre media y proporción, construyendo columnas convenientemente.
+
+```{r warning=FALSE}
+data=read.csv("measles.csv")
+head(data)
+summary(data$form)
+data$form=ifelse(data$form==0,0,1)
+dstrat=svydesign(id=~1,strata=~school, weights=~mi, data=data)
+svymean(~form, dstrat, deff=TRUE)
+svymean(~hadmeas, dstrat, deff=TRUE)
+#Acá un detalle en cuanto a los datos faltantes
+```
+10. Using the data in file statepop.dat, draw a histogram,
+using the weights, of the number of veterans. Howdoes this compare with a histogram
+that does not use the weights?
+
+Similar procedimiento que antes, sólo que nos concentramos en visualizar la diferencia entre el usar y no usar los pesos muestrales en el estudio.
+
+```{r warning=FALSE}
+data=read.csv("statepop.csv")
+head(data)
+hist(data$veterans)
+pob_total=255077536
+pesos=pob_total/data$popn
+pesos
+data=cbind(data,pesos)
+options(survey.lonely.psu = "adjust")
+dstrat <- svydesign(id = ~1, strata = ~state, weights = ~pesos, data = data)
+svyhist(~veterans, dstrat, freq=TRUE,main="Survey weighted", col="purple")
+```
+
+# Estimación de Varianza y tópicos relacionados
+
+The following data were used to illustrate the bootstrap by Bradley Efron, the inventor of the bootstrap. The data are LSAT scores (for entrance to law school) and GPA.
+
+ LSAT  
+ 
+    576 635   558   578   666   580   555  661 651   605   653   575   545   572   594     
+
+ GPA   
+ 
+    3.39 3.30  2.81  3.03  3.44  3.07  3.00  3.43 3.36  3.13  3.12  2.74  2.76  2.88  3.96   
+
+
+Each point is of the form $X_i=(Y_i,Z_i)$ where $Y_i=LSAT_i$ and $Z_i=GPA_i$. Find the plug-in estimate of the correlation coefficient. Estimate the standard error using (i) the influence function, (ii) the jackknife and (iii) the bootstrap.
+ 
+\textbf{Ejemplo Clase}
+```{r warning=FALSE}
+#Jackknife Method:
+library(bootstrap)
+data<-law
+# Jackknife SE estimation
+n<-nrow(data)
+corr<-function(yz,indata){cor(indata[yz,1],indata[yz,2])}
+#Correlation coefficient r
+sampcorr<-cor(data[1:n,1],data[1:n,2])
+sampcorr
+# Jackknife correlation coefficient
+jack_data<-jackknife(1:n,corr,data)
+jack_data
+# Bias - corrected jackknife estimate
+corrjack=sampcorr-jack_data$jack.bias
+corrjack
+#Bootstrap Method:
+# Bootstrap SE Estimation
+n<-nrow(data)
+B<-100
+rep.boot<-numeric(B)
+for (i in 1:B){
+  idx<-sample(1:n,size = n,replace=TRUE) 
+  d.boot<-law[idx,] 
+  rep.boot[i]<-cor(d.boot)[1,2] 
+}
+se<-sd(rep.boot)
+se
+```
+
+14. Using the file syc.dat and the final weights, estimate the proportion of youths who
+
+```{r warning=FALSE}
+data=read.csv("syc.csv")
+#ifelse(condicion, si, no)
+data$age<-ifelse(data$age <= 14, 1, 0)
+head(data)
+
+
+dstrat=svydesign(id=~1,strata=~stratum, weights=~finalwt, data=data)
+
+svymean(~age, dstrat, deff=TRUE)
+svymean(~prviol, dstrat, deff=TRUE)
+svyvar(~age, dstrat) 
+
+```
+
+17. The file ncvs2000.dat includes selected variables for a subset of data in the 2000
+NCVS. Using the data, find estimates of the following:
+```{r warning=FALSE}
+data=read.csv("ncvs2000.csv")
+head(data)
+
+#ifelse(condicion, si, no)
+data$violent<-ifelse(data$violent>= 1, 1, 0)
+head(data)
+
+dstrat=svydesign(id=~1,strata=~pstrat, weights=~pweight, data=data)
+
+svymean(~violent, dstrat, deff=TRUE)
+svymean(~numinc, dstrat, deff=TRUE)
+
+ 
+
+```
+

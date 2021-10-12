@@ -1,0 +1,2307 @@
+\documentclass[10pt,english,ignorenonframetext,,aspectratio=149]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,english]{babel}
+\fi
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Comment these out if you don't want a slide with just the
+% part/section/subsection/subsubsection title:
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \let\insertsectionnumber\relax
+  \let\sectionname\relax
+  \frame{\sectionpage}
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Modelos lineales y diseño de experimentos}
+\author{Eloy Alvarado Narváez}
+\date{}
+
+%% Here's everything I added.
+%%--------------------------
+
+\usepackage{graphicx}
+\usepackage{rotating}
+%\setbeamertemplate{caption}[numbered]
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+%\mode<presentation>
+\usepackage{wasysym}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{tcolorbox}
+
+% Get rid of navigation symbols.
+%-------------------------------
+\setbeamertemplate{navigation symbols}{}
+
+% Optional institute tags and titlegraphic.
+% Do feel free to change the titlegraphic if you don't want it as a Markdown field.
+%----------------------------------------------------------------------------------
+\institute{Instituto de Estadística \newline Universidad de Valparaíso}
+
+% \titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~/Dropbox/teaching/clemson-academic.png}} % <-- if you want to know what this looks like without it as a Markdown field. 
+% -----------------------------------------------------------------------------------------------------
+\titlegraphic{\includegraphics[width=0.3\paperwidth]{logo.png}}
+
+% Some additional title page adjustments.
+%----------------------------------------
+\setbeamertemplate{title page}[]
+%\date{}
+\setbeamerfont{subtitle}{size=\small}
+
+\setbeamercovered{transparent}
+
+% Some optional colors. Change or add as you see fit.
+%---------------------------------------------------
+\definecolor{clemsonpurple}{HTML}{000000}
+\definecolor{clemsonorange}{HTML}{F66733}
+\definecolor{uiucblue}{HTML}{003C7D}
+\definecolor{uiucorange}{HTML}{F47F24}
+
+\definecolor{yellow}{HTML}{FFCC00}
+\definecolor{blue}{HTML}{003399}
+%\definecolor{black}{HTML}{000000}
+
+% Some optional color adjustments to Beamer. Change as you see fit.
+%------------------------------------------------------------------
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{title}{fg=black,bg=white}
+\setbeamercolor{local structure}{fg=black}
+\setbeamercolor{section in toc}{fg=black,bg=white}
+% \setbeamercolor{subsection in toc}{fg=clemsonorange,bg=white}
+\setbeamercolor{footline}{fg=black!50, bg=white}
+\setbeamercolor{block title}{fg=black,bg=white}
+
+
+\let\Tiny=\tiny
+
+
+% Sections and subsections should not get their own damn slide.
+%--------------------------------------------------------------
+\AtBeginPart{}
+\AtBeginSection{}
+\AtBeginSubsection{}
+\AtBeginSubsubsection{}
+
+% Suppress some of Markdown's weird default vertical spacing.
+%------------------------------------------------------------
+\setlength{\emergencystretch}{0em}  % prevent overfull lines
+\setlength{\parskip}{0pt}
+
+
+% Allow for those simple two-tone footlines I like. 
+% Edit the colors as you see fit.
+%--------------------------------------------------
+\defbeamertemplate*{footline}{my footline}{%
+    \ifnum\insertpagenumber=1
+    \hbox{%
+        \begin{beamercolorbox}[wd=\paperwidth,ht=.8ex,dp=1ex,center]{}%
+      % empty environment to raise height
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+    \else%
+        \Tiny{%
+            \hfill%
+		\vspace*{1pt}%
+            \insertframenumber/\inserttotalframenumber \hspace*{0.1cm}%
+            \newline%
+            \color{blue}{\rule{\paperwidth}{0.4mm}}\newline%
+            \color{yellow}{\rule{\paperwidth}{.4mm}}%
+        }%
+    \fi%
+}
+
+% Various cosmetic things, though I must confess I forget what exactly these do and why I included them.
+%-------------------------------------------------------------------------------------------------------
+\setbeamercolor{structure}{fg=blue}
+\setbeamercolor{local structure}{parent=structure}
+\setbeamercolor{item projected}{parent=item,use=item,fg=black,bg=white}
+\setbeamercolor{enumerate item}{parent=item}
+
+% Adjust some item elements. More cosmetic things.
+%-------------------------------------------------
+\setbeamertemplate{itemize item}{\color{black}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{black}\scriptsize{$\bullet$}}
+\setbeamertemplate{itemize/enumerate body end}{\vspace{.6\baselineskip}} % So I'm less inclined to use \medskip and \bigskip in Markdown.
+
+% Automatically center images
+% ---------------------------
+% Note: this is for ![](image.png) images
+% Use "fig.align = "center" for R chunks
+
+\usepackage{etoolbox}
+
+\AtBeginDocument{%
+  \letcs\oig{@orig\string\includegraphics}%
+  \renewcommand<>\includegraphics[2][]{%
+    \only#3{%
+      {\centering\oig[{#1}]{#2}\par}%
+    }%
+  }%
+}
+
+% I think I've moved to xelatex now. Here's some stuff for that.
+% --------------------------------------------------------------
+% I could customize/generalize this more but the truth is it works for my circumstances.
+
+\ifxetex
+\setbeamerfont{title}{family=\fontspec{Titillium Web}}
+\setbeamerfont{frametitle}{family=\fontspec{Titillium Web}}
+\usepackage[font=small,skip=0pt]{caption}
+ \else
+ \fi
+
+% Okay, and begin the actual document...
+
+
+
+\usepackage{tikz}
+\usebackgroundtemplate{
+  \tikz[overlay,remember picture] 
+  \node[opacity=0.3, at=(current page.south west),anchor=south west,inner sep=10pt]{
+    \includegraphics[width=1.5cm]{logo}};
+}
+\begin{document}
+\frame{\titlepage}
+
+
+
+\hypertarget{regresiuxf3n-lineal-simple}{%
+\section{Regresión Lineal Simple}\label{regresiuxf3n-lineal-simple}}
+
+\hypertarget{introducciuxf3n}{%
+\subsection{Introducción}\label{introducciuxf3n}}
+
+\begin{frame}{Introducción}
+
+El análisis de regresión es una metodología estadística que utiliza la
+relación entre dos o más variables cuantitativas de modo que una
+respuesta o variable dependiente puede ser predicha desde las otras.
+
+Esta metodología es \textbf{ampliamente} utilizada en industria,
+ciencias sociales, biología, etc.
+
+\end{frame}
+
+\hypertarget{relaciuxf3n-entre-variables}{%
+\subsection{Relación entre
+variables}\label{relaciuxf3n-entre-variables}}
+
+\begin{frame}{Relación entre variables}
+
+Dentro del concepto de \textbf{relación entre dos variables}
+distinguiremos dos tipos:
+
+\begin{itemize}
+\item
+  Relación funcional
+\item
+  Relación estadística
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Relación funcional}
+\protect\hypertarget{relaciuxf3n-funcional}{}
+
+Una relación funcional entre dos variables es expresada mediante una
+fórmula matemática. Si \(X\) denota la \textbf{variable independiente} e
+\(Y\) la \textbf{variable dependiente}, una relación funcional es de la
+forma:
+
+\[Y=f(X)\] Dado un valor particular de \(X\), la función \(f\) indica el
+valor correspondiente de \(Y\).
+
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo}{}
+
+Consideremos la relación entre ventas en dólares (\(Y\)) de un producto
+vendido a un precio fijo y el número de unidades vendidad (\(X\)). Si el
+precio por unidad es de \(2\) dólares por unidad, la relación es
+expresada por la ecuación:
+
+\[Y=2X\]
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\centering
+\includegraphics[width=2.60417in,height=\textheight]{../resources/functional_relation.png}
+\caption{Relación Funcional}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Relación Estadística}
+\protect\hypertarget{relaciuxf3n-estaduxedstica}{}
+
+Una relación estadística, en contraste a la relación funcional, no es
+\emph{perfecta}. En general, las observaciones para este tipo de
+relación no caen directamente sobre la curva.
+
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-1}{}
+
+Evaluaciones de desempeño de 10 empleados fueron obtenidos a final del
+primer y segundo semestre. Estos datos se ven graficados en la siguiente
+figura. Las evaluaciones a final del segundo semestre se considera como
+la \emph{variable dependiente o respuesta} \(Y\), y las evaluaciones a
+final del primer semestre como la variable \emph{independiente,
+explicativa o predictor} \(X\).
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\centering
+\includegraphics[width=2.60417in,height=\textheight]{../resources/statistical_relation.png}
+\caption{Relación Funcional}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+Como se ve en la figura, mediante el gráfico de dispersión, la relación
+estadística no es perfecta. En terminología estadística, cada punto
+representa un ensayo, caso u observación.
+
+La línea en el gráfico, indica la tendencia general por la cual las
+evaluaciones de fin de año varían con el nivel de evaluación de
+desempeño de mitad de año.
+
+Notamos que los puntos no caen directamente sobre la línea de la
+relación estadística. Este tipo de relaciones puede ser altamente
+útiles, a pesar de que no tienen la misma exactitud de una función
+relacional.
+
+\end{frame}
+
+\hypertarget{modelos-de-regresiuxf3n-y-sus-usos.}{%
+\subsection{Modelos de regresión y sus
+usos.}\label{modelos-de-regresiuxf3n-y-sus-usos.}}
+
+\begin{frame}{Modelos de regresión y sus usos.}
+
+El análisis de regresión fue desarrollado por Sir Francis Galton al
+final del siglo XIX. Galton estudió la relación entre la estatura de los
+padres y sus hijos, en donde notó que la altura de los hijos de padres
+altos y bajos parecieran \emph{revertirse} o \emph{regresar} a la media
+del grupo. El consideró esta tendencia una regresión a la
+``mediocridad''. Galton desarrolló una descripción matemática de esta
+tendencia de regresión, siendo el precursos de lo que consideramos
+modelos de regresión.
+
+El termino \emph{regresión} persiste hasta el día de hoy para describir
+relaciones estadísticas entre variables.
+
+\end{frame}
+
+\begin{frame}{Conceptos básicos}
+\protect\hypertarget{conceptos-buxe1sicos}{}
+
+Un modelo de regresión es la manera formal de expresar dos ingredientes
+esenciales de una relación estadística:
+
+\begin{itemize}
+\item
+  La tendencia de la variable respuesta \(Y\) a variar junto a la
+  variable predictora de manera sistemática
+\item
+  Una dispersión de puntos alrededor de la curva de una relación
+  estadística.
+\end{itemize}
+
+Estas dos características están incorporadas en un modelo de regresión
+al postular que:
+
+\begin{itemize}
+\item
+  Hay una distribución de probabilidad de \(Y\) para cada nivel de
+  \(X\).
+\item
+  Las medias de estas distribuciones de probabilidad varían de manera
+  sistemática con \(X\).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Los modelos de regresión pueden diferir en la forma de la función de
+regresión (lineal, curvilinea), en la forma de la distribución de
+probabilidad de \(Y\) (simétrica, oblicuidad) y de otras formas.
+
+Cualquiera sea la variación, el concepto de una distribución de
+probabilidad de \(Y\) para un \(X\) dado es la contraparte formal a la
+dispersión empírica de una relación estadística.
+
+De manera similiar, la curva de regresión que describe la relación entre
+las medias de las distribuciones de probabilidades de \(Y\) en el nivel
+de \(X\), es la contraparte de la tendencia general de \(Y\) que varía
+con \(X\) de manera sistemática en una relación estadística.
+
+\end{frame}
+
+\begin{frame}{Modelos de regresión con más de una variable predictora}
+\protect\hypertarget{modelos-de-regresiuxf3n-con-muxe1s-de-una-variable-predictora}{}
+
+Los modelos de regresión pueden contener \textbf{más de una variable
+predictora o independiente}. Por ejemplo:
+
+\begin{itemize}
+\item
+  En un estudio de eficiencia de 67 oficinas de una empresa financiera,
+  la variable respuesta fue el costo operacional para el año que
+  terminó. Y se consideró 4 variable predictoras: tamaño medio de los
+  préstamos otorgados, número de préstamos otorgados, número total de
+  aplicaciones a nuevos préstamos y un índice de los salarios de la
+  oficina.
+\item
+  En un estudio médico de niños de baja estatura, se consideró la
+  variable respuesta como el nivel máximo de hormonas de crecimiento en
+  plasma. Se utilizó 14 variables predictoras, en donde se incluían:
+  edad, género, altura, peso y 10 medidas de pliegues cutáneos.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Construcción de un modelo de regresión}
+\protect\hypertarget{construcciuxf3n-de-un-modelo-de-regresiuxf3n}{}
+
+\textbf{Selección de las variables predictoras}
+
+Debido a que en la práctica debemos trabajar con proporciones
+manejables, cuando construimos modelos, sólo un \textbf{número limitado
+de variables predictoras pueden (o deberían) ser incluidas en un modelo
+de regresión} para alguna situación de interés.
+
+Un problema central en estudios exploratorios es la selección de las
+variables a incluir en el modelo, intentando considerar un conjunto de
+variables que sean \emph{``buenas''} en algún sentido para el propósito
+del análisis.
+
+\begin{itemize}
+\item
+  Una consideración importante al realizar esta decisión, es preguntarse
+  en que grado la incorporación de estas variables contribuye a reducir
+  la variabilidad de \(Y\) tras usar el resto de predictores en el
+  modelo: \textbf{¿Al incorporar un nuevo regresor al modelo, me reduce
+  la variabilidad de \(Y\)?}
+\item
+  Una segunda consideración es la importancia de la variable como agente
+  causal en el proceso bajo análisis. Más adelante en el curso, veremos
+  una metodología para escoger que predictores debieran ser incluidos.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Forma funcional de la relación de regresión}
+
+La elección de la forma funcional de la relación de regresión está
+sujeta a la elección de las variable predictoras. A veces, la teoría nos
+indica una forma apropiada de la forma funcional.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ejemplos:} Relaciones lineales, cuadráticas, polinómicas o
+  logísticas.
+\end{itemize}
+
+\textbf{Alcance del modelo}
+
+Al formular un modelo de regresión, usualmente debemos restringir la
+cobertura de este a algún intervalo o región de valores de los
+predictores. El alcance del modelo está determinado por el diseño de la
+investigación o por el rango de los datos utilizados.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ejemplo:} Una compañía estudia el efecto del precio en el
+  volumen de ventas a lo largo de 6 niveles de precios, que van desde
+  \(4,95\) a \(6,95\) USD. Así, el alcance del modelo está limitado al
+  nivelos de los precios utilizados para generar el modelo, esto es,
+  valores desde \(5\) a \(7\) USD aproximadamente.
+\end{itemize}
+
+La forma de la función de regresión fuera de estos rangos, tiene poca
+utilidad debido a que no se tiene evidencia de valores en aquellos
+rangos.
+
+\end{frame}
+
+\begin{frame}{Usos del análisis de regresión}
+\protect\hypertarget{usos-del-anuxe1lisis-de-regresiuxf3n}{}
+
+El análisis de regresión tiene 3 grandes propósitos:
+
+\begin{itemize}
+\tightlist
+\item
+  Describir
+\item
+  Controlar
+\item
+  Predecir
+\end{itemize}
+
+Estos propósitos del análisis de regresión frecuentemente se sobreponen
+en la práctica.
+
+\end{frame}
+
+\begin{frame}{Regresión y causalidad}
+\protect\hypertarget{regresiuxf3n-y-causalidad}{}
+
+La existencia de una relación estadística entre la variable respuesta
+\(Y\) y la variable explicativa o predictora \(X\) \textbf{no implica}
+en ningún sentido que \(Y\) depende \textbf{causalmente} de \(X\). Sin
+importar que tan fuerte sea esta relación estadística entre \(X\) e
+\(Y\), ningún patrón causa-efecto es necesariamente implicado por un
+modelo de regresión.
+
+Incluso cuando una fuerte relación estadística refleja condiciones
+causales, esta última puede actuar en la dirección opuesta, desde \(Y\)
+a \(X\).
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ejemplo:} Calibración de un termómetro usando regresión.
+\end{itemize}
+
+Por lo que debemos tener especial cuidado en la obtención de
+conclusiones sobre la relación causal desde un análisis de regresión.
+\textbf{El análisis de regresión por si mismo no provee información
+sobre patrones de causalidad y estos deben ser complementados con otros
+análisis para obtener conclusiones sobre la relación causal}.
+
+\end{frame}
+
+\hypertarget{regresiuxf3n-lineal-simple-con-distribuciuxf3n-de-errores-sin-especificar}{%
+\subsection{Regresión lineal simple con distribución de errores sin
+especificar}\label{regresiuxf3n-lineal-simple-con-distribuciuxf3n-de-errores-sin-especificar}}
+
+\begin{frame}{Definición formal}
+\protect\hypertarget{definiciuxf3n-formal}{}
+
+Al inicio del curso, consideramos un modelo de regresión básico donde
+sólo hay una variable predictora y la función de regresión es lineal.
+Este modelo puede ser definido como:
+
+\[Y_i=\beta_0+\beta_1 X_i + \varepsilon_i\] donde,
+
+\begin{itemize}
+\tightlist
+\item
+  \(Y_i\) es el valor de la varible respuesta en la i-ésima observación
+\item
+  \(\beta_0\) y \(\beta_1\) son \textbf{parámetros}
+\item
+  \(X_i\) es una constante conocida: el valor de la variable predictora
+  en la i-ésima observación.
+\item
+  \(\varepsilon_i\) es un término de error aleatorio con meadia
+  \(\mathbb{E}(\varepsilon_i)=0\) y varianza
+  \(\mathbb{V}(\varepsilon_i)=\sigma^2\)
+\item
+  \(\varepsilon_i\) y \(\varepsilon_j\) no están correlacionados, por lo
+  que su covarianza es cero.
+\end{itemize}
+
+Esto modelo se le conoce como \textbf{modelo de regresión lineal
+simple}. \textbf{Lineal}, debido a que es lineal en los parámetros y en
+las variables predictoras. \textbf{Simple}, debido a que sólo incorpora
+una variable predictora.
+
+\end{frame}
+
+\begin{frame}{Características importantes del modelo}
+\protect\hypertarget{caracteruxedsticas-importantes-del-modelo}{}
+
+\begin{itemize}
+\tightlist
+\item
+  La respuesta \(Y_i\) en la i-ésimo \textbf{ensayo} es la suma de dos
+  componentes:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    El término constante \(\beta_0+\beta_1 X_i\) y,
+  \item
+    El término aleatorio \(\varepsilon_i\). Por lo que \(Y_i\) es una
+    \textbf{variable aleatoria}
+  \end{itemize}
+\item
+  Debido a que \(\mathbb{E}(\varepsilon_i)=0\), sigue que:
+\end{itemize}
+
+\[\mathbb{E}(Y_i)=\mathbb{E}(\beta_0+\beta_1 X_i + \varepsilon_i)=\beta_0+\beta_1 X_i + \mathbb{E}(\varepsilon_i)= \beta_0+\beta_1 X_i\]
+
+Así, la respuesta \(Y_i\), cuando el nivel de \(X\) en el i-ésimo ensayo
+es \(X_i\), viene desde una distribución de probabilidad cuya media está
+dada por:
+
+\[\mathbb{E}(Y_i)=\beta_0+\beta_1 X_i\]
+
+Por lo tanto, sabemos que la función de regresión para este modelo es:
+
+\[\mathbb{E}(Y)=\beta_0+\beta_1 X\]
+
+Debido a que la función de regresión relaciona la media de la
+distribución de probabilidad de \(Y\) para un \(X\) dado para el nivel
+de \(X\).
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  La respuesta \(Y_i\) en el i-ésimo ensayo excede o queda bajo el valor
+  de la función de regresión por la cantidad del término
+  \(\varepsilon_i\).
+\item
+  Los errores \(\varepsilon_i\) se asumen que tienen varianza constante
+  \(\sigma^2\), por lo que la variable respuesta \(Y_i\) tiene la misma
+  varianza constante.
+\end{itemize}
+
+Así, el modelo de regresión lineal simple asume que la distribución de
+probabilidad de \(Y\) tiene la misma varianza \(\sigma^2\),
+independiente del nivel de la variable predictora \(X\).
+
+\begin{itemize}
+\tightlist
+\item
+  Los errores se asumen no correlacionados. Debido a que los términos
+  \(\varepsilon_i\) y \(\varepsilon_j\) no están correlacionados,
+  también no lo estáran las respuestas \(Y_i\) e \(Y_j\).
+\end{itemize}
+
+\textbf{En resumen, el modelo de regresión lineal simple implica que la
+respuesta \(Y_i\) viene desde una distribución de probabilidad cuyas
+medias son \(\mathbb{E}(Y_i)=\beta_0+\beta_1 X_i\) y cuyas varianzas son
+\(\sigma^2\), para todos los niveles de \(X\). Además, dos respuestas
+distintas \(Y_i\) e \(Y_j\) no están correlacionadas.}
+
+\end{frame}
+
+\begin{frame}{Interpretación de los parámetros de regresión}
+\protect\hypertarget{interpretaciuxf3n-de-los-paruxe1metros-de-regresiuxf3n}{}
+
+Los parámetros de regresión \(\beta_0\) y \(\beta_1\) en un modelo de
+regresión lineal simple son llamados \textbf{coeficientes de regresión},
+siendo \(\beta_1\) la pendiente y \(\beta_0\) el \textbf{intercepto}. El
+primero indica el cambio en la media de la distribución de probabilidad
+de \(Y\) por el incremento unitario en \(X\).
+
+Cuando el alcance del modelo incluye \(X=0\), \(\beta_0\) entrega la
+media de la distribución de probabilidad de \(Y\) en \(X=0\).
+\textbf{Cuando el alcance del modelo no incluye \(X=0\),\(\beta_0\) no
+tienen ninguna interpretación particular como termino separado en la
+regresión.}
+
+\end{frame}
+
+\hypertarget{datos-para-una-regresiuxf3n-lineal}{%
+\subsection{Datos para una regresión
+lineal}\label{datos-para-una-regresiuxf3n-lineal}}
+
+\begin{frame}{Datos para una regresión lineal}
+
+Usualmente, no sabemos los valores de los parámetros de regresión
+\(\beta_0\) y \(\beta_1\) en el modelo de regresión lineal simple, y
+debemos estimarlos desde un conjunto de datos relevantes para el
+estudio. De hecho, frecuentemente no se tiene información adecuada
+\emph{apriori} de los predictores a incorporar en el modelo o de la
+forma funcional de la relación de regresión, y debemos basarnos en un
+conjunto de datos para desarrollar un modelo de regresión adecuado.
+
+El conjunto de datos que usamos en un análisis de regresión puede ser
+obtenido a partir de estudio no experimentales o experimentales:
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Datos de observación (o datos observados)}
+\end{itemize}
+
+Datos de este tipo son obtenido a partir de estudio no experimentales.
+Este tipo de estudios no controla la(s) variable(s) predictoras de
+interés.
+
+Los análisis de regresión son frecuentemente basados en datos de
+observación, debido a que en general es menos viable obtener datos desde
+una experimento controlado.
+
+Una de las limitaciones de este tipo de datos, es que \textbf{usualmente
+no proveen información adecuada sobre la relación causa-efecto}. Cuando
+se utiliza un análisis de regresión con propósito de describir basándose
+en datos de observación, se debe investigar si existe otras variables
+predictoras que puedan explicar más directamente la relación
+causa-efecto.
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Datos Experimentales}
+\end{itemize}
+
+Frecuentemente, es posible realizar experimentos controlados para
+obtener datos desde los cuales los parámetros de regresión pueden ser
+estimados.
+
+Cuando existe un control sobre la variable explicativa (predictora)
+mediante asignaciones aleatorias, los datos obtenidos proveen de una
+mayor información sobre la relación causa-efecto que la de datos de
+observación. Esto debido a que \textbf{la aleatorización tiende a
+balancear los efectos de otras variables que puedan afectar la variable
+respuesta}
+
+\end{frame}
+
+\hypertarget{procedimiento-general-de-un-anuxe1lisis-de-regresiuxf3n}{%
+\subsection{Procedimiento general de un análisis de
+regresión}\label{procedimiento-general-de-un-anuxe1lisis-de-regresiuxf3n}}
+
+\begin{frame}{Procedimiento general de un análisis de regresión}
+
+\begin{figure}
+\centering
+\includegraphics[width=5in,height=\textheight]{../resources/regression_steps.png}
+\caption{Pasos de un análisis de regresión}
+\end{figure}
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-la-funciuxf3n-de-regresiuxf3n}{%
+\subsection{Estimación de la función de
+regresión}\label{estimaciuxf3n-de-la-funciuxf3n-de-regresiuxf3n}}
+
+\begin{frame}{Estimación de la función de regresión}
+
+Los datos experimentakes o de observación que se usarán para estimar los
+parámetros de la función de regresión consisten en observaciones de la
+variable explicativa o predictora \(X\) y su correspondiente observación
+de la variables respuesta \(Y\). Para cada ensayo, existe una
+observación \(X\) y una observación \(Y\). Denotamos esto como el par
+\((X,Y)\) para el primer ensayo como \((X_1,Y_1)\), y de manera análoga
+para los siguientes ensayos. Siendo el término general, para el i-ésimo
+ensayo \((X_i,Y_i)\) donde \(i=1,\dots,n\)
+
+\end{frame}
+
+\begin{frame}{Método de mínimos cuadrados}
+\protect\hypertarget{muxe9todo-de-muxednimos-cuadrados}{}
+
+Para encontrar un \emph{``buen''} estimador de los parámetros de la
+regresión \(\beta_0\) y \(\beta_1\), debemos emplear el \textbf{método
+de mínimos cuadrados}. Para las observaciones \((X_i,Y_i)\) para cada
+caso, el método de mínimos cuadrados considera la desviación de \(Y_i\)
+con respecto a su valor esperado:
+
+\[Y_i-(\beta_0+\beta_1 X_i)\]
+
+En particular, este método requiere que consideremos la suma de las
+\(n\) desviaciones al cuadrado. Este criterio es denotado por \(Q\):
+
+\[Q=\sum_{i=1}^{n} (Y_i-\beta_0-\beta_1X_i)^2\]
+
+De acuerdo al método de mínimos cuadrados, el estimador de \(\beta_0\) y
+\(\beta_1\) son los valores \(b_0\) y \(b_1\), respectivamente, que
+minimizan el criterio \(Q\) para una conjunto de observaciones dado
+\((X_1,Y_2),(X_2,Y_2),\dots,(X_n,Y_n)\).
+
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-2}{}
+
+La siguiente figura presenta el diagrama de dispersión de un estudio y
+la recta de regresión que resulta al usar la respuesta media \((9)\)
+como el predictor e ignoramos \(X\).
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth,height=\textheight]{../resources/regression_1.png}
+\caption{Criterio Q para un ajuste de regresión}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+Notamos que la recta de regresión usas las estimaciones \(b_0=9\) y
+\(b_1=0\), y que \(\hat{Y}\) denota la ordenada de la estimación de la
+recta. Claramente, esta regresión no es un buen \textbf{ajuste}, debido
+a las grandes desviaciones o diferencias de dos observaciones de la
+ordenada \(\hat{Y}\) correspondiente de la recta de regresión. La
+diferencia entre para la primera observación \((X_1,Y_1)=(20,5)\), es:
+
+\[Y_1-(b_0+b_1 X)=5-(9+0*20)=5-9=-4\]
+
+Siendo así la suma de estas diferencias para los tres casos:
+
+\[Q=(5-9)^2+(12-9)^2+(10-9)^2=26\]
+
+\end{frame}
+
+\begin{frame}
+
+En la siguiente figura, presentamos los mismo datos pero con otra recta
+de regresión:
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth,height=\textheight]{../resources/regression_2.png}
+\caption{Criterio Q para un ajuste de regresión}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+El ajuste de regresión en este caso es claramente mejor. La diferencia
+vertical para la primera observación ahora es:
+
+\[Y_1-(b_0+b_1 X)=5-(2.81+0.177*20)=5-6.35=-1.35\] y el criterio \(Q\)
+se reduce a:
+
+\[Q=(5-6.35)^2+(12-12.55)^2+(10-8.12)^2=5.7\]
+
+Por lo que un mejor ajuste de la recta de regresión corresponderá a un
+menor valor de \(Q\).
+
+\textbf{El objetivo de método de mínimos cuadrados es encontrar
+estimaciones \(b_0\) y \(b_1\) para \(\beta_0\) y \(\beta_1\),
+respectivamente, para el cual el \(Q\) es mínimo.}
+
+\end{frame}
+
+\begin{frame}{Estimadores de mínimos cuadrados}
+\protect\hypertarget{estimadores-de-muxednimos-cuadrados}{}
+
+Los estimadores \(b_0\) y \(b_1\) que satisfacen el criterio de mínimos
+cuadrados puede ser encontrado de dos maneras:
+
+\begin{enumerate}
+\item
+  Procedimiento número de búsqueda para evaluar sistemáticamente el
+  criterio \(Q\) para diferentes \(b_0\) y \(b_1\) hasta que se
+  encuentran los valores que minimizan \(Q\).
+\item
+  Procedimientos analíticos para encontrar los valores de \(b_0\) y
+  \(b_1\) que minimizan \(Q\). Este enfoque es viable sólo cuando el
+  modelo de regresión no es matemáticamente complejo.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+
+Usando el enfoque analítico, se puede mostrar que en el modelo de
+regresión lineal simple, los valores \(b_0\) y \(b_1\) que minimizan
+\(Q\) para algún conjunto de observaciones, están dados por las
+siguientes ecuaciones:
+
+\[\sum Y_i=n b_0+b_1 \sum X_i\] y,
+\[\sum X_i Y_i= b_0 \sum X_i + b_1 \sum X_{i}^{2}\] Estas ecuaciones
+reciben el nombre de \textbf{ecuaciones normales}; \(b_0\) y \(b_1\) son
+llamadas estimadores puntuales de \(\beta_0\) y \(\beta_1\),
+respectivamente.
+
+\end{frame}
+
+\begin{frame}
+
+Si resolvemos ambas ecuaciones simultáneamente para \(b_0\) y \(b_1\),
+se obtiene:
+
+\[b_1=\dfrac{\sum (X_i-\overline{X})(Y_i - \overline{Y})}{\sum (X_i-\overline{X})^2}\]
+
+y,
+
+\[b_0=\dfrac{1}{n}\left( \sum Y_i - b_1 \sum X_i\right)=\overline{Y}-b_1 \overline{X}\]
+
+donde \(\overline{X}\) y \(\overline{Y}\) son las medias de las \(X_i\)
+e \(Y_i\) observaciones, respectivamente.
+
+\end{frame}
+
+\begin{frame}{Comentario}
+\protect\hypertarget{comentario}{}
+
+\textbf{¿Cómo se obtienen las ecuaciones normales?}
+
+Las ecuaciones normales pueden ser obtenidas usando cálculo. Para un
+conjunto de observaciones \((X_i,Y_i)\), la cantidad \(Q\) es una
+función de \(\beta_0\) y \(\beta_1\). Los valores de \(\beta_0\) y
+\(\beta_1\) que minimizan \(Q\) pueden ser derivados al diferenciar:
+
+\[Q=\sum_{i=1}^{n} (Y_i-\beta_0-\beta_1X_i)^2\]
+
+Del cual se obtiene:
+
+\[\dfrac{\partial Q}{\partial \beta_{0}} =-2 \sum\left(Y_{i}-\beta_{0}-\beta_{1} X_{i}\right)\]
+y,
+\[\dfrac{\partial Q}{\partial \beta_{1}} =-2 \sum X_{i}\left(Y_{i}-\beta_{0}-\beta_{1} X_{i}\right)\]
+
+\end{frame}
+
+\begin{frame}
+
+Luego, igualamos a cero, usando \(b_0\) y \(b_1\) para denotar los
+valores particulares de \(\beta_0\) y \(\beta_1\) que minimizan \(Q\):
+
+\[-2 \sum\left(Y_{i}-\beta_{0}-\beta_{1} X_{i}\right) = 0\] y,
+
+\[-2 \sum X_{i}\left(Y_{i}-\beta_{0}-\beta_{1} X_{i}\right) = 0\]
+Simplificando y expandiendo, se obtiene:
+
+\[\sum Y_{i}-n b_{0}-b_{1} \sum X_{i}=0\] y,
+\[\sum X_{i} Y_{i}-b_{0} \sum X_{i}-b_{1} \sum X_{i}^{2}=0\] De estas
+últimas, se obtiene las ecuaciones normales tras reordenar términos.
+**Al realizar la segunda derivada, se muestra que el mínimo se obtiene
+utilizando los estimadores de mínimos cuadrados \(b_0\) y \(b_1\).
+
+\end{frame}
+
+\begin{frame}{Propiedades de los estimadores de mínimos cuadrados}
+\protect\hypertarget{propiedades-de-los-estimadores-de-muxednimos-cuadrados}{}
+
+Un teorema importante, llamado \textbf{Teorema de Gauss-Markov}
+establece:
+
+\begin{quote}
+Bajo las condiciones de un modelo de regresión lineal simple, los
+estimadores de mínimos cuadrados \(b_0\) y \(b_1\) son estimadores
+insesgados y tienen mínima varianza entre los estimadores insesgados
+lineales.
+\end{quote}
+
+Este teorema, que demostraremos más adelante, primero establece que
+\(b_0\) y \(b_1\) son estimadores insesgados, por lo que:
+
+\[\mathbb{E}(b_0)=\beta_0 \hspace{40pt} \mathbb{E}(b_1)=\beta_1\]
+
+Por lo que ninguno de estos estimadores tiende a sobreestimar o
+subestimar sistemáticamente.
+
+\end{frame}
+
+\begin{frame}
+
+Segundo, el teorema establece que los estimadores \(b_0\) y \(b_1\) son
+más precisos (esto es, su distribución muestral es menos variable) que
+cualquier otro estimador perteneciente a la clase de estimadores
+insesgados que son funciones lineales de las observaciones
+\(Y_1,\dots,Y_n\).
+
+Los estimadores \(b_0\) y \(b_1\) son funciones lineal de \(Y_i\).
+
+\end{frame}
+
+\begin{frame}
+
+Consideremos, por ejemplo, \(b_1\). Por lo que se tiene:
+
+\[b_1=\dfrac{\sum (X_i-\overline{X})(Y_i - \overline{Y})}{\sum (X_i-\overline{X})^2}\]
+
+Más adelante veremos que esta expresión es igual a:
+
+\[b_1=\dfrac{\sum (X_i-\overline{X})Y_i}{\sum (X_i-\overline{X})^2}=\sum k_i Y_i\]
+donde
+
+\[k_i=\dfrac{X_i-\overline{X}}{\sum (X_i - \overline{X})^2}\]
+
+Como los \(k_i\) son constantes conocidas, \(b_i\) es una combinación
+lineal de los \(Y_i\), por lo que es un estimador lineal.
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-puntual-de-la-respuesta-media}{%
+\subsection{Estimación puntual de la respuesta
+media}\label{estimaciuxf3n-puntual-de-la-respuesta-media}}
+
+\begin{frame}{Estimación puntual de la respuesta media}
+
+\textbf{Función de regresión estimada}
+
+Dado los parámetros de regresión \(b_0\) y \(b_1\) estimados a partir de
+una muestra, se tiene que:
+
+\[\mathbb{E}(Y)=\beta_0 + \beta_1 X\]
+
+Estimamos la función de regresión como sigue:
+
+\[\widehat{Y}=b_0 + b_1 X\]
+
+donde \(\widehat{Y}\) es el valor de la función de regresión estimada en
+el nivel \(X\) de la variable predictora.
+
+Llamamos un \textbf{valor} de la variable respuesta una
+\textbf{respuesta} y \(\mathbb{E}(Y)\) la respuesta media. Así, la
+\textbf{respuesta media} representa la media de la distribución de
+probabilidad de \(Y\) correspondiente al nivel \(X\) de la variable
+predictora.
+
+Por lo que, \(\widehat{Y}\) es una estimación puntual de la respuesta
+media cuando el nivel de la variable predictora es \(X\).
+
+\emph{Es posible mostrar que \(\widehat{Y}\) es una estimador insesgado
+de \(\mathbb{E}(Y)\), con varianza mínima en la clase de estimadores
+insesgados lineales}
+
+\end{frame}
+
+\hypertarget{propiedades-del-ajuste-de-regresiuxf3n}{%
+\subsection{Propiedades del ajuste de
+regresión}\label{propiedades-del-ajuste-de-regresiuxf3n}}
+
+\begin{frame}{Propiedades del ajuste de regresión}
+
+El ajuste de regresión llegado al usar el método de mínimos cuadrados
+tiene un número de propiedades que valen la pena mencionar. Estas
+propiedades de los estimadores de mínimos cuadrados de una función de
+regresión \textbf{no aplican para todos los modelos de regresión}.
+
+\begin{enumerate}
+\tightlist
+\item
+  La suma de los residuos es cero:
+\end{enumerate}
+
+\[\sum_{i=1}^{n} e_i = 0\]
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  La suma cuadrado de los residuos (\(\sum e_{i}^{2}\)), es un mínimo.
+  Esto debido a que el criterio \(Q\) (que fue minimizado) es igual a
+  \(\sum e_{i}^{2}\) cuando los estimadores de mínimos cuadrados \(b_0\)
+  y \(b_1\) son usados para estimar \(\beta_0\) y \(\beta_1\).
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  La suma de los valores observados \(Y_i\) es igual a la suma de los
+  valores ajustados \(\widehat{Y}_i\):
+\end{enumerate}
+
+\[\sum_{i=1}^{n} Y_i = \sum_{i=1}^{n} \widehat{Y}_i\]
+
+De esto último, se desprende que la media de los valores ajustados
+\(\widehat{Y}_i\) es la misma que la media de los valores observados
+\(Y_i\).
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  La suma de los residuos ponderados es cero cuando el i-ésimo residuo
+  es ponderado con el nivel de la variable predictora i-ésima, esto es:
+\end{enumerate}
+
+\[\sum_{i=1}^{n} X_i e_i = 0\]
+
+\end{frame}
+
+\begin{frame}
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Una consecuencia de las propiedades 1 y 4, es que la suma de los pesos
+  ponderados es cero cuando el i-ésimo residuo es ponderado con el valor
+  ajustado de la i-ésima variable respuesta, esto es:
+\end{enumerate}
+
+\[\sum_{i=1}^{n} \widehat{Y}_i e_i = 0\]
+
+\begin{enumerate}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  La recta de regresión siempre pasa por el punto
+  \((\overline{X},\overline{Y})\).
+\end{enumerate}
+
+\end{frame}
+
+\hypertarget{inferencia-sobre-los-paruxe1metros-de-regresiuxf3n}{%
+\subsection{Inferencia sobre los parámetros de
+regresión}\label{inferencia-sobre-los-paruxe1metros-de-regresiuxf3n}}
+
+\begin{frame}{Inferencia sobre los parámetros de regresión}
+
+En lo que sigue, realizaremos inferencia sobre los parámetros del modelo
+de regresión:
+
+\[Y_i=\beta_0+\beta_1 X_i + \varepsilon_i\]
+
+En donde \(\beta_0\) y \(\beta_1\) son parámetros, \(X_i\) son
+constantes conocidas y \(\varepsilon_i\) son independientes
+\(N(0,\sigma^2)\). Esto último, es un supuesto adicional al establecido
+en la definición formal que hemos visto.
+
+\end{frame}
+
+\hypertarget{inferencia-sobre-la-pendiente}{%
+\subsection{Inferencia sobre la
+pendiente}\label{inferencia-sobre-la-pendiente}}
+
+\begin{frame}{Inferencia sobre la pendiente}
+
+Frecuentemente es de particular interés la inferencia sobre el parámetro
+de la pendiente de regresión, pues nos entrega una noción de cambio
+medio por unidad en la variable regresora. Un tipo de test relevante en
+este contexto es:
+
+\[H_0: \beta_1=0 \hspace{20pt} H_1: \beta_1\ne 0\]
+
+Este test de hipótesis es relevante debido a que cuando \(\beta_1=0\),
+no existe una asociación lineal entre las variables \(X\) e \(Y\).
+
+En el caso de que el término de error en el modelo de regresión sea
+normal, la condición de que \(\beta_1=0\) implica aún más cosas. Debido
+a que en este modelo todas las distribución de probabilidades de \(Y\)
+son normales con varianza constante, y que las medias son iguales cuando
+\(\beta_1=0\), sigue que las distribuciones de probabilidad de \(Y\) son
+\textbf{idénticas} cuando \(\beta_1=0\).
+
+\textbf{Así, \(\beta_1=0\) para el modelo de regresión lineal normal
+implica que no sólo no existe relación lineal entre \(X\) e \(Y\), pero
+además no existe ningún tipo de relación entre \(Y\) y \(X\), dado que
+las distribuciones de probabilidad de \(Y\) son idénticas para todos los
+niveles de \(X\).}
+
+\end{frame}
+
+\begin{frame}{Distribución muestral de \(b_1\)}
+\protect\hypertarget{distribuciuxf3n-muestral-de-b_1}{}
+
+Por lo visto antes, sabemos que el estimador puntual de \(b_1\) está
+dado por:
+
+\[b_1=\dfrac{\sum (X_i-\overline{X})(Y_i - \overline{Y})}{\sum (X_i-\overline{X})^2}\]
+La distribución muestral de \(b_1\) hace referencia a los diferentes
+valores de \(b_1\) que serían obtenidos con un muestreo repetido cuando
+los niveles de la variable predictora \(X\) se mantiene constante entre
+las diferentes muestras. Para el modelo de regresión normal, la
+distribución muestral de \(b_1\) es normal con media y varianza dada
+por:
+
+\[\mathbb{E}(b_1)=\beta_1\] y,
+\[\mathbb{V}(b_1)=\dfrac{\sigma^2}{\sum (X_i-\overline{X})^2}\]
+
+Para mostrar esto, debemos identificar que \(b_1\) es una combinación
+lineal de las observaciones \(Y_i\).
+
+\end{frame}
+
+\begin{frame}{\(b_1\) como combinación lineal de \(Y_i\)}
+\protect\hypertarget{b_1-como-combinaciuxf3n-lineal-de-y_i}{}
+
+Se puede mostrar que \(b_1\) puede ser reescrito como:
+
+\[b_1=\sum k_i Y_i\] donde,
+\[k_i=\dfrac{X_i-\overline{X}}{\sum (X_i-\overline{X})^2}\]
+
+Notamos que los \(k_i\) son funciones de \(X_i\) y por lo tanto son
+cantidades fijas, ya que los \(X_i\) son conocidos. Los coeficientes
+\(k_i\) tienen propiedades interesantes que usaremos más adelante:
+\begin{align*}
+\sum k_i&=0 \\
+\sum k_i X_i &= 1 \\
+\sum k_{i}^{2}&=\dfrac{1}{\sum (X_i-\overline{X})^2}
+\end{align*}
+
+\textbf{Leer detalles de este cálculo página 42, Applied Lineal
+Statistical Models 5th Edition, Kutner et al.}
+
+\end{frame}
+
+\begin{frame}{Normalidad, media y varianza}
+\protect\hypertarget{normalidad-media-y-varianza}{}
+
+Debido a que el término \(b_1\) es una combinación lineal de \(Y_i\), y
+este último son variables aleatoria normales independientes, sigue que
+\(b_1\) también lo es.
+
+La insesgadez del estimador puntual de \(b_1\) debido al teorema de
+Gauss-Markov, sigue que: \begin{align*}
+\mathbb{E}(b_1)&=\mathbb{E}\left(\sum k_i Y_i\right)=\sum k_i \mathbb{E}(Y_i)= \sum k_i(\beta_0+\beta_1 X_i)\\
+&= \beta_0 \sum k_i + \beta_1 \sum k_i X_i = \beta_1
+\end{align*} En cuanto a la varianza de \(b_1\), sólo necesitamos
+recordar que \(Y_i\) son variables aleatorias independientes, cada una
+con varianza \(\sigma^2\) y que \(k_i\) son constantes. Por lo que:
+\begin{align*}
+\mathbb{V}(b_1)&=\mathbb{V}\left(\sum k_i Y_i\right)=\sum k_{i}^{2} \mathbb{V}(Y_i)\\
+&=\sum k_{i}^{2} \sigma^2=\sigma^2 \sum k_{i}^{2}\\
+&= \dfrac{\sigma^2}{\sum (X_i -\overline{X})^2}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{Varianza estimada}
+\protect\hypertarget{varianza-estimada}{}
+
+Podemos estimar la varianza de la distribución muestral de \(b_1\):
+
+\[\mathbb{V}(b_1)=\dfrac{\sigma^2}{\sum (X_i - \overline{X})^2}\]
+
+Reemplazando el parámetro \(\sigma^2\) con el ECM, el estimador
+insesgado de \(\sigma^2\):
+
+\[\widehat{\mathbb{V}(b_1)}=\dfrac{MSE}{\sum (X_i - \overline{X})^2}\]
+Esta estimación puntual es un estimador insesgada de
+\(\mathbb{V}(b_1)\). Tomando la raíz cuadrado podemos obtener la
+estimación puntual para la desviación estándar.
+
+\textbf{Leer comentario página 44, libro Applied Lineal Statistical
+Models 5th Edition, Kutner et al.~para demostración de \(b_1\) es el
+estimador de varianza mínima entre los estimadores insesgados lineales.}
+
+\end{frame}
+
+\hypertarget{distribuciuxf3n-muestral-uxfatil}{%
+\subsection{Distribución muestral
+útil}\label{distribuciuxf3n-muestral-uxfatil}}
+
+\begin{frame}{Distribución muestral útil}
+
+Con vistas en obtener intervalos de confianza para los parámetros de
+regresión, necesitamos obtener las distribuciones muestrales de
+cantidades pivotales, entre ellas la cantidad:
+
+\[(b_1-\beta_1)/\sqrt{\widehat{\mathbb{V}(b_1)}}\] Debido a que \(b_1\)
+está distribuido normalmente, sabemos que la estandarización:
+
+\[\dfrac{(b_1-\beta_1)}{\sqrt{\mathbb{V}(b_1)}}\] es una variable
+aleatoria normal estándar. En la práctica, no se tiene acceso a la
+varianza teórica por lo que esta cantidad debe ser estimada por
+\(\widehat{\mathbb{V}(b_1)}\) por que estamos particularmente
+interesados en la distribución de
+\((b_1-\beta_1)/\sqrt{\widehat{\mathbb{V}(b_1)}}\)
+
+\end{frame}
+
+\begin{frame}
+
+Cuando una estadístico está estandarizado pero el denominador es una
+estimación de la desviación estándar en vez de su valor real, se le
+llama \textbf{estadístico estudentizado}. Un teorema importante en
+estadística establece que el estadístico:
+
+\[\dfrac{(b_1-\beta_1)}{\sqrt{\widehat{\mathbb{V}(b_1)}}}\sim t(n-2)\]
+Para el modelo de regresión que estamos estudiando. Esto viene del hecho
+que \(SSE/\sigma^2 \sim \chi^2(n-2)\) y es independiente de \(b_0\) y
+\(b_1\).
+
+\end{frame}
+
+\hypertarget{intervalo-de-confianza-para-la-pendiente}{%
+\subsection{Intervalo de confianza para la
+pendiente}\label{intervalo-de-confianza-para-la-pendiente}}
+
+\begin{frame}{Intervalo de confianza para la pendiente}
+
+Debido a que esta cantidad sigue una distribución t-student, podemos
+establecer que:
+
+\[\mathbb{P}(t(\alpha/2,n-2)\leq (b_1-\beta_1)/\sqrt{\widehat{\mathbb{V}(b_1)}} \leq  t(1-\alpha/2,n-2))=1-\alpha\]
+Luego, operando de igual manera que en la construcción de intervalos de
+confianza usual (vía pivote). Podemos llegar a un intervalo de confianza
+para \(\beta_1\):
+
+\[\left[ b_1 \pm t(1-\alpha/2, n-2) \sqrt{\widehat{\mathbb{V}(b_1)}}\right]\]
+
+\end{frame}
+
+\hypertarget{test-de-hipuxf3tesis-para-la-pendiente}{%
+\subsection{Test de Hipótesis para la
+pendiente}\label{test-de-hipuxf3tesis-para-la-pendiente}}
+
+\begin{frame}{Test de Hipótesis para la pendiente}
+
+Debido a que:
+
+\[\dfrac{(b_1-\beta_1)}{\sqrt{\widehat{\mathbb{V}(b_1)}}}\sim t(n-2)\]
+
+Toda la teoría de test de hipótesis usuales es válida (tests
+unilaterales y bilaterales). \textbf{Recordar cursos pasados.}
+
+Tenemos particular interés en un test del tipo:
+
+\[H_0: \beta_1 = 0 \hspace{20pt} H_1:\beta_1 \neq 0\]
+
+Pues con ello probamos si existe una asociación lineal entre las
+variables del modelo bajo un cierto nivel de confianza.
+
+\end{frame}
+
+\hypertarget{inferencia-sobre-el-intercepto}{%
+\subsection{Inferencia sobre el
+intercepto}\label{inferencia-sobre-el-intercepto}}
+
+\begin{frame}{Inferencia sobre el intercepto}
+
+Como lo mencionamos antes, rara vez tendremos interés en hacer
+inferencia sobre el parámetro \(\beta_0\), y estos son sólo válidos
+cuando el rango de la variable predictora incluye \(X=0\).
+
+Como hemos visto antes la estimación puntal del intercepto está dado
+por:
+
+\[b_0=\overline{Y}-b_1\overline{X}\] Para el modelo de regresión en
+estudio, la distribución muestral de \(b_0\) es normal, con media y
+varianza:
+
+\[\mathbb{E}(b_0)=\beta_0\] y,
+\[\mathbb{V}(b_0)=\sigma^2\left[ \dfrac{1}{n}+\dfrac{\overline{X}^2}{\sum (X_i-\overline{X})^2}\right]\]
+La normalidad es obtenida debido a que \(b_0\) al igual que \(b_1\), es
+una combinación lineal de observaciones \(Y_i\). Al igual que antes, una
+estimador de la varianza viene dado al reemplazar \(\sigma^2\) por su
+estimación puntual (ECM). El estimador de la desviación estándar es
+obtenido aplicando raíz cuadrada.
+
+\end{frame}
+
+\hypertarget{intervalo-de-confianza-para-el-intercepto}{%
+\subsection{Intervalo de confianza para el
+intercepto}\label{intervalo-de-confianza-para-el-intercepto}}
+
+\begin{frame}{Intervalo de confianza para el intercepto}
+
+Al igual que antes, se tiene que:
+
+\[\dfrac{b_0-\beta_0}{\sqrt{\widehat{\mathbb{V}(b_0)}}}\sim t(n-2)\]
+
+para este modelo de regresión. Así, los intervalos de confianza pueden
+ser construidos al igual que para \(\beta_1\). Esto es:
+
+\[\left[ b_0 \pm t(1-\alpha/2, n-1)\sqrt{\widehat{\mathbb{V}(b_0)}}\right]\]
+\textbf{Tarea: Sección 2.4 Estimación por intervalo para
+\(\mathbb{E}(Y_h)\) y Sección 2.5 Predicción de nuevas observaciones}
+
+\textbf{Lectura complementaria: Sección 2.6 Intervalo de confianza para
+la recta de regresión}
+
+\end{frame}
+
+\hypertarget{anuxe1lisis-de-varianza-para-anuxe1lisis-de-regresiuxf3n}{%
+\subsection{Análisis de Varianza para análisis de
+regresión}\label{anuxe1lisis-de-varianza-para-anuxe1lisis-de-regresiuxf3n}}
+
+\begin{frame}{Análisis de Varianza para análisis de regresión}
+
+Con lo anterior, ya hemos visto gran parte de la teoría de un modelo de
+regresión básico. En lo que sigue, estudiaremos el análisis de regresión
+desde la perspectiva de análisis de varianza.
+
+\textbf{Nociones básicas:} El enfoque desde el análisis de varianza se
+base en particionar la suma de cuadrado y grados de libertad asociados
+con la variable respuesta \(Y\). Identificaremos 3 términos que usaremos
+frecuentemente:
+
+\begin{itemize}
+\item
+  \emph{Suma de cuadrados total} (SSTO): \(\sum (Y_i - \overline{Y})^2\)
+\item
+  \emph{Suma de los cuadrados del error} (SSE):
+  \(\sum (Y_i - \hat{Y}_i)^2\)
+\item
+  \emph{Suma de los cuadrados de la regresión} (SSR):
+  \(\sum (\hat{Y}_i-\overline{Y})^2\)
+\end{itemize}
+
+en donde se tiene la relación:
+
+\[SSTO=SSE+SSR\]
+
+\end{frame}
+
+\hypertarget{desglose-de-los-grados-de-libertad}{%
+\subsection{Desglose de los grados de
+libertad}\label{desglose-de-los-grados-de-libertad}}
+
+\begin{frame}{Desglose de los grados de libertad}
+
+Al igual que para la varianza, podemos desglosar los grados de libertad.
+Es claro ver que:
+
+\begin{itemize}
+\item
+  SSTO tiene asociado \(n-1\) grados de libertad, debido a que estimamos
+  la media poblacional.
+\item
+  SSE tiene asociado \(n-2\) grados de libertad, debido a que para
+  obtener \(\hat{Y}_i\) debemos estimar \(\beta_0\) y \(\beta_1\)
+\item
+  SSR tiene asociado \(1\) grado de libertad debido a que los valores
+  ajustados son calculados a partir de la recta de regresión, por lo que
+  \(2\) grados de libertad están a asociado a esta, pero uno de ello es
+  perdido debido a la estimación \(\overline{Y}\).
+\end{itemize}
+
+Así, se tiene que:
+
+\[n-1=1+(n-2)\]
+
+\end{frame}
+
+\hypertarget{cuadrados-medios}{%
+\subsection{Cuadrados medios}\label{cuadrados-medios}}
+
+\begin{frame}{Cuadrados medios}
+
+Llamamos cuadrados medios a las sumas cuadradas divididas por sus grados
+de libertad respectivos. Por lo que tenemos:
+
+\begin{itemize}
+\item
+  \textbf{Error cuadrático medio}: \(\dfrac{SSE}{n-2}\)
+\item
+  \textbf{Cuadrado medio de regresión}: \(\dfrac{SSR}{1}\)
+\end{itemize}
+
+En este caso, los cuadrados medios \textbf{no son aditivos}
+
+\end{frame}
+
+\hypertarget{tabla-anova}{%
+\subsection{Tabla ANOVA}\label{tabla-anova}}
+
+\begin{frame}{Tabla ANOVA}
+
+Lo que hemos visto anteriormente, puede ser resumido en la tabla ANOVA
+usual, en donde se incorporó además la esperanza de los cuadrados
+medios.
+
+\begin{table}[]
+\begin{tabular}{lllll}
+\textbf{F.V.} & \textbf{SS}                                      & \textbf{g.l.} & \textbf{MS} & $\mathbf{\mathbb{E}(MS)}$                                  \\
+Regresión           & $SSR = \sum (\hat{Y}_i-\overline{Y})^2$ & $1$    & $MSR=SSR$              & $\sigma^2+\beta_{1}^{2}\sum (X_i-\overline{X})^2$ \\
+Error               & $SSE = \sum (Y_i - \hat{Y}_i)^2$        & $n-2$  & $MSE=\dfrac{SSE}{n-2}$ & $\sigma^2$                                        \\
+Total               & $SSTO=\sum (Y_i - \overline{Y})^2$      & $n-1$  &                        &                                                  
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\hypertarget{test-f}{%
+\subsection{Test F}\label{test-f}}
+
+\begin{frame}{Test F}
+
+El enfoque de análisis de varianza nos permite realizar fácilmente test
+para modelos de regresión (y otros modelos lineales). Por ejemplo,
+consideremos:
+
+\[H_0: \beta_1 = 0 \hspace{20pt} H_1:\beta_1 \neq 0\]
+
+\textbf{Estadístico de prueba}
+
+Bajo este enfoque consideramos el estadístico \(F^*\), definido como:
+
+\[F^*=\dfrac{MSR}{MSE}\]
+
+\textbf{Distribución muestral de \(F^*\)}
+
+\emph{Es posible mostrar} que bajo \(H_0\), \(F^*\) sigue una
+distribución \(F(1,n-2)\)
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Regla de decisión}
+
+Debido a que \(F^*\) sigue una distribución \(F(1,n-2)\) bajo \(H_0\),
+la regla de decisión será:
+
+\begin{itemize}
+\item
+  Si \(F^* \leq F(1-\alpha; 1,n-2)\), optamos por \(H_0\)
+\item
+  Si \(F^* > F(1-\alpha; 1,n-2)\), optamos por \(H_1\)
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{medidas-de-asociaciuxf3n-lineal-entre-x-e-y}{%
+\subsection{Medidas de asociación lineal entre X e
+Y}\label{medidas-de-asociaciuxf3n-lineal-entre-x-e-y}}
+
+\begin{frame}{Medidas de asociación lineal entre X e Y}
+
+Hasta ahora no hemos definido ningún nivel de asociación lineal para las
+variables en estudio, pues nos concentramos en la regresión misma, su
+inferencia y utilidad de predicción, pero existen casos en los cuales la
+asociación lineal \textbf{en sí misma} es de principal interés. Para
+determinar el grado de asociación lineal, utilizamos el
+\textbf{coeficiente de determinación y correlación}
+
+\end{frame}
+
+\begin{frame}{Coeficiente de determinación}
+\protect\hypertarget{coeficiente-de-determinaciuxf3n}{}
+
+El coeficiente de determinación lo definimos como:
+
+\[R^2=\dfrac{SSR}{SSTO}=1-\dfrac{SSE}{SSTO}\]
+
+y lo interpretamos como \textbf{la proporción de la variabilidad que es
+explicada por el ajuste de regresión lineal}. Este coeficiente se mueve
+entre 0 y 1, siendo 1 un ajuste perfecto. \emph{Un buen ajuste de
+regresión suele estar entre 0.7 - 0.9}, pero esto puede variar
+dependiendo del contexto del problema.
+
+\end{frame}
+
+\begin{frame}{Limitaciones del coeficiente de determinación}
+\protect\hypertarget{limitaciones-del-coeficiente-de-determinaciuxf3n}{}
+
+\begin{itemize}
+\item
+  Un coeficiente de determinación alto \textbf{no indica} que se puedan
+  hacer predicciones buenas
+\item
+  Un coeficiente de determinación alto \textbf{no indica} que el ajuste
+  es necesariamente bueno
+\item
+  Un coeficiente de determinación cercano a cero \textbf{no indica} que
+  \(X\) e \(Y\) no estén relacionados.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Coeficiente de correlación}
+\protect\hypertarget{coeficiente-de-correlaciuxf3n}{}
+
+Este coeficiente puede ser definido como la raíz del coeficiente de
+determinación.
+
+\[r=\pm \sqrt{R^2}\]
+
+y lo interpretamos como el \textbf{coeficiente de correlación de
+Pearson}
+
+\end{frame}
+
+\hypertarget{aplicaciuxf3n-computacional}{%
+\subsection{Aplicación
+computacional}\label{aplicaciuxf3n-computacional}}
+
+\begin{frame}[fragile]{Aplicación computacional}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(tidyverse)}
+\KeywordTok{require}\NormalTok{(MASS)}
+\KeywordTok{require}\NormalTok{(car)}
+\KeywordTok{require}\NormalTok{(mosaic)}
+\KeywordTok{data}\NormalTok{(UScereal)}
+\KeywordTok{ggplot}\NormalTok{(UScereal,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{fibre,}\DataTypeTok{y=}\NormalTok{calories)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\NormalTok{lm,}\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{,}\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{figs/unnamed-chunk-2.pdf}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(calories}\OperatorTok{~}\NormalTok{fibre,}\DataTypeTok{data=}\NormalTok{UScereal)}
+\KeywordTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = calories ~ fibre, data = UScereal)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -144.73  -28.07  -17.48   15.51  258.48 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  134.117      8.522  15.738   <2e-16 ***
+## fibre          3.950      1.181   3.344   0.0014 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 57.97 on 63 degrees of freedom
+## Multiple R-squared:  0.1507, Adjusted R-squared:  0.1372 
+## F-statistic: 11.18 on 1 and 63 DF,  p-value: 0.001396
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  2.5 %    97.5 %
+## (Intercept) 117.087793 151.14595
+## fibre         1.589422   6.31138
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Response: calories
+##           Df Sum Sq Mean Sq F value   Pr(>F)   
+## fibre      1  37572   37572   11.18 0.001396 **
+## Residuals 63 211723    3361                    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\end{frame}
+
+\hypertarget{diagnuxf3stico-y-medidas-correctivas}{%
+\subsection{Diagnóstico y medidas
+correctivas}\label{diagnuxf3stico-y-medidas-correctivas}}
+
+\begin{frame}{Diagnóstico y medidas correctivas}
+
+Cuando realizamos un modelo de regresión, como por ejemplo el modelo de
+regresión lineal simple antes visto, frecuentemente no podemos estar
+seguros por adelantado si el modelo es apropiado para aplicación que se
+le desea dar. Muchas de las características del modelo, tales como la
+linealidad de la función de regresión o normalidad de los errores podría
+no ser apropiada, por lo que toma relevancia saber si el modelo puede
+ser aplicado.
+
+En lo que sigue estudiaremos métodos gráficos y test formales, para
+saber si un modelo es apropiado usarlo. Nos concentramos en el modelo de
+regresión lineal simple, pero los mismos principios son válidos para
+todos los modelos estadísticos que veremos.
+
+\end{frame}
+
+\begin{frame}{Diagnóstico para las variables predictoras}
+\protect\hypertarget{diagnuxf3stico-para-las-variables-predictoras}{}
+
+Primero debemos analizar las variables predictora para detectar la
+presencia de datos anómalos o \emph{outliers}, que puedan influenciar la
+viabilidad del modelo. La presencia de outliers, puede provocar residuos
+grandes en magnitud, influenciando enormemente el ajuste de regresión.
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{./figs/diagnostics.png}
+
+\end{frame}
+
+\begin{frame}{Diagnóstico para Residuos}
+\protect\hypertarget{diagnuxf3stico-para-residuos}{}
+
+En general, los gráficos de diagnósticos utilizando directamente la
+variable respuesta \(Y\) no son muy útiles en el análisis de regresión
+debido a que el valor de las observaciones en la variable respuesta son
+una función del nivel de la variable predictora. Por lo que usualmente,
+se analizan indirectamente mediante la inspección de los residuos.
+
+Los residuos \(e_i\) son la diferencia entre el valor observado \(Y_i\)
+y el valor ajustado \(\hat{Y}_i\):
+
+\[e_i=Y_i-\hat{Y}_i\]
+
+Estos pueden ser considerados como el \textbf{error observado}, a
+diferencia de valor real del error \(\varepsilon_i\) en el modelo de
+regresión:
+
+\[\varepsilon_i=Y_i - \mathbb{E}(Y_i)\] Para el modelo de regresión
+lineal simple, los errores \(\varepsilon_i\) se asumen \textbf{variables
+aleatorias normales independientes, con media 0 y varianza constante
+\(\sigma^2\)}. Si el modelo es apropiado para los datos disponibles, el
+resudio observado \(e_i\) deben reflejar las propiedades que se
+asumieron para \(\varepsilon_i\).
+
+Esta es la idea básica del \textbf{análisis de residuos}, una
+herramienta útil para evaluar la viabilidades de los modelos.
+
+\end{frame}
+
+\begin{frame}{Propiedades de los residuos}
+\protect\hypertarget{propiedades-de-los-residuos}{}
+
+\textbf{Media}
+
+La media de los \(n\) residuos \(e_i\) para el modelo de regresión
+lineal simple es:
+
+\[\overline{e}=\dfrac{\sum e_i}{n}=0\] donde \(\overline{e}\) denota la
+media de los residuos. Así, debido a que \(\overline{e}\) es siempre 0,
+este \textbf{no} provee información sobre si los errores reales
+\(\varepsilon_i\) tienen valor esperado \(\mathbb{E}(\varepsilon_i)=0\).
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Varianza}
+
+La varianza de los \(n\) residuos \(e_i\) está definida como:
+
+\[s^2=\dfrac{\sum (e_i - \overline{e})^2}{n-2}=\dfrac{\sum e_{i}^{2}}{n-2}=\dfrac{SSE}{n-2}=MSE\]
+Si el modelo es apropiado, el \textbf{error cuadrático medio} es un
+estimador insesgado de la varianza del error \(\sigma^2\).
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{No independencia}
+
+Los residuos \(e_i\) no son variables aleatorias independientes debido a
+que involucran los valores ajustados \(\hat{Y}_i\), los cuales están
+basado en la misma función de regresión ajustada. Como resultado de lo
+anterior, los residuos para el modelo de regresión están sujetos a dos
+restricciones:
+
+\begin{itemize}
+\tightlist
+\item
+  La suma de \(e_i\) debe ser 0
+\item
+  la suma de \(X_i e_i\) debe ser 0
+\end{itemize}
+
+Cuando el tamaño de muestra es grande en comparación con el número de
+parámetros en el modelo de regresión, la efecto de dependencia entre los
+residuos \(e_i\) no tiene mayor importancia y puede ser ignorado.
+
+\end{frame}
+
+\begin{frame}{Residuos semi-studentizados}
+\protect\hypertarget{residuos-semi-studentizados}{}
+
+Frecuentemente, sirve estandarizar los residuos para realizar el
+análisis. debido a que la desviación estándar de los términos de error
+\(\varepsilon_i\) es \(\sigma\), el cual puede ser estimado mediante
+\(\sqrt{MSE}\), por lo que es natural considerar la estandarización:
+
+\[e_{i}^{*}=\dfrac{e_i-\overline{e}}{\sqrt{MSE}}=\dfrac{e_i}{\sqrt{MSE}}\]
+
+Si \(\sqrt{MSE}\) fuese una estimación de la desviación estándar de los
+residuos \(e_i\), llamaríamos \(e_{i}^{*}\) residuos
+\emph{studentizados}. Sim embargo, la desviación estándar de \(e_i\) es
+compleja y varía para los diferentes residuos \(e_i\), y \(\sqrt{MSE}\)
+es \textbf{sólo una aproximación} de la desviación estándar de \(e_i\).
+
+Por lo que llamamos el estadístico \(e_{i}^{*}\) un \textbf{residuo
+semi-studentizado}. Estos tipo de residuos nos sirven para identificar
+la presencia de datos anómalos.
+
+\end{frame}
+
+\begin{frame}{Diferencias con el modelo estudiado}
+\protect\hypertarget{diferencias-con-el-modelo-estudiado}{}
+
+Usualmente, estaremos en busca de 6 formas en la cuales un modelo de
+regresión lineal simple con errores normales no es adecuado.
+
+\begin{itemize}
+\tightlist
+\item
+  La función de regresión no es lineal
+\item
+  Los errores no tienen varianza constante
+\item
+  Los errores no son independientes
+\item
+  El modelo ajusta todas las observaciones exceptuando algunas
+\item
+  Los errores no se distribuyen de manera normal
+\item
+  Unas o varias variables predictoras fueron omitidas del modelo
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Diagnóstico de los residuos}
+\protect\hypertarget{diagnuxf3stico-de-los-residuos}{}
+
+Utilizaremos varios gráficos para identificar si ocurre alguna de las 6
+situaciones antes planteadas. Los siguientes gráficos son usualmente
+usados para este fin
+
+\begin{itemize}
+\tightlist
+\item
+  Gráficos de los residuos vs la variable predictora
+\item
+  Gráfico del valor absoluto o el cuadrado de los residuos vs la
+  variable predictora
+\item
+  Gráfico de los residuos vs valores ajustados
+\item
+  Gráfico de los residuos vs tiempo u otra secuencia
+\item
+  Gráfico de los residuos vs variables predictoras omitidas
+\item
+  Box-Plot de los residuos
+\item
+  Gráfico de probabilidad normal de los residuos
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{./figs/residuals.png}
+
+\end{frame}
+
+\begin{frame}{No linealidad de la función de regresión}
+\protect\hypertarget{no-linealidad-de-la-funciuxf3n-de-regresiuxf3n}{}
+
+Para evaluar si una función de regresión lineal es apropiada para los
+datos a disposición podemos estudiar el \textbf{gráfico de residuos vs
+la variable predictora}, o equivalentemente, desde el \textbf{gráfico de
+residuos vs los valores ajustados}.
+
+La no linealidad de la función de regresión puede ser estudiada desde un
+gráfico de dispersión, pero este gráfico no siempre tan efectivo como el
+gráfico de los residuos.
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{./figs/nonlinearity.png}
+
+\end{frame}
+
+\begin{frame}{No consistencia de la varianza del error}
+\protect\hypertarget{no-consistencia-de-la-varianza-del-error}{}
+
+Graficar los residuos vs la variable predictora or vs los valores
+ajustados, no solo es útil para estudiar si una función de regresión
+lineal es apropiada pero además nos sirve para examinar si la varianza
+de los errores es constante.
+
+\includegraphics{./figs/error_variance.png} \#\#\# Presencia de outliers
+
+Los residuos \emph{outliers} pueden ser identificados mediante el
+gráfico de residuos vs \(X\) o \(\hat{Y}\), como también a través de
+box-plots y diagramas de tallo y hoja de los residuos.
+
+Graficar los residuos semi-studentizados es particularmente útil para
+distinguir valores extremos, debido a que se vuelve más fácil
+identificar los residuos que caen varias desviaciones estándar de cero.
+
+Los valores extremos pueden provocar gran dificultad en el ajuste.
+Cuando estamos en presencia de datos anómalos, debemos sospechar que la
+observación pudo haber sido resultado de una equivocación, error de
+medición u otro factor externo, por lo que debe ser descartado. Una
+motivación para descartarlos es que bajo un método de mínimos cuadrados,
+un ajuste de regresión puede ser empujado \textbf{desproporcionalmente}
+hacia la observación extrema debido a que la suma del cuadrado de las
+desviaciones es minimizada.
+
+\end{frame}
+
+\begin{frame}{No independencia de los errores}
+\protect\hypertarget{no-independencia-de-los-errores}{}
+
+Cuando los datos fueron obtenidos en una secuencia de tiempo determinada
+u otro tipo de secuencia (como por ejemplo áreas geográficos
+adyacentes), es buena idea preparar un gráfico secuencial de los
+residuos.
+
+El objetivo de graficar los residuos vs el tiempo u otra secuencia, es
+ver si existe alguna correlación entre los términos de error que están
+cercanos.
+
+\includegraphics{./figs/time_error.png}
+
+\end{frame}
+
+\begin{frame}{No normalidad de los errores}
+\protect\hypertarget{no-normalidad-de-los-errores}{}
+
+Como mencionamos antes, pequeñas desviación de la normalidad no crean
+mayores problemas. En cambio, si estas diferencias son sustanciales,
+debemos tener especial cuidado pues no se está cumpliendo un supuesto de
+nuestro modelo de regresión. La normalidad de los errores pueden ser
+estudiados informalmente examinando los residuos de varias maneras.
+
+\begin{itemize}
+\item
+  \textbf{Gráfico de distribución}: Un Box-Plot de los residuos es útil
+  para obtener información resumida respecto de la simetría de los
+  residuos y posibles datos extremos. Mediante un histograma o diagrama
+  de tallo y hoja de los residuos, podemos identificar diferencias
+  sustanciales de la normalidad esperada, pero el número de
+  observaciones debe ser relativamente alto para que estos gráficos
+  otorguen información confiable sobre la forma de la distribución de
+  los errores.
+\item
+  \textbf{Gráfico de probabilidad normal}: Otra posibilidad es realizar
+  un grafico de probabilidad normal de los residuos. En donde se grafica
+  cada residuo vs el valor esperado bajo normalidad.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{./figs/normal_plot.png}
+
+\end{frame}
+
+\begin{frame}{Omisión de variables predictoras}
+\protect\hypertarget{omisiuxf3n-de-variables-predictoras}{}
+
+Los residuos también deben ser graficados vs las variables omitidas en
+el modelo que pudiesen tener efectos importantes en la respuesta. En las
+siguientes figuras, ejemplificamos un caso particular de omisión de
+variable.
+
+\end{frame}
+
+\begin{frame}
+
+\includegraphics{./figs/omitted.png}
+
+\end{frame}
+
+\hypertarget{regresiuxf3n-lineal-muxfaltiple}{%
+\section{Regresión Lineal
+Múltiple}\label{regresiuxf3n-lineal-muxfaltiple}}
+
+\begin{frame}{Regresión Lineal Múltiple}
+
+Como lo hemos mencionado antes, extenderemos las nociones del análisis
+de regresión lineal simple al caso general. Pero antes:
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Por qué es necesario varias variables predictoras?
+\item
+  ¿Existe un mínimo o máximo de variables a utilizar?
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{modelo-de-regresiuxf3n-lineal-general}{%
+\subsection{Modelo de regresión lineal
+general}\label{modelo-de-regresiuxf3n-lineal-general}}
+
+\begin{frame}{Modelo de regresión lineal general}
+
+Definimos el modelo de regresión lineal general con errores normales de
+la siguiente manera:
+
+\[Y_i=\beta_0+\beta_1 X_{i1}+\beta_2 X_{i2} + \cdots + \beta_{p-1}X_{i,p-1}+\varepsilon_i\]
+
+donde:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\beta_0,\beta_1,\dots,\beta_{p-1}\) son los parámetros de regresión
+\item
+  \(X_{i1},\dots,X_{i,p-1}\) son constantes conocidas
+\item
+  \(\varepsilon_i\) son independientes \(N(0,\sigma^2)\)
+\item
+  \(i=1,\dots,n\)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Si consideramos \(X_{i0}=1\), el modelo de regresión anterior puede
+reescrito como:
+
+\[Y_i=\beta_0 X_{i0}+\beta_1 X_{i1}+\beta_2 X_{i2} + \cdots + \beta_{p-1}X_{i,p-1}+\varepsilon_i\]
+por lo que,
+
+\[Y_i=\sum_{k=0}^{p-1} \beta_k X_{ik}+\varepsilon_i\] La respuesta media
+para este modelo de regresión está dado por:
+
+\[\mathbb{E}(Y)=\beta_0+\beta_1 X_1 + \beta_2 X_2 + \cdots+\beta_{p-1} X_{p-1}\]
+debido a que \(\mathbb{E}(\varepsilon_i)=0\)
+
+Así, el modelo de regresión lineal general con errores normales implica
+que las observaciones \(Y_i\) son variables aleatorias normales, con
+media \(\mathbb{E}(Y_i)\) dado por la expresión anterior y con varianza
+constante \(\sigma^2\).
+
+\end{frame}
+
+\begin{frame}
+
+El modelo de regresión lineal general abarca un basta cantidad de
+situaciones, mencionaremos algunas de ellas:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{p-1 variables predictoras:} Cuando \(X_1,\dots, X_{p-1}\)
+  representan \(p-1\) variables predictoras diferentes y es lineal en
+  las variables predictoras, el modelo de regresión lineal general es un
+  \textbf{modelo de regresión de primer order}.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{variables-predictoras-cualitativas}{%
+\subsection{Variables predictoras
+cualitativas:}\label{variables-predictoras-cualitativas}}
+
+\begin{frame}{Variables predictoras cualitativas:}
+
+El modelo de regresión lineal general abarca \textbf{no sólo variables
+predictoras cuantitativas, sino también variables cualitativas}. Estas
+se conocen como variables indicadoras que toman los valores 0 y 1 para
+identificar las clases de la variable cualitativa.
+
+\textbf{Ejemplo}
+
+Consideramos el siguiente análisis de regresión para predecir el largo
+de la estadía en un hospital \((Y)\) basado en la edad \((X_1)\) y
+género \((X_2)\) del paciente. Definimos \(X_2\) como:
+
+\[X_2=\begin{cases}1 \hspace{20pt} \text{si el paciente es mujer}\\  0 \hspace{20pt} \text{si el paciente es hombre}\end{cases}\]
+El modelo de regresión lineal de primer order estará dado por:
+
+\[Y_i=\beta_0+\beta_1 X_{i1} + \beta_2 X_{i2}+\varepsilon_i\] donde:
+
+\begin{align*}
+X_{i1}&= \text{ Edad del paciente}\\
+X_{i2}&=\begin{cases}1 \hspace{20pt} \text{si el paciente es mujer}\\  0 \hspace{20pt} \text{si el paciente es hombre}\end{cases}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+En este caso, la función de respuesta estará dada por:
+
+\[\mathbb{E}(Y)=\beta_0+\beta_1 X_1 +\beta_2 X_2\]
+
+Para los pacientes hombres, \(X_2=0\) y la respuesta media será:
+
+\[\mathbb{E}(Y)=\beta_0+\beta_1 X_1\]
+
+Y para los pacientes mujeres, \(X_2=1\) y la respuesta media será:
+
+\[\mathbb{E}(Y)=(\beta_0+\beta_2)+\beta_1 X_1\]
+
+\textbf{En general, representamos una variable cualitativa con \(c\)
+clases mediante \(c-1\) variables indicadoras.}
+
+\end{frame}
+
+\begin{frame}
+
+Por ejemplo, si en el ejemplo anterior se agrega una variable
+cualitativa que representa el estado de discapicidad. Podemos agregar
+dos variable indicadoras \(X_3\) y \(X_4\) como:
+
+\[X_3=\begin{cases}1 \hspace{20pt} \text{si el paciente no es discapacitado}\\  0 \hspace{20pt} \text{en otro caso}\end{cases}\]
+y,
+
+\[X_4=\begin{cases}1 \hspace{20pt} \text{si el paciente es discapacitado}\\  0 \hspace{20pt} \text{en otro caso}\end{cases}\]
+Así, el modelo quedaría como:
+
+\[Y_i=\beta_0+\beta_1 X_{i1} + \beta_2 X_{i2}+ \beta_3 X_{i3} + \beta_4 X_{i4} + \varepsilon_i\]
+
+donde las variables predictoras están definidas como antes.
+
+\end{frame}
+
+\hypertarget{regresiuxf3n-polinuxf3mica}{%
+\subsection{Regresión polinómica}\label{regresiuxf3n-polinuxf3mica}}
+
+\begin{frame}{Regresión polinómica}
+
+Las regresiones polinómicas son casos especiales del modelo de regresión
+lineal general. Estos contienen términos cuadrados o de grados mayores
+de las variables predictoras, provocando que la función de respuesta sea
+curvilínea. Un ejemplo de una regresión polinómica sería:
+
+\[Y_i=\beta_0 + \beta_1 X_i + \beta_2 X_{i}^{2}+\varepsilon_i\]
+
+\end{frame}
+
+\hypertarget{variables-transformadas}{%
+\subsection{Variables transformadas}\label{variables-transformadas}}
+
+\begin{frame}{Variables transformadas}
+
+Los modelos con variables transformadas involucran funciones respuesta
+complejas y curvilíneas, aún así son casos especiales de un modelo de
+regresión lineal general. Consideremos el siguiente modelo:
+
+\[\log Y_i = \beta_0 + \beta_1 X_{i1} +\beta_2 X_{i2}+\beta_3 X_{i3} +\varepsilon_i\]
+
+Acá, la superficie de respuesta (desde el punto de vista geométrico) es
+compleja, aún así puede ser tratada como un modelo de regresión lineal
+general. Si consideramos \(Y_{i}^{'}=\log Y_i\), podemos reescribir el
+modelo de regresión anterior como:
+
+\[Y_{i}^{'}=\beta_0 + \beta_1 X_{i1} +\beta_2 X_{i2}+\beta_3 X_{i3} +\varepsilon_i\]
+
+El cual tiene la forma del modelo general. La variable respuesta es el
+logaritmo de \(Y\).
+
+\end{frame}
+
+\begin{frame}
+
+Muchos modelos pueden ser transformados al modelo de regresión lineal
+general, por ejemplo el modelo:
+
+\[Y_i=\dfrac{1}{\beta_0 + \beta_1 X_{i1} +\beta_2 X_{i2}+\varepsilon_i}\]
+
+Puede ser transformado al modelo de regresión lineal general al
+considerar \(Y_{i}^{'}=1/Y_i\). Así, se puede reescribir como:
+
+\[Y_{i}^{'}=\beta_0 + \beta_1 X_{i1} +\beta_2 X_{i2}+\varepsilon_i\]
+
+\end{frame}
+
+\hypertarget{efectos-de-interacciuxf3n}{%
+\subsection{Efectos de Interacción}\label{efectos-de-interacciuxf3n}}
+
+\begin{frame}{Efectos de Interacción}
+
+Cuando los efectos de la variables predictoras en la variable respuesta
+no son \textbf{aditivos}, el efecto de un predictor depende del nivel en
+otra variable predictora. El modelo de regresión lineal general abarca
+modelos con efectos no aditivos o que interactúan entre sí. Un ejemplo
+de un modelo de regresión lineal no aditivo con dos variables
+predictoras \(X_1\) y \(X_2\) es:
+
+\[Y_i=\beta_0 + \beta_1 X_{i1}+\beta_2 X_{i2} + \beta_3 X_{i1} X_{2i} +\varepsilon_i\]
+
+Acá, la función de respuesta es compleja debido a la término de
+interacción \(\beta_3 X_{i1} X_{2i}\). Aún así, el modelo anterior, es
+un caso especial de un modelo de regresión lineal general. Sea
+\(X_{i3}=X_{i1}X_{i2}\), podemos reescribir el modelos anterior como:
+
+\[Y_i=\beta_0 + \beta_1 X_{i1}+\beta_2 X_{i2} + \beta_3 X_{i3} +\varepsilon_i\]
+
+En el cual es claro ver que tiene la forma general buscada.
+
+\end{frame}
+
+\hypertarget{combinaciuxf3n-de-casos}{%
+\subsection{Combinación de casos}\label{combinaciuxf3n-de-casos}}
+
+\begin{frame}{Combinación de casos}
+
+Un modelo de regresión puede combinar muchos de los elementos que hemos
+mencionado, y aún así ser tratado como un modelo de regresión lineal
+general. Consideremos el siguiente modelo de regresión que contiene
+términos lineal y cuadráticos para cada una de las variables
+predictoras, y un término de interacción.
+
+\[Y_i=\beta_0 + \beta_1 X_{i1}+\beta_{2}X_{i1}^{2} + \beta_3 X_{i2} + \beta_4 X_{i2}^{2}+\beta_5 X_{i1}X_{i2}+\varepsilon_o\]
+Si definimos,
+
+\[Z_{i1}=X_{i1} \hspace{15pt} Z_{i2}=X_{i1}^{2} \hspace{15pt} Z_{i3}=X_{i2} \hspace{15pt} Z_{i4}=X_{i2}^{2} \hspace{15pt} Z_{i5}=X_{i1}X_{i2}\]
+Podemos representar el modelo como:
+
+\[Y_i=\beta_0 + \beta_1 Z_{i1}+\beta_2 Z_{i2}+\beta_3 Z_{i3} + \beta_4 Z_{i4} + \beta_5 Z_{i5} +\varepsilon\]
+
+\end{frame}
+
+\begin{frame}{Representación gráfica de la función de respuesta}
+\protect\hypertarget{representaciuxf3n-gruxe1fica-de-la-funciuxf3n-de-respuesta}{}
+
+\includegraphics{./figs/response_function.png}
+
+\end{frame}
+
+\hypertarget{interpretaciuxf3n}{%
+\subsection{Interpretación}\label{interpretaciuxf3n}}
+
+\begin{frame}{Interpretación}
+
+Debe estar claro, por lo ejemplos, que el modelo de regresión lineal
+general no está restringido a una respuesta lineal. El término
+\textbf{modelo lineal} hace referencia al hecho que el modelo en estudio
+es lineal en los parámetros; no hace referencia a la forma de la
+superficie de respuesta.
+
+Decimos que un modelo de regresión es lineal en los parámetros cuando
+puede ser escrito de la forma:
+
+\[Y_i=c_{i0}\beta_0 + c_{i1}\beta_1 + c_{i2}\beta_2 + \dots + c_{i,p-1}\beta_{p-1} +\varepsilon_i\]
+
+donde los términos \(c_{i0},c_{i1},\)etc, son coeficientes que acompañan
+a las variables predictoras. Un ejemplo de un modelo de regresión lineal
+no lineal sería:
+
+\[Y_i=\beta_0 \exp (\beta_1 X_i) + \varepsilon\]
+
+Este último modelo no puede ser expresado en la forma de un modelo de
+regresión lineal.
+
+\end{frame}
+
+
+%\section[]{}
+%\frame{\small \frametitle{Table of Contents}
+%\tableofcontents}
+\end{document}

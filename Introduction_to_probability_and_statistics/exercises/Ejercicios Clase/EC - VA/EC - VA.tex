@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{epsfig}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics,color, epstopdf}
+\setlength{\headheight}{70pt} 
+\setlength{\headsep}{20pt} 
+\pagestyle{fancy}
+\lhead{}
+\chead{Universidad de Valparaíso \\ Facultad de Ciencias \\ Instituto de Estadística }
+\rhead{Profesor: Eloy Alvarado}
+
+\begin{document}
+\begin{center}
+\textbf{Ejercicios Variables Aleatorias}
+\end{center}
+\begin{enumerate}
+\item Sea $X$ una variable aleatoria discreta que tiene la siguiente función de cuantía:
+\begin{align*}
+P_{X}(1)=\dfrac{1}{2} \hspace{30pt} P_{X}(2)=\dfrac{1}{4} \hspace{30pt} P_{X}(3)=\dfrac{1}{8} \hspace{30pt} P_{X}(4)=\dfrac{1}{8}
+\end{align*}
+\begin{enumerate}[(a)]
+\item Encontrar y graficar la función de distribución acumulada $F_{X}(x)$ de la variable aleatoria $X$.
+
+\begin{align*}
+\displaystyle F(x)=\begin{cases}
+0 \hspace{20pt} \ \  si \ \ - \infty <x <1 \\
+1/2 \hspace{16pt} si \ \ 1 \leq x <2\\
+3/4 \hspace{16pt} si \ \ 2 \leq x <3\\
+7/8 \hspace{16pt} si \ \ 4 \leq x <4\\
+1 \hspace{20pt} \ \ si \ \ x \geq 4
+\end{cases}
+\end{align*}
+
+
+\item Encontrar $P(X\leq1)$, $P(1<X\leq3)$, $P(1\leq X \leq 3)$
+
+\[ P(X\leq1) = 1/2 \]
+\[ P(1<X\leq3) = 3/8 \]
+\[ P(1\leq X\leq3) = 7/8 \]
+\end{enumerate}
+\item 
+\begin{enumerate}[(a)]
+\item Verificar que la función $p(x)$ definida por:\\
+\begin{align*}
+\displaystyle p(x)=\begin{cases}
+\dfrac{3}{4}\left( \dfrac{1}{4}\right) ^x \hspace{20pt} x=0,1,2,\cdots \\
+0 \hspace{20pt} e.o.c.
+\end{cases}
+\end{align*}
+
+Podemos apoyarnos en la siguiente fórmula
+
+\[\sum_{n=1}^{\infty} \dfrac{1}{4^n} = \dfrac{1/4}{1-1/4} = 1/3 \]
+Sustituyendo obtenemos el resultado deseado.
+
+\item Encontrar $P(X=2)$, $P(X\leq 2)$, $P(X\geq 1)$
+
+\[ P(X=2) = 3/64\]
+\[ P(X\leq 2) = 51/64\]
+\[ P(X \geq 1) = 1- P(X = 0)= 3/4\]
+
+\end{enumerate}
+\item Consideramos el lanzamiento de una moneda repetidamente. Sea $X$ la variable aleatoria que denota el número de lanzamientos requeridos hasta que aparezca la primera cara.
+\begin{enumerate}[(a)]
+\item Encontrar y Graficar la función de cuantía $P_{X}(x)$ y la función de distribución $F_{X}(x)$ de $X$.
+
+Notar que se da la siguiente secuencia.
+
+\[ \{ c,sc,ssc,sssc,ssssc,\ldots \} \]
+
+La cual corresponde a una distribución geométrica
+
+\[ P(X=k) = (1-p)^{k-1}p, k=1,2,\ldots   \]
+
+\item Encontrar $P(1<X\leq4)$, $P(X>4)$.
+
+\[ P(1<X\leq4) = P(X =2) + P(X=3) + P(X=4) = 0.5^2 + 0.5^3 +0.5^4  \]
+\[ P(X > 4) = 1-P(X \leq 4) =0.5 + 0.5^2 + 0.5^3 +0.5^4  \]
+
+\end{enumerate}
+
+\item Considerar la variable aleatoria discreta $X$ cuya función de cuantía está dada por:
+\begin{align*}
+p_{X}(x)=\begin{cases}
+\dfrac{1}{3} \hspace{20pt} x=-1,0,1\\
+0 \hspace{20pt} e.o.c.
+\end{cases}
+\end{align*}
+\begin{enumerate}[(a)]
+\item Graficar $p_{X}(x)$ y encontrar la esperanza y varianza de X.
+
+\[ E[X] = \dfrac{1}{3}(-1)+ \dfrac{1}{3}(0)+\dfrac{1}{3}(1)=0\]
+\[ E[X^2] = \dfrac{1}{3}(1)+ \dfrac{1}{3}(0)+\dfrac{1}{3}(1)=2/3\]
+\[ Var(X) = E[X^2] - (E[X])^2 = 2/3 \]
+
+\item Respetir (a) si la función de cuantía está dada por:
+\begin{align*}
+p_{X}(x)=\begin{cases}
+\dfrac{1}{3} \hspace{20pt} x=-2,0,2\\
+0 \hspace{20pt} e.o.c.
+\end{cases}
+\end{align*}
+
+\[ E[X] = \dfrac{1}{3}(-2)+ \dfrac{1}{3}(0)+\dfrac{1}{3}(2)=0\]
+\[ E[X^2] = \dfrac{1}{3}(4)+ \dfrac{1}{3}(0)+\dfrac{1}{3}(4)=8/3\]
+\[ Var(X) = E[X^2] - (E[X])^2 = 8/3 \]
+
+
+\end{enumerate}
+\item Sea $X$ la variable aleatoria que denota el resultado del lanzamiento de un dado justo. Encontrar la esperanza y varianza de $X$.
+
+\[ E[X] = \dfrac{1}{6}*1 + \dfrac{1}{6}*2+\dfrac{1}{6}*3+\dfrac{1}{6}*4+\dfrac{1}{6}*5+\dfrac{1}{6}*6 = 21/6\]
+
+\[ E[X^2] = \dfrac{1}{6}*1 + \dfrac{1}{6}*4+\dfrac{1}{6}*9+\dfrac{1}{6}*16+\dfrac{1}{6}*25+\dfrac{1}{6}*36 = 91/6\]
+
+\[ Var(X) = E[X^2] - (E[X])^2 \approx 2.91\]
+
+\item Considere que una variable $X$ toma los valores: $-3, -1, 2, 5$ con las probabilidades respectivas:
+
+$$\dfrac{2k-3}{10}, \dfrac{k-2}{10}, \dfrac{k-1}{10}, \dfrac{k+1}{10}$$
+
+\begin{enumerate}[a)]
+\item Determine la distribuci\'on de probabilidad de $X$.
+
+Sabemos que 
+$$\dfrac{2k-3}{10} + \dfrac{k-2}{10} + \dfrac{k-1}{10} + \dfrac{k+1}{10} = 1$$
+
+Por lo tanto $k=3$
+\item Encuentre el valor esperado de $X$.
+
+$$E[X]= 14/10 $$
+
+\item Encuentre la varianza de $X$.
+
+$$Var(X) = 136/10$$
+
+\end{enumerate}
+\newpage
+\item Suponga que una variable aleatoria $X$ tiene una distribuci\'on probabil\'istica discreta dada por la siguiente funci\'on:
+$$
+\mathbb{P}(X=k)=\begin{cases}
+Cx^{2}, & \mbox{si $x=1,2,3,4,5$}\\
+0, & \mbox{e.o.c.}
+\end{cases}
+$$
+\begin{enumerate}[a)]
+\item Encuentre el valor de la constante C, de forma que $\mathbb{P}(X)$ sea una funci\'on de cuant\'ia para la variable aleatoria $X$.
+
+Sabemos que
+$$c+4c+9c+16c+25c = 1$$
+
+Por lo tanto $C=1/55$
+
+\item Determine el valor de probabilidad de las siguientes expresiones:
+\begin{enumerate}[(i)]
+\item $\mathbb{P}(X=5) = 22/55$
+\item $\mathbb{P}(X>2)= (9+16+25)/55 $
+\item $\mathbb{P}(X\geq2) = (4+9+16+25)/55 $
+\item $\mathbb{P}(X\geq3) = \mathbb{P}(X>2) $
+\item $\mathbb{P}(1<X\leq5)= \mathbb{P}(X\geq2) $
+\end{enumerate}
+\end{enumerate}
+\item Se enumeran cartas del uno al cinco. Se sacan dos cartas al azar sin reposici\'on. Sea $X$ la suma de los n\'umeros obtenidos. 
+\begin{enumerate}[a)]
+\item Encuentre la distribuci\'on de probabilidad de $X$.
+
+Las posibles resultados de este fenómeno son
+
+\[ 3,4,5,6,7,8,9\]
+
+Las probabilidades asociadas a cada resultado son
+
+\[ \dfrac{1}{10}, \dfrac{1}{10},\dfrac{2}{10},\dfrac{2}{10},\dfrac{2}{10}\dfrac{1}{10},\dfrac{1}{10} \] 
+
+\item Encuentre la esperanza de $X$.
+$$E[X]=57/10$$
+
+\item Encuentre la varianza de $X$.
+$$Var(X)= 61$$
+
+\end{enumerate}
+\item Un jugador lanza dos monedas equilibradas, el jugador gana dos pesos si ocurren dos caras y un peso si ocurre una cara. Por otra parte el jugador pierde 3 pesos si no ocurren caras. Encuentre el valor esperado de la ganancia del jugador. ?`Es el juego justo? (el juego es justo si no pierde dinero, favorable si gana dinero o desfavorable si pierde dinero).
+
+Los posibles resultados del experimentos son $\{ cc,cs,sc,ss \}$ y el valor del resultado es $\{ 2,1,1,-3 \}$
+
+El valor esperado es 
+
+\[ E[X] = 2*\dfrac{1}{4} + 1*\dfrac{1}{2} +(-3)*\dfrac{1}{4} = \dfrac{1}{4} \]
+
+El resultado indica que no es un juego justo.
+
+\end{enumerate}
+\end{document}

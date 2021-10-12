@@ -1,0 +1,2977 @@
+\documentclass[10pt,english,ignorenonframetext,,aspectratio=149]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,english]{babel}
+\fi
+\usepackage{longtable,booktabs}
+\usepackage{caption}
+% These lines are needed to make table captions work with longtable:
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Comment these out if you don't want a slide with just the
+% part/section/subsection/subsubsection title:
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \let\insertsectionnumber\relax
+  \let\sectionname\relax
+  \frame{\sectionpage}
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Teoría del Muestreo}
+\author{Eloy Alvarado Narváez}
+\date{}
+
+%% Here's everything I added.
+%%--------------------------
+
+\usepackage{graphicx}
+\usepackage{rotating}
+%\setbeamertemplate{caption}[numbered]
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+%\mode<presentation>
+\usepackage{wasysym}
+%\usepackage{amsmath}
+
+
+% Get rid of navigation symbols.
+%-------------------------------
+\setbeamertemplate{navigation symbols}{}
+
+% Optional institute tags and titlegraphic.
+% Do feel free to change the titlegraphic if you don't want it as a Markdown field.
+%----------------------------------------------------------------------------------
+\institute{Instituto de Estadística \newline Universidad de Valparaíso}
+
+% \titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~/Dropbox/teaching/clemson-academic.png}} % <-- if you want to know what this looks like without it as a Markdown field. 
+% -----------------------------------------------------------------------------------------------------
+\titlegraphic{\includegraphics[width=0.3\paperwidth]{logo.png}}
+
+% Some additional title page adjustments.
+%----------------------------------------
+\setbeamertemplate{title page}[]
+%\date{}
+\setbeamerfont{subtitle}{size=\small}
+
+\setbeamercovered{transparent}
+
+% Some optional colors. Change or add as you see fit.
+%---------------------------------------------------
+\definecolor{clemsonpurple}{HTML}{000000}
+\definecolor{clemsonorange}{HTML}{F66733}
+\definecolor{uiucblue}{HTML}{003C7D}
+\definecolor{uiucorange}{HTML}{F47F24}
+
+\definecolor{yellow}{HTML}{FFCC00}
+\definecolor{blue}{HTML}{003399}
+%\definecolor{black}{HTML}{000000}
+
+% Some optional color adjustments to Beamer. Change as you see fit.
+%------------------------------------------------------------------
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{title}{fg=black,bg=white}
+\setbeamercolor{local structure}{fg=black}
+\setbeamercolor{section in toc}{fg=black,bg=white}
+% \setbeamercolor{subsection in toc}{fg=clemsonorange,bg=white}
+\setbeamercolor{footline}{fg=black!50, bg=white}
+\setbeamercolor{block title}{fg=black,bg=white}
+
+
+\let\Tiny=\tiny
+
+
+% Sections and subsections should not get their own damn slide.
+%--------------------------------------------------------------
+\AtBeginPart{}
+\AtBeginSection{}
+\AtBeginSubsection{}
+\AtBeginSubsubsection{}
+
+% Suppress some of Markdown's weird default vertical spacing.
+%------------------------------------------------------------
+\setlength{\emergencystretch}{0em}  % prevent overfull lines
+\setlength{\parskip}{0pt}
+
+
+% Allow for those simple two-tone footlines I like. 
+% Edit the colors as you see fit.
+%--------------------------------------------------
+\defbeamertemplate*{footline}{my footline}{%
+    \ifnum\insertpagenumber=1
+    \hbox{%
+        \begin{beamercolorbox}[wd=\paperwidth,ht=.8ex,dp=1ex,center]{}%
+      % empty environment to raise height
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+    \else%
+        \Tiny{%
+            \hfill%
+		\vspace*{1pt}%
+            \insertframenumber/\inserttotalframenumber \hspace*{0.1cm}%
+            \newline%
+            \color{blue}{\rule{\paperwidth}{0.4mm}}\newline%
+            \color{yellow}{\rule{\paperwidth}{.4mm}}%
+        }%
+    \fi%
+}
+
+% Various cosmetic things, though I must confess I forget what exactly these do and why I included them.
+%-------------------------------------------------------------------------------------------------------
+\setbeamercolor{structure}{fg=blue}
+\setbeamercolor{local structure}{parent=structure}
+\setbeamercolor{item projected}{parent=item,use=item,fg=black,bg=white}
+\setbeamercolor{enumerate item}{parent=item}
+
+% Adjust some item elements. More cosmetic things.
+%-------------------------------------------------
+\setbeamertemplate{itemize item}{\color{black}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{black}\scriptsize{$\bullet$}}
+\setbeamertemplate{itemize/enumerate body end}{\vspace{.6\baselineskip}} % So I'm less inclined to use \medskip and \bigskip in Markdown.
+
+% Automatically center images
+% ---------------------------
+% Note: this is for ![](image.png) images
+% Use "fig.align = "center" for R chunks
+
+\usepackage{etoolbox}
+
+\AtBeginDocument{%
+  \letcs\oig{@orig\string\includegraphics}%
+  \renewcommand<>\includegraphics[2][]{%
+    \only#3{%
+      {\centering\oig[{#1}]{#2}\par}%
+    }%
+  }%
+}
+
+% I think I've moved to xelatex now. Here's some stuff for that.
+% --------------------------------------------------------------
+% I could customize/generalize this more but the truth is it works for my circumstances.
+
+\ifxetex
+\setbeamerfont{title}{family=\fontspec{Titillium Web}}
+\setbeamerfont{frametitle}{family=\fontspec{Titillium Web}}
+\usepackage[font=small,skip=0pt]{caption}
+ \else
+ \fi
+
+% Okay, and begin the actual document...
+
+
+
+\usepackage{tikz}
+\usebackgroundtemplate{
+  \tikz[overlay,remember picture] 
+  \node[opacity=0.3, at=(current page.south west),anchor=south west,inner sep=10pt]{
+    \includegraphics[width=1.5cm]{logo}};
+}
+\begin{document}
+\frame{\titlepage}
+
+
+
+\hypertarget{introducciuxf3n-al-muestreo}{%
+\section{Introducción al Muestreo}\label{introducciuxf3n-al-muestreo}}
+
+\begin{frame}{Introducción al Muestreo}
+
+El mundo empírico está compuesto por un sin fin de conjuntos de
+elementos; tales como: personas, animales, objetos, etc., habitualmente
+de cantidades suficientemente grandes, cuyo trabajo de recopilación y
+posterior análisis para obtener alguna información de interés de ésta,
+resulta impracticable en tiempos reales. Estos conjuntos de elementos
+son llamados \textbf{población} o \textbf{población objetivo}, que en
+una investigación, debe quedar claramente acotada, geográficamente o en
+el tiempo.
+
+Un mecanismo más apropiado para obtener información es la extracción de
+un subconjunto de unidades o elementos a la cual realizar el análisis y
+obtener un diagnóstico de la población. Este subconjunto de unidades o
+elementos es llamado \textbf{muestra}.
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\centering
+\includegraphics{../../resources/muestra.jpg}
+\caption{Representación visual de una muestra y población}
+\end{figure}
+
+\end{frame}
+
+\hypertarget{muxe9todos-de-muestreo}{%
+\subsection{Métodos de Muestreo}\label{muxe9todos-de-muestreo}}
+
+\begin{frame}{Métodos de Muestreo}
+
+Al hablar de \textbf{métodos de muestreo} nos referimos al conjunto de
+técnicas estadísticas que estudian la forma de seleccionar una
+\textbf{muestra lo suficientemente representativa} de una población cuya
+información permita inferir las propiedades o características de toda la
+población cometiendo un \textbf{error medible y acotable}.
+
+A partir de la muestra, seleccionada mediante un determinado método de
+muestreo, se estiman las características poblacionales (media, total,
+proporción, etc.) con un \textbf{error cuantificable y controlable.}
+
+\end{frame}
+
+\hypertarget{terminologuxeda-tuxe9cnica}{%
+\subsection{Terminología Técnica}\label{terminologuxeda-tuxe9cnica}}
+
+\begin{frame}{Terminología Técnica}
+
+\begin{itemize}
+\tightlist
+\item
+  Elemento: Objeto al que se le toma una medición.
+\item
+  Población: Colección de elementos del cual se quiere hacer inferencia.
+\item
+  Unidad de Muestreo: Unidad mínima de observación de la que se obtendrá
+  información de las variables útiles.
+\item
+  Marco Muestral: Lista de unidades de muestreo.
+\item
+  Muestra: Colección de unidades de muestreo extraídas desde uno o más
+  marcos muestrales.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{ejemplo}{%
+\subsection{Ejemplo}\label{ejemplo}}
+
+\begin{frame}{Ejemplo}
+
+En cierta comunidad, una encuesta fue realizada con el fin de determinar
+la opinión pública sobre la emisión de bonos para una futura elección.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Elemento:} Votante registrado de la comunidad
+\item
+  \textbf{Población:} Colección de los votantes de la comunidad
+\item
+  \textbf{Unidad de Muestreo:} Votante registrado de la comunidad /
+  hogares de la comunidad
+\item
+  \textbf{Marco Muestral:} Lista de todos los votantes registrados de la
+  comunidad. / Directorio de teléfonos - lista de registro de hogares
+  obtenidos desde un censo.
+\item
+  \textbf{Muestra:} Votantes encuestados.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{tipos-de-muestreo}{%
+\subsection{Tipos de Muestreo}\label{tipos-de-muestreo}}
+
+\begin{frame}{Tipos de Muestreo}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo no Probabilístico:} Los resultados obtenidos sólo
+  representan las características de los elementos muestrados y no de la
+  población
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Muestreo por conveniencia
+  \item
+    Muestreo consecutivo
+  \item
+    Muestreo por cuotas
+  \item
+    Muestreo de bola de nieve. (Muestreo en cadena).
+  \end{itemize}
+\item
+  \textbf{Muestreo Probabilístico:} Cada uno de los elementos de la
+  población de interés, o población objeto, tiene una probabilidad
+  conocida (frecuentemente igual) de ser elegidos en la muestra.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{sesgo-de-selecciuxf3n}{%
+\subsection{Sesgo de selección}\label{sesgo-de-selecciuxf3n}}
+
+\begin{frame}{Sesgo de selección}
+
+Una buena muestra debe ser lo más libre de sesgo de selección.
+\textbf{Sesgo de selección} ocurre cuando una parte de la población
+objectivo no es parte de la población a muestrear, o más generalmente,
+cuando ciertas unidades muestrales son muestreadas a una tasa diferente
+a la prevista por el investigador.
+
+Un muestreo por conveniencia (y en general, los muestreos no
+probabilísticos) es usualmente sesgado, debido a que las unidades que
+son más fácil de seleccionar son usualmente no representativas de las
+unidades más difíciles de obtener o de no-respuesta.
+
+\end{frame}
+
+\hypertarget{error-de-mediciuxf3n}{%
+\subsection{Error de medición}\label{error-de-mediciuxf3n}}
+
+\begin{frame}{Error de medición}
+
+Un buena muestra tiene respuestas precisas a los items de interés.
+Cuando una respuesta en la encuesta difiere de su valor real, \textbf{un
+error de medición} ha ocurrido. \textbf{Sesgo de medición} ocurre cuando
+la respuesta tiene una tendencia a diferir de su valor real en una
+dirección.
+
+\end{frame}
+
+\hypertarget{diseuxf1o-de-cuestionario}{%
+\subsection{Diseño de cuestionario}\label{diseuxf1o-de-cuestionario}}
+
+\begin{frame}{Diseño de cuestionario}
+
+Si se desea escribir un cuestionario, una pauta general para su
+confección es:
+
+\begin{itemize}
+\tightlist
+\item
+  Siempre probar el instrumento antes de realizar la encuesta
+\item
+  Mantener las preguntas simples y limpias
+\item
+  Se debe priorizar preguntas específicas, a las generales
+\item
+  Relacionar las preguntas con los conceptos de interés
+\item
+  Se debe decidir si se usarán preguntas abiertas o cerradas
+\item
+  Reportar la pregunta hecha
+\item
+  Evitar preguntas que motiven alguna respuesta en particular
+\item
+  Evitar doble negación
+\item
+  Preferir alternativas \emph{impuestas} en vez de Concuerda/No
+  concuerda
+\item
+  Preguntar un concepto por pregunta
+\item
+  Tomar atención al efecto provocado por el orden de las preguntas
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{errores-muestrales-y-no-muestrales}{%
+\subsection{Errores Muestrales y No
+Muestrales}\label{errores-muestrales-y-no-muestrales}}
+
+\begin{frame}{Errores Muestrales y No Muestrales}
+
+Los errores muestrales hacen referencia al error inherente provocado por
+tomar muestra en vez de examinar toda la población. En cambio, los
+errores no muestrales son los dados por \textbf{sesgos de selección} y
+\textbf{errores de medición}
+
+\end{frame}
+
+\hypertarget{muestreo-aleatorio-simple-sin-reposiciuxf3n}{%
+\section{Muestreo Aleatorio Simple: Sin
+reposición}\label{muestreo-aleatorio-simple-sin-reposiciuxf3n}}
+
+\begin{frame}{Muestreo Aleatorio Simple: Sin reposición}
+
+Procedimiento de selección de muestra en el cual \(n\) distintas
+unidades son seleccionadas desde \(N\) unidades de la población, de tal
+manera que cualquier posible combinación de \(n\) unidades extraídas es
+igualmente probable de ser seleccionada. Esto es, cada elemento tiene la
+misma probabilidad de ser escogido (en cada paso).
+
+\end{frame}
+
+\hypertarget{probabilidades-elementales}{%
+\subsection{Probabilidades
+elementales}\label{probabilidades-elementales}}
+
+\begin{frame}{Probabilidades elementales}
+
+\begin{itemize}
+\tightlist
+\item
+  Probabilidad de que una muestra cualquiera sea escogida:
+  \[\mathbb{P}(u_1,\dots,u_n)=\dfrac{1}{{N\choose n}}\]
+\item
+  Probabilidad que tiene una unidad de la población de pertenecer a la
+  muestra:
+\end{itemize}
+
+\[\mathbb{P}(u_i \in \tilde{x})=\dfrac{{N-1\choose n-1}}{{N\choose n}}=\dfrac{n}{N}\]
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-paruxe1metro-poblacionales}{%
+\subsection{Estimación de parámetro
+poblacionales}\label{estimaciuxf3n-de-paruxe1metro-poblacionales}}
+
+\begin{frame}{Estimación de parámetro poblacionales}
+
+Por lo general, el objetivo de la obtención de una muestra es realizar
+estimación sobre ciertos parámetros poblacionales usando la información
+extraída. Usualmente, uno de los parámetros a estimar es la
+\textbf{media poblacional} , denotada por \(\mu\). Es sabido que \(\mu\)
+está definido como:
+
+\[\mu=\dfrac{1}{N}\sum_{i=1}^{N} y_i\]
+
+y la media muestral \(\overline{y}\) es su estimación insesgada,
+definida por:
+
+\[\overline{y}=\dfrac{1}{n}\sum_{i=1}^{n}y_i\]
+
+\end{frame}
+
+\begin{frame}
+
+A su vez, bajo un muestreo aleatorio simple, la \textbf{varianza
+muestral} \(s^2\) es un estimador insesgado de la \textbf{varianza
+poblacional de una muestra finita} \(\sigma^2\). Es sabido que \(s^2\) y
+\(\sigma^2\) están definidos por:
+
+\[s^2=\dfrac{1}{n-1}\sum_{i=1}^{n}(y_i-\overline{y})^2\]
+
+y \[\sigma^2=\dfrac{1}{N-1}\sum_{i=1}^{N}(y_i-\mu)^2\]
+
+\end{frame}
+
+\begin{frame}
+
+Bajo un M.A.S. \textbf{sin reemplazo} la varianza del estimador
+\(\overline{y}\) está dada por:
+
+\[\mathbb{V}(\overline{y})=\left( \dfrac{N-n}{N}\right)\dfrac{\sigma^2}{n}\]
+
+y un estimador insesgado de esta varianza es:
+
+\[\widehat{\mathbb{V}(\overline{y})}=\left( \dfrac{N-n}{N}\right)\dfrac{s^2}{n}\]
+La cantidad \(\dfrac{N-n}{N}=1-\dfrac{n}{N}\) es llamada \textbf{factor
+de corrección para poblaciones finitas}.
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-del-total-poblacional}{%
+\subsection{Estimación del total
+poblacional}\label{estimaciuxf3n-del-total-poblacional}}
+
+\begin{frame}{Estimación del total poblacional}
+
+Para estimar el total de la población \(\tau\), donde:
+\[\tau=\sum_{i=1}^{N}y_i=N\mu\] Un estimador insesgado del total
+poblacional está dado por:
+\[\hat{\tau}=N\overline{y}=\dfrac{N}{n}\sum_{i=1}^{n}y_i\] Debido a que
+el estimador \(\hat{\tau}\) es \(N\) veces el estimador
+\(\overline{y}\), la varianza de \(\hat{\tau}\) es \(N^2\) veces la
+varianza de \(\overline{y}\). Así,
+\[\mathbb{V}(\hat{\tau})=N^2\mathbb{V}(\overline{y})=N(N-n)\dfrac{\sigma^2}{n}\]
+
+\end{frame}
+
+\begin{frame}
+
+Un estimador insesgado de esta varianza es:
+
+\[\widehat{\mathbb{V}(\hat{\tau})}=N^2\widehat{\mathbb{V}(\overline{y})}=N(N-n)\dfrac{s^2}{n}\]
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-una-proporciuxf3n-poblacional}{%
+\subsection{Estimación de una proporción
+poblacional}\label{estimaciuxf3n-de-una-proporciuxf3n-poblacional}}
+
+\begin{frame}{Estimación de una proporción poblacional}
+
+Sea \(y_i=0\) si el elemento \(i-\)ésimo muestreado no posee una
+característica específica, y este valor sea \(1\) en caso contrario.
+Escribimos la proporción poblacional como:
+\[p=\dfrac{1}{N}\sum_{i=1}^{N} y_i=\mu\] La varianza para poblaciones
+finitas está dada por:
+\[\sigma^2=\dfrac{\sum_{i=1}^{N}(y_i-p)^2}{N-1}=\dfrac{\sum_{i=1}^{N}y_{i}^{2}-Np^2}{N-1}=\dfrac{Np-Np^2}{N-1}=\dfrac{N}{N-1}p(1-p)\]
+
+\end{frame}
+
+\begin{frame}
+
+Sea \(\hat{p}\) la proporción muestral de los mismos atributos
+anteriores, entonces:
+\[\hat{p}=\dfrac{1}{n}\sum_{i=1}^{n}y_i=\overline{y}\] La varianza
+muestral es:
+\[s^2=\dfrac{\sum_{i=1}^{n}(y_i-\overline{y})^2}{n-1}=\dfrac{\sum_{i=1}^{n}y_{i}^{2}-n\hat{p}^2}{n-1}=\dfrac{n}{n-1}\hat{p}(1-\hat{p})\]
+
+\end{frame}
+
+\begin{frame}
+
+La varianza de la proporción muestral está dada por:
+\[\mathbb{V}(\hat{p})=\left(\dfrac{N-n}{N-1}\right)\dfrac{p(1-p)}{n}\] y
+un estimador insesgado de esta varianza es:
+\[\widehat{\mathbb{V}(\hat{p})}=\left(\dfrac{N-n}{N}\right)\dfrac{\hat{p}(1-\hat{p})}{n-1}\]
+
+\end{frame}
+
+\hypertarget{ejemplo-1}{%
+\subsection{Ejemplo}\label{ejemplo-1}}
+
+\begin{frame}{Ejemplo}
+
+Se desea estimar el número de personas que asiste a clases, para ello,
+se realiza un muestreo de \(n=2\) de un total de \(N=4\) secciones de un
+curso. Las secciones son enumeradas del \(1\) al \(4\). Al muestrear se
+cada una de las secciones se han de obtener los siguientes resultados.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Sección \(i\) & 1 & 2 & 3 & 4\tabularnewline
+\midrule
+\endhead
+Persona \(y_i\) & 10 & 17 & 13 & 20\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{longtable}[]{@{}cccccc@{}}
+\toprule
+Muestra & \(y_s\) & \(\overline{y}\) & \(\hat{\tau}\) & \(s^2\) &
+\(\widehat{\mathbb{V}}(\hat{\tau})\)\tabularnewline
+\midrule
+\endhead
+(1, 2) & (10, 17) & 13.5 & 54 & 24.5 & 98\tabularnewline
+(1, 3) & (10, 13) & 11.5 & 46 & 4.5 & 18\tabularnewline
+(1, 4) & (10, 20) & 15.0 & 60 & 50.0 & 200\tabularnewline
+(2, 3) & (17, 13) & 15.0 & 60 & 8.0 & 32\tabularnewline
+(2, 4) & (17, 20) & 18.5 & 74 & 4.5 & 18\tabularnewline
+(3, 4) & (13, 20) & 16.5 & 66 & 24.5 & 98\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  Calcule
+  \(\mathbb{E}(\hat{\tau}),\mathbb{E}(\overline{y}),\mathbb{E}(s^2),\mathbb{E}(\widehat{\mathbb{V}(\hat{\tau}}))\).
+  Contraste estos valores con sus respectivos valores poblacionales.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{ejercicio}{%
+\subsection{Ejercicio}\label{ejercicio}}
+
+\begin{frame}{Ejercicio}
+
+Sea realiza un M.A.S. de tamaño \(n=10\) desde una población de 100
+hogares. El número de personas en la muestra es \(2,5,1,4,4,3,2,5,2,3\).
+
+\begin{itemize}
+\tightlist
+\item
+  Estime el número total de personas en la población. Estime la varianza
+  de su estimador.
+\item
+  Estime el número medio de personas por hogar y estime la varianza de
+  su estimador.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{intervalos-de-confianza-para-los-paruxe1metros-de-interuxe9s}{%
+\subsection{Intervalos de Confianza para los parámetros de
+interés}\label{intervalos-de-confianza-para-los-paruxe1metros-de-interuxe9s}}
+
+\begin{frame}{Intervalos de Confianza para los parámetros de interés}
+
+Al tener una muestra y en consecuencia una estimación de algún parámetro
+de interés, es deseable además realizar una estimación sobre la
+precisión de este último. Usualmente, lo anterior es hecho mediante
+\textbf{intervalos de confianza}. Un intervalo de confianza usa los
+datos muestrales para determinar un intervalo con la propiedad de que
+este tenga una gran probabilidad de contener el verdadero parámetro de
+interés antes de escoger una muestra en particular.
+
+\end{frame}
+
+\hypertarget{intervalo-de-confianza-para-la-media-poblacional}{%
+\subsection{Intervalo de Confianza para la media
+poblacional}\label{intervalo-de-confianza-para-la-media-poblacional}}
+
+\begin{frame}{Intervalo de Confianza para la media poblacional}
+
+Sea \(I\) el intervalo de confianza para la media poblacional \(\mu\).
+Se escoge un número \(\alpha\) que representa la máxima probabilidad de
+error admisible, tal que \(\mathbb{P}(\mu \in I)=1-\alpha\).
+
+Los límites de este intervalo \(I\) varían entre muestras, mientras que
+el parámetro \(\mu\) está fijo. La cantidad \(1-\alpha\) es llamado
+\textbf{coeficiente de confianza}. Usualmente se utilizan niveles de
+0.01,0.05 y 0.1 , estos valores son \textbf{arbitrarios}.
+
+\end{frame}
+
+\begin{frame}
+
+Un intervalo de confianza para estimar la \textbf{media poblacional} con
+un nivel de confianza del \(100(1-\alpha)\%\), bajo un muestreo
+aleatorio simple, está dado por:
+\[\overline{y}\pm t\sqrt{\left( \dfrac{N-n}{N}\right)\dfrac{s^2}{n}}\]
+donde \(t\) es el cuantil \(\alpha/2\) superior correspondiente de una
+distribución t-student con \(n-1\) grados de libertad.
+
+\end{frame}
+
+\hypertarget{intervalo-de-confianza-para-el-total-poblacional}{%
+\subsection{Intervalo de Confianza para el total
+poblacional}\label{intervalo-de-confianza-para-el-total-poblacional}}
+
+\begin{frame}{Intervalo de Confianza para el total poblacional}
+
+Un intervalo de confianza para estimar el \textbf{total poblacional} con
+un nivel de confianza del \(100(1-\alpha)\%\), bajo un muestreo
+aleatorio simple, está dado por:
+\[\hat{\tau}\pm t \sqrt{ N(N-n)\dfrac{s^2}{n}  }\] donde \(t\) es el
+cuantil \(\alpha/2\) superior correspondiente de una distribución
+t-student con \(n-1\) grados de libertad.
+
+\end{frame}
+
+\hypertarget{intervalo-de-confianza-para-una-proporciuxf3n-poblacional}{%
+\subsection{Intervalo de Confianza para una proporción
+poblacional}\label{intervalo-de-confianza-para-una-proporciuxf3n-poblacional}}
+
+\begin{frame}{Intervalo de Confianza para una proporción poblacional}
+
+Un intervalo de confianza para estimar la
+\textbf{proporción poblacional} con un nivel de confianza del
+\(100(1-\alpha)\%\), bajo un muestreo aleatorio simple, está dado por:
+\[\hat{p}\pm t \sqrt{\left(\dfrac{N-n}{N}\right)\dfrac{\hat{p}(1-\hat{p})}{n-1}  }\]
+donde \(t\) es el cuantil \(\alpha/2\) superior correspondiente de una
+distribución t-student con \(n-1\) grados de libertad.
+
+\end{frame}
+
+\begin{frame}
+
+Para muestras grandes \((n>50)\), el cuantil \(\alpha/2\) superior
+correspondiente a una distribución normal puede reemplazar el valor
+\(t\) en los intervalos de confianza anterior, y adicionalmente cuando
+\(p\approx\) 0.5 en el caso de la proporción poblacional.
+
+\end{frame}
+
+\hypertarget{intervalo-de-confianza-general}{%
+\subsection{\texorpdfstring{Intervalo de Confianza
+\emph{general}}{Intervalo de Confianza general}}\label{intervalo-de-confianza-general}}
+
+\begin{frame}{Intervalo de Confianza \emph{general}}
+
+En general, si se desea estimar un parámetro poblacional \(\theta\) y
+\(\hat{\theta}\) es un estimador insesgado para \(\theta\) que se
+distribuye normal, entonces un intervalo de confianza con un nivel del
+\((1-\alpha)100\%\) para \(\theta\) está dado por:
+\[\hat{\theta}\pm z\sqrt{\mathbb{V}(\hat{\theta})}\] donde \(z\) es el
+cuantil \(\alpha/2\) superior correspondiente de una distribución
+normal. En la práctica, el estimador puede tener una distribución
+aproximadamente normal (por T.L.C.) incluso si los valores originales no
+lo son.
+
+\end{frame}
+
+\begin{frame}
+
+Además, usualmente la varianza del estimador es obtenido a partir de los
+datos muestrales, por lo que el intervalo de confianza está dado por:
+\[\hat{\theta}\pm z\sqrt{\widehat{\mathbb{V}(\hat{\theta}})}\] En tales
+casos, la probabilidad de que este intervalo contenga al parámetro
+poblacional es aproximadamente \(1-\alpha\). Para muestras pequeñas, es
+preferible usar \(t\) -definido anteriormente- que su equivalente
+gaussiano.
+
+\end{frame}
+
+\hypertarget{teorema-del-luxedmite-central-para-poblaciones-finitas}{%
+\subsection{Teorema del límite central para poblaciones
+finitas}\label{teorema-del-luxedmite-central-para-poblaciones-finitas}}
+
+\begin{frame}{Teorema del límite central para poblaciones finitas}
+
+Cuando las observaciones individuales \(y_1,y_2,\dots,y_n\) no se
+distribuyen normalmente, la aproximación de los intervalos de confianza
+antes estudiados dependen de la aproximación de la varianza de la media
+muestral a una distibución normal. Si \(y_1,y_2,\dots,y_n\) son una
+secuencia de variables aleatorias \textbf{independientes} e
+\textbf{identicamente distribuidas} con media y varianza finita,
+entonces la distribución de:
+\[\dfrac{\overline{y}-\mu }{\sqrt{\mathbb{V}(\overline{y})}}\] se acerca
+a una distribución normal estándar conforme \(n\) se agranda, por
+teorema del límite central.
+
+\end{frame}
+
+\begin{frame}
+
+Cuando una población finita es muestreada usando un M.A.S. con
+reemplazo, las \(n\) observaciones cumplen con las hipótesis del
+teorema. Mas no, cuando se realiza un M.A.S. sin reemplazo, las
+observaciones no son independientes, por lo que este teorema no es
+aplicable.
+
+Leer M.A.S. con reemplazo pág.19-20. Sampling, K.Thompson. y detalles
+técnicos del teorema: pág. 42 , \emph{Some details}, del mismo libro.
+
+\end{frame}
+
+\hypertarget{ejemplo-2}{%
+\subsection{Ejemplo}\label{ejemplo-2}}
+
+\begin{frame}{Ejemplo}
+
+Verifique los intervalos de confianza:
+
+\begin{longtable}[]{@{}ccccccc@{}}
+\toprule
+Muestra & \(y_s\) & \(\overline{y}\) & \(\hat{\tau}\) & \(s^2\) &
+\(\widehat{\mathbb{V}}(\hat{\tau})\) & I.C\tabularnewline
+\midrule
+\endhead
+(1, 2) & (10, 17) & 13.5 & 54 & 24.5 & 98 &
+\(54 \pm 126\)\tabularnewline
+(1, 3) & (10, 13) & 11.5 & 46 & 4.5 & 18 & \(46 \pm 54\)\tabularnewline
+(1, 4) & (10, 20) & 15.0 & 60 & 50.0 & 200 &
+\(60 \pm 180\)\tabularnewline
+(2, 3) & (17, 13) & 15.0 & 60 & 8.0 & 32 & \(60 \pm 72\)\tabularnewline
+(2, 4) & (17, 20) & 18.5 & 74 & 4.5 & 18 & \(74 \pm 54\)\tabularnewline
+(3, 4) & (13, 20) & 16.5 & 66 & 24.5 & 98 &
+\(66 \pm 126\)\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\hypertarget{tamauxf1o-de-muestra}{%
+\subsection{Tamaño de muestra}\label{tamauxf1o-de-muestra}}
+
+\begin{frame}{Tamaño de muestra}
+
+Supongamos que queremos estimar un parámetro poblacional \(\theta\) con
+un estimador \(\hat{\theta}\). Es posible especificar un cantidad máxima
+posible para la diferencia entre la estimación y el valor real del
+parámetro, digamos \(d\), con una pequeña probabilidad \(\alpha\) que el
+error pueda exceder tal diferencia. Bajo esto contexto, el objetivo es
+elegir un tamaño de muestra \(n\) tal que:
+\[\mathbb{P}\left( |\hat{\theta}-\theta|>d\right)<\alpha\] Si el
+estimador \(\hat{\theta}\) de \(\theta\) es insesgado y normalmente
+distribuido, entonces:
+\[\dfrac{\hat{\theta}-\theta}{\sqrt{\mathbb{V}(\hat{\theta})}}\sim N(0,1)\]
+
+\end{frame}
+
+\begin{frame}
+
+Si denotamos \(z\) como el cuantil \(\alpha/2\) superior de una
+distribución normal estándar, entonces se tiene que:
+\[\mathbb{P}\left(  \dfrac{|\hat{\theta}-\theta|}{\sqrt{\mathbb{V}(\hat{\theta})}} >z \right)=\mathbb{P}\left(|\hat{\theta}-\theta| > z \sqrt{\mathbb{V}(\hat{\theta})} \right) = \alpha\]
+La varianza del estimador \(\hat{\theta}\) decrese conforme el tamaño de
+muestra crece, por lo que la desigualdad anterior se cumplirá si
+escogemos un \(n\) tal que \(z\sqrt{\mathbb{V}(\hat{\theta})} \leq d\).
+
+\end{frame}
+
+\hypertarget{tamauxf1o-de-muestra-para-estimar-la-media-poblacional}{%
+\subsection{Tamaño de muestra para estimar la media
+poblacional}\label{tamauxf1o-de-muestra-para-estimar-la-media-poblacional}}
+
+\begin{frame}{Tamaño de muestra para estimar la media poblacional}
+
+Dado un muestreo aleatorio simple, la media muestral \(\overline{y}\) es
+un estimador insesgado de la media poblacional \(\mu\) con varianza
+\(\mathbb{V}(\overline{y})=(N-n)\sigma^2/Nn\). Si fijamos:
+\[z\sqrt{ \left( \dfrac{N-n}{N}\right) \dfrac{\sigma^2}{n}}=d\] y
+resolvemos para \(n\), entonces se tiene que:
+\[n=\dfrac{1}{d^2/z^2\sigma^2 + 1/N}=\dfrac{1}{1/n_0 + 1/N}\] donde
+\(n_0=\dfrac{z^2\sigma^2}{d^2}\). Si el tamaño de población \(N\) es
+grande en comparación con el tamaño de muestra \(n\), tal que el factor
+de correción puede ser ignorado, entonces \(n=n_0\)
+
+\end{frame}
+
+\hypertarget{tamauxf1o-de-muestra-para-estimar-el-total-poblacional}{%
+\subsection{Tamaño de muestra para estimar el total
+poblacional}\label{tamauxf1o-de-muestra-para-estimar-el-total-poblacional}}
+
+\begin{frame}{Tamaño de muestra para estimar el total poblacional}
+
+Para estimar el total poblacional \(\tau\), la ecuación a resolver para
+\(n\) es: \[z\sqrt{N(N-n)\dfrac{\sigma^2}{n}}=d\] el cual al resolver
+para \(n\), se tiene:
+\[n=\dfrac{1}{d^2/N^2z^2\sigma^2+1/N}=\dfrac{1}{1/n_0+1/N}\] donde
+\(n_0=\dfrac{N^2z^2\sigma^2}{d^2}\). Si ignoramos el factor de
+correción, la fórmula se reduce a \(n=n_0\).
+
+\end{frame}
+
+\hypertarget{tamauxf1o-de-muestra-para-estimar-la-proporciuxf3n-poblacional}{%
+\subsection{Tamaño de muestra para estimar la proporción
+poblacional}\label{tamauxf1o-de-muestra-para-estimar-la-proporciuxf3n-poblacional}}
+
+\begin{frame}{Tamaño de muestra para estimar la proporción poblacional}
+
+De igual manera que antes, para estimar la proporción poblacional \(p\),
+la ecuación a resolver es:
+\[z\sqrt{\left(\dfrac{N-n}{N}\right)\dfrac{\hat{p}(1-\hat{p})}{n-1}}=d\]
+y resolvemos para \(n\), entonces:
+\[n=\dfrac{N\hat{p}(1-\hat{p})}{(N-1)(d^2/z^2)+\hat{p}(1-\hat{p})}\] Si
+el factor de correción puede ser ignorado, entonces la fórmula se reduce
+a: \(n=\dfrac{z^2\hat{p}(1-\hat{p})}{d^2}\)
+
+\end{frame}
+
+\hypertarget{tamauxf1o-de-muestra-error-relativo}{%
+\subsection{Tamaño de muestra: Error
+relativo}\label{tamauxf1o-de-muestra-error-relativo}}
+
+\begin{frame}{Tamaño de muestra: Error relativo}
+
+Si en vez de querer controlar un error absoluto \((d)\), deseamos
+controlar el error relativo -esto es, la diferencia entre la estimación
+y el valor real, dividido por el valor real-, el criterio a satisfacer
+es:
+\[\mathbb{P}\left( \left| \dfrac{\hat{\theta}-\theta}{\theta} \right| >r \right) < \alpha\]
+por lo que resolviendo para \(n\) en el caso de la estimación de media
+poblacional, se tiene: \[n=\dfrac{1}{r^2\mu^2/z^2\sigma^2+1/N}\] Este
+resultado puede ser obtenido reemplando \(d\) por \(r\mu\) para la
+obtención de tamaño de muestra controlando un error absoluto.
+
+\end{frame}
+
+\begin{frame}
+
+Es claro ver que, si denotamos \(\gamma\) como el coeficiente de
+variación para la población \((\gamma=\sigma/\mu)\), la fórmula anterior
+puede ser reescrita como: \[n=\dfrac{1}{r^2/z^2\gamma^2+1/N}\] Así, el
+coeficiente de variación es la cantidad poblacional en la cual el tamaño
+de muestra depende para controlar el error relativo.
+
+\end{frame}
+
+\hypertarget{ejercicio-1}{%
+\subsection{Ejercicio}\label{ejercicio-1}}
+
+\begin{frame}{Ejercicio}
+
+\begin{enumerate}
+\item
+  Un investigador desea diseñar una muestra para estimar el número de
+  árboles de cierto tipo en un área de estudio. El área de estudio fue
+  dividida en \(1000\) unidades. Por experiencia, se sabe que la
+  varianza en el número de tallos por unidad es conocido y
+  aproximadamente \(\sigma^2 \approx 45\). Usando un M.A.S., ¿ Qué
+  tamaño de muestra debería ser usado para estimar el número total de
+  árboles en el área de estudio para que esté dentro de \(500\) árboles
+  del valor real a un \(95\%\)? repita el resultado para \(1000\) y
+  \(2000\) árboles.
+\item
+  Obtenga el tamaño de muestra de la pregunta anterior cuando el factor
+  de corrección es ignorado. ¿ Qué puede concluir respecto a la
+  importancia del factor de corrección para esta población?
+\end{enumerate}
+
+\end{frame}
+
+\hypertarget{muestreo-sistemuxe1tico}{%
+\section{Muestreo Sistemático}\label{muestreo-sistemuxe1tico}}
+
+\begin{frame}{Muestreo Sistemático}
+
+Una muestra obtenida seleccionando aleatoriamente un elemento de la
+población desde los \(k\) primeros elementos y luego seleccionando cada
+\(k\) elementos subsiguientes es llamado un \textbf{muestreo
+sistemático}.
+
+Una de las mayores ventajas de este tipo de muestreo, es que simplifica
+el proceso de elección de muestra, puesto que sólo el primer elementos
+es seleccionado aleatoriamente. Por lo mismo, es más fácil de realizar y
+es menos propenso a errores por parte de quienes obtienen los datos.
+
+\end{frame}
+
+\begin{frame}
+
+En general, para la elección de \(k\) para un muestreo sistemático de
+\(n\) elementos desde una población de tamaño \(N\), \(k\) debe ser
+menor o igual a \(N/n\). Supongamos que \(N=15000\) y que el tamaño de
+muestra necesario es \(n=100\). Para \(k=150\), obtendremos exactamente
+\(n=100\) observaciones, mientras que para \(k<150\), el tamaño de
+muestra será superior a \(100\).
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-para-la-media-poblacional}{%
+\subsection{Estimación para la media
+poblacional}\label{estimaciuxf3n-para-la-media-poblacional}}
+
+\begin{frame}{Estimación para la media poblacional}
+
+De igual manera que en el M.A.S, estamos interesados en los mismos
+parámetros de interés poblacionales. Así,
+\[\hat{\mu}=\overline{y}_{sy}=\dfrac{\sum_{i=1}^{n}y_i}{n}\] en donde
+\(sy\) hace referencia a que un muestreo sistemático fue utilizado. Y,
+\[\widehat{\mathbb{V}(\overline{y}_{sy})}=\left(1-\dfrac{n}{N}\right)\dfrac{s^2}{n}\]
+asumiendo una población aleatoriamente ordenada.
+
+\end{frame}
+
+\begin{frame}
+
+Es claro notar que la varianza de \(\overline{y}_{sy}\) dada
+anteriormente es identica a la estimación de la varianza para
+\(\overline{y}\). Lo anterior no implica que el verdadero valor de la
+varianza de \(\overline{y}_{sy}\) es el mismo que el de
+\(\overline{y}\), pues:
+\[\mathbb{V}(\overline{y})=\dfrac{\sigma^2}{n}\left(1-\dfrac{n}{N}\right)\]
+y,
+\[\mathbb{V}(\overline{y}_{sy})=\dfrac{\sigma^2}{n}\left(1+(n-1)\rho\right)\]
+donde \(\rho\) es la medida de correlación entre pares de elementos
+dentro de la misma muestra sistemática.
+
+\end{frame}
+
+\begin{frame}
+
+En el caso de que \(\rho\approx 1\), los elementos dentro de la muestra
+son bastante similares con respecto a la característica medida, y un
+muestreo sistemático otorgará mayor varianza de la media muestral que
+bajo un M.A.S. En el caso de que \(\rho<0\), un muestreo sistemático
+podría ser más preciso que un M.A.S. La correlación puede ser negativa
+si los elementos dentro de una muestra sistemática tienden a ser
+extremadamente diferentes. La correlación no puede ser \emph{tan
+negativa} pues la expresión de la varianza se vuelve negativa. Para
+\(\rho\approx 0\) y \(N\) relativamente grande, un muestreo sistemático
+es más o menos equivalente a un M.A.S.
+
+\end{frame}
+
+\begin{frame}
+
+Un estimador insesgado de \(\mathbb{V}(\overline{y}_{sy})\) no puede ser
+obtenido usando sólo datos de una muestra sistemática. Cuando un
+muestreo sistemático es más o menos equivalente a un M.A.S., podemos
+estimar \(\mathbb{V}(\overline{y}_{sy})\) usando las estimaciones de un
+M.A.S..
+
+\end{frame}
+
+\hypertarget{tipos-de-poblaciuxf3n}{%
+\subsection{Tipos de población}\label{tipos-de-poblaciuxf3n}}
+
+\begin{frame}{Tipos de población}
+
+Definamos 3 tipos de poblaciones:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Aleatoria:} Los elementos de la población están ordenados
+  aleatoriamente.
+\item
+  \textbf{Ordenada:} Los elementos de la población tienen valores que
+  tienden a oscilar cuando son enumerados.
+\item
+  \textbf{Periódica:} Los elementos de la población tienen valores que
+  oscilan cíclicamente en \emph{patrones regulares} cuando son
+  enumerados.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\centering
+\includegraphics{../../resources/random_pop.png}
+\caption{Muestra aleatoria}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\centering
+\includegraphics{../../resources/ordered_pop.png}
+\caption{Muestra ordenada}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\centering
+\includegraphics{../../resources/periodic_pop.png}
+\caption{Muestra periódica}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\item
+  Una muestra sistemática para poblaciones aleatorias se comporta -en
+  términos prácticos- como una muestra aleatoria simple. Por lo que, en
+  tal caso, la aproximación de la varianza usando la varianza obtenida
+  bajo un M.A.S. funciona \emph{relativamente} bien.
+\item
+  En muestras desde una población ordenada, los valores muestrales
+  tienden a estar más separados numéricamente que en una M.A.S.,
+  provocando que la correlación dentro de la muestra \(\rho\) sea más
+  negativa. Así, si usamos la fórmula de M.A.S. obtendremos una sobre
+  estimación del verdadero error muestral.
+\item
+  Para poblaciones periódicas, la efectividad de una muestra sistemática
+  (1 cada \(k\)) depende del valor escogido para \(k\). En este caso si
+  usamos la fórmula de M.A.S. obtendremos una subestimación del
+  verdadero error muestral.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-del-total-poblacional-1}{%
+\subsection{Estimación del total
+poblacional}\label{estimaciuxf3n-del-total-poblacional-1}}
+
+\begin{frame}{Estimación del total poblacional}
+
+De igual manera que bajo un muestreo aleatorio simple se tiene,
+\[\hat{\tau}=N\overline{y}_{sy}\] y,
+\[\widehat{\mathbb{V}(N\overline{y}_{sy})}=N^2\widehat{\mathbb{V}(\overline{y}_{sy})}=N^2\left( 1- \dfrac{n}{N}\right)\left(\dfrac{s^2}{n}\right)\]
+Asumiendo una población ordenada aleatoriamente.
+
+\end{frame}
+
+\begin{frame}
+
+Es claro ver que los resultados anteriores son idénticos a los
+presentados para las estimación bajo un muestreo aleatorio simple. Al
+igual que para la media poblacional, este resultado no implica que la
+verdadera varianza de \(N\overline{y}_{sy}\) es la misma que la varianza
+de \(N\overline{y}\). Nuevamente, no es posible obtener un estimador
+insesgado de \(\mathbb{V}(N\overline{y}_{sy})\) a partir de sólo una
+muestra sistemática. Los casos en los que un muestreo sistemático es más
+o menos parecido a un M.A.S. son los mismos. Así, podemos ocupar las
+fórmulas de este último para aquellos casos.
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-para-una-proporciuxf3n-poblacional}{%
+\subsection{Estimación para una proporción
+poblacional}\label{estimaciuxf3n-para-una-proporciuxf3n-poblacional}}
+
+\begin{frame}{Estimación para una proporción poblacional}
+
+Análogamente, el estimador de una proporción poblacional \(p\):
+\[\hat{p}_{sy}=\overline{y}_{sy}=\dfrac{\sum_{i=1}^{n}y_i}{n}\] y su
+varianza estimada,
+\[\widehat{\mathbb{V}(\hat{p}_{sy})}=\left(1-\dfrac{n}{N}\right)\dfrac{\hat{p}_{sy}(1-\hat{p}_{sy})}{n-1}\]
+Asumiendo una población ordenada aleatoriamente.
+
+\end{frame}
+
+\begin{frame}
+
+Nuevamente, el resultado anterior es idéntico al caso de un M.A.S., pero
+esto no implica que las varianzas poblacionales sean idénticas. Las
+aproximaciones antes mencionadas son aplicables para la estimación para
+una proporción poblacional.
+
+\end{frame}
+
+\hypertarget{intervalos-de-confianza-para-los-paruxe1metros-de-interuxe9s-1}{%
+\subsection{Intervalos de confianza para los parámetros de
+interés}\label{intervalos-de-confianza-para-los-paruxe1metros-de-interuxe9s-1}}
+
+\begin{frame}{Intervalos de confianza para los parámetros de interés}
+
+Para un muestreo sistemático, los intervalo de confianza son
+aproximadamente idénticos a los vistos bajo un M.A.S.. Cabe destacar,
+que esto se debe al supuesto de normalidad \(\hat{\theta}\). En caso de
+no asumir dicha hipótesis, la distribución muestral de la cantidad
+pivotal utilizada para la construcción del intervalo de confianza debe
+ser analizada.
+
+\end{frame}
+
+\hypertarget{tamauxf1o-de-muesta-para-los-paruxe1metros-de-interuxe9s}{%
+\subsection{Tamaño de muesta para los parámetros de
+Interés}\label{tamauxf1o-de-muesta-para-los-paruxe1metros-de-interuxe9s}}
+
+\begin{frame}{Tamaño de muesta para los parámetros de Interés}
+
+Análogamente, debido a que los tamaños de muestra son obtenidos a partir
+de acotar el ancho del intervalo de confianza. Los procedimientos antes
+visto son aplicables bajo un muestreo sistemático. En caso de no asumir
+la hipótesis de normalidad, es posible obtener un tamaño de muestra
+sobreestimado, de la forma: \[2\sqrt{\mathbb{V}(\hat{\theta})}\leq d*\]
+y luego, resolver para \(n\).
+
+\textbf{Tarea: Obtener las fórmulas aproximadas para los tamaños de
+muestra de los parámetros de interés usando el criterio anterior.}
+
+\end{frame}
+
+\hypertarget{muestreo-sistemuxe1tico-repetido}{%
+\subsection{Muestreo sistemático
+repetido}\label{muestreo-sistemuxe1tico-repetido}}
+
+\begin{frame}{Muestreo sistemático repetido}
+
+Frecuentemente, seleccionamos \(n_s\) para que sea al menos \(10\) para
+obtener la suficiente cantidad de elementos pertenecientes a la muestra
+tal que la estimación de \(\mathbb{V}(\hat{\mu})\) sea buena. En
+general, \(k'=n_s*k\). Las estimaciones para la media poblacional bajo
+un M.S.R. son: \[\hat{\mu}=\sum_{i=1}^{n_s}\dfrac{\overline{y}_i}{n_s}\]
+donde \(\overline{y}_i\) representa la media de la \(i-\)ésima muestra
+sistemática.
+\[\widehat{\mathbb{V}(\hat{\mu})}=\left( 1-\dfrac{n}{N} \right) \dfrac{s_{\overline{y}}^{2}}{n_s}\]
+donde,
+\[s_{\overline{y}}^{2}=\dfrac{\sum_{i=1}^{n_s}(\overline{y}_i-\hat{\mu})^2}{n_s-1}\]
+
+\end{frame}
+
+\begin{frame}
+
+Para el caso del total poblacional se tiene,
+\[\hat{\tau}=N\hat{\mu}=N\sum_{i=1}^{n_s}\dfrac{\overline{y}_i}{n_s}\]
+y,
+\[\widehat{\mathbb{V}(\hat{\tau})}=N^2 \widehat{\mathbb{V}(\hat{\mu})} = N^2 \left( 1-\dfrac{n}{N} \right) \dfrac{s_{\overline{y}}^{2}}{n_s}\]
+
+\end{frame}
+
+\hypertarget{ejercicios}{%
+\subsection{Ejercicios}\label{ejercicios}}
+
+\begin{frame}{Ejercicios}
+
+Un parque cobra entrada por la carga del auto en vez de por personas. La
+administración desea estimar el número medio de personas por auto para
+una feriado particular. Por historial, se sabe que deberían llegar
+alrededor de 400 autos al parque. Se desea muestrear 80 autos. Para
+obtener una estimación de la varianza, se utiliza un muestreo
+sistemático repetido con 10 muestras de 8 autos cada uno. Usando los
+datos de la tabla, estime el número medio de personas por auto y obtenga
+una cota para el error de estimación.
+
+\end{frame}
+
+\begin{frame}
+
+Número de personas por auto (variable respuesta \(y_i\) en paréntesis)
+
+\begin{longtable}[]{@{}ccccccccc@{}}
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\centering
+Punto inicial aleatorio\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+2do elem.\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+3er elem.\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+4to elem.\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+5to elem.\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+6to elem.\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+7mo elem.\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\centering
+8vo elem.\strut
+\end{minipage} & \begin{minipage}[b]{0.12\columnwidth}\centering
+\(\overline{y_i}\)\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.17\columnwidth}\centering
+2(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+52(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+102(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+152(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+202(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+252(1)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+302(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+352(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+3.75\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+5(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+55(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+105(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+155(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+205(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+255(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+305(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+355(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+3.38\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+7(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+57(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+107(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+157(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+207(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+257(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+307(1)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+357(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+2.88\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+13(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+63(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+113(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+163(7)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+213(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+263(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+313(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+363(7)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+4.62\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+26(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+76(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+126(7)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+176(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+226(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+276(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+326(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+376(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+4.50\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+31(7)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+81(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+131(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+181(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+231(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+281(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+331(7)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+381(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+5.25\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+35(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+85(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+135(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+185(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+235(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+285(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+335(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+385(8)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+4.50\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+40(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+90(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+140(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+190(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+240(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+290(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+340(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+390(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+4.12\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+45(2)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+95(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+145(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+195(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+245(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+295(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+345(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+395(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+4.25\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\centering
+46(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+96(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+146(4)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+196(6)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+246(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+296(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+346(5)\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\centering
+396(3)\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\centering
+4.38\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}
+
+El departamento de control de calidad de una empresa usa un muestreo
+sistemático para estimar la cantidad media de llenado en latas de 12oz
+que salen de una línea de ensamblaje. Los datos en la tabla representan
+un muestra sistemática 1 cada 50 de la producción en un día. Estime
+\(\mu\) y obtenga una cota para el error de estimación. Asuma
+\(N=1800\).
+
+\end{frame}
+
+\begin{frame}
+
+Datos de la cantidad a llenar (oz):
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+\endhead
+12.00 & 11.97 & 12.01 & 12.03 & 12.01 & 11.80\tabularnewline
+11.91 & 11.98 & 12.03 & 11.98 & 12.00 & 11.83\tabularnewline
+11.87 & 12.01 & 11.98 & 11.87 & 11.90 & 11.88\tabularnewline
+12.05 & 11.87 & 11.91 & 11.93 & 11.94 & 11.89\tabularnewline
+11.75 & 11.93 & 11.95 & 11.97 & 11.93 & 12.05\tabularnewline
+11.85 & 11.98 & 11.87 & 12.05 & 12.02 & 12.04\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}
+
+La administración de una compañía está interesada en estimar la
+proporción de empleados que concuerdan con una nueva política de la
+empresa. Un muestra sistemática 1 cada 10 es obtenida de los empleados
+que salen de un edificio en un día particular. Use la tabla siguiente
+para estimar \(p\), la proporción de empleados que concuerdan con la
+nueva política de la empresa y obtenga una cota para el error de
+estimación. Asuma \(N=2000\).
+
+\begin{longtable}[]{@{}cc@{}}
+\toprule
+Empleado encuestado & Respuesta\tabularnewline
+\midrule
+\endhead
+3 & 1\tabularnewline
+13 & 0\tabularnewline
+23 & 1\tabularnewline
+\(\vdots\) & \(\vdots\)\tabularnewline
+1993 & 1\tabularnewline
+& \(\sum_{i=1}^{200} y_i=132\)\tabularnewline
+\bottomrule
+\end{longtable}
+
+Para el problema anterior. Determine el tamaño de muestra requerido para
+estimar \(p\) dentro de a lo más 0.01 unidades.¿Qué tipo de muestra
+sistemática debería ser aplicada?
+
+\end{frame}
+
+\hypertarget{ejercicio-adicionales-prueba-1}{%
+\subsection{Ejercicio adicionales Prueba
+1}\label{ejercicio-adicionales-prueba-1}}
+
+\begin{frame}{Ejercicio adicionales Prueba 1}
+
+Si desean hacer ejercicios adicionales, algunos pueden ser encontrados
+en:
+
+Sampling, Steven K. Thompson:
+
+\begin{itemize}
+\tightlist
+\item
+  pág. 35 - ej. 2 al 5
+\item
+  pág. 50 - ej. 1-2-3
+\end{itemize}
+
+y ejercicios dentro de los capítulos relevantes.
+
+Richard L. Scheaffer, III William Mendenhall, R. Lyman Ott, Kenneth G.
+Gerow - Elementary Survey Sampling-Cengage Learning (2011)
+
+\begin{itemize}
+\tightlist
+\item
+  pág. 102. ej. 1 al 50
+\item
+  pág. 243. ej. 1 al 29
+\end{itemize}
+
+Muestreo Estadístico. Conceptos y problemas resueltos - César Pérez
+
+\begin{itemize}
+\tightlist
+\item
+  pág. 124. ej. 1 al 17 (Ejercicios Resueltos)
+\item
+  pág. 145. ej. 1 al 5
+\item
+  pág. 207. ej. 1 al 8 (Ejercicios Resueltos)
+\item
+  pág. 224. ej. 1 al 3
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{muxe9todos-indirectos-de-estimaciuxf3n}{%
+\section{Métodos Indirectos de
+estimación}\label{muxe9todos-indirectos-de-estimaciuxf3n}}
+
+\begin{frame}{Métodos Indirectos de estimación}
+
+Los métodos indirectos utilizan la información conocida relativa a una
+variable auxiliar \(Y\) (variable de apoyo) correlacionada con la
+variable en estudio \(X\) para conseguir estimaciones más precisas para
+\(X\) que las calculadas únicamente a partir de la muestra de la
+variable que se estudia.
+
+Entre los métodos clásicos de estimación indirecta más utilizados se
+encuentran el \textbf{método de estimación por razón} (basado en la
+razón entre \(X\) e \(Y\)), el \textbf{método de estimación por
+regresión} (basado en la regresión entre X e Y) y el \textbf{método de
+estimación por diferencia} (basado en la diferencia entre \(X\) e
+\(Y\)).
+
+\end{frame}
+
+\begin{frame}
+
+La estimación indirecta constituye el complemento de la estimación
+directa. No se trata por sí solo de un método eficiente de estimación,
+pero junto con la estimación directa desarrolla casi totalmente la
+\textbf{información muestral}. Los métodos de estimación indirecta
+aprovechan la información de variables auxiliares correlacionadas con la
+variable objeto de estudio con el fin de \textbf{conseguir una ganancia
+en precisión de los estimadores}.
+
+\end{frame}
+
+\hypertarget{estimador-de-razuxf3n}{%
+\subsection{Estimador de razón}\label{estimador-de-razuxf3n}}
+
+\begin{frame}{Estimador de razón}
+
+Sea \(X\) la variable objetivo y supongamos que se conoce
+\(Y=\sum_{i=1}^{N} Y_i\), donde \((X_i,Y_i)\) se corresponden con los
+pares de valores de las variables \(X\) e \(Y\), respectivamente,
+observados en la unidad \(i-\)ésima de la población o de la muestra.
+Nuestro objetivo es obtener un estimador para \(X\) que sea más preciso
+que el estimador directo basado únicamente en la muestra. La expresión
+general de los estimadores indirectos es la siguiente:
+
+\[f(\hat{X}_G)=f(\hat{X})+b_0(f(Y)-f(\hat{Y}))\]
+
+siendo \(f\) una función, \(\hat{X}_G\) el estimador indirecto de
+\(X\),\(\hat{X}\) e \(\hat{Y}\) los estimadores directos de \(X\) e
+\(Y\), respectivamente, y \(b_0\) un coeficiente de corrección que,
+dependiendo de su valor, nos dará los diferentes tipos de estimadores
+indirectos. Como caso particular supongamos \(f(x)=x\). Entonces
+\(\hat{X}_G=\hat{X}+b_0(Y-\hat{Y})\)
+
+\end{frame}
+
+\begin{frame}
+
+Los casos más frecuentes de estimadores indirectos son los siguientes:
+
+\begin{itemize}
+\tightlist
+\item
+  Si \(b_0=0\), se tiene \(\hat{X}_G=\hat{X}\), es decir, el estimador
+  obtenido es el directo.
+\item
+  Si \(b_0=1\), entonces \(\hat{X}_G=\hat{X}+(Y-\hat{Y})\), denominado
+  estimador de la diferencia o diferencial.
+\item
+  Si \(b_0=\dfrac{\hat{X}}{\hat{Y}}=\hat{R}\), se obtiene el estimador
+  de razón.
+\end{itemize}
+
+\[\hat{X}_G=\hat{X}+\dfrac{\hat{X}}{\hat{Y}}(Y-\hat{Y})=\dfrac{\hat{X}}{\hat{Y}}Y=\hat{R}Y=\hat{X}_R\]
+
+\begin{itemize}
+\tightlist
+\item
+  Si \(b_0=b\), se obtiene el estimador de regresión.
+\end{itemize}
+
+\[\hat{X}_G=\hat{X}+b(Y-\hat{Y})=\hat{X}_{rg}\]
+
+\end{frame}
+
+\begin{frame}
+
+Supongamos una población formada por \(N\) unidades,
+\(\{ U_1,\dots, U_N\}\), y nos fijamos en dos características \((X,Y)\)
+para cada unidad, siendo \(X\) la variable objetivo de estudio e \(Y\)
+una variable auxiliar correlacionada con \(X\).
+
+Llamaremos \textbf{razón} a \(R=\dfrac{X}{Y}\) y su estimador viene dado
+por la expresión:
+
+\[\hat{R}=\dfrac{\sum_{i=1}^{n}x_i}{\sum_{i=1}^{n}y_i}=\dfrac{\hat{X}}{\hat{Y}}=\dfrac{\overline{x}}{\overline{y}}\]
+
+A partir de la razón podemos también estimar totales y medias mediantes:
+\begin{align*}
+\hat{X}_R&=\hat{R}Y\\
+\hat{\overline{X}}_R&=\hat{R}\overline{Y}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Estos estimadores no son insesgador pero tienen varianza muy pequeña y
+otras propiedades que los hacen deseables. Sin embargo, es preciso
+conocer \(Y\) o \(\overline{Y}\) para poder calcularlos.
+
+\(\hat{R}\) es \textbf{consistente.}, pero en general es sesgado. Para
+muestras grandes, \(\hat{R}\rightarrow N(R,\mathbb{V}(\hat{R}))\) y el
+sesgo es despreciable. No se conoce la expresión exacta de la varianza
+de \(\hat{R}\), aunque bajo ciertas condiciones se puede obtener una
+expresión aproximada de la misma. Podemos expresar el sesgo en función
+del coeficiente de correlación entre \(\hat{R}\) e \(\overline{y}\) del
+siguiente modo:
+
+\[B(\hat{R})=-\dfrac{COV(\hat{R},\overline{y})}{\overline{y}}=-\dfrac{\rho \sigma_{\hat{R}}\sigma_{\overline{y}}}{\overline{y}}\]
+
+\end{frame}
+
+\begin{frame}
+
+\(\left| \dfrac{B(\hat{R})}{\sigma_{\hat{R}}} \right|\) es una medida
+del sesgo por unidad de desviación típica, es decir, una medida relativa
+del sesgo respecto del error de muestreo. Además, si
+\(\left| \dfrac{B(\hat{R})}{\sigma_{\hat{R}}} \right|\) es del order del
+\(10\%\), entonces el sesgo puede ser considerado despreaciable en
+relación al error estándar.
+
+\end{frame}
+
+\begin{frame}
+
+Se cumple que
+\(B(\hat{R})=0 \Leftrightarrow \hat{R} \text{ y } \overline{y}\) son
+variables \textbf{no correlacionadas} en el muestreo. Consideramos esta
+condición como la primera para la insesgadez del estimador de la razón.
+Además se cumple que:
+
+\[B(\hat{R})=-\rho_{(\hat{R},\overline{y})}\sigma_{\hat{R}} CV(\overline{y})\Rightarrow \left|  \dfrac{B(\hat{R})}{\sigma_{\hat{R}}} \right| = \left| \rho_{(\hat{R},\overline{y})} \right| \cdot CV(\overline{y}) \leq CV(\overline{y})\]
+
+con lo que el sesgo relativo (módulo del coeficiente entre el sesgo del
+estimador de la razón y su desviación típica) está acotado por el
+coeficiente de variación de \(\overline{y}\)
+
+\end{frame}
+
+\begin{frame}
+
+Entonces, \textbf{para que el sesgo del estimador de la razón sea
+despreciable} bastará con que el coeficiente de variación de la media
+muestral de la variable auxiliar sea menor que \(0.1\), ya que en este
+caso:
+
+\[\left|  \dfrac{B(\hat{R})}{\sigma_{\hat{R}}} \right| \leq CV(\overline{y}) < 0.1\]
+
+Se observa que el sesgo relativo será menor en cuanto
+\(Cv(\overline{y})\) sea más bajo. Adicionalmente, es deseable tomar
+tamaños de muestras tales que el sesgo sea despreciable, esto es:
+\(CV(\overline{y})<0.1\). Para hallar este tamaño de muestra en el
+muestreo sin reposición operamos de la siguiente manera:
+
+\end{frame}
+
+\begin{frame}
+
+\begin{align*}
+CV(\overline{y})=\dfrac{\sigma(\overline{y})}{\mathbb{E}(\overline{y})}=\dfrac{\sqrt{\mathbb{V}(\overline{y})}}{\overline{Y}}&=\dfrac{ \sqrt{\left( 1 - \dfrac{n}{N}\right)\dfrac{S_{Y}^{2}}{n} } }{\overline{Y}}<0.1\\ &\Rightarrow n > \dfrac{100 N S_{Y}^{2}}{N \overline{y}^2 + 100 S_{Y}^{2}}\\
+&\Leftrightarrow n > \dfrac{100 N \dfrac{S_{Y}^2}{\overline{y}^2}}{N+100\dfrac{S_{Y}^2}{\overline{y}^2}}
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Para hallar el tamaño de muestra para el que el sesgo es despreciable en
+el muestreo con reposición operamos como sigue:
+
+\[CV(\overline{y})=\dfrac{\sigma(\overline{y})}{\mathbb{E}(\overline{y})}=\dfrac{\sqrt{\dfrac{\sigma_{Y}^2}{n}}}{\overline{Y}}<0.1\Rightarrow n > \dfrac{100 \sigma_{Y}^2}{\overline{Y}^2}\]
+
+\textbf{La segunda condición de insesgadez del estimador de la razón es
+que si la recta de regresión de la variable auxiliar Y sobre la variable
+en estudio X (o la de X sobre Y) pasa por el origen de coordenadas
+entonces el estimador de la razón \(\hat{R}\) es insesgado para R.}
+
+\end{frame}
+
+\hypertarget{cuxe1lculo-del-sesgo-del-estimador-de-razuxf3n-y-su-estimaciuxf3n}{%
+\subsection{Cálculo del sesgo del estimador de razón y su
+estimación}\label{cuxe1lculo-del-sesgo-del-estimador-de-razuxf3n-y-su-estimaciuxf3n}}
+
+\begin{frame}{Cálculo del sesgo del estimador de razón y su estimación}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\[B(\hat{R})=\dfrac{\left( 1-\dfrac{n}{N}\right)}{n\overline{Y}^2}\left(RS_{Y}^2 - S_{XY}\right)\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\[B(\hat{R})=\dfrac{1}{n\overline{Y}^2}(R\sigma_{Y}^2 - \sigma_{XY})\]
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\[\widehat{B(\hat{R})}=\dfrac{\left(1-\dfrac{n}{N}\right)}{n\overline{Y}^2}(\hat{R}\hat{S}_{Y}^2 - \hat{S}_{XY})\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\[\widehat{B(\hat{R})}=\dfrac{1}{n\overline{Y}^2}(\hat{R}\hat{S}_{Y}^2 - \hat{S}_{XY})\]
+
+\end{frame}
+
+\hypertarget{varianza-aproximada-del-estimador-de-razuxf3n}{%
+\subsection{Varianza aproximada del estimador de
+razón}\label{varianza-aproximada-del-estimador-de-razuxf3n}}
+
+\begin{frame}{Varianza aproximada del estimador de razón}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\hat{R})&=\dfrac{\left(1-\dfrac{n}{N}\right)}{n\overline{Y}^2}(S_{x}^2+R^2S_{y}^2-2RS_{xy})\\&=\dfrac{\left(1-\dfrac{n}{N}\right)}{n(N-1)\overline{Y}^2}\left[ \sum_{i=1}^{N} X_{i}^2 + R^2 \sum_{i=1}^{N} Y_{i}^2-2R \sum_{i=1}^{N} X_i Y_i \right]
+\end{align*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\hat{R})&=\dfrac{1}{n\overline{Y}^2}(\sigma_{x}^2+R^2\sigma_{y}^2-2R\sigma_{xy})\\&=\dfrac{1}{nN\overline{Y}^2}\left[ \sum_{i=1}^{N} X_{i}^2 + R^2 \sum_{i=1}^{N} Y_{i}^2-2R \sum_{i=1}^{N} X_i Y_i \right]
+\end{align*}
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-la-varianza-del-estimador-de-razuxf3n}{%
+\subsection{Estimación de la varianza del estimador de
+razón}\label{estimaciuxf3n-de-la-varianza-del-estimador-de-razuxf3n}}
+
+\begin{frame}{Estimación de la varianza del estimador de razón}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\widehat{\mathbb{V}(\hat{R})}&=\dfrac{\left(1-\dfrac{n}{N}\right)}{n\overline{Y}^2}(\hat{S}_{x}^2+\hat{R}^2\hat{S}_{y}^2-2\hat{R}\hat{S}_{xy})\\&=\dfrac{\left(1-\dfrac{n}{N}\right)}{n(n-1)\overline{Y}^2}\left[ \sum_{i=1}^{n} X_{i}^2 + \hat{R}^2 \sum_{i=1}^{n} Y_{i}^2-2\hat{R} \sum_{i=1}^{n} X_i Y_i \right]
+\end{align*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\begin{align*}
+\widehat{\mathbb{V}(\hat{R})}&=\dfrac{1}{n\overline{Y}^2}(\hat{S}_{x}^2+\hat{R}^2\hat{S}_{y}^2-2\hat{R}\hat{S}_{xy})\\&=\dfrac{1}{n(n-1)\overline{Y}^2}\left[ \sum_{i=1}^{n} X_{i}^2 + \hat{R}^2 \sum_{i=1}^{n} Y_{i}^2-2\hat{R} \sum_{i=1}^{n} X_i Y_i \right]
+\end{align*}
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-paruxe1metros-poblacionales-razuxf3n}{%
+\subsection{Estimación de parámetros poblacionales:
+Razón}\label{estimaciuxf3n-de-paruxe1metros-poblacionales-razuxf3n}}
+
+\begin{frame}{Estimación de parámetros poblacionales: Razón}
+
+Podemos utilizar el estimador de razón para realizar estimaciones de los
+parámetros poblaciones típicos como sigue: \begin{align*}
+\widehat{X}_R&=\dfrac{x}{y} Y = \dfrac{\overline{x}}{\overline{y}} Y= \hat{R}Y \\
+\hat{\overline{X}}&=\hat{\overline{x}}= \dfrac{\overline{x}}{\overline{y}}\overline{Y}=\hat{R}\overline{Y}\\
+\widehat{P_{RX}}&=\dfrac{\widehat{P_X}}{\widehat{P_Y}}P_Y=\hat{R}P_Y
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Varianza de la estimación del total y media poblacional.}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\widehat{X_R})=\mathbb{V}(\hat{R}Y)=Y^2\mathbb{V}(\hat{R})=N^2 \dfrac{1-\dfrac{n}{N}}{n}(S_{x}^2+R^2S_{y}^{2}-2RS_{xy})\\
+\mathbb{V}(\widehat{\overline{X}_R})=\mathbb{V}(\hat{R}\overline{Y})=\overline{Y}^2\mathbb{V}(\hat{R})=\dfrac{1-\dfrac{n}{N}}{n}(S_{x}^2+R^2S_{y}^{2}-2RS_{xy})
+\end{align*}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\widehat{X_R})=\mathbb{V}(\hat{R}Y)=Y^2\mathbb{V}(\hat{R})= \dfrac{N^2}{n}(\sigma_{x}^2+R^2\sigma_{y}^{2}-2R\sigma_{xy})\\
+\mathbb{V}(\widehat{\overline{X}_R})=\mathbb{V}(\hat{R}\overline{Y})=\overline{Y}^2\mathbb{V}(\hat{R})=\dfrac{1}{n}(\sigma_{x}^2+R^2\sigma_{y}^{2}-2R\sigma_{xy})
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Estimación de las varianzas de la estimación del total y media
+poblacional}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\widehat{\mathbb{V}(\widehat{X_R})}&=N^2 \dfrac{1-\dfrac{n}{N}}{n}(\hat{S}_{x}^2+\hat{R}^2\hat{S}_{y}^{2}-2\hat{R}\hat{S}_{xy})\\
+&=N^2 \dfrac{1-\dfrac{n}{N}}{n(n-1)}\left[ \sum_{i=1}^{n} X_{i}^2 + \hat{R}^2\sum_{i=1}^{n} Y_{i}^2 - 2 \hat{R} \sum_{i=1}^{n} X_i Y_i \right]
+\end{align*} \begin{align*}
+\widehat{\mathbb{V}(\widehat{\overline{X}_R})}&=\dfrac{1-\dfrac{n}{N}}{n}(\hat{S}_{x}^2+\hat{R}^2\hat{S}_{y}^{2}-2\hat{R}\hat{S}_{xy})\\
+&=\dfrac{1-\dfrac{n}{N}}{n(n-1)}\left[ \sum_{i=1}^{n} X_{i}^2 + \hat{R}^2\sum_{i=1}^{n} Y_{i}^2 - 2 \hat{R} \sum_{i=1}^{n} X_i Y_i \right]
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\begin{align*}
+\widehat{\mathbb{V}(\widehat{X_R})}&= \dfrac{N^2}{n}(\hat{S}_{x}^2+\hat{R}^2\hat{S}_{y}^{2}-2\hat{R}\hat{S}_{xy})\\
+&= \dfrac{N^2}{n(n-1)}\left[ \sum_{i=1}^{n} X_{i}^2 + \hat{R}^2\sum_{i=1}^{n} Y_{i}^2 - 2 \hat{R} \sum_{i=1}^{n} X_i Y_i \right]
+\end{align*} \begin{align*}
+\widehat{\mathbb{V}(\widehat{\overline{X}_R})}&=\dfrac{1}{n}(\hat{S}_{x}^2+\hat{R}^2\hat{S}_{y}^{2}-2\hat{R}\hat{S}_{xy})\\
+&=\dfrac{1}{n(n-1)}\left[ \sum_{i=1}^{n} X_{i}^2 + \hat{R}^2\sum_{i=1}^{n} Y_{i}^2 - 2 \hat{R} \sum_{i=1}^{n} X_i Y_i \right]
+\end{align*}
+
+\end{frame}
+
+\hypertarget{ejemplo-3}{%
+\subsection{Ejemplo}\label{ejemplo-3}}
+
+\begin{frame}{Ejemplo}
+
+En un estudio para estimar el contenido total de azúcar de una carga de
+naranjas, se pesó una muestra de naranjas, y se extrajo su jugo para
+pesar el contenido de azúcar. Se obtuvieron los siguientes resultados.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Naranja & Contenido & Peso\tabularnewline
+\midrule
+\endhead
+1 & 0.021 & 0.4\tabularnewline
+2 & 0.030 & 0.48\tabularnewline
+3 & 0.025 & 0.43\tabularnewline
+4 & 0.022 & 0.42\tabularnewline
+5 & 0.033 & 0.5\tabularnewline
+6 & 0.027 & 0.46\tabularnewline
+7 & 0.019 & 0.39\tabularnewline
+8 & 0.021 & 0.41\tabularnewline
+9 & 0.023 & 0.42\tabularnewline
+10 & 0.025 & 0.44\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  Sabiendo que el peso de todas las naranjas es 1800, estimar el
+  contenido total de azúcar de las narajas y su error de muestreo.
+\item
+  Estimar dichas varianzas y comparar la precisión de este tipo de
+  muestreo con la del muestreo aleatorio simple. Seleccionar la muestra
+  más precisa.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{estimador-por-regresiuxf3n}{%
+\subsection{Estimador por regresión}\label{estimador-por-regresiuxf3n}}
+
+\begin{frame}{Estimador por regresión}
+
+Supongamos \((x_i,y_i), i=1,\dots,N\) pares de valores situados sobre
+una recta que no pasa por el origen, es decir, \(x_i=a+b y_i\) con
+\(a\neq 0\). Entonces, para los valores muestrales y poblaciones se
+cumple, respectivamente \(\overline{x}=a+b\overline{y}\) y
+\(\overline{X}=a+b\overline{Y}\), por lo que
+\(\overline{x}-\overline{X}=b(\overline{y}-\overline{Y})\) , o
+equivalentemente
+\(\overline{X}=\overline{x}-b(\overline{y}-\overline{Y})\). Así, podemos
+analizar los siguientes casos:
+
+\begin{itemize}
+\tightlist
+\item
+  Si \(\overline{y}=\overline{Y}\), entonces
+  \(\overline{X}=\overline{x}\) y \(\mathbb{V}(\overline{x})=0\)
+\item
+  Si \(\overline{y}\neq\overline{Y}\),entonces
+  \(\overline{X}\neq\overline{x}\), siendo
+  \(b(\overline{y}-\overline{Y})\) el ajuste.
+\end{itemize}
+
+Este razonamiento sugiere intentar una ganancia en precisión cuando la
+relación entre \(x_i\) e \(y_i\) sea lineal sin pasar por el origen,
+utilizando el estimador lineal de regresión para la media:
+
+\[\widehat{\overline{X_{rg}}}=\overline{x}+b(\overline{Y}-\overline{y})\]
+
+\end{frame}
+
+\begin{frame}
+
+Como \textbf{casos particulares} del estimador de regresión se tienen:
+
+\begin{itemize}
+\tightlist
+\item
+  Si \(b=0\), el estimador de regresión coincide con el estimador
+  directo o de expansión \((\widehat{\overline{X_{rg}}}=\overline{x})\)
+\item
+  Si \(b=\hat{R}=\dfrac{\overline{x}}{\overline{y}}\), se obtiene el
+  estimador de razón
+  \((\widehat{\overline{X_{rg}}}=\hat{R}\overline{Y}=\widehat{\overline{X_{R}}})\)
+\item
+  Si \(b=1\) se obtiene el estimador de la diferencia
+  \((\widehat{\overline{X_{rg}}}=\overline{x}+(\overline{Y}-\overline{y}))\)
+\end{itemize}
+
+Análogamente, se puede definir el estimador de regresión para el total
+poblacional como:
+
+\[\widehat{X}_{rg}=\widehat{X}+b(Y-\widehat{Y})\]
+
+siendo \(\widehat{X},\widehat{Y}\) los estimadores directos de \(X,Y\)
+respectivamente.
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-paruxe1metros-poblacionales-regresiuxf3n}{%
+\subsection{Estimación de parámetros poblacionales:
+Regresión}\label{estimaciuxf3n-de-paruxe1metros-poblacionales-regresiuxf3n}}
+
+\begin{frame}{Estimación de parámetros poblacionales: Regresión}
+
+Podemos resumir las estimaciones por regresión como sigue:
+\begin{align*}
+\overline{x}_{rg}&=\overline{x}+b_0(\overline{Y}-\overline{y})\\
+\widehat{X}_{rg}&=N\overline{x}_{rg}\\
+\widehat{P}_{rg}&=\widehat{P}_{X}+b_0(P_Y - \widehat{P}_Y)
+\end{align*} como las estimaciones mediante estimación indirecta:
+estimador por regresión para la media poblacional, total y proporción
+poblacional, respectivamente.
+
+\end{frame}
+
+\hypertarget{sesgo-del-estimador-de-regresiuxf3n}{%
+\subsection{Sesgo del estimador de
+Regresión}\label{sesgo-del-estimador-de-regresiuxf3n}}
+
+\begin{frame}{Sesgo del estimador de Regresión}
+
+El estimador de regresión es en general sesgado salvo que los punto
+\((X_i,Y_i)\) con \(i=1,2,\dots,N\), donde \(Y_i\) representa la
+variable auxiliar correlacionada con la variable en estudio \(X_i\)
+estuviesen situada sobre una línea recta que no pasa por el origen de
+ecuación \(X_i=a+bY_i\).
+
+Adicionalmente, el caso cuando \(b=b_0=cte\) entrega insesgadez del
+estimador de regresión.
+
+\end{frame}
+
+\hypertarget{varianza-de-los-paruxe1metros-poblacionales}{%
+\subsection{Varianza de los parámetros
+poblacionales}\label{varianza-de-los-paruxe1metros-poblacionales}}
+
+\begin{frame}{Varianza de los parámetros poblacionales}
+
+Varianza de la estimación de la \textbf{media poblacional} y estimación
+de la varianza de la estimación de la \textbf{media poblacional}.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\overline{X}_{rg})=\dfrac{1-\dfrac{n}{N}}{n}(S_{x}^2+b_{0}^{2}S_{y}^{2}-2b_{0}S_{xy})\\
+\widehat{\mathbb{V}(\overline{X}_{rg})}=\dfrac{1-\dfrac{n}{N}}{n}(\widehat{S}_{x}^2+b_{0}^{2}\widehat{S}_{y}^{2}-2b_{0}\widehat{S}_{xy})
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Varianza de la estimación del \textbf{total poblacional} y estimación de
+la varianza de la estimación del \textbf{total poblacional}.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\widehat{X}_{rg})=\dfrac{N^2(1-\dfrac{n}{N})}{n}(S_{x}^2+b_{0}^{2}S_{y}^{2}-2b_{0}S_{xy})\\
+\widehat{\mathbb{V}(\widehat{X}_{rg})}=\dfrac{N^2(1-\dfrac{n}{N})}{n}(\widehat{S}_{x}^2+b_{0}^{2}\widehat{S}_{y}^{2}-2b_{0}\widehat{S}_{xy})
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Adicionalmente, la \textbf{mínima estimación de la varianza} para las
+estimaciones mediante el método indirecto de regresión están dados por:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\widehat{\mathbb{V}_{\min}(\overline{X}_{rg})}&=\dfrac{1-\dfrac{n}{N}}{n}\widehat{S}_{x}^2(1-\widehat{\rho}^2)\\
+\widehat{\mathbb{V}_{\min}(\widehat{X}_{rg})}&=\dfrac{N^2(1-\dfrac{n}{N})}{n}\widehat{S}_{x}^2(1-\widehat{\rho}^2)
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Ahora, presentamos sus equivalentes bajo un muestreo con reposición.
+
+Varianza de la estimación de la \textbf{media poblacional} y estimación
+de la varianza de la estimación de la \textbf{media poblacional}.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\overline{X}_{rg})=\dfrac{1}{n}(\sigma_{x}^2+b_{0}^{2}\sigma_{y}^{2}-2b_{0}\sigma_{xy})\\
+\widehat{\mathbb{V}(\overline{X}_{rg})}=\dfrac{1}{n}(\widehat{S}_{x}^2+b_{0}^{2}\widehat{S}_{y}^{2}-2b_{0}\widehat{S}_{xy})
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Varianza de la estimación del \textbf{total poblacional} y estimación de
+la varianza de la estimación del \textbf{total poblacional}.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo con reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\widehat{X}_{rg})=\dfrac{N^2}{n}(\sigma_{x}^2+b_{0}^{2}\sigma_{y}^{2}-2b_{0}\sigma_{xy})\\
+\widehat{\mathbb{V}(\widehat{X}_{rg})}=\dfrac{N^2}{n}(\widehat{S}_{x}^2+b_{0}^{2}\widehat{S}_{y}^{2}-2b_{0}\widehat{S}_{xy})
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Adicionalmente, la \textbf{mínima estimación de la varianza} para las
+estimaciones mediante el método indirecto de regresión están dados por:
+
+\begin{align*}
+\widehat{\mathbb{V}_{\min}(\overline{X}_{rg})}&=\dfrac{1}{n}\widehat{S}_{x}^2(1-\widehat{\rho}^2)\\
+\widehat{\mathbb{V}_{\min}(\widehat{X}_{rg})}&=\dfrac{N^2}{n}\widehat{S}_{x}^2(1-\widehat{\rho}^2)
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+En lo anterior, hemos consideramos el caso en que \(b_0\) es constante.
+Sin embargo, cuando se desconoce \(b_0\) o es variable, suelen
+utilizarse los resultados anteriores, estimando \(b_0\) mediante la
+expresión:
+\[\widehat{b}_0=\widehat{\beta}=\dfrac{\widehat{S}_{XY}}{\widehat{S}_{Y}^{2}}\]
+
+\end{frame}
+
+\hypertarget{comparaciuxf3n-con-otros-tipos-de-muestreo}{%
+\subsection{Comparación con otros tipos de
+muestreo}\label{comparaciuxf3n-con-otros-tipos-de-muestreo}}
+
+\begin{frame}{Comparación con otros tipos de muestreo}
+
+Bajo una muestreo sin reposición, para comparar la precisión de la
+estimación por regresión con la de otros tipos de muestreo utilizamos el
+estimador de la media y las expresiones de su varianza en los distintos
+tipos de muestreo. Por lo que hemos visto anteriormente, se tiene:
+\begin{align*}
+\mathbb{V}(\widehat{\overline{X}})&=\mathbb{V}(\overline{x})=\dfrac{1-f}{n}S_{x}^2\\
+\mathbb{V}(\widehat{\overline{X}}_R)&=\dfrac{1-f}{n}(S_{x}^2+R^2S_{y}^2-2RS_xS_y\cdot \rho_{xy})\\
+\mathbb{V}_{\min}(\widehat{\overline{X}}_{rg})&=\mathbb{V}_{\min}(\overline{X}_{rg})=\dfrac{1-f}{n}S_{x}^2(1-\rho_{XY}^2)
+\end{align*}
+
+\end{frame}
+
+\begin{frame}
+
+Es evidente que
+\(\mathbb{V}_{\min}(\overline{X}_{rg})\leq \mathbb{V}(\overline{x})\),
+ya que \(1-\rho_{XY}^2\leq 1\). Así, cuando la variable auxiliar y la
+variable en estudio no están correlacionadas no se gana precisión por
+considerar el método indirecto de estimación por regresión respecto de
+considerar el muestreo aleatorio simple.
+
+En el resto de los casos la estimación indirecto por regresión
+\textbf{supera en precisión} a la estimación aleatoria simple.
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-por-diferencia}{%
+\subsection{Estimación por
+diferencia}\label{estimaciuxf3n-por-diferencia}}
+
+\begin{frame}{Estimación por diferencia}
+
+Dentro de los denominados métodos indirectos de estimación suele
+considerarse la estimación por diferencia, que se utiliza en caso de que
+la recta de regresión que ajusto los puntos \((X_i,Y_i)\) tiene como
+pendiente la unidad. Esto es claro, pues el método de estimación por
+diferencia puede ser visto como un caso particular del estimador de
+regresión. Los estimadores de la media y el total basados en el
+estimador por diferencia: \(\widehat{D}=\overline{x}-\overline{y}\)
+pueden expresarse como sigue:
+
+\begin{align*}
+\widehat{\overline{X}}&=\overline{x}-\overline{y}+\overline{Y}=\widehat{D}+\overline{Y}\\
+\widehat{X}&=N(\overline{x}-\overline{y})+Y=\widehat{D}_T+Y=N\widehat{D}+Y
+\end{align*}
+
+\end{frame}
+
+\hypertarget{varianzas-para-los-paruxe1metros-poblacionales-diferencia}{%
+\subsection{Varianzas para los parámetros poblacionales:
+Diferencia}\label{varianzas-para-los-paruxe1metros-poblacionales-diferencia}}
+
+\begin{frame}{Varianzas para los parámetros poblacionales: Diferencia}
+
+Las varianzas y sus estimaciones para los estimadores de la media y
+total poblacional basados en la diferencia, coinciden con las varianzas
+y sus estimaciones de los propios estimadores diferencia.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Muestreo sin reposición:}
+\end{itemize}
+
+\begin{align*}
+\mathbb{V}(\widehat{\overline{X}})&=\mathbb{V}(\widehat{D}+\overline{Y})=\mathbb{V}(\widehat{D})=\dfrac{1-\dfrac{n}{N}}{n}(S_{x}^2+S_{y}^2-2S_{xy}) \hspace{5pt}, \overline{Y} \text{ constante }\\
+\mathbb{V}(\widehat{X})&=\mathbb{V}(\widehat{D}_T+Y)=\mathbb{V}(\widehat{D}_T)=\dfrac{N^2(1-\dfrac{n}{N})}{n}(S_{x}^2+S_{y}^2-2S_{xy}) \hspace{5pt}, Y \text{ cte. }\\
+\widehat{\mathbb{V}(\widehat{\overline{X}})}&=\widehat{\mathbb{V}(\widehat{D})}=\dfrac{1-\dfrac{n}{N}}{n}(\widehat{S}_{x}^2+\widehat{S}_{y}^2-2\widehat{S}_{xy})\\
+\widehat{\mathbb{V}(\widehat{X})}&=\widehat{\mathbb{V}(\widehat{D}_T)}=\dfrac{N^2(1-\dfrac{n}{N})}{n}(\widehat{S}_{x}^2+\widehat{S}_{y}^2-2\widehat{S}_{xy})
+\end{align*}
+
+\end{frame}
+
+\hypertarget{ejemplo-4}{%
+\subsection{Ejemplo}\label{ejemplo-4}}
+
+\begin{frame}{Ejemplo}
+
+Consideramos una población de 500 individuos en la que está definida la
+característica bidimensional \((X_i,Y_i)\) que mide las ganancias
+mensuales en miles de euro de los varones \((X)\) y las mujeres \((Y)\)
+con título universitario superior. Una muestra aleatoria simple de
+tamaño 80 proporciona los siguientes datos:
+\[\sum_{i=1}^{80}X_i=420 \hspace{10pt}\sum_{i=1}^{80}Y_i=190 \hspace{10pt} \sum_{i=1}^{80}X_{i}^2=2284 \hspace{10pt} \sum_{i=1}^{80} Y_{i}^2 = 512 \hspace{10pt} \sum_{i=1}^{80} X_i Y_i = 1045\]
+
+\end{frame}
+
+\begin{frame}
+
+\begin{itemize}
+\tightlist
+\item
+  Estimar la razón de las ganancias mensuales femeninas respecto de las
+  masculinas, su sesgo y su error de estimación. Estudiar la posible
+  influencia del sesgo.
+\item
+  Se trata de estimar con y sin reposición la media y el total de las
+  ganancias mensuales femeninas en la población utilizando la
+  información adicional de la variable ganancia mensual masculina
+  mediante un método de estimación indirecta.¿Qué método indirecto sería
+  el más adecuado?¿Por qué? Realizar las estimaciones de las ganancias
+  femeninas media y total mensuales mediante los métodos indirectos
+  conocidos, ordenándolos en precisión y sabiendo que la ganancia total
+  masculina es 10000.
+\item
+  Cuantificar la ganancia en precisión respecto del muestreo aleatorio
+  simple.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{muestreo-estratificado}{%
+\section{Muestreo Estratificado}\label{muestreo-estratificado}}
+
+\begin{frame}{Muestreo Estratificado}
+
+En el muestreo estratificado, la poblaciones es particionada en
+\textbf{regiones o estratos}, y una muestra es seleccionada mediante
+algún diseño en cada estrato. Debido a que las selecciones en cada
+estrato son independientes, las varianzas de los estimadores para cada
+estrato pueden ser agregadas en conjunto para obtener la varianza de los
+estimadores para la población. Ya que sólo la varianza dentro de los
+estratos entra en la varianza de los estimadores, el \textbf{principio
+de estratificación} es particionar la población de tal manera que las
+unidades dentro de cada estrato sean lo más similar posible.
+
+\end{frame}
+
+\begin{frame}
+
+Así, a pesar de que un estrato pueda diferir notoriamente de otro, una
+muestra estratificada con el número deseado de unidades para cada
+estrato tenderá a ser \emph{representativa} de la población.
+
+Una región geográfica puede ser estratificada en área similares según
+alguna variable conocida, tales como: tipo de hábitat, elevación, tipo
+de tierra, etc. Incluso si un estudio geográfico parece ser homogéneo,
+una estratificación en bloques puede ayudar a asegurar que las muestras
+sean repartidas a lo largo de toda el área.
+
+\end{frame}
+
+\begin{frame}
+
+Las principales \textbf{ventajas} de un muestreo estratificado por sobre
+un M.A.S. son:
+
+\begin{itemize}
+\tightlist
+\item
+  Un M.E. puede producir menores cotas en los errores de estimación que
+  un M.A.S. del mismo tamaño de muestra. Este resultado es
+  particularmente verdadero si las mediciones dentro de los estratos son
+  \textbf{homogéneas}.
+\item
+  El costo por observación en la muestra puede ser reducido mediante una
+  estratificación conveniente de los elementos de la población.
+\item
+  Las estimaciones de los parámetros poblaciones para ciertos subgrupos
+  pueden ser de particular interés para el investigador. Por lo que una
+  estratificación conveniente, permite la clara identificación de estos
+  subgrupos.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+En lo que sigue, asumiremos:
+
+\begin{itemize}
+\tightlist
+\item
+  Que la muestra es selecionada mediante un muestreo probabilístico para
+  cada uno de los \(L\) estratos en la población, con las selecciones en
+  los diferentes estratos independientes entre sí.
+\item
+  La variable de interés asociada con la \(i-\)ésima unidad del estrado
+  \(h\) será denotado \(y_{h_i}\).
+\item
+  \(N_h\) representa el número de unidades en el estrato \(h\) y \(n_h\)
+  el número de unidades en la muestra provenientes desde ese estrato.
+\item
+  El número total de unidades en la población es \(N=\sum_{h=1}^{L}N_h\)
+  y el tamaño total de la muestra es \(n=\sum_{h=1}^{L} n_h\).
+\item
+  El total de los \(y-\)valores en el estrato \(h\) es
+  \(\tau_{h}=\sum_{i=1}^{N}y_{h_i}\) y la media para ese estrato es
+  \(\mu_{h}=\dfrac{\tau_h}{N_h}\).
+\item
+  El total para la población entera es \(\tau=\sum_{h=1}^{L}\tau_h\). La
+  media población es \(\mu=\dfrac{\tau}{N}\)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+Llamaremos al diseño \textbf{Muestreo estratificado aleatorio} si el
+diseño en cada estrato es un muestreo aleatorio simple.
+
+\begin{figure}
+\centering
+\includegraphics[width=2.08333in,height=\textheight]{../../resources/estratos.png}
+\caption{Muestreo estratificado aleatorio}
+\end{figure}
+
+Identifique \(L,N_i,n\) y \(N\), según la notación estipulada en la
+figura anterior.
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-del-total-poblacional-2}{%
+\subsection{Estimación del total
+poblacional}\label{estimaciuxf3n-del-total-poblacional-2}}
+
+\begin{frame}{Estimación del total poblacional}
+
+\textbf{Con cualquier diseño estratificado:}
+
+Supongamos que dentro de cada estrato \(h\) cualquier diseño es usado
+para seleccionar la muestra \(s_h\) de \(n_h\) unidades, y se tiene
+además un estimador \(\widehat{\tau_h}\) que es insesgado para
+\(\tau_h\) con respecto a este diseño. Sea
+\(\mathbb{V}(\widehat{\tau_h})\) la varianza de \(\widehat{\tau_h}\), y
+supongamos que se tiene un estimador insesgado
+\(\widehat{\mathbb{V}(\widehat{\tau_h})}\) de aquella
+varianza.\textbackslash{} Entonces, un estimador insesgado para el total
+de la población \(\tau\) es obtenido al sumar todos los estimadores por
+estrato, esto es: \[\widehat{\tau_{st}}=\sum_{h=1}^{L}\widehat{\tau_h}\]
+
+\end{frame}
+
+\begin{frame}
+
+Luego, debido a la independencia de las selecciones en los diferentes
+estratos, la varianza de los estimadores en cada estrato es la suma de
+las varianzas individuales por estrato, esto es:
+\[\mathbb{V}(\widehat{\tau_{st}})=\sum_{h=1}^{L}\mathbb{V}(\widehat{\tau_h})\]
+
+Un estimador insesgado de aquella varianza es la suma de las
+estimaciones individuales de cada estrato, esto es:
+
+\[\widehat{\mathbb{V}({\widehat{\tau_{st}}})}=\sum_{h=1}^{L}\widehat{\mathbb{V}(\widehat{\tau_h})}\]
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Con un diseño estratificado aleatorio:} Si la muestra es
+seleccionada mediante un M.A.S. sin reemplazo en cada estrato, entonces:
+
+\[\widehat{\tau_h}=N_h \overline{y_h}\]
+
+es un estimador insesgado de \(\tau_h\), donde:
+
+\[\overline{y_h}=\dfrac{1}{n_h}\sum_{i=1}^{n_h} y_{h_i}\]
+
+es la media muestral para el estrato \(h\).
+
+\end{frame}
+
+\begin{frame}
+
+Un \textbf{estimador insesgado para el total de la población} \(\tau\)
+es:
+
+\[\widehat{\tau_{st}}=\sum_{h=1}^{L}N_h \overline{y_h}\] que tiene por
+varianza
+
+\[\mathbb{V}(\widehat{\tau_{st}})=\sum_{h=1}^{L}N_h(N_h-n_h)\dfrac{\sigma_{h}^2}{n_h}\]
+
+donde
+
+\[\sigma_{h}^{2}=\dfrac{1}{N_h-1}\sum_{i=1}^{N_h}(y_{h_i}-\mu_{h})^2\]
+
+es varianza poblacional-finita del estrato \(h\).
+
+\end{frame}
+
+\begin{frame}
+
+Un \textbf{estimador insesgado de la varianza de}
+\(\widehat{\tau_{st}}\) es:
+
+\[\widehat{\mathbb{V}(\widehat{\tau_{st}})}=\sum_{h=1}^{L}N_h(N_h-n_h)\dfrac{s_{h}^2}{n_h}\]
+
+donde
+
+\[s_{h}^{2}=\dfrac{1}{n_h-1}\sum_{i=1}^{n_h}(y_{h_i}-\overline{y_h})^2\]
+
+es la varianza muestral del estrato \(h\).
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-la-media-poblacional}{%
+\subsection{Estimación de la media
+poblacional}\label{estimaciuxf3n-de-la-media-poblacional}}
+
+\begin{frame}{Estimación de la media poblacional}
+
+\textbf{Con cualquier diseño estratificado:}
+
+Dado que \(\mu=\tau/N\), el estimador estratificado para \(\mu\) es:
+\[\widehat{\mu_{st}}=\dfrac{\widehat{\tau_{st}}}{N}\]
+
+Asumiendo que la selección en los diferentes estratos son
+independientes, la varianza del estimador es:
+\[\mathbb{V}(\widehat{\mu_{st}})=\dfrac{1}{N^2}\mathbb{V}(\widehat{\tau_{st}})\]
+
+con un estimador insesgado para la varianza dado por
+\[\widehat{\mathbb{V}(\widehat{\mu_{st}})}=\dfrac{1}{N^2}\widehat{\mathbb{V}(\widehat{\tau_{st}})}\]
+
+\end{frame}
+
+\begin{frame}
+
+\textbf{Con un diseño estratificado aleatorio:} Con un muestreo
+estratificado aleatorio, un estimador insesgado para la media
+poblacional \(\mu\) es la\emph{media muestral estratificada:}
+
+\[\overline{y_{st}}=\dfrac{1}{N}\sum_{h=1}^{L}N_h\overline{y_h}\]
+
+y su varianza es
+
+\[\mathbb{V}(\overline{y_{st}})=\sum_{h=1}^{L}\left(\dfrac{N_h}{N}\right)^2 \left( \dfrac{N_h-n_h}{N_h}\right) \dfrac{\sigma_{h}^{2}}{n_h}\]
+
+Un estimador insesgado de esta varianza es:
+
+\[\widehat{\mathbb{V}(\overline{y_{st}})}=\sum_{h=1}^{L}\left(\dfrac{N_h}{N}\right)^2 \left( \dfrac{N_h-n_h}{N_h}\right) \dfrac{s_{h}^{2}}{n_h}\]
+
+\end{frame}
+
+\hypertarget{ejercicio-2}{%
+\subsection{Ejercicio}\label{ejercicio-2}}
+
+\begin{frame}{Ejercicio}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Estrato \(h\) & \(N_h\) & \(n_h\) & \(\overline{y_h}\) &
+\(s_{h}^{2}\)\tabularnewline
+\midrule
+\endhead
+1 & 20 & 5 & 1.6 & 3.3\tabularnewline
+2 & 9 & 3 & 2.8 & 4.0\tabularnewline
+3 & 12 & 4 & 0.6 & 2.2\tabularnewline
+\bottomrule
+\end{longtable}
+
+Calcular
+\(\overline{y_{st}},\widehat{\tau}, \widehat{\mathbb{V}(\overline{y_{st}})}\)
+
+\end{frame}
+
+\hypertarget{intervalos-de-confianza}{%
+\subsection{Intervalos de confianza}\label{intervalos-de-confianza}}
+
+\begin{frame}{Intervalos de confianza}
+
+Cuando los tamaños de muestra de todos los estratos son lo
+\textbf{suficientemente grandes}, un intervalo de confianza aproximado
+del \(100(1-\alpha)\%\) para la población total está dado por:
+
+\[\left[ \widehat{\tau_{st}}\pm t\sqrt{\widehat{\mathbb{V}(\widehat{\tau_{st}})}} \right]\]
+
+donde \(t\) es el cuantil \(\alpha/2\) superior de una distribución
+normal. Para la media, el intervalo de confianza está dado por:
+
+\[\left[ \widehat{\mu_{st}}\pm t\sqrt{\widehat{\mathbb{V}(\widehat{\mu_{st}})}} \right]\]
+
+\end{frame}
+
+\begin{frame}
+
+Para tamaños de muestra pequeños, la distribución \(t\) con grados de
+libertad aproximados puede ser utilizado. Utilizaremos la aproximación
+de grados de libertad de Satterthwaite, dada por:
+\[d=\left( \sum_{h=1}^{L}a_hs_{h}^{2}\right)^2 / \left[\sum_{h=1}^{L}(a_h s_{h}^{2})^2/(n_h-1) \right]\]
+donde \(a_h=N_h(N_h-n_h)/n_h\).
+
+\end{frame}
+
+\hypertarget{ejercicio-3}{%
+\subsection{Ejercicio}\label{ejercicio-3}}
+
+\begin{frame}{Ejercicio}
+
+Para el ejemplo anterior, construya un intervalo de confianza aproximado
+con un \(95\%\) de confianza, usando la fórmula de Satterthwaite.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Estrato \(h\) & \(N_h\) & \(n_h\) & \(\overline{y_h}\) &
+\(s_{h}^{2}\)\tabularnewline
+\midrule
+\endhead
+1 & 20 & 5 & 1.6 & 3.3\tabularnewline
+2 & 9 & 3 & 2.8 & 4.0\tabularnewline
+3 & 12 & 4 & 0.6 & 2.2\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\hypertarget{afijaciones}{%
+\subsection{Afijaciones}\label{afijaciones}}
+
+\begin{frame}{Afijaciones}
+
+Dado una muestra de tamaño \(n\), se puede escoger como distribuirlos
+entre los \(L\) estratos. Si cada estrato es del mismo tamaño de
+muestral y no se tiene información previa sobre la población, una opción
+razonable es asumir tamaños muestrales iguales para cada estrato, así,
+para el estrato \(h\) el tamaño de muestra estará dado por:
+\[n_h=\dfrac{n}{L}\] Si los estratos difieren en tamaño, una
+\textbf{afijación proporcional} puede ser usada para mantener las
+proporciones muestrales en los estratos tal como en la población. Si
+cada estrato \(h\) tiene \(N_h\) unidades, el tamaño de muestra afijado
+será: \[n_h=\dfrac{nN_h}{N}\]
+
+\end{frame}
+
+\begin{frame}
+
+El esquema de afijación que estima la media o el total poblacional con
+la menor varianza para un tamaño de muestra total \(n\) bajo un muestreo
+estratificado aleatorio es la \textbf{afijación Neyman}:
+
+\[n_h=\dfrac{nN_h\sigma_h}{\sum_{k=1}^{L}N_k\sigma_k}\]
+
+La desviación población por estrato \(\sigma_h\) puede ser estimada con
+desviaciones estándar por estrato de estudios pasados. A veces, se le
+llama a esta afijación óptima pero en estricto rigor es un caso
+particular de esta.
+
+\end{frame}
+
+\begin{frame}
+
+En algunos casos, el costo de muestreo, medido en términos de tiempo o
+dinero, difieren de estrato en estrato, y el costo total puede ser
+descrito mediante una relación lineal.
+
+\[c=c_0+c_1n_1+c_2n_2+\cdots+c_L n_L\]
+
+donde \(c\) es el costo total de la muestra, \(c_0\) son los costos
+fijos del muestreo y \(c_h\) es el costo por unidad observada en el
+estrato \(h\). Entonces, para un costo total fijo \(c\), la menor
+varianza es obtenido con un tamaño de muestra en el estrato \(h\)
+proporcional a \(N_h\sigma_h/\sqrt{c_h}\), llamamos a esto
+\textbf{afijación óptima}:
+
+\[n_h=\dfrac{(c-c_0)N_h\sigma_h/\sqrt{c_h}}{\sum_{k=1}^{L}N_k\sigma_k\sqrt{c_k}}\]
+
+Así, este esquema asigna mayores tamaños muestrales a los estratos más
+grandes o más variables y a su vez, menores tamaños muestrales a los
+estratos más caros o dificiles de muestrear.
+
+\end{frame}
+
+\hypertarget{ejemplo-5}{%
+\subsection{Ejemplo}\label{ejemplo-5}}
+
+\begin{frame}{Ejemplo}
+
+Una población consiste en tres estratos de tamaños \(N_1=150,N_2=90\)y
+\(N_3=120\), así la población total es \(N=360\). Basado en muestras
+anteriores se sabe que la desviación en cada estado puede ser aproximado
+por \(\sigma_1 \approx 100, \sigma_2 \approx 200\) y
+\(\sigma_3 \approx 300\).
+
+\begin{itemize}
+\tightlist
+\item
+  Calcule las afijaciones proporcionales para un tamaño de muestra fijo
+  \(n=12\).
+\item
+  Calcule las afijaciones óptimas para un tamaño de muestra fijo
+  \(n=12\).
+\end{itemize}
+
+\textbf{Tarea:} Leer Sección de Post-Estratificación libro: Sampling,
+Thompson. pág. 148.
+
+\end{frame}
+
+\hypertarget{ejercicios-adicionales-prueba-2}{%
+\subsection{Ejercicios adicionales Prueba
+2}\label{ejercicios-adicionales-prueba-2}}
+
+\begin{frame}{Ejercicios adicionales Prueba 2}
+
+Si desean hacer ejercicios adicionales, algunos pueden ser encontrados
+en:
+
+Sampling, Steven K. Thompson:
+
+\begin{itemize}
+\tightlist
+\item
+  pág 112 - 114, ej. 1 - 6 y ejemplos de la misma sección.
+\item
+  pág 124, ej. 1 - 2 y ejemplos de la misma sección.
+\item
+  pág 155 - 156 ,ej. 1 -3 y ejemplos de la misma sección.
+\end{itemize}
+
+Richard L. Scheaffer, III William Mendenhall, R. Lyman Ott, Kenneth G.
+Gerow - Elementary Survey Sampling-Cengage Learning (2011)
+
+\begin{itemize}
+\tightlist
+\item
+  pág 152 - 165, ej. 5.1 - 5.50
+\item
+  pág 204 - 214,ej. 6.1 - 6.35
+\end{itemize}
+
+Muestreo Estadístico. Conceptos y problemas resueltos - César Pérez
+
+\begin{itemize}
+\tightlist
+\item
+  pág. 161 - 193, ej 4.1 - 4.17
+\item
+  pág. 195 - 196, ej 4.1 - 4.4
+\item
+  pág. 250 - 269, ej. 6.1 - 6.10
+\item
+  pág. 271 - 272, 6.1 - 6.4
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{software-para-muestreo-estaduxedstico}{%
+\section{Software para muestreo
+estadístico}\label{software-para-muestreo-estaduxedstico}}
+
+\begin{frame}{Software para muestreo estadístico}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{R-project}: Mediante paquete \emph{sampling} entre otros.
+\item
+  \textbf{Stata}: Disponible en \href{https://stata.uv.cl/}{la página
+  STATA UV}.
+\item
+  \textbf{SAS}: Software de pago; versión básica disponible en
+  \href{https://www.sas.com/en_us/software/university-edition/download-software.html}{SAS
+  University Edition}
+\item
+  \textbf{Scala Spark}: Disponible en
+  \href{https://spark.apache.org/}{Apache Spark}
+\item
+  \textbf{Python}: Mediante \emph{repositorio PySurvey/samplics}, entre
+  otros.
+\item
+  \textbf{Minitab}: Software de pago. Disponible en
+  \href{https://www.minitab.com/en-us/}{Minitab}
+\item
+  \textbf{SPSS} : Software de pago (Módulo IBM SPSS Complex Samples),
+  disponible en
+  \href{https://www.ibm.com/products/spss-complex-samples}{IBM SPSS}.
+\end{itemize}
+
+Existen otros software menos conocidos, y especializados, para un review
+más detallado revisar lista en
+\href{https://www.hcp.med.harvard.edu/statistics/survey-soft/}{Summary
+of Survey Analysis Software}
+
+\end{frame}
+
+\hypertarget{r-project}{%
+\subsection{R-Project}\label{r-project}}
+
+\begin{frame}{R-Project}
+
+\textbf{Pros:}
+
+\begin{itemize}
+\tightlist
+\item
+  Libre uso, licencia GPL 2 \textbar{} GPL 3 (General Public Licence)
+\item
+  Libre código: es posible saber exactamente lo que hace el código.
+\item
+  Avances en el área son -usualmente- implementados en este lenguaje.
+\end{itemize}
+
+\textbf{Contras:}
+
+\begin{itemize}
+\tightlist
+\item
+  Lenguaje no optimizado, subóptimo para conjuntos de datos grandes.
+\item
+  Configuración de diseños muestrales puede ser engorroso, sobre todo
+  con la limpieza de los datos.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{stata}{%
+\subsection{Stata}\label{stata}}
+
+\begin{frame}{Stata}
+
+\textbf{Pros:}
+
+\begin{itemize}
+\tightlist
+\item
+  Diseño interactivo, point-and-click y drag-and-drop.
+\item
+  Auto identificación de columnas relevantes.
+\item
+  Gratis para alumnos de la UV.
+\end{itemize}
+
+\textbf{Contras:}
+
+\begin{itemize}
+\tightlist
+\item
+  Software de pago.
+\item
+  No se sabe en detalle que como se hacen los cálculos. Código Cerrado.
+\item
+  Innovaciones técnicas no disponibles.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{sas}{%
+\subsection{SAS}\label{sas}}
+
+\begin{frame}{SAS}
+
+\textbf{Pros:}
+
+\begin{itemize}
+\tightlist
+\item
+  Diseño interactivo, point-and-click y drag-and-drop.
+\item
+  Programación modular basada en procedimientos.
+\item
+  \emph{Escalable} mediante productos adicionales.
+\item
+  Gran uso en el exterior.
+\item
+  SAS Base gratis.
+\end{itemize}
+
+\textbf{Contras:}
+
+\begin{itemize}
+\tightlist
+\item
+  Software completo es de pago.
+\item
+  No se sabe en detalle que como se hacen los cálculos. Código Cerrado.
+\item
+  Productos modulares, para trabajos especificos se requiere contratar
+  paquetes adicionales.
+\item
+  Innovaciones técnicas no disponibles.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{scala-spark}{%
+\subsection{Scala Spark}\label{scala-spark}}
+
+\begin{frame}{Scala Spark}
+
+\textbf{Pros:}
+
+\begin{itemize}
+\tightlist
+\item
+  Programación funcional basada en el lenguaje SCALA; programación
+  mínima. Lenguaje subyacente es java.
+\item
+  Inherentemente \emph{escalable}, pues es un módulo especializado en
+  trabajar con grandes conjuntos de datos. Especializado en machine
+  learning.
+\item
+  Popularidad incrementó dado el boom de \emph{Big Data}.
+\item
+  Licencia Apache Licence 2 (\emph{libre uso}).
+\end{itemize}
+
+\textbf{Contras:}
+
+\begin{itemize}
+\tightlist
+\item
+  Lenguaje poco común, por lo que requiere estudio.
+\item
+  No tiene paquetes especializados para muestreo estadístico, por lo que
+  la implementación es tediosa y debe ser manualmente programada.
+\item
+  Innovaciones técnicas no disponibles.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{python}{%
+\subsection{Python:}\label{python}}
+
+\begin{frame}{Python:}
+
+\textbf{Pros:}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Escalable}, existen soluciones para trabajar con conjuntos de
+  datos grandes.
+\item
+  Uso libre.
+\item
+  Módulos especializados para trabajar muestreos complejos.
+\item
+  Lenguaje subyacente escrito en C.
+\item
+  Gran uso en industria tecnológica.
+\end{itemize}
+
+\textbf{Contras:}
+
+\begin{itemize}
+\tightlist
+\item
+  Innovaciones técnicas no disponibles.
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{minitab-y-spss}{%
+\subsection{MiniTab y SPSS}\label{minitab-y-spss}}
+
+\begin{frame}{MiniTab y SPSS}
+
+\textbf{Pros:}
+
+\begin{itemize}
+\tightlist
+\item
+  Módulos especializados para trabajar muestreos complejos.
+\item
+  Diseño interactivo, point-and-click y drag-and-drop.
+\end{itemize}
+
+\textbf{Contras:}
+
+\begin{itemize}
+\tightlist
+\item
+  Innovaciones técnicas no disponibles.
+\item
+  Menor uso en industria e investigación.
+\item
+  No escalable.
+\end{itemize}
+
+\end{frame}
+
+
+%\section[]{}
+%\frame{\small \frametitle{Table of Contents}
+%\tableofcontents}
+\end{document}

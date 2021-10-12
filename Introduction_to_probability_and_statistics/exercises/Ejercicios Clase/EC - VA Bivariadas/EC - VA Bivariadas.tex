@@ -1,0 +1,218 @@
+\documentclass{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,mathtools}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{epsfig}
+\usepackage{graphics,color, epstopdf}
+\setlength{\headheight}{70pt} 
+\setlength{\headsep}{20pt} 
+\pagestyle{fancy}
+\lhead{}
+\chead{Universidad de Valparaíso \\ Facultad de Ciencias \\ Instituto de Estadística }
+\rhead{Profesor: Eloy Alvarado}
+
+\begin{document}
+\begin{center}
+\textbf{Ejercicios Clase, Variables Aleatorias Bivariadas}
+\end{center}
+\begin{enumerate}
+\item La función de probabilidad conjunta de dos variables aleatorias discretas $X, Y$ está dada por
+$f(x,y) = c(2x+y)$, donde $x,y$ pueden tomar todos los valores enteros tales que $0\leq x \leq 2,0\leq y \leq 3$, y $f(x,y)=0$ de otra forma.
+
+\begin{enumerate}
+\item Hallar el valor de la constante c.
+
+\[ \int_{-\infty}^{ \infty} \int_{-\infty}^{ \infty} f(x,y) dx dy = 1\]
+\[ \int_{0}^{3} \int_{0}^{ 2} c(2x+y) dx dy = 1\]
+
+Lo anterior implica que $c=1/21$
+
+
+\item Hallar $\mathbb{P}(X=2,Y=1)$ 
+
+De la definición tenemos que resolver lo siguiente
+\[ \int_{1}^{1} \int_{2}^{ 2} 1/21(2x+y) dx dy \]
+Sin embargo, al ser variables contínuas, la integral en un punto es 0. Por lo tanto $\mathbb{P}(X=2,Y=1) = 0$ .
+
+\item Hallar $\mathbb{P}(X\geq 1, Y\leq 2)$
+
+De la definición tenemos que resolver lo siguiente
+\[ \int_{0}^{2} \int_{1}^{ 2} 1/21(2x+y) dx dy \]
+\[ \mathbb{P}(X\geq 1, Y\leq 2) = 8/21 \]
+
+\end{enumerate}
+
+
+
+
+\item Hallar las funciones de probabilidad marginal:
+Para las variables aleatorias del problema anterior.
+\begin{enumerate}
+\item de $X$
+\[ f_X(x) =  \int_{-\infty}^{\infty} 1/21(2x+y) dy \]
+\[  f_X(x) = 1/21 (6 x +9/2) \]
+
+\item de $Y$
+
+\[ f_Y(y) =  \int_{-\infty}^{\infty} 1/21(2x+y) dx \]
+\[  f_Y(y) = 1/21 (2 y +4) \]
+
+\end{enumerate}
+
+\item Muestre que las variables aleatorias $X,Y$ del problema 1 son dependientes.
+
+La definición de independencia implica que:
+
+\[ f(x|y) = \dfrac{f(x,y)}{f_Y(y)} = f_X(x)\]
+
+Sin embargo, al desarrollar la expresión obtenemos
+\[ f(x|y) = \dfrac{1/21(2x+y)}{1/21 (2 y+4)} \neq 1/21 (6x +9/2)\]
+
+
+\item La función de densidad conjunto de dos variables aleatorias continuas $X,Y$ es
+$$f(x,y)=\begin{cases}
+cxy \hspace{20pt} 0<x<4,1<y<5\\
+0 \hspace{20pt} \text{ e.o.c. }
+\end{cases}$$
+\begin{enumerate}
+\item Hallar el valor de la constante c
+\[ \int_{-\infty}^{ \infty} \int_{-\infty}^{ \infty} f(x,y) dx dy = 1\]
+\[ \int_{1}^{5} \int_{0}^{4} c(xy) dx dy = 1\]
+
+Lo anterior implica que $c=1/96$
+
+
+\item Hallar $\mathbb{P}(1<X<2,2<Y<3)$
+
+\[ \int_{2}^{3} \int_{1}^{2} 1/96(xy) dx dy = \dfrac{1}{96} * \dfrac{15}{4}\]
+
+\item Hallar $\mathbb{P}(X\geq 3,Y\leq 2)$
+
+\[ \int_{1}^{2} \int_{3}^{4} 1/96(xy) dx dy = \dfrac{1}{96} * \dfrac{21}{4}\]
+
+\end{enumerate}
+
+
+\item Hallar las funciones de distribución marginal:
+Para las variables aleatorias del problema anterior.
+\begin{enumerate}
+\item de $X$
+\[ f_X(x) =  \int_{-\infty}^{\infty} 1/96(xy) dy \]
+\[  f_X(x) = 1/96 (24x/2 )= x/8 \]
+
+\item de $Y$
+
+\[ f_Y(y) =  \int_{-\infty}^{\infty} 1/96(xy) dx \]
+\[  f_Y(y) = 1/96 (8 y)= y/12 \]
+
+
+\end{enumerate}
+
+\item Sean $X,Y$ dos variables aleatorias continuas con una función de densidad de probabilidad conjunta:
+$$f(x,y)=\begin{cases}
+3x(1-xy) \hspace{20pt} 0\leq x,y\leq 1\\
+0 \hspace{20pt} \text{ e.o.c. }
+\end{cases}$$
+\begin{enumerate}
+\item Obtener las distribuciones de densidad marginal para $X$ e $Y$.
+
+\[ f_X(x) =  \int_{0}^{1} 3x(1-xy) dy \]
+\[  f_X(x) = 3x -3x^2 /2\]
+
+\[ f_Y(y) =  \int_{0}^{1} 3x(1-xy) dx \]
+\[  f_Y(y) =  3/2 - y\]
+
+\item Obtener la distribución de densidad acumulada de $X$ e $Y$.
+
+\[ F(x,y) = \int_{-\infty}^{ y} \int_{-\infty}^{ x} 3u(1-uv) du dv  \]
+\[ F(x,y) = \dfrac{3 x y }{2} -\dfrac{x^3 y^2}{2} \]
+
+\end{enumerate}
+\item Sean $X,Y$ dos variables aleatorias con una función de densidad conjunta de probabilidad:
+$$f(x,y)=\begin{cases}
+\dfrac{2}{3}(x+y)\exp (-x)\hspace{20pt} x\geq 0,0<y \leq 1\\
+0 \hspace{20pt} \text{ e.o.c. }
+\end{cases}$$
+Obtener la covarianza y el coeficiente de correlación de $X$ y de $Y$.\\
+\textbf{Ayuda:} Recordar que
+$$\Gamma(z) = \int_0^\infty x^{z-1} e^{-x}\,dx ;\hspace{20pt} \Gamma(n)=(n-1)! \hspace{10pt} n\in \mathbb{N}$$
+
+\[ f_X(x) =  \int_{0}^{1} \dfrac{2}{3}(x+y)\exp (-x) dy \]
+\[  f_X(x) = \dfrac{e^{-x}}{3} (2x+ 1) \]
+\[ E[X] = \int_{-\infty}^{\infty} x f_X(x) dx = \dfrac{2}{3} \Gamma(3)  + \dfrac{1}{3} \Gamma(2)\]
+
+\[ f_Y(y) =  \int_{0}^{\infty} \dfrac{2}{3}(x+y)\exp (-x) dx \]
+\[  f_Y(y) =  \frac{2}{3} (y+1)\]
+\[ E[Y] = \int_{-\infty}^{\infty} y f_Y(y) dy= 10/18 \]
+
+
+\newpage
+\item Sean $X,Y$ los niveles de concentración en ppm de dos contaminantes en una determinada porción de un tanque de agua. Si la función de densidad conjunta de probabilidad está dada por:
+$$f(x,y)=\begin{cases}
+(x+y)/8000\hspace{20pt} 0<x,y < 20\\
+0 \hspace{20pt} \text{ e.o.c. }
+\end{cases}$$
+Si el nivel de concentración observado de $Y$ es de $10$ ppm, obtener la probabilidad de que el nivel de concentración de $X$ sea, a lo más, $14$ ppm. Obtener la media y la varianza condicional de $X$ para $Y=10$ ppm.
+
+\[ f(x|Y=10)  \dfrac{1}{800}(x+10) \]
+\[ \mathbb{P}(X<14|Y=10) = \int_{0}^{14} f(x|Y=10) = \int_{0}^{14} \dfrac{1}{800}(x+10) \]
+\[ \mathbb{P}(X<14|Y=10) = 238/800\]
+
+La esperanza condicional:
+
+\[ E[X|Y=10] =  \int_{0}^{20} x f(x|Y=10) = 10/3 + 5/2\]
+
+El segundo momento:
+\[ E[X^2|Y=10] = \int_{0}^{20} x^2 f(x|Y=10) = 50 + 100/3 \]
+
+La varianza condicionale es:
+
+\[ Var(X|Y=10) = E[X^2|Y=10] -  (E[X|Y=10])^2  \approx 49.3\]
+
+\item Hallar para la distribución del problema $(8)$.
+\begin{enumerate}
+\item $f(y|2)$
+
+\[ f(y|X=2) \dfrac{1}{800}(2+y)  \]
+
+\item $\mathbb{P}(Y=1|X=2)$ 
+
+De la definición tenemos que resolver lo siguiente
+\[ \int_{1}^{1} \dfrac{1}{800}(2+y) dy \]
+Sin embargo, al ser variables contínuas, la integral en un punto es 0. Por lo tanto $\mathbb{P}(Y=1|X=2) = 0$ .
+
+\end{enumerate}
+
+\item Si $X,Y$ tienen la función de densidad conjunta:
+$$f(x,y)=\begin{cases}
+\dfrac{3}{4}+xy \hspace{20pt} 0<x< 1,0<y < 1\\
+0 \hspace{20pt} \text{ e.o.c. }
+\end{cases}$$
+Hallar:
+\begin{enumerate}
+\item $f(y|x)$
+
+\[ f_X(x) =  \int_{0}^{1} (3/4 + xy) dy \]
+\[  f_X(x) = 3/4 + x/2 \]
+
+\[ f_Y(y) =  \int_{0}^{1} (3/4 + xy) dx \]
+\[  f_Y(y) = 3/4 + y/2 \]
+
+\[ f(y|x) = \dfrac{f(y,x)}{f_X(x)} = \dfrac{3+4 x y}{3 + 2 x} \]
+
+\item $\mathbb{P}\left(Y>\dfrac{1}{4}\bigg\vert \dfrac{1}{2} < X < \dfrac{1}{2}+dx\right)$
+
+\[ \mathbb{P}\left(Y>\dfrac{1}{4}\bigg\vert \dfrac{1}{2} < X < \dfrac{1}{2}+dx\right) = \dfrac{\int_{0.25}^1 \int_{0.5}^{0.5+ d} (3/4 xy)dx dy  }{\int_{0.5}^{0.5 + d} (3/4 + x/2) dx}\]
+
+Notar que al realizar la integral aparecerán términos de $d^2$. Si $d$ es pequeño, podemos aproximar $d^2 \approx 0$, lo que simplifica las cuentas. El resultado es:
+$$\mathbb{P}\left(Y>\dfrac{1}{4}\bigg\vert \dfrac{1}{2} < X < \dfrac{1}{2}+dx\right) = 51/64$$
+
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
