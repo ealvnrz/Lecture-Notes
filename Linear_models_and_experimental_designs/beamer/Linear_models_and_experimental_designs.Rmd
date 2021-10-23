@@ -66,7 +66,7 @@ $$Y=2X$$
 ---
 
 
-![Relación Funcional](../resources/functional_relation.png){width=250px}
+![Relación Funcional](./figs/functional_relation.png){width=250px}
 
 ### Relación Estadística
 
@@ -80,7 +80,7 @@ Evaluaciones de desempeño de 10 empleados fueron obtenidos a final del primer y
 ---
 
 
-![Relación Funcional](../resources/statistical_relation.png){width=250px}
+![Relación Funcional](./figs/statistical_relation.png){width=250px}
 
 ---
 
@@ -256,7 +256,7 @@ Cuando existe un control sobre la variable explicativa (predictora) mediante asi
 
 ## Procedimiento general de un análisis de regresión
 
-![Pasos de un análisis de regresión](../resources/regression_steps.png){width=480px}
+![Pasos de un análisis de regresión](./figs/regression_steps.png){width=480px}
 
 ## Estimación de la función de regresión
 
@@ -278,7 +278,7 @@ De acuerdo al método de mínimos cuadrados, el estimador de $\beta_0$ y $\beta_
 
 La siguiente figura presenta el diagrama de dispersión de un estudio y la recta de regresión que resulta al usar la respuesta media $(9)$ como el predictor e ignoramos $X$.
 
-![Criterio Q para un ajuste de regresión](../resources/regression_1.png){width=45%}
+![Criterio Q para un ajuste de regresión](./figs/regression_1.png){width=45%}
 
 ---
 
@@ -294,7 +294,7 @@ $$Q=(5-9)^2+(12-9)^2+(10-9)^2=26$$
 
 En la siguiente figura, presentamos los mismo datos pero con otra recta de regresión:
 
-![Criterio Q para un ajuste de regresión](../resources/regression_2.png){width=45%}
+![Criterio Q para un ajuste de regresión](./figs/regression_2.png){width=45%}
 
 ---
 
@@ -1303,4 +1303,130 @@ y la regla de decisión para controlar el error tipo I a un nivel $(1-\alpha)$ e
 * Si $F^* > F(1-\alpha; p-1, n-p)$, optamos por $H_1$
 
 La existencia de una relación de regresión por si sola, no asegura que predicciones útiles pueden ser obtenidas usándola. Notar que si $p-1=1$, entonces se reduce al test $F$ antes visto.
+
+## Coeficiente de determinación múltiple
+
+De igual manera que en el caso de regresión lineal simple, el coeficiente de determinación múltiple $R^2$ está definido por:
+
+$$R^2=\dfrac{SSR}{SSTO}=1-\dfrac{SSE}{SSTO}$$
+
+Este coeficiente la proporción de la variabilidad es explicada por el ajusto de regresión utilizando las variables regresoras $X_1,\dots,X_{p-1}$. Este coeficiente se mueve entre:
+
+$$0\leq R^2 \leq 1$$
+
+donde $R^2$ toma el valor $0$ cuando todos los $b_k=0$, con $k=1,\dots,p-1$ y toma el valor $1$ cuando todas las $Y$ observaciones caen directamente en la superficie de regresión, esto es: $Y_i=\hat{Y}_i\hspace{10pt} \forall i$
+
+**Agregar más variables regresoras, sólo puede incrementar el $R^2$ y nunca reducirlo, debido a que SSE no aumenta al agregar más variables predictoras y SSTO es constante para un conjunto de respuestas.**
+
+---
+
+Debido a que el coeficiente $R^2$ puede ser incrementado simplemente agregando variables predictoras, se sugiere usar una medida alternativa que ajusta dependiendo del número de variables predictoras. A esta medida la llamamos el **coeficiente de determinación múltiple ajustado**, y lo denotamos por $R_{a}^{2}$:
+
+$$R_{a}^{2}=1-\dfrac{\dfrac{SSE}{n-p}}{\dfrac{SSTO}{n-1}}=1-\left( \dfrac{n-1}{n-p}\right)\dfrac{SSE}{SSTO}$$
+
+Esta medida puede reducirse cuando se agregan variables predictoras adicionales en el modelo.
+
+**Adicionalmente, el coeficiente de correlación múltiple lo definimos de manera análoga que en el caso de regresión lineal simple, esto es:**
+
+$$R=\sqrt{R^2}$$
+
+## Inferencia sobre los parámetros de regresión
+
+Los estimadores mínimos cuadrados y de máxima verosimilitud para $b$ son insesgados:
+
+$$\mathbb{E}(b)=\beta$$
+La matriz de varianza-covarianza está dada por:
+
+$$\mathbb{V}(b)_{p\times p}= \begin{bmatrix}
+\mathbb{V}(b_0) & COV(b_0,b_1) & \cdots & COV(b_0,b_{p-1})\\
+COV(b_1,b_0) & \mathbb{V}(b_1)& \cdots & 0\\
+\vdots & \vdots & & \vdots\\
+COV(B_{p-1},b_0) & COV(b_{p-1},b_1) &  \cdots & \mathbb{V}(b_{p-1})\\
+\end{bmatrix}$$
+
+y puede ser reescrita como:
+
+$$\mathbb{V}(V)_{p\times p}=\sigma^2 (X'X)^{-1}$$
+
+---
+
+y su estimación respectiva:
+
+$$\widehat{\mathbb{V}}(b)_{p\times p}= \begin{bmatrix}
+\mathbb{V}(b_0) & COV(b_0,b_1) & \cdots & COV(b_0,b_{p-1})\\
+COV(b_1,b_0) & \widehat{\mathbb{V}}(b_1)& \cdots & 0\\
+\vdots & \vdots & & \vdots\\
+COV(B_{p-1},b_0) & COV(b_{p-1},b_1) &  \cdots & \widehat{\mathbb{V}}(b_{p-1})\\
+\end{bmatrix}$$
+
+y puede ser reescrito como:
+
+$$\widehat{\mathbb{V}}(b)_{p\times p}=MSE(X'X)^{-1}$$
+
+También es posible utilizar notación alternativa: $\sigma$ y $s$, respectivamente.
+
+
+### Estimación por intervalo para $\beta_k$
+
+Para el modelo de regresión normal, tenemos:
+
+$$\dfrac{b_k-\beta_k}{s(b_k)}\sim t(n-p) \hspace{20pt} k=0,1,\dots,p-1$$
+Por lo que, los intervalos de confianza para $\beta_k$ con coeficiente de confianza $1-\alpha$ son:
+
+$$\left[ b_k \pm t(1-\alpha/2, n-p)s(b_k)\right]$$
+
+
+### Test para $\beta_k$
+
+Los test para $\beta_k$ se realizan de manera usual, esto es, para probar:
+
+$$H_0: \beta_k = 0 \hspace{20pt} H_a:\beta_k\neq 0$$
+
+Usamos el estadístico de prueba:
+
+$$t^*=\dfrac{b_k}{s(b_k)}$$
+y la regla de decisión será:
+
+* Si $|t^*|\leq t(1-\alpha/2,n-p)$ se concluye $H_0$, en caso contrario concluimos $H_a$.
+
+
+## Estimación de la respuesta media
+
+### Intervalo de confianza para $\mathbb{E}(Y_h)$
+
+Para valores dados $X_1,\dots,X_{p-1}$, denotados por $X_{h,1},\cdots X_{h,p-1}$, la respuesta media la definimos como $\mathbb{E}(Y_h)$. Sea:
+
+$${X_h}=\begin{bmatrix}
+1\\
+X_{h1}\\
+\vdots\\
+X_{h,p-1}
+\end{bmatrix}$$
+
+por lo que la respuesta media se estima como:
+
+$$\mathbb{E}(Y_h)=X_{h}^{'}\beta$$
+La estimación de la respuesta media correspondiente a  $X_{h}$, denotada por $\hat{Y}_h$, es:
+
+$$\hat{Y}_h=X_{h}^{'}b$$
+Este estimador es claramente insesgado.
+
+---
+
+y su varianza está dada por:
+
+$$\sigma^2(\hat{Y}_h)=\sigma^2 X_{h}^{'} (X'X)^{-1} X_h$$
+Esta varianza puede ser expresada como una función de la matriz varianza-covarianza de los coeficientes de regresión estimados:
+
+$$\sigma^2(\hat{Y}_h)=X_{h}^{'}\sigma^2(b) X_h$$
+Esta última cantidad la estimamos como:
+
+$$s^2(\hat{Y}_h)=MSE(X_{h}^{'} (X'X)^{-1}X_h)=X_{h}^{'} s^2(b) X_h$$
+Así, el $(1-\alpha)\%$ intervalo de confianza para $\mathbb{E}(Y_h)$ es:
+
+$$\left[\hat{Y}_h\pm t(1-\alpha/2,n-p)s(\hat{Y}_h)\right]$$
+
+
+
+
 

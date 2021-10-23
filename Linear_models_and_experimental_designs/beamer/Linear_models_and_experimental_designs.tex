@@ -325,7 +325,7 @@ expresada por la ecuación:
 
 \begin{figure}
 \centering
-\includegraphics[width=2.60417in,height=\textheight]{../resources/functional_relation.png}
+\includegraphics[width=2.60417in,height=\textheight]{./figs/functional_relation.png}
 \caption{Relación Funcional}
 \end{figure}
 
@@ -356,7 +356,7 @@ explicativa o predictor} \(X\).
 
 \begin{figure}
 \centering
-\includegraphics[width=2.60417in,height=\textheight]{../resources/statistical_relation.png}
+\includegraphics[width=2.60417in,height=\textheight]{./figs/statistical_relation.png}
 \caption{Relación Funcional}
 \end{figure}
 
@@ -784,7 +784,7 @@ regresión}\label{procedimiento-general-de-un-anuxe1lisis-de-regresiuxf3n}}
 
 \begin{figure}
 \centering
-\includegraphics[width=5in,height=\textheight]{../resources/regression_steps.png}
+\includegraphics[width=5in,height=\textheight]{./figs/regression_steps.png}
 \caption{Pasos de un análisis de regresión}
 \end{figure}
 
@@ -839,7 +839,7 @@ como el predictor e ignoramos \(X\).
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth,height=\textheight]{../resources/regression_1.png}
+\includegraphics[width=0.45\textwidth,height=\textheight]{./figs/regression_1.png}
 \caption{Criterio Q para un ajuste de regresión}
 \end{figure}
 
@@ -869,7 +869,7 @@ de regresión:
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth,height=\textheight]{../resources/regression_2.png}
+\includegraphics[width=0.45\textwidth,height=\textheight]{./figs/regression_2.png}
 \caption{Criterio Q para un ajuste de regresión}
 \end{figure}
 
@@ -2660,6 +2660,180 @@ y la regla de decisión para controlar el error tipo I a un nivel
 La existencia de una relación de regresión por si sola, no asegura que
 predicciones útiles pueden ser obtenidas usándola. Notar que si
 \(p-1=1\), entonces se reduce al test \(F\) antes visto.
+
+\end{frame}
+
+\hypertarget{coeficiente-de-determinaciuxf3n-muxfaltiple}{%
+\subsection{Coeficiente de determinación
+múltiple}\label{coeficiente-de-determinaciuxf3n-muxfaltiple}}
+
+\begin{frame}{Coeficiente de determinación múltiple}
+
+De igual manera que en el caso de regresión lineal simple, el
+coeficiente de determinación múltiple \(R^2\) está definido por:
+
+\[R^2=\dfrac{SSR}{SSTO}=1-\dfrac{SSE}{SSTO}\]
+
+Este coeficiente la proporción de la variabilidad es explicada por el
+ajusto de regresión utilizando las variables regresoras
+\(X_1,\dots,X_{p-1}\). Este coeficiente se mueve entre:
+
+\[0\leq R^2 \leq 1\]
+
+donde \(R^2\) toma el valor \(0\) cuando todos los \(b_k=0\), con
+\(k=1,\dots,p-1\) y toma el valor \(1\) cuando todas las \(Y\)
+observaciones caen directamente en la superficie de regresión, esto es:
+\(Y_i=\hat{Y}_i\hspace{10pt} \forall i\)
+
+\textbf{Agregar más variables regresoras, sólo puede incrementar el
+\(R^2\) y nunca reducirlo, debido a que SSE no aumenta al agregar más
+variables predictoras y SSTO es constante para un conjunto de
+respuestas.}
+
+\end{frame}
+
+\begin{frame}
+
+Debido a que el coeficiente \(R^2\) puede ser incrementado simplemente
+agregando variables predictoras, se sugiere usar una medida alternativa
+que ajusta dependiendo del número de variables predictoras. A esta
+medida la llamamos el \textbf{coeficiente de determinación múltiple
+ajustado}, y lo denotamos por \(R_{a}^{2}\):
+
+\[R_{a}^{2}=1-\dfrac{\dfrac{SSE}{n-p}}{\dfrac{SSTO}{n-1}}=1-\left( \dfrac{n-1}{n-p}\right)\dfrac{SSE}{SSTO}\]
+
+Esta medida puede reducirse cuando se agregan variables predictoras
+adicionales en el modelo.
+
+\textbf{Adicionalmente, el coeficiente de correlación múltiple lo
+definimos de manera análoga que en el caso de regresión lineal simple,
+esto es:}
+
+\[R=\sqrt{R^2}\]
+
+\end{frame}
+
+\hypertarget{inferencia-sobre-los-paruxe1metros-de-regresiuxf3n-1}{%
+\subsection{Inferencia sobre los parámetros de
+regresión}\label{inferencia-sobre-los-paruxe1metros-de-regresiuxf3n-1}}
+
+\begin{frame}{Inferencia sobre los parámetros de regresión}
+
+Los estimadores mínimos cuadrados y de máxima verosimilitud para \(b\)
+son insesgados:
+
+\[\mathbb{E}(b)=\beta\] La matriz de varianza-covarianza está dada por:
+
+\[\mathbb{V}(b)_{p\times p}= \begin{bmatrix}
+\mathbb{V}(b_0) & COV(b_0,b_1) & \cdots & COV(b_0,b_{p-1})\\
+COV(b_1,b_0) & \mathbb{V}(b_1)& \cdots & 0\\
+\vdots & \vdots & & \vdots\\
+COV(B_{p-1},b_0) & COV(b_{p-1},b_1) &  \cdots & \mathbb{V}(b_{p-1})\\
+\end{bmatrix}\]
+
+y puede ser reescrita como:
+
+\[\mathbb{V}(V)_{p\times p}=\sigma^2 (X'X)^{-1}\]
+
+\end{frame}
+
+\begin{frame}
+
+y su estimación respectiva:
+
+\[\widehat{\mathbb{V}}(b)_{p\times p}= \begin{bmatrix}
+\mathbb{V}(b_0) & COV(b_0,b_1) & \cdots & COV(b_0,b_{p-1})\\
+COV(b_1,b_0) & \widehat{\mathbb{V}}(b_1)& \cdots & 0\\
+\vdots & \vdots & & \vdots\\
+COV(B_{p-1},b_0) & COV(b_{p-1},b_1) &  \cdots & \widehat{\mathbb{V}}(b_{p-1})\\
+\end{bmatrix}\]
+
+y puede ser reescrito como:
+
+\[\widehat{\mathbb{V}}(b)_{p\times p}=MSE(X'X)^{-1}\]
+
+También es posible utilizar notación alternativa: \(\sigma\) y \(s\),
+respectivamente.
+
+\end{frame}
+
+\begin{frame}{Estimación por intervalo para \(\beta_k\)}
+\protect\hypertarget{estimaciuxf3n-por-intervalo-para-beta_k}{}
+
+Para el modelo de regresión normal, tenemos:
+
+\[\dfrac{b_k-\beta_k}{s(b_k)}\sim t(n-p) \hspace{20pt} k=0,1,\dots,p-1\]
+Por lo que, los intervalos de confianza para \(\beta_k\) con coeficiente
+de confianza \(1-\alpha\) son:
+
+\[\left[ b_k \pm t(1-\alpha/2, n-p)s(b_k)\right]\]
+
+\end{frame}
+
+\begin{frame}{Test para \(\beta_k\)}
+\protect\hypertarget{test-para-beta_k}{}
+
+Los test para \(\beta_k\) se realizan de manera usual, esto es, para
+probar:
+
+\[H_0: \beta_k = 0 \hspace{20pt} H_a:\beta_k\neq 0\]
+
+Usamos el estadístico de prueba:
+
+\[t^*=\dfrac{b_k}{s(b_k)}\] y la regla de decisión será:
+
+\begin{itemize}
+\tightlist
+\item
+  Si \(|t^*|\leq t(1-\alpha/2,n-p)\) se concluye \(H_0\), en caso
+  contrario concluimos \(H_a\).
+\end{itemize}
+
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-la-respuesta-media}{%
+\subsection{Estimación de la respuesta
+media}\label{estimaciuxf3n-de-la-respuesta-media}}
+
+\begin{frame}{Intervalo de confianza para \(\mathbb{E}(Y_h)\)}
+\protect\hypertarget{intervalo-de-confianza-para-mathbbey_h}{}
+
+Para valores dados \(X_1,\dots,X_{p-1}\), denotados por
+\(X_{h,1},\cdots X_{h,p-1}\), la respuesta media la definimos como
+\(\mathbb{E}(Y_h)\). Sea:
+
+\[{X_h}=\begin{bmatrix}
+1\\
+X_{h1}\\
+\vdots\\
+X_{h,p-1}
+\end{bmatrix}\]
+
+por lo que la respuesta media se estima como:
+
+\[\mathbb{E}(Y_h)=X_{h}^{'}\beta\] La estimación de la respuesta media
+correspondiente a \(X_{h}\), denotada por \(\hat{Y}_h\), es:
+
+\[\hat{Y}_h=X_{h}^{'}b\] Este estimador es claramente insesgado.
+
+\end{frame}
+
+\begin{frame}
+
+y su varianza está dada por:
+
+\[\sigma^2(\hat{Y}_h)=\sigma^2 X_{h}^{'} (X'X)^{-1} X_h\] Esta varianza
+puede ser expresada como una función de la matriz varianza-covarianza de
+los coeficientes de regresión estimados:
+
+\[\sigma^2(\hat{Y}_h)=X_{h}^{'}\sigma^2(b) X_h\] Esta última cantidad la
+estimados como:
+
+\[s^2(\hat{Y}_h)=MSE(X_{h}^{'} (X'X)^{-1}X_h)=X_{h}^{'} s^2(b) X_h\]
+Así, el \((1-\alpha)\%\) intervalo de confianza para \(\mathbb{E}(Y_h)\)
+es:
+
+\[\left[\hat{Y}_h\pm t(1-\alpha/2,n-p)s(\hat{Y}_h)\right]\]
 
 \end{frame}
 
