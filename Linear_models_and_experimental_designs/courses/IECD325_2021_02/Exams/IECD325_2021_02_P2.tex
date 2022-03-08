@@ -1,0 +1,131 @@
+\documentclass[a4paper,answers,addpoints,11pt]{exam}
+% -----------------------------------------------------
+% PACKAGES
+% -----------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb, amsfonts, amsmath,enumerate}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{forest}
+% -----------------------------------------------------
+% SETTINGS
+% -----------------------------------------------------
+\newcommand{\logoU}{uv_logo_alta_rgba.png}
+\newcommand{\university}{Universidad de Valparaíso}
+\newcommand{\faculty}{Facultad de Ciencias}
+\newcommand{\institute}{Instituto de Estadística}
+\newcommand{\course}{IECD 325}
+\newcommand{\coursename}{Modelos lineales y diseño de experimentos}
+\newcommand{\semester}{2021/02}
+\newcommand{\professor}{Eloy Alvarado Narváez}
+\extraheadheight[1cm]{0cm} %extra header spacing 1st and 2nd+ page
+%\extrafootheight[1cm]{1m} %extra footer spacing 1st and 2nd+ page
+% -----------------------------------------------------
+% HEADER AND FOOTER 
+% -----------------------------------------------------
+\pagestyle{headandfoot}
+\headrule
+\runningfootrule
+\firstpageheader{\includegraphics[width=3cm,height=1.5cm]{\logoU}}{\university \\ \faculty \\ \institute}{\semester \\ Prof. \professor}
+\runningheader{\course}{\coursename}{\semester}
+\firstpagefooter{}{}{}
+\runningfooter{}{Página \thepage\ de \numpages}{}
+% -----------------------------------------------------
+% Solution Output Type
+% -----------------------------------------------------
+%\unframedsolutions
+%\shadedsolutions
+% -----------------------------------------------------
+% EXAM PACKAGE LANGUAGE SETTINGS
+% -----------------------------------------------------
+\pointpoints{punto}{puntos}
+\hpword{Puntos:}
+\vpword{Puntos}
+\vtword{Total:}
+\htword{Total}
+\vsword{Resultado}
+\hsword{Resultado:}
+\vqword{Problema}
+\hqword{Pregunta:}
+\renewcommand{\solutiontitle}{\noindent\textbf{Soluci\'on:}\enspace}
+%\nopointsinmargin % uncomment to hide points.
+%\pointformat{} % uncomment to hide points.
+
+
+\begin{document}
+% -----------------------------------------------------
+% INSTRUCTIONS/STUDENT NAME/TITLE
+% -----------------------------------------------------
+%\begin{flushleft}
+%\textbf{Nombre:}\ \hrulefill
+%\end{flushleft}
+\begin{center}
+\textbf{Prueba \#2 \course\ - \coursename}
+\end{center}
+% -----------------------------------------------------
+% QUESTIONS
+% -----------------------------------------------------
+
+En un estudio ingenieril se desea conocer el contenido de ceniza para evaluar la calidad de un combustible a base de biomasa. Cuando se tiene menor cantidad de contenido de ceniza este considerado un combustible de mayor calidad, ya que permite una combustión más óptima.\\
+
+El método para la determinación del contenido de cenizas utilizada en este estudio está especificado por la ISO 18122. El contenido de cenizas se determina calculando la masa del residuo que queda después de que la muestra se calienta en aire en condiciones estrictamente controladas de tiempo, peso de la muestra y especificaciones del equipo a una temperatura controlada de (550 ± 10) °C. La masa restante después del proceso representa la fracción inorgánica del material de partida.\\
+
+El contenido de cenizas de la muestra expresado como porcentaje en masa en seco se da para varias muestras. Cada muestra se sometió a diferentes pretratamientos de la siguiente manera:
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{cc}
+\begin{minipage}{.5\linewidth}
+\begin{tabular}{cccc}
+                        & \multicolumn{3}{c}{\textbf{Incubación (días)}} \\ \cline{2-4} 
+\textbf{Autoclave (°C)} & \textbf{55}  & \textbf{25}  & \textbf{Control} \\ \hline
+\textbf{140}            & 5.3          & 5.77         & 5.89             \\
+\textbf{}               & 5.33         & 5.68         & 5.57             \\
+\textbf{120}            & 5.89         & 5.77         & 6.19             \\
+\textbf{}               & 5.89         & 5.68         & 5.95             \\
+\textbf{Control}        & 5.39         & 6.3          & 5.73             \\
+                        & 5.52         & 5.95         & 5.93             \\ \hline
+\end{tabular}
+\end{minipage} &
+\begin{minipage}{.5\linewidth}
+\begin{tabular}{cccc}
+                        & \multicolumn{3}{c}{\textbf{Incubación (días)}} \\ \cline{2-4} 
+\textbf{Autoclave (°C)} & \textbf{55}  & \textbf{25}  & \textbf{Control} \\ \hline
+\textbf{140}            & 33.44        & 31.18        & 34.72            \\
+\textbf{}               & 21.61        & 36.01        & 33.28            \\
+\textbf{120}            & 44.83        & 52.39        & 45.10            \\
+\textbf{}               & 41.78        & 44.59        & 34.7             \\
+\textbf{Control}        & 45.78        & 37.57        & 41.87            \\
+                        & 40.84        & 38.53        & 45.53            \\ \hline
+\end{tabular}
+\end{minipage}
+\end{tabular}
+\end{center}
+\caption{Diseño de experimento utilizado en la investigación usando paja y paja con abono como materiales, de izquierda a derecha, respectivamente.}
+\end{figure}
+
+La variable autoclave representa la temperatura configurada para el estudio expresada en Celcius, y la variable incubación representa el periodo de incubación utilizado. La configuración de control, indica la no aplicación de temperatura o periodo de incubación. Los niveles de ambas variables fueron escogidas previa la aplicación del experimento.
+\begin{questions}
+\addpoints
+\question[10] Identifique y describa el diseño de experimento utilizado.
+\question[10] ¿Sería posible hacer el análisis sólo con una réplica por celda?. Justifique.
+\question[40] Realice el análisis de diseño de experimento identificado, considerando el análisis exploratorio de datos, ANOVA, verificación de supuestos y test de hipótesis relevantes, para cada uno de los materiales.
+\end{questions}
+% -----------------------------------------------------
+% POINTS TABLE
+% -----------------------------------------------------
+\begin{center}
+\addpoints
+\gradetable[v]
+\end{center}
+
+
+\end{document}
