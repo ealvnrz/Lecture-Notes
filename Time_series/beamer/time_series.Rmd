@@ -1,0 +1,1297 @@
+---
+title: Series de tiempo
+subtitle: 
+author: Eloy Alvarado Narváez
+institute: Instituto de Estadística \newline Universidad de Valparaíso
+titlegraphic: logo.png
+fontsize: 10pt
+output:
+ beamer_presentation:
+    template: beamer_template.tex
+    keep_tex: true
+    toc: false
+    latex_engine: pdflatex
+    slide_level: 3
+make149: true
+lang: es
+#mainfont: "Open Sans" # Try out some font options if xelatex
+#fontfamily: firasans
+titlefont: "Titillium Web" # Try out some font options if xelatex
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE, cache=F, message=F, warning=F, results="hide"}
+knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_chunk$set(fig.path='figs/')
+knitr::opts_chunk$set(cache.path='cache/')
+
+knitr::opts_chunk$set(
+                  fig.process = function(x) {
+                      x2 = sub('-\\d+([.][a-z]+)$', '\\1', x)
+                      if (file.rename(x, x2)) x2 else x
+                      }
+                  )
+library(tidyverse)
+```
+
+# Introducción
+
+Una serie de tiempo es una colección de observaciones realizadas
+secuencialmente en el tiempo.
+
+Este tipo de datos existen en muchas disciplinas por ejemplo:
+
+-   Series de tiempo económicas
+-   Series de tiempo demográficas
+-   Procesos binarios
+-   Procesos puntuales
+
+**Una de las características principales de las series de tiempo es el
+hecho que observaciones sucesivas no son usualmente independientes, por
+lo que el análisis debe tomar en cuenta el orden temporal de las
+observaciones**
+
+## Objetivos del análisis de series de tiempo
+
+Existen distintos objetivos posibles del análisis de tiempo. Estos
+objetivos pueden ser clasificados en 4 categorías:
+
+-   Describir
+-   Explicar
+-   Predecir
+-   Controlar
+
+# Modelado y pronóstico de la tendencia
+
+## Modelo aditivo de componentes de Series de tiempo
+
+Dada una serie $Y_t,t=1,\dots,T$, el modelo aditivo de componentes
+consiste en asumir que $Y_t$ se puede descomponer en 3 partes.
+
+$$Y_t=T_t+S_t+\varepsilon_t$$
+
+Donde $T_t$ es la tendencia, $S_t$ es la componente estacional y
+$\varepsilon_t$ es la componente de errores.
+
+Las primeras dos componentes son funciones determinísticas de $t$, por
+lo que su evolución es perfectamente predecible.
+
+En algunos casos, la componente $T_t$ también puede ser una componen
+estacional, pero de baja frecuencia o, equivalentemente, una componente
+de período muy grande. Por ejemplo, una serie diaria, $S_t$ puede tener
+período 30 días, y $T_t$ período 360 días.
+
+------------------------------------------------------------------------
+
+```{r}
+tsData <- EuStockMarkets[, 1] 
+decomposedRes2 <- decompose(tsData, type="additive")
+plot(decomposedRes2)
+```
+
+## Modelo multiplicativo de componentes de Series de tiempo
+
+El modelo multiplicativo consiste en asumir que $Y_t$ se puede
+descomponer en tres partes:
+
+$$Y_t=T_t S_t \exp \varepsilon_t$$
+
+------------------------------------------------------------------------
+
+```{r}
+decomposedRes1 <- decompose(tsData, type="mult") 
+plot(decomposedRes1)
+```
+
+------------------------------------------------------------------------
+
+El análisis general consiste en modelar y estimar $T_t$ y $S_t$ para
+luego extraerlas de $Y_t$ para obtener
+$$\hat{\varepsilon}_t=Y_t-\hat{T}_t-\hat{S}_t$$ La serie
+$\hat{\varepsilon}_t$ se modela y estima para finalmente reconstruir
+$Y_t$, $$\hat{Y}_t=\hat{T}_t+\hat{S}_t+\hat{\varepsilon}_t$$ y poder
+realizar el pronóstico
+$$\hat{Y}_{T+h}=\hat{T}_{T+h}+\hat{S}_{T+h}+\hat{\varepsilon}_{T+h}$$
+utilizando la información disponible $Y_1,\dots,Y_T$ con
+$h=1,2,\dots,m$. Sin embargo, puede suceder que la serie
+$\hat{\varepsilon}_t$ sea no correlacionada, es decir,
+$Corr(\hat{\varepsilon}_t,\hat{\varepsilon}_{t+s})=0$, para $s\neq 0$.
+En este caso $\hat{\varepsilon}_{T+h}=0, \forall h\geq 0$
+
+## Tendencia
+
+**Tendencia:** Se define como una función $T_t$ que describe la
+evolución lenta y a largo plazo del nivel medio de la serie. La función
+$T_t$ depende de parámetros que deben estimarse.
+
+### Algunos posibles modelos para $T_t$
+
+1.  **Lineal** $$T_t=\beta_0+\beta_1 t$$
+
+2.  **Cuadrático** $$T_t=\beta_0+\beta_1 t +\beta_2 t^2$$
+
+3.  **Cúbico** $$T_t=\beta_0+\beta_1 t +\beta_2 t^2+ \beta_3 t^3$$
+
+4.  **Exponencial** $$T_t=\exp (\beta_0+\beta_1 t)$$
+
+5.  **Logístico** $$T_t=\dfrac{\beta_2}{1+\beta_1 \exp (-\beta_0 t)}$$
+
+------------------------------------------------------------------------
+
+En la tendencia cuadrática se puede observar:
+
+1.  Si $\beta_1,\beta_2>0, T_t$ es monótona creciente
+2.  Si $\beta_1,\beta_2<0, T_t$ es monótona decreciente
+3.  Si $\beta_1>0$ y $\beta_2<0, T_t$ es cóncava
+4.  Si $\beta_1<0$ y $\beta_2>0, T_t$ es convexa.
+
+## Modelo log-lineal
+
+El modelo logarítmico lineal o log-lineal se define como:
+
+$$\log Y_t=\beta_0+\beta_1 t+\varepsilon_t$$
+
+Corresponde a un modelo con **tendencia lineal para el logaritmo de**
+$Y_t$. En la ecuación anterior, al tomar exponencial se tiene
+$Y_t=\exp (\beta_0+\beta_1 t+\varepsilon_t)$ que es similar al modelo
+con tendencia exponencial, $Y_t=\exp (\beta_0 + \beta_1 t)$. Sin
+embargo, son modelos diferentes y se estiman por métodos diferentes.
+
+## Estimación de la tendencia
+
+Usualmente, la expresión "suavizar la serie" hace referencia a la
+extracción de la tendencia de una serie, y ambas equivalen a la
+estimación de la tendencia.
+
+Para la estimación de los parámetros
+$\bm{\beta}=(\beta_0,\beta_1,\beta_2)'$ en los modelos lineal,
+cudrático, cúbico y log-lineal se utiliza el **método de mínimos
+cuadrados ordinarios**. Es decir, el valor $\hat{\bm{\beta}}$ es el
+valor en el cual $G(\bm{\beta})=\sum_{t=1}^{T} (Y_t-T_t(\bm{\beta}))^2$
+toma el valor mínimo.
+
+$$\hat{\bm{\beta}}=arg\,min_{\bm{\beta}} G(\bm{\beta})$$ Para los
+modelos exponencial y logístico, se usa el método de mínimos cuadrados
+no lineales, que también minimiza la suma de errores cuadrados
+$G(\bm{\beta})=\sum_{t=1}^{T} (Y_t-T_t(\bm{\beta}))^2$, pero
+$T_t(\bm{\beta})$ es una función no lineal de $\bm{\beta}$.
+
+------------------------------------------------------------------------
+
+El modelo log-lineal es equivalente, algebráicamente, a
+
+$$Y_t=\exp (\beta_0+\beta_1 t+\varepsilon_t)$$
+
+Sin embargo, este último modelo es no lineal y no coincide con el modelo
+exponencial. Es posible estimar los parámetros en este caso, pero estas
+estimaciones no necesariamente serán iguales.
+
+------------------------------------------------------------------------
+
+Aunque la serie tenga una componente estacional
+$S_t, Y_t=T_t+S_t+\varepsilon_t$, solamente consideramos un modelo de
+regresión entre $Y_t$ y $T_t$, tal que $Y_t=T_t+\eta_t$, donde $\eta_t$
+es el término de error, de forma que $\eta_t=S_t+\varepsilon_t$. Por
+ejemplo:
+
+1.  En el caso lineal $\bm{\beta}=(\beta_0,\beta_1)'$, con
+    $T_t=\beta_0+\beta_1 t$ se ajusta el modelo de regresión lineal:
+    $Y_t=\beta_0+\beta_1 t + \eta_t$
+
+2.  En el caso cuadrático $\bm{\beta}=(\beta_0,\beta_1,\beta_2)'$, con
+    $T_t=\beta_0,\beta_1 t+\beta_2 t^2$ se ajusta el modelo de regresión
+    lineal $Y_t=\beta_0+\beta_1 t + \beta_2 t^2 + \eta_t$. Notar que en
+    este caso hay que definir la variable explicativa adicional $t^2$.
+
+## Pronóstico con base en la tendencia
+
+Supongamos que la serie con tendencia $Y_t=T_t+\eta_t,t=1,\dots,T$ con
+$(\eta_t)$ una sucesión $iid(0,\sigma^2)$. Los pronósticos de $Y_t$ en
+los tiempos $T+1,T+2,\dots,T+h,h\geq 1$ se definen como
+
+$$\hat{Y}_{T+j}=\hat{T}_{T+j},j=1,\dots,h$$
+
+donde $\hat{T}_t$ es la función estimada de la tendencia. Por ejemplo,
+en el modelo lineal $$Y_t=\beta_0+\beta_1 t + \varepsilon_t$$ al
+reemplazar $t$ por $T+h$ se obtiene
+$$Y_{T+h}=\hat{\beta}_0+\hat{\beta}_1(T+h)+\hat{\varepsilon}_{T+h}$$
+Pero el pronóstico $\hat{\eta}_{T+h}$, puede ser o no cero.
+
+------------------------------------------------------------------------
+
+La definición general de pronóstico para una serie $Y_t,t\in \mathbb{Z}$
+con base en la información $Y_1,\dots,Y_T$ es una esperanza condicional,
+como sigue
+
+$$\hat{Y}_{T+j}=\mathbb{E}(Y_{T+j}|Y_1,\dots,Y_T), \quad j=1,\dots,h$$
+
+# Modelado y pronóstico de series estacionales
+
+Recordar que definimos la descomposición aditiva de una serie de tiempo
+$Y_t$ como
+
+$$
+Y_t=T_t + S_t + \varepsilon_t
+$$
+
+Siendo $T_t$ la tendencia, $\varepsilon_t$ la componente aleatoria y
+$S_t$ la componente estacional.
+
+### Componente Estacional
+
+La componente estacional $S_t$ se define como una función no aleatoria,
+periódica de período $s$. Los valores de $S_t$ para $t=1,\dots, s$ se
+denominan el *patrón estacional*. El período estacional $s$ es el número
+mínimo de períodos que tarda el patrón estacional en repetirse.
+
+### Propiedades de $S_t$
+
+1.  $S_t$ es una función periódica con período $s$, $S_{t+s}=S_t$ para
+    $t=1,2,\dots$. Por lo que sólo que requiere definir $S_t$ en los
+    primeros $s$ valores.
+2.  Si $S_{1,t}$ y $S_{2,t}$ son funciones estacionales con periodo $s$
+    entonces $aS_{1,t}+bS_{2,t}$, para $a,b\in \mathbb{R}$, es también
+    una función estacional de período $s$.
+
+# Procesos estocásticos
+
+Un **proceso estocástico** puede ser descrito como un fenómeno
+estadístico que evoluciona en el tiempo de acuerdo a las leyes de
+probabilidad. Hay ejemplos bastante conocidos de procesos estocásticos,
+como:
+
+-   Longitud de una fila
+-   Tamaño de una colonia de bacterias
+-   Temperatura del aire en días sucesivos en una sitio en particular
+
+En la literatura, la noción de proceso estocástico puede ser también
+llamada **proceso aleatorio**
+
+------------------------------------------------------------------------
+
+Matemáticamente, un proceso estocástico puede ser definido como una
+colección de variables aleatorias que están ordenadas en el tiempo y
+definidas en un conjunto de puntos que pueden ser continuos o discretos.
+
+Escribiremos la variable aleatoria en el tiempo $t$ como $\mathbf{X}(t)$
+si el tiempo es continuo (usualmente, $-\infty < t < \infty$), y por
+$\mathbf{X}_t$, si el tiempo es discreto (usualmente,
+$t=0,\pm 1,\pm 2, \dots$).
+
+------------------------------------------------------------------------
+
+En la mayoría de los problemas de estadística se desea estimar
+propiedades de la población a partir de una muestra. En el análisis de
+series de tiempo esto varía un poco, debido a que si bien es posible
+variar la longitud de la serie de tiempo observada, es usualmente
+imposible hacer más de una observación en un tiempo determinado. Por lo
+que tenemos sólo un resultado único del proceso y una observación única
+de la variable aleatoria en el tiempo $t$.
+
+Sin embargo, podemos considerar la serie de tiempo observada como un
+ejemplo del conjunto infinito de series de tiempos que podrían haber
+sido observadas. Cada elemento de este conjunto es una **realización**
+del proceso estocástico.
+
+Así, las series de tiempo observadas puede ser pensadas como una
+realización particular, y será denotado como $x(t)$ para
+$(0\leq t \leq T)$ si las observaciones son continuas, y por $x_t$ para
+$t=1,\dots,N$ si las observaciones son discretas.
+
+------------------------------------------------------------------------
+
+Una forma de describir un proceso estocástico es especificar la
+distribución de probabilidad conjunta de $X(t_1),\dots, X(t_n)$ para
+cualquier conjunto de punto $t_1,\dots,t_n$ y cualquier valor de $n$.
+Sin embargo, esto es bastante complicado y no es usualmente aplicado en
+la práctica.
+
+Una forma más sencilla y útil para describir un proceso estocástico es
+dar los **momentos** del proceso, particularmente el primer y segundo
+momento, que son llamadas la media, la varianza y la función de
+autocovarianza. En lo que sigue utilizamos notación para tiempo
+continuo, pero las definición son análogas para tiempo discreto.
+
+------------------------------------------------------------------------
+
+-   **Media**: la función de medias $\mu(t)$ está definida como
+
+$$\mu(t)=\mathbb{E}(\mathbf{X}(t))$$
+
+-   **Varianza**: La función de varianza $\sigma^2(t)$ está definida
+    como
+
+$$\sigma^2(t)=\mathbb{V}(\mathbf{X}(t))$$
+
+## Autocovarianza
+
+La función de varianza por si sola no es suficiente para especificar los
+segundos momentos de una secuencia de variables aleatorias. Además,
+debemos definir la función de autovarianza $\gamma(t_1,t_2)$, que es la
+covarianza de $\mathbf{X}(t_1)$ y $\mathbf{X}(t_2)$, esto es:
+
+$$\gamma(t_1,t_2)=\mathbb{E}\left([\mathbf{X}(t_1)-\mu(t_1)][\mathbf{X}(t_2)-\mu(t_2)]\right)$$
+Notas que la varianza es un caso especial de la función de
+autocovarianza cuando $t_1=t_2$.
+
+Los siguientes momentos de un proceso estocástico pueden ser definidos
+de manera trivial, pero son rara vez usado en la práctica, ya que el
+conocer las dos funciones $\mu(t)$ y $\gamma(t_1,t_2)$ es usualmente
+suficiente.
+
+## Proceso estacionario
+
+Una clase importante de procesos aleatorios son los **estacionarios**.
+Una idea heurística de estacionariedad es que no hayan cambios
+sistemáticos en la media (tendencia) o en la varianza, y que las
+variaciones estrictamente periódicas hayan sido eliminadas.
+
+Una serie de tiempo se dice **estrictamente estacionaria** si la
+distribución de probabilidad de $\mathbf{X}(t_1),\dots,\mathbf{X}(t_n)$
+es la misma que la distribución conjunta de
+$\mathbf{X}(t_1+\tau),\dots,\mathbf{X}(t_n+\tau)$ para todo
+$t_1,\dots,t_n$.
+
+En otras palabras, cambiar el tiempo inicial en una cantidad $\tau$ no
+tiene efecto en la distribución conjunto, por lo que esta debe depender
+sólo de los intervalos entre $t_1,t_2,\dots, t_n$. Lo anterior, para
+cualquier $n$.
+
+------------------------------------------------------------------------
+
+En particular, si $n=1$, estacionariedad estricta implica que la
+distribución de $\mathbf{X}(t)$ es la misma para todo $t$, por lo que,
+asumiendo que los dos primeros momentos son finitos, se tiene
+
+$$\mu(t)=\mu \qquad \qquad \sigma^2(t)=\sigma^2$$
+
+que son dos constantes que no dependen del valor de $t$.
+
+------------------------------------------------------------------------
+
+Si $n=2$, la distribución conjunta de $\mathbf{X}(t_1)$ y
+$\mathbf{X}(t_2)$ sólo depende de $(t_2-t_1)$, que es conocido como el
+**lag** (rezago). Por lo que la función de autocovarianza
+$\gamma(t_1,t_2)$ también sólo depende de $(t_2-t_1)$ y puede ser
+escrita como $\gamma(\tau)$, donde
+
+```{=tex}
+\begin{align*}
+\gamma(\tau)&= \mathbb{E}\left([\mathbf{X}(t)-\mu][\mathbf{X}(t+\tau)-\mu]\right)\\
+&= Cov[\mathbf{X}(t),\mathbf{X}(t+\tau)]
+\end{align*}
+```
+es llamado el coeficiente de autocovarianza en el **lag** $\tau$.
+
+------------------------------------------------------------------------
+
+El tamaño del coeficiente de autocovarianza depende de las unidades en
+las cuales $\mathbf{X}(t)$ es medido. Por lo que con el propósito de
+interpretar correctamente, es útil estandarizar la función de
+autocovarianza para producir una función llamada **función de
+autocorrelación**, dada por
+
+$$\rho(\tau)={\gamma (\tau) \over \gamma(0)}$$ que mide la correlación
+entre $\mathbf{X}(t)$ y $\mathbf{X}(t+\tau)$.
+
+## Proceso débilmente estacionario
+
+En la práctica, es útil definir un tipo de estacionariedad menos
+restrictiva que la que acabamos de definir. Un proceso es llamado
+**estacionario de segundo order** o **débilmente estacionario** si sus
+medias son constantes y su función de autocovarianza depende sólo del
+**lag**, por lo que
+
+$$
+\mathbb{E}(\mathbf{X}(t))=\mu
+$$
+
+y,
+
+$$
+Cov(\mathbf{X}(t),\mathbf{X}(t+\tau))=\gamma(\tau)
+$$
+
+No se asume nada sobre los momentos mayores al de segundo orden. Notar
+que si $\tau=0$, debido a la función de autocovarianza, se tiene que la
+varianza y la media deben ser constantes. Además, estas dos últimas
+deben ser finitas.
+
+## Función de autocorrelación
+
+Como sabemos la función de autocorrelación está definida por
+
+$$\rho(\tau)={\gamma (\tau) \over \gamma(0)}$$
+
+Esta función es una herramienta principal en la descripción de una serie
+de tiempo, tal como la función de autocorrelación teórica es una
+herramienta importante para describir las propiedades de proceso
+estocástico.
+
+Supongamos que tenemos un proceso estocástico $X(t)$ con media $\mu$,
+varianza $\sigma^2$, autocovarianza $\gamma(\tau)$ y autocorrelación
+$\rho(\tau)$, por lo que
+
+$$
+\rho(\tau)=\gamma(\tau)/\sigma^2
+$$
+
+Notar que $\rho(0)=1$.
+
+### Propiedades
+
+1.  La función de autocorrelación es una función par del **lag**, esto
+    es
+
+    $$
+    \rho(\tau)=\rho(-\tau)
+    $$
+
+Esta propiedad dice que la correlación entre $X(t)$ y $X(t+\tau)$ es la
+misma que la entre $X(t)$ y $X(t-\tau)$.
+
+Para demostrar esta propiedad usamos el hecho que
+$\gamma(\tau)=\rho(\tau)\sigma^2$ y la estacionariedad de $X(t)$.
+
+------------------------------------------------------------------------
+
+2.  $|\rho(\tau)|\leq 1$
+
+Esta propiedad es 'usual' para las correlaciones. Se obtiene notando que
+
+$$
+\mathbb{V}(\lambda_1X(t)+\lambda_2X(t+\tau))\geq 0
+$$
+
+Para cualquier constantes $\lambda_1,\lambda_2$, debido a que la
+varianza es siempre no negativa. Esta varianza es igual a $$
+\lambda_1^2 \mathbb{V}(X(t))+\lambda_{2}^{2}\mathbb{V}(X(t+\tau))+2\lambda_1\lambda_2 Cov(X(t),X(t+\tau))=(\lambda_1^2+\lambda_2^2)\sigma^2+2\lambda_1 \lambda_2 \gamma(\tau)
+$$
+
+Cuando $\lambda_1=\lambda_2=1$, vemos que$$
+\gamma(\tau)\geq -\sigma^2 \Rightarrow \rho(\tau)\geq -1
+$$
+
+Cuando $\lambda_1=1,\lambda_2=-1$, vamos que$$
+\sigma^2\geq \gamma(\tau) \Rightarrow \rho(\tau)\leq 1
+$$
+
+------------------------------------------------------------------------
+
+3.  Falta de unicidad
+
+A pesar de que un proceso estocástico tenga una estructura de covarianza
+única, el converso no es verdadero en general.
+
+Incluso para procesos normales estacionarios, que están completamente
+determinados por su media, varianza y función de autocovarianza, las
+condiciones de invertibilidad (que veremos más adelante) requerirán que
+se asegure la unicidad
+
+## Ruido blanco
+
+En lo que sigue veremos, distintos tipos de procesos estocásticos que
+nos serán a lo largo del curso.
+
+Un proceso a tiempo discreto es llamado un proceso puramente aleatorio
+si consiste de una secuencia de variables aleatorias $\{Z_t\}$ que son
+mutuamente independientes e idénticamente distribuidas. Desde la
+definición sigue que el proceso tiene media y varianza constante. y
+
+```{=tex}
+\begin{align*}
+\gamma(k)&=Cov(Z_t,Z_{t+k})\\
+&=0\quad \text{para }k=\pm 1,2,\dots
+\end{align*}
+```
+
+------------------------------------------------------------------------
+
+Como la media y la función de autocovarianza no dependen del tiempo, el
+proceso es débilmente estacionario. De hecho, el proceso es además
+estrictamente estacionario y su autocorrelación está dada por
+
+$$
+\rho(k)=\begin{cases}1 \quad k=0 \\ 0 \quad k=\pm 1,\pm 2,\dots
+\end{cases}
+$$
+
+Un proceso completamente aleatorio es llamado **ruido blanco** o
+**innovaciones**.
+
+### Simulación de un ruido blanco
+
+```{r, warning=FALSE, fig.show='hide'}
+library(ggplot2)
+library(ggfortify)
+library(gridExtra)
+set.seed(414)
+y <- ts(rnorm(50))
+```
+
+------------------------------------------------------------------------
+
+\small
+
+```{r}
+autoplot(y) + ggtitle("Ruido Blanco")
+```
+
+## Paseo Aleatorio
+
+Supongamos que $\{Z_t\}$ es un proceso puramente aleatorio discreto con
+media $\mu$ y varianza $\sigma_{Z}^{2}$. Un proceso $\{X_{t}\}$ se dice
+que es un **paseo aleatorio** si
+
+$$
+X_t=X_{t-1}+Z_{t}
+$$
+
+El proceso es usualmente empezado en $0$ cuando $t=0$, por lo que
+
+$$
+X_1=Z_1
+$$
+
+y,$$
+X_t=\sum_{i=1}^{t} Z_i
+$$
+
+Así, $\mathbb{E}(X_t)=t\mu$ y $\mathbb{V}(X_t)=t\sigma_{Z}^{2}$. Como la
+media y la varianza cambian con el tiempo, el proceso no es
+estacionario.
+
+------------------------------------------------------------------------
+
+Sin embargo, notamos que la primera diferencia de un paseo aleatorio
+está dada por
+
+$$
+\nabla X_t = X_t - X_{t-1}=Z_t
+$$
+
+que es un proceso puramente aleatorio, que sí es estacionario.
+
+### Simulación de un paseo aleatorio
+
+```{r}
+set.seed(414)
+random_walk <- function(number=1000){
+  data.frame(x = rnorm(number),
+             t = c(1:1000)) %>%
+    mutate(xt = cumsum(x))
+}
+p <- ggplot() + aes(x = t, y = xt)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+p + geom_line(data = random_walk())
+```
+
+------------------------------------------------------------------------
+
+```{r, fig.show='hide'}
+set.seed(414)
+Xt = 0; Yt = 0
+for (i in 2:1000)
+{
+  Xt[i] = Xt[i-1] + rnorm(1,0,1)
+  Yt[i] = Yt[i-1] + rnorm(1,0,1)
+}
+df <- data.frame(x = Xt, y = Yt)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+ggplot(df, aes(x=x, y=y)) + geom_path() + theme_classic()+
+  coord_fixed(1)
+```
+
+# Procesos autorregresivos
+
+Supongamos que $\{Z_t\}$ es un proceso puramente aleatorio con media
+cero y varianza $\sigma_{Z}^{2}$. Entonces, el proceso $\{ X_t \}$ se
+dice que es un **proceso autorregresivo de orden p** si
+
+$$
+X_t = \alpha_1 X_{t-1} + \dots + \alpha_p X_{t-p} + Z_t 
+$$
+
+Es fácil ver que la ecuación anterior corresponde a un modelo de
+regresión múltiple, pero $X_t$ no depende de variables independientes
+sino de valores pasados de $X_t$. Un proceso de orden $p$ lo abreviamos
+como $AR(p)$.
+
+## AR(1)
+
+Supongamos que $p=1$ por lo que
+
+$$
+X_t=\alpha X_{t-1}+Z_t
+$$
+
+Si $X_0=h$ y sustituimos sucesivamente en la ecuación anterior, se
+tiene:
+
+```{=tex}
+\begin{align*} X_1 &= \alpha h + Z_1 \\
+X_2 &= \alpha^2 h + \alpha Z_1 + Z_2 \\
+&\vdots \\
+X_t &= \alpha^t h + \sum_{i=0}^{t-1} \alpha^i Z_{t-i}
+\end{align*}
+```
+
+------------------------------------------------------------------------
+
+Si calculamos la esperanza de $X_t$, como $Z_t$ es un ruido blanco, se
+tiene:
+
+$$
+\mathbb{E}(X_t)=\alpha^t h
+$$
+
+¿Cómo cambiarían estas expresiones si se define $X_t$ con una constante
+fija?, esto es
+
+$$
+X_t = \beta + \alpha X_{t-1}+Z_t
+$$
+
+------------------------------------------------------------------------
+
+El proceso $AR(1)$ también puede ser escrito como
+
+$$
+(1-\alpha B)X_t = Z_t
+$$
+
+en donde el término $B$ es el operador de retardo, definido como
+
+$$
+B X_t = X_{t-1}
+$$
+
+------------------------------------------------------------------------
+
+Por lo que
+
+```{=tex}
+\begin{align*}
+X_t&=Z_t / (1-\alpha B) \\
+&= (1+\alpha B + \alpha^2 B^2+ \dots ) Z_t \\
+&= Z_t + \alpha Z_{t-1} + \alpha^2 Z_{t-2} + \dots
+\end{align*}
+```
+Lo anterior debido a que la serie de MacLaurin de ${1 \over 1-x}$ es
+
+$$\sum_{n=0}^{\infty} x^n= 1+ x + x^2 +\dots$$
+
+------------------------------------------------------------------------
+
+Cuando lo expresamos de esta manera, es claro ver que
+
+$$
+\mathbb{E}(X_t)=0
+$$
+
+y,
+
+$$
+\mathbb{V}(X_t)=\sigma_{Z}^{2}(1+\alpha^2+\alpha^4+\dots)
+$$
+
+De anterior se desprende que la varianza será finita si $|\alpha|<1$, y
+en este caso
+
+$$
+\mathbb{V}(X_t)=\sigma_{X}^{2}={\sigma_{Z}^2\over (1-\alpha^2)}
+$$
+
+### Función de autocovarianza
+
+La función de autocovarianza estará dada por
+
+```{=tex}
+\begin{align*}
+\gamma(k)&=\mathbb{E}(X_t X_{t+k})\\
+&=\mathbb{E}\left[(\sum_{i} \alpha^i Z_{t-i})(\sum_{i} \alpha^j Z_{t+k-j})\right]\\
+&=\alpha_{Z}^{2}\sum_{i=0}^{\infty}\alpha^i \alpha^{k+i} \quad \text{para }k\geq 0
+\end{align*}
+```
+que converge para $|\alpha|<1$ a
+
+```{=tex}
+\begin{align*}
+\gamma(k)&=\alpha^k \sigma_{Z}^{2}/(1-\alpha^2) \\
+&=\alpha^k \sigma_{X}^{2}
+\end{align*}
+```
+### Función de autocorrelación
+
+**Tarea:** Para $k<0$ se tiene que $\gamma(k)=\gamma(-k)$
+
+Debido a que $\gamma(k)$ no depende de $t$, un proceso $AR$ de orden 1
+es **débilmente estacionario** sujeto a que $|\alpha|<1$. Su función de
+autocorrelación estará dada por:
+
+$$
+\rho(k)=\alpha^k \quad k=0,1,2,\dots
+$$
+
+Para obtener una función par definida para todos los $k$ enteros, se
+puede escribir
+
+$$
+\rho(k)=\alpha^{|k|} \quad k=0,\pm1,\pm2,\dots
+$$
+
+**Tarea:** Muestre que se tiene la recursión
+
+$$
+\rho(k)=\alpha \rho(k-1)
+$$
+
+### Simulación de AR(2)
+
+```{r, fig.show='hide'}
+set.seed(414)
+ar1_a<-arima.sim(list(order=c(1,0,0), ar=.9), n=100)
+ar1_b<-arima.sim(list(order=c(1,0,0), ar=-.9), n=100)
+p1<-autoplot(ar1_a, ts.colour = 'black', main = 'AR(2) ar=c(1.3,-.4)')
+p2<-autoplot(ar1_b, ts.colour = 'red', main = 'AR(2) ar=c(1.3,-.4)')
+```
+
+------------------------------------------------------------------------
+
+```{r, echo=FALSE}
+grid.arrange(p1, p2, nrow = 2)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+autoplot(acf(ar1_a, lag.max = 12,plot=FALSE))
+```
+
+------------------------------------------------------------------------
+
+```{r}
+autoplot(acf(ar1_b, lag.max = 12,plot=FALSE))
+```
+
+## AR(2)
+
+Por definición el modelo autorregresivo de orden 2, que lo denotamos por
+AR(2), satisface
+
+$$
+X_t = c + \alpha_1 X_{t-1} + \alpha_2 X_{t-2} + Z_t
+$$
+
+en donde $c,\alpha_1$ y $\alpha_2$ son constantes y $Z_t$ es un ruido
+blanco. Lo anterior lo podemos reescribir en términos del operador de
+lag
+
+$$
+(1-\alpha_1 B-\alpha_2 B^2)X_t = c + Z_t
+$$
+
+Si tomamos la esperanza en la primera ecuación obtenemos (e imponiendo
+que la media sea constante)
+
+$$
+\mu=c+\alpha_1 \mu + \alpha_2 \mu
+$$
+
+------------------------------------------------------------------------
+
+que implica
+
+$$
+\mu=\dfrac{c}{1-\alpha_1-\alpha_2}
+$$
+
+y la condición para que el proceso tenga media finita es
+
+$$
+1-\alpha_1 -\alpha_2 \neq 0
+$$
+
+------------------------------------------------------------------------
+
+Si sustituimos $c$ por $\mu(1-\alpha_1 -\alpha_2)$ y usando
+$X_{t}^{*}=X_t -\mu$ al proceso en desviaciones a su media, entonces
+
+$$X_{t}^{*}=\alpha_1 X_{t-1}^{*}+\alpha_2X_{t-2}^{*}+Z_t$$
+
+Para estudiar las propiedades del proceso es conveniente utilizar la
+notación con operador de lag, esto es:
+
+$$
+(1-\alpha_1 B-\alpha_2 B^2)X_t = c + Z_t
+$$
+
+que tras la formación utilizada se convierte en
+
+$$
+(1-\alpha_1 B-\alpha_2 B^2)X_{t}^{*}=Z_t
+$$
+
+------------------------------------------------------------------------
+
+El operador $(1-\alpha_1 B-\alpha_2 B^2)$ puede expresarse como
+$(1-G_{1} B)(1-G_{2} B)$, donde $G_{1}^{-1}$ y $G_{2}^{-1}$ son las
+raíces de la ecuación del operador considerando $B$ como variable y
+resolviendo $1-\alpha_1 B-\alpha_2 B^2=0$
+
+Esta ecuación se denomina la **ecuación característica** del operador.
+
+En este caso, la condición de estacionariedad es que $|G_i|<1, i=1,2$.
+Esta condición es análoga a la estudiada para el $AR(1)$ y es coherente
+con la condición encontrada para que la media sea finita.
+
+### Función de autocovarianza
+
+Tomando como inicio el proceso $AR(2)$ definido por
+
+$$X_{t}^{*}=\alpha_1 X_{t-1}^{*}+\alpha_2X_{t-2}^{*}+Z_t$$
+
+elevando al cuadrado y tomando esperanza, obtenemos que su varianza debe
+satisfacer
+
+$$
+\gamma(0)=\alpha_{1}^{2}\gamma(0)+\alpha_{2}^{2} \gamma(0)+2\alpha_1 \alpha_2 \gamma(1) +\sigma^2
+$$
+
+Para calcular la autocovarianza multiplicamos el proceso inicial por
+$X_{t-1}^{*}$ y tomamos esperanza, obteniendo
+
+$$
+\gamma(k)=\alpha_1 \gamma(k-1)+\alpha_2 \gamma(k-2) \quad k\geq 1
+$$
+
+------------------------------------------------------------------------
+
+Si $k=1$, como en un proceso estacionario $\gamma(-1)=\gamma(1)$, se
+obtiene:
+
+$$
+\gamma(1)=\alpha_1\gamma(0)+\alpha_2 \gamma(1) \Rightarrow \gamma(1)=\dfrac{\alpha_1 \gamma(0)}{(1-\alpha_2)}
+$$
+
+Luego, sustituyendo en la ecuación de varianza, resulta la fórmula
+
+$$
+\sigma_{X^{*}}^{2}=\gamma(0)=\dfrac{(1-\alpha_2)\sigma^2}{(1+\alpha_2)(1-\alpha_1 -\alpha_2)(1+\alpha_1-\alpha_2)}
+$$
+
+------------------------------------------------------------------------
+
+Para que el proceso sea estacionario, esta varianza debe ser positiva
+que sucede cuando el numerador y denominador tienen el mismo signo. Así,
+los parámetros que hacen que un proceso $AR(2)$ sea estacionario son los
+incluidos en la región
+
+$$
+-1<\alpha_2 < 1,\quad \alpha_1+\alpha_2 < 1, \quad \alpha_2 - \alpha_1 <1
+$$
+
+### Función de autocorrelación
+
+De la función general de autocovarianza para el proceso $AR(2)$, al
+dividir por la varianza, obtenemos la relación entre los coeficientes de
+autocorrelación
+
+$$
+\rho(k)=\alpha_1 \rho(k-1) +\alpha_2 \rho(k-2)
+$$
+
+Así, si $k=1$, como en un proceso estacionario $\rho(1)=\rho(-1)$, se
+obtiene:
+
+$$
+\rho(1)=\dfrac{\alpha_1}{1-\alpha_2}
+$$
+
+y para $k=2$, utilizando la expresión anterior se obtiene
+
+$$
+\rho(2)=\dfrac{\alpha_{1}^{2}}{1-\alpha_2}+\alpha_2
+$$
+
+------------------------------------------------------------------------
+
+Para $k\geq 3$ los coeficientes de autocorrelación pueden obtenerse
+recursivamente a partir de la ecuación de $\rho(k)$. Es posible mostrar
+que la solución general de esta ecuación es
+
+$$
+\rho(k)=A_1 G_{1}^{k} + A_2 G_{2}^{k}
+$$
+
+donde $G_1$ y $G_2$ son los factores del polinomio característico del
+proceso, y $A_1$ y $A_2$ constantes a determinar a partir de las
+condiciones iniciales.
+
+### AR(2) como suma de innovaciones
+
+Como vimos antes, el proceso $AR(2)$ puede expresarse como$$
+(1-\alpha_1 B-\alpha_2 B^2)X_{t}^{*}=Z_t
+$$
+
+que a su vez puede reescribirse como
+
+$$
+(1-G_1 B)(1-G_2 B) X_{t}^{*}=Z_t
+$$
+
+Invirtiendo estos operadores se tiene
+
+$$
+X_{t}^{*}=(1+G_1 B+G_{1}^{2}B^2+\dots)(1+G_2 B+G_{2}^{2}B^2+\dots) Z_t
+$$
+
+------------------------------------------------------------------------
+
+Que conducirá a la expresión del proceso: (que luego llamaremos
+$MA(\infty)$)
+
+$$
+X_{t}^{*}=Z_t + \psi_1 Z_{t-1}+\psi_2 Z_{t-2}+\dots
+$$
+
+Los coeficientes $\psi_i$ los podemos obtener como función de las raíces
+igualando las últimas dos expresiones
+
+### Simulación de AR(2)
+
+```{r}
+library(ggfortify)
+set.seed(414)
+ar2_a<-arima.sim(model=list(ar=c(1.3,-.4)),100)
+ar2_b<-arima.sim(model=list(ar=c(.8,-.7)),100)
+plot_1<-autoplot(ar2_a, ts.colour = 'red',
+                 ts.linetype = 'dashed', main = 'AR(2) ar=c(1.3,-.4)')
+plot_2<-autoplot(ar2_b, ts.colour = 'red',
+                 ts.linetype = 'dashed', main = 'AR(2) ar=c(.8,-.7)')
+```
+
+------------------------------------------------------------------------
+
+```{r}
+plot_1
+```
+
+------------------------------------------------------------------------
+
+```{r}
+plot_2
+```
+
+### Ejemplo
+
+Partamos del proceso $AR(2)$ definido por
+
+$$
+X_t = 1.2 X_{t-1} - 0.32 X_{t-2} + Z_t 
+$$
+
+que lo podemos simular como
+
+```{r}
+ar2_c<-arima.sim(model=list(ar=c(1.2,-.32)),100)
+plot_3<-autoplot(ar2_c, ts.colour = 'black',
+                 main = 'AR(2) ar=c(1.2,-.32)')
+```
+
+------------------------------------------------------------------------
+
+```{r}
+plot_3
+```
+
+------------------------------------------------------------------------
+
+La ecuación característica de este proceso es:
+
+$$
+0.32X^2-1.2X+1=0
+$$
+
+cuya solución es
+
+$$
+X=\dfrac{1.2\pm \sqrt{1.2^2-4*0.32}}{0.64}=\dfrac{1.2\pm 0.4}{0.64}
+$$
+
+Las soluciones son $G^{-1}=2.5$ y $G^{-1}=1.25$ y los factores serán
+$G_1=0.4$ y $G_2=0.8$. Así, la ecuación característica puede ser escrita
+como
+
+$$
+0.32X^2-1.2X+1=(1-0.4X)(1-0.8X)
+$$
+
+------------------------------------------------------------------------
+
+Por lo tanto, el proceso es estacionario con raíces reales y los
+coeficientes de correlación verifican:
+
+$$
+\rho(k)=A_1 0.4^{k}+A_2 0.8^{k}
+$$
+
+Para determinar $A_1$ y $A_2$ imponemos las condiciones iniciales
+$\rho(0)=1$ , $\rho(1)=1.2/(1.32)=0.91$. Entonces, para $k=0$
+
+$$
+1=A_1+A_2
+$$
+
+y para $k=1$
+
+$$
+0.91=0.4 A_1+ 0.8 A_2
+$$
+
+------------------------------------------------------------------------
+
+Resolviendo estas ecuaciones se obtiene $A_2=0.51/0.4$ y
+$A_1=-0.11/0.4$. Por tanto, la función de autocorrelación es
+
+$$
+\rho(k)=-\dfrac{0.11}{0.4}0.4^k+\dfrac{0.51}{0.4}0.8^k
+$$
+
+Obteniéndose la siguiente tabla:
+
+```{=tex}
+\begin{table}[]
+\begin{tabular}{l|lllllllll}
+$k$       & 0 & 1    & 2    & 3    & 4    & 5    & 6    & 7    & 8    \\ \hline
+$\rho(k)$ & 1 & 0.91 & 0.77 & 0.63 & 0.51 & 0.41 & 0.33 & 0.27 & 0.21
+\end{tabular}
+\end{table}
+```
+
+------------------------------------------------------------------------
+
+La representación en función de las innovaciones, escribiendo:
+
+$$
+(1-0.4B)(1-0.8B)X_t=Z_t
+$$
+
+e invirtiendo ambos operadores
+
+$$
+X_t= (1+0.4 B+0.16B^2+0.06B^3+\dots)(1+0.8B+0.64B^2+\dots)Z_t
+$$
+
+resulta
+
+$$
+X_t=(1+1.2B+1.12B^2+\dots)
+$$
+
+Tarea: Encuentre la función de autocorrelación para el proceso
+$X_t=X_{t-1}-{1\over 2}X_{t-2}+Z_t$
+
+## AR(p)
+
+Diremos que una serie de tiempo $X_t$ estacionaria sigue un proceso
+autorregresivo de order $p$ si
+
+$$
+X_{t}^{*}=\alpha_1 X_{t-1}^{*} +\dots+\alpha_p X_{t-p}^{*}+Z_t
+$$
+
+donde $X_{t}^{*}=X_t -\mu$, siendo $\mu$ la media del proceso
+estacionario $X_t$ y $Z_t$ un ruido blanco. Al igual que antes, podemos
+reescribir este proceso en términos de operador de lag como:
+
+$$
+(1-\alpha_1 B- \dots -\alpha_p B^p) X_{t}^{*}=Z_t
+$$
+
+en donde llamamos $\phi(B)= 1-\phi_1 B-\dots - \phi_p B^p$ al polinomio
+de grado $p$ del operador de lag con $p\geq 1$.
+
+------------------------------------------------------------------------
+
+Así, la expresión general de un proceso autorregresivo puede ser escrita
+como:
+
+$$
+\phi(B)X_{t}^{*}=Z_t
+$$
+
+La **ecuación característica** de este proceso autoregresivo la
+definimos como
+
+$$
+\phi(B)=0
+$$
+
+en donde consideramos el operador $B$ como variable. Esta ecuación
+tendrá $p$ raíces $G_{i}^{-1},\dots,G_{p}^{-1}$, en general distintas,
+por lo que usando el **teorema fundamental del álgebra** podemos
+reescribir esta función como:$$
+\phi(B)=\prod_{i=1}^{p}(1-G_i B)
+$$
+
+Es posible mostrar que el proceso es estacionario si
+$|G_i|<1, \forall i$.
+
+## Función de autocorrelación
+
+De la forma general del proceso
+
+$$
+X_{t}^{*}=\alpha_1 X_{t-1}^{*} +\dots+\alpha_p X_{t-p}^{*}+Z_t
+$$
+
+Si multiplicamos la ecuación por el $X_{t-k}^{*}$ con $k>0$ , tomando
+esperanzas y luego dividiendo por $\gamma(0)$, es posible obtener la
+forma general para la autorrelación:
+
+$$
+\rho(k)=\alpha_1 \rho(k-1)+\dots + \alpha_p \rho(k-p),\quad k>0$$
+
+Que tiene la misma forma que en los casos $k=1,2$ vistos anteriormente.
+
+------------------------------------------------------------------------
+
+Los coeficientes de autocorrelación satisfacen la misma ecuación que el
+proceso
+
+$$
+\phi(B)\rho(k)=0 \quad k>0
+$$
+
+En donde la solución general de esta ecuación es:
+
+$$
+\rho(k)=\sum_{i=1}^{p} A_i G_{i}^{k}
+$$
+
+en donde $A_i$ son constantes a determinar basado en las condiciones
+iniciales y los $G_i$ son los factores de la ecuación característica.
+
+## Ecuaciones de Yule-Walker
+
+Evaluando la ecuación
+
+$$
+\rho(k)=\sum_{i=1}^{p} A_i G_{i}^{k}
+$$
+
+para los distintos $k=1,\dots,p$, se obtiene un sistema de $p$
+ecuaciones que relacionan las $p$ primeras autocorrelaciones con los
+parámetros del proceso.
+
+Así, llamaremos **ecuaciones de Yule-Walker** al sistema:
+
+```{=tex}
+\begin{align*}
+\rho(1) &= \alpha_1 + \alpha_2 \rho(1) + \dots + \alpha_p \rho(p-1) \\
+\rho(2) &= \alpha_1 \rho(1) + \alpha_2 + \dots + \alpha_p \rho(p-2) \\
+&\vdots \\
+\rho(p) &= \alpha_1 \rho(p-1) + \alpha_2\rho(p-2) + \dots + \alpha_p
+\end{align*}
+```
+
+------------------------------------------------------------------------
+
+Si definimos
+
+$$
+\bm{\phi}'=[\phi_1,\dots,\phi_p], \quad \bm{\rho}'=[\rho(1),\dots,\rho(p)]
+$$
+
+y
+
+$$
+\mathbf{R}=\begin{bmatrix}1 & \rho(1) & \dots & \rho(p-1)\\\vdots & \vdots & & \vdots \\
+\rho(p-1) & \rho(p-2) & \dots  & 1\end{bmatrix}
+$$
+
+El sistema de ecuaciones se escribe matricialmente como
+
+$$
+\bm{\rho = R \phi}
+$$
+
+------------------------------------------------------------------------
+
+y los parámetros se determinan a partir de las autocorrelaciones
+mediante
+
+$$
+\bm{\phi = R^{-1} \rho}
+$$
+
+### Ejemplo
+
+Obtener los parámetros de un proceso $AR(3)$ cuyas primeras
+autocorrelaciones son $\rho(1)=0.9, \rho(2)=0.8, \rho(3)=0.5$. ¿Es
+estacionario el proceso?
+
+Primero planteamos las ecuaciones de Yule-Walker:
+
+$$
+\begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 1 & 0.9 & 0.8 \\ 0.9 & 1 & 0.9 \\ 0.8 & 0.9 & 1 \end{bmatrix} \begin{bmatrix} \phi_1 \\ \phi_2 \\ \phi_3 \end{bmatrix}
+$$
+
+Cuya solución es
+
+$$
+\begin{bmatrix} \phi_1 \\ \phi_2 \\ \phi_3 \end{bmatrix} =\begin{bmatrix} 5.28 & -5 & 0.28 \\ -5 & 10 & -5 \\ 0.28 & -5 & 5.28 \end{bmatrix} \begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 0.89 \\ 1 \\ -1.11 \end{bmatrix}
+$$
+
+------------------------------------------------------------------------
+
+Así, el proceso $AR(3)$ con estas correlaciones es
+
+$$
+(1-0.89 B - B^2 + 1.11 B^3)X_t = Z_t
+$$
+
+Para comprobar que el proceso es estacionario debemos calcular los
+factores de la ecuación característica, por lo que debemos obtener las
+soluciones de
+
+$$
+X^3 - 0.89 X^2 - X + 1.11=0
+$$
+
+y comprobar que todas tienen módulo menor que la unidad.
+
+## AR(p) como suma de innovaciones
+
+La forma de proceso $AR(p)$ como suma de innovaciones (que después
+llamaremos $MA(\infty)$, se obtiene invirtiendo el operador $AR(p)$. Si
+definimos $\psi(B)=\phi(B)^{-1}$, entonces se tiene
+
+$$
+(1-\phi_1 B -\dots -\phi_p B^p)(1+\psi_1 B + \psi_2 B^2 +\dots)=1
+$$
+
+en donde los coeficientes $\psi_i$ se obtienen al igualar las potencias
+de $B$ a cero. Por lo que, se tienen la relación
+
+$$
+\psi_k = \phi_1 \psi_{k-1}+\dots + \phi_p \psi_{k-1}
+$$
+
+que es análoga a la que verifican los coeficientes de autocorrelación
+del proceso.
+
+## Función de autocorrelación parcial
+
+tbd

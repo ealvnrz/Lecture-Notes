@@ -1,0 +1,1732 @@
+\documentclass[10pt,spanish,ignorenonframetext,,aspectratio=149]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage[]{}
+\else
+  \usepackage[shorthands=off,spanish]{babel}
+\fi
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Comment these out if you don't want a slide with just the
+% part/section/subsection/subsubsection title:
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \let\insertsectionnumber\relax
+  \let\sectionname\relax
+  \frame{\sectionpage}
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Series de tiempo}
+\author{Eloy Alvarado Narváez}
+\date{}
+
+%% Here's everything I added.
+%%--------------------------
+
+\usepackage{graphicx}
+\usepackage{rotating}
+%\setbeamertemplate{caption}[numbered]
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+%\mode<presentation>
+\usepackage{wasysym}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{bm}
+\usepackage{tcolorbox}
+
+% Get rid of navigation symbols.
+%-------------------------------
+\setbeamertemplate{navigation symbols}{}
+
+% Optional institute tags and titlegraphic.
+% Do feel free to change the titlegraphic if you don't want it as a Markdown field.
+%----------------------------------------------------------------------------------
+\institute{Instituto de Estadística \newline Universidad de Valparaíso}
+
+% \titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~/Dropbox/teaching/clemson-academic.png}} % <-- if you want to know what this looks like without it as a Markdown field. 
+% -----------------------------------------------------------------------------------------------------
+\titlegraphic{\includegraphics[width=0.3\paperwidth]{logo.png}}
+
+% Some additional title page adjustments.
+%----------------------------------------
+\setbeamertemplate{title page}[]
+%\date{}
+\setbeamerfont{subtitle}{size=\small}
+
+\setbeamercovered{transparent}
+
+% Some optional colors. Change or add as you see fit.
+%---------------------------------------------------
+\definecolor{clemsonpurple}{HTML}{000000}
+\definecolor{clemsonorange}{HTML}{F66733}
+\definecolor{uiucblue}{HTML}{003C7D}
+\definecolor{uiucorange}{HTML}{F47F24}
+
+\definecolor{yellow}{HTML}{FFCC00}
+\definecolor{blue}{HTML}{003399}
+%\definecolor{black}{HTML}{000000}
+
+% Some optional color adjustments to Beamer. Change as you see fit.
+%------------------------------------------------------------------
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{title}{fg=black,bg=white}
+\setbeamercolor{local structure}{fg=black}
+\setbeamercolor{section in toc}{fg=black,bg=white}
+% \setbeamercolor{subsection in toc}{fg=clemsonorange,bg=white}
+\setbeamercolor{footline}{fg=black!50, bg=white}
+\setbeamercolor{block title}{fg=black,bg=white}
+
+
+\let\Tiny=\tiny
+
+
+% Sections and subsections should not get their own damn slide.
+%--------------------------------------------------------------
+\AtBeginPart{}
+\AtBeginSection{}
+\AtBeginSubsection{}
+\AtBeginSubsubsection{}
+
+% Suppress some of Markdown's weird default vertical spacing.
+%------------------------------------------------------------
+\setlength{\emergencystretch}{0em}  % prevent overfull lines
+\setlength{\parskip}{10pt}
+
+
+% Allow for those simple two-tone footlines I like. 
+% Edit the colors as you see fit.
+%--------------------------------------------------
+\defbeamertemplate*{footline}{my footline}{%
+    \ifnum\insertpagenumber=1
+    \hbox{%
+        \begin{beamercolorbox}[wd=\paperwidth,ht=.8ex,dp=1ex,center]{}%
+      % empty environment to raise height
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+    \else%
+        \Tiny{%
+            \hfill%
+		\vspace*{1pt}%
+            \insertframenumber/\inserttotalframenumber \hspace*{0.1cm}%
+            \newline%
+            \color{blue}{\rule{\paperwidth}{0.4mm}}\newline%
+            \color{yellow}{\rule{\paperwidth}{.4mm}}%
+        }%
+    \fi%
+}
+
+% Various cosmetic things, though I must confess I forget what exactly these do and why I included them.
+%-------------------------------------------------------------------------------------------------------
+\setbeamercolor{structure}{fg=blue}
+\setbeamercolor{local structure}{parent=structure}
+\setbeamercolor{item projected}{parent=item,use=item,fg=black,bg=white}
+\setbeamercolor{enumerate item}{parent=item}
+
+% Adjust some item elements. More cosmetic things.
+%-------------------------------------------------
+\setbeamertemplate{itemize item}{\color{black}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{black}\scriptsize{$\bullet$}}
+\setbeamertemplate{itemize/enumerate body end}{\vspace{.6\baselineskip}} % So I'm less inclined to use \medskip and \bigskip in Markdown.
+
+% Automatically center images
+% ---------------------------
+% Note: this is for ![](image.png) images
+% Use "fig.align = "center" for R chunks
+
+\usepackage{etoolbox}
+
+\AtBeginDocument{%
+  \letcs\oig{@orig\string\includegraphics}%
+  \renewcommand<>\includegraphics[2][]{%
+    \only#3{%
+      {\centering\oig[{#1}]{#2}\par}%
+    }%
+  }%
+}
+
+% I think I've moved to xelatex now. Here's some stuff for that.
+% --------------------------------------------------------------
+% I could customize/generalize this more but the truth is it works for my circumstances.
+
+\ifxetex
+\setbeamerfont{title}{family=\fontspec{Titillium Web}}
+\setbeamerfont{frametitle}{family=\fontspec{Titillium Web}}
+\usepackage[font=small,skip=0pt]{caption}
+ \else
+ \fi
+
+% Okay, and begin the actual document...
+
+
+
+\usepackage{tikz}
+\usebackgroundtemplate{
+  \tikz[overlay,remember picture] 
+  \node[opacity=0.3, at=(current page.south west),anchor=south west,inner sep=10pt]{
+    \includegraphics[width=1.5cm]{logo}};
+}
+\begin{document}
+\frame{\titlepage}
+
+
+
+\hypertarget{introducciuxf3n}{%
+\section{Introducción}\label{introducciuxf3n}}
+
+\begin{frame}{Introducción}
+Una serie de tiempo es una colección de observaciones realizadas
+secuencialmente en el tiempo.
+
+Este tipo de datos existen en muchas disciplinas por ejemplo:
+
+\begin{itemize}
+\tightlist
+\item
+  Series de tiempo económicas
+\item
+  Series de tiempo demográficas
+\item
+  Procesos binarios
+\item
+  Procesos puntuales
+\end{itemize}
+
+\textbf{Una de las características principales de las series de tiempo
+es el hecho que observaciones sucesivas no son usualmente
+independientes, por lo que el análisis debe tomar en cuenta el orden
+temporal de las observaciones}
+\end{frame}
+
+\hypertarget{objetivos-del-anuxe1lisis-de-series-de-tiempo}{%
+\subsection{Objetivos del análisis de series de
+tiempo}\label{objetivos-del-anuxe1lisis-de-series-de-tiempo}}
+
+\begin{frame}{Objetivos del análisis de series de tiempo}
+Existen distintos objetivos posibles del análisis de tiempo. Estos
+objetivos pueden ser clasificados en 4 categorías:
+
+\begin{itemize}
+\tightlist
+\item
+  Describir
+\item
+  Explicar
+\item
+  Predecir
+\item
+  Controlar
+\end{itemize}
+\end{frame}
+
+\hypertarget{modelado-y-pronuxf3stico-de-la-tendencia}{%
+\section{Modelado y pronóstico de la
+tendencia}\label{modelado-y-pronuxf3stico-de-la-tendencia}}
+
+\hypertarget{modelo-aditivo-de-componentes-de-series-de-tiempo}{%
+\subsection{Modelo aditivo de componentes de Series de
+tiempo}\label{modelo-aditivo-de-componentes-de-series-de-tiempo}}
+
+\begin{frame}{Modelo aditivo de componentes de Series de tiempo}
+Dada una serie \(Y_t,t=1,\dots,T\), el modelo aditivo de componentes
+consiste en asumir que \(Y_t\) se puede descomponer en 3 partes.
+
+\[Y_t=T_t+S_t+\varepsilon_t\]
+
+Donde \(T_t\) es la tendencia, \(S_t\) es la componente estacional y
+\(\varepsilon_t\) es la componente de errores.
+
+Las primeras dos componentes son funciones determinísticas de \(t\), por
+lo que su evolución es perfectamente predecible.
+
+En algunos casos, la componente \(T_t\) también puede ser una componen
+estacional, pero de baja frecuencia o, equivalentemente, una componente
+de período muy grande. Por ejemplo, una serie diaria, \(S_t\) puede
+tener período 30 días, y \(T_t\) período 360 días.
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tsData }\OtherTok{\textless{}{-}}\NormalTok{ EuStockMarkets[, }\DecValTok{1}\NormalTok{] }
+\NormalTok{decomposedRes2 }\OtherTok{\textless{}{-}} \FunctionTok{decompose}\NormalTok{(tsData, }\AttributeTok{type=}\StringTok{"additive"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(decomposedRes2)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-1.pdf}
+\end{frame}
+
+\hypertarget{modelo-multiplicativo-de-componentes-de-series-de-tiempo}{%
+\subsection{Modelo multiplicativo de componentes de Series de
+tiempo}\label{modelo-multiplicativo-de-componentes-de-series-de-tiempo}}
+
+\begin{frame}{Modelo multiplicativo de componentes de Series de tiempo}
+El modelo multiplicativo consiste en asumir que \(Y_t\) se puede
+descomponer en tres partes:
+
+\[Y_t=T_t S_t \exp \varepsilon_t\]
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{decomposedRes1 }\OtherTok{\textless{}{-}} \FunctionTok{decompose}\NormalTok{(tsData, }\AttributeTok{type=}\StringTok{"mult"}\NormalTok{) }
+\FunctionTok{plot}\NormalTok{(decomposedRes1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-2.pdf}
+\end{frame}
+
+\begin{frame}
+El análisis general consiste en modelar y estimar \(T_t\) y \(S_t\) para
+luego extraerlas de \(Y_t\) para obtener
+\[\hat{\varepsilon}_t=Y_t-\hat{T}_t-\hat{S}_t\] La serie
+\(\hat{\varepsilon}_t\) se modela y estima para finalmente reconstruir
+\(Y_t\), \[\hat{Y}_t=\hat{T}_t+\hat{S}_t+\hat{\varepsilon}_t\] y poder
+realizar el pronóstico
+\[\hat{Y}_{T+h}=\hat{T}_{T+h}+\hat{S}_{T+h}+\hat{\varepsilon}_{T+h}\]
+utilizando la información disponible \(Y_1,\dots,Y_T\) con
+\(h=1,2,\dots,m\). Sin embargo, puede suceder que la serie
+\(\hat{\varepsilon}_t\) sea no correlacionada, es decir,
+\(Corr(\hat{\varepsilon}_t,\hat{\varepsilon}_{t+s})=0\), para
+\(s\neq 0\). En este caso \(\hat{\varepsilon}_{T+h}=0, \forall h\geq 0\)
+\end{frame}
+
+\hypertarget{tendencia}{%
+\subsection{Tendencia}\label{tendencia}}
+
+\begin{frame}{Tendencia}
+\textbf{Tendencia:} Se define como una función \(T_t\) que describe la
+evolución lenta y a largo plazo del nivel medio de la serie. La función
+\(T_t\) depende de parámetros que deben estimarse.
+\end{frame}
+
+\begin{frame}{Algunos posibles modelos para \(T_t\)}
+\protect\hypertarget{algunos-posibles-modelos-para-t_t}{}
+\begin{enumerate}
+\item
+  \textbf{Lineal} \[T_t=\beta_0+\beta_1 t\]
+\item
+  \textbf{Cuadrático} \[T_t=\beta_0+\beta_1 t +\beta_2 t^2\]
+\item
+  \textbf{Cúbico} \[T_t=\beta_0+\beta_1 t +\beta_2 t^2+ \beta_3 t^3\]
+\item
+  \textbf{Exponencial} \[T_t=\exp (\beta_0+\beta_1 t)\]
+\item
+  \textbf{Logístico}
+  \[T_t=\dfrac{\beta_2}{1+\beta_1 \exp (-\beta_0 t)}\]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+En la tendencia cuadrática se puede observar:
+
+\begin{enumerate}
+\tightlist
+\item
+  Si \(\beta_1,\beta_2>0, T_t\) es monótona creciente
+\item
+  Si \(\beta_1,\beta_2<0, T_t\) es monótona decreciente
+\item
+  Si \(\beta_1>0\) y \(\beta_2<0, T_t\) es cóncava
+\item
+  Si \(\beta_1<0\) y \(\beta_2>0, T_t\) es convexa.
+\end{enumerate}
+\end{frame}
+
+\hypertarget{modelo-log-lineal}{%
+\subsection{Modelo log-lineal}\label{modelo-log-lineal}}
+
+\begin{frame}{Modelo log-lineal}
+El modelo logarítmico lineal o log-lineal se define como:
+
+\[\log Y_t=\beta_0+\beta_1 t+\varepsilon_t\]
+
+Corresponde a un modelo con \textbf{tendencia lineal para el logaritmo
+de} \(Y_t\). En la ecuación anterior, al tomar exponencial se tiene
+\(Y_t=\exp (\beta_0+\beta_1 t+\varepsilon_t)\) que es similar al modelo
+con tendencia exponencial, \(Y_t=\exp (\beta_0 + \beta_1 t)\). Sin
+embargo, son modelos diferentes y se estiman por métodos diferentes.
+\end{frame}
+
+\hypertarget{estimaciuxf3n-de-la-tendencia}{%
+\subsection{Estimación de la
+tendencia}\label{estimaciuxf3n-de-la-tendencia}}
+
+\begin{frame}{Estimación de la tendencia}
+Usualmente, la expresión ``suavizar la serie'' hace referencia a la
+extracción de la tendencia de una serie, y ambas equivalen a la
+estimación de la tendencia.
+
+Para la estimación de los parámetros
+\(\bm{\beta}=(\beta_0,\beta_1,\beta_2)'\) en los modelos lineal,
+cudrático, cúbico y log-lineal se utiliza el \textbf{método de mínimos
+cuadrados ordinarios}. Es decir, el valor \(\hat{\bm{\beta}}\) es el
+valor en el cual
+\(G(\bm{\beta})=\sum_{t=1}^{T} (Y_t-T_t(\bm{\beta}))^2\) toma el valor
+mínimo.
+
+\[\hat{\bm{\beta}}=arg\,min_{\bm{\beta}} G(\bm{\beta})\] Para los
+modelos exponencial y logístico, se usa el método de mínimos cuadrados
+no lineales, que también minimiza la suma de errores cuadrados
+\(G(\bm{\beta})=\sum_{t=1}^{T} (Y_t-T_t(\bm{\beta}))^2\), pero
+\(T_t(\bm{\beta})\) es una función no lineal de \(\bm{\beta}\).
+\end{frame}
+
+\begin{frame}
+El modelo log-lineal es equivalente, algebráicamente, a
+
+\[Y_t=\exp (\beta_0+\beta_1 t+\varepsilon_t)\]
+
+Sin embargo, este último modelo es no lineal y no coincide con el modelo
+exponencial. Es posible estimar los parámetros en este caso, pero estas
+estimaciones no necesariamente serán iguales.
+\end{frame}
+
+\begin{frame}
+Aunque la serie tenga una componente estacional
+\(S_t, Y_t=T_t+S_t+\varepsilon_t\), solamente consideramos un modelo de
+regresión entre \(Y_t\) y \(T_t\), tal que \(Y_t=T_t+\eta_t\), donde
+\(\eta_t\) es el término de error, de forma que
+\(\eta_t=S_t+\varepsilon_t\). Por ejemplo:
+
+\begin{enumerate}
+\item
+  En el caso lineal \(\bm{\beta}=(\beta_0,\beta_1)'\), con
+  \(T_t=\beta_0+\beta_1 t\) se ajusta el modelo de regresión lineal:
+  \(Y_t=\beta_0+\beta_1 t + \eta_t\)
+\item
+  En el caso cuadrático \(\bm{\beta}=(\beta_0,\beta_1,\beta_2)'\), con
+  \(T_t=\beta_0,\beta_1 t+\beta_2 t^2\) se ajusta el modelo de regresión
+  lineal \(Y_t=\beta_0+\beta_1 t + \beta_2 t^2 + \eta_t\). Notar que en
+  este caso hay que definir la variable explicativa adicional \(t^2\).
+\end{enumerate}
+\end{frame}
+
+\hypertarget{pronuxf3stico-con-base-en-la-tendencia}{%
+\subsection{Pronóstico con base en la
+tendencia}\label{pronuxf3stico-con-base-en-la-tendencia}}
+
+\begin{frame}{Pronóstico con base en la tendencia}
+Supongamos que la serie con tendencia \(Y_t=T_t+\eta_t,t=1,\dots,T\) con
+\((\eta_t)\) una sucesión \(iid(0,\sigma^2)\). Los pronósticos de
+\(Y_t\) en los tiempos \(T+1,T+2,\dots,T+h,h\geq 1\) se definen como
+
+\[\hat{Y}_{T+j}=\hat{T}_{T+j},j=1,\dots,h\]
+
+donde \(\hat{T}_t\) es la función estimada de la tendencia. Por ejemplo,
+en el modelo lineal \[Y_t=\beta_0+\beta_1 t + \varepsilon_t\] al
+reemplazar \(t\) por \(T+h\) se obtiene
+\[Y_{T+h}=\hat{\beta}_0+\hat{\beta}_1(T+h)+\hat{\varepsilon}_{T+h}\]
+Pero el pronóstico \(\hat{\eta}_{T+h}\), puede ser o no cero.
+\end{frame}
+
+\begin{frame}
+La definición general de pronóstico para una serie
+\(Y_t,t\in \mathbb{Z}\) con base en la información \(Y_1,\dots,Y_T\) es
+una esperanza condicional, como sigue
+
+\[\hat{Y}_{T+j}=\mathbb{E}(Y_{T+j}|Y_1,\dots,Y_T), \quad j=1,\dots,h\]
+\end{frame}
+
+\hypertarget{modelado-y-pronuxf3stico-de-series-estacionales}{%
+\section{Modelado y pronóstico de series
+estacionales}\label{modelado-y-pronuxf3stico-de-series-estacionales}}
+
+\begin{frame}{Modelado y pronóstico de series estacionales}
+Recordar que definimos la descomposición aditiva de una serie de tiempo
+\(Y_t\) como
+
+\[
+Y_t=T_t + S_t + \varepsilon_t
+\]
+
+Siendo \(T_t\) la tendencia, \(\varepsilon_t\) la componente aleatoria y
+\(S_t\) la componente estacional.
+\end{frame}
+
+\begin{frame}{Componente Estacional}
+\protect\hypertarget{componente-estacional}{}
+La componente estacional \(S_t\) se define como una función no
+aleatoria, periódica de período \(s\). Los valores de \(S_t\) para
+\(t=1,\dots, s\) se denominan el \emph{patrón estacional}. El período
+estacional \(s\) es el número mínimo de períodos que tarda el patrón
+estacional en repetirse.
+\end{frame}
+
+\begin{frame}{Propiedades de \(S_t\)}
+\protect\hypertarget{propiedades-de-s_t}{}
+\begin{enumerate}
+\tightlist
+\item
+  \(S_t\) es una función periódica con período \(s\), \(S_{t+s}=S_t\)
+  para \(t=1,2,\dots\). Por lo que sólo que requiere definir \(S_t\) en
+  los primeros \(s\) valores.
+\item
+  Si \(S_{1,t}\) y \(S_{2,t}\) son funciones estacionales con periodo
+  \(s\) entonces \(aS_{1,t}+bS_{2,t}\), para \(a,b\in \mathbb{R}\), es
+  también una función estacional de período \(s\).
+\end{enumerate}
+\end{frame}
+
+\hypertarget{procesos-estocuxe1sticos}{%
+\section{Procesos estocásticos}\label{procesos-estocuxe1sticos}}
+
+\begin{frame}{Procesos estocásticos}
+Un \textbf{proceso estocástico} puede ser descrito como un fenómeno
+estadístico que evoluciona en el tiempo de acuerdo a las leyes de
+probabilidad. Hay ejemplos bastante conocidos de procesos estocásticos,
+como:
+
+\begin{itemize}
+\tightlist
+\item
+  Longitud de una fila
+\item
+  Tamaño de una colonia de bacterias
+\item
+  Temperatura del aire en días sucesivos en una sitio en particular
+\end{itemize}
+
+En la literatura, la noción de proceso estocástico puede ser también
+llamada \textbf{proceso aleatorio}
+\end{frame}
+
+\begin{frame}
+Matemáticamente, un proceso estocástico puede ser definido como una
+colección de variables aleatorias que están ordenadas en el tiempo y
+definidas en un conjunto de puntos que pueden ser continuos o discretos.
+
+Escribiremos la variable aleatoria en el tiempo \(t\) como
+\(\mathbf{X}(t)\) si el tiempo es continuo (usualmente,
+\(-\infty < t < \infty\)), y por \(\mathbf{X}_t\), si el tiempo es
+discreto (usualmente, \(t=0,\pm 1,\pm 2, \dots\)).
+\end{frame}
+
+\begin{frame}
+En la mayoría de los problemas de estadística se desea estimar
+propiedades de la población a partir de una muestra. En el análisis de
+series de tiempo esto varía un poco, debido a que si bien es posible
+variar la longitud de la serie de tiempo observada, es usualmente
+imposible hacer más de una observación en un tiempo determinado. Por lo
+que tenemos sólo un resultado único del proceso y una observación única
+de la variable aleatoria en el tiempo \(t\).
+
+Sin embargo, podemos considerar la serie de tiempo observada como un
+ejemplo del conjunto infinito de series de tiempos que podrían haber
+sido observadas. Cada elemento de este conjunto es una
+\textbf{realización} del proceso estocástico.
+
+Así, las series de tiempo observadas puede ser pensadas como una
+realización particular, y será denotado como \(x(t)\) para
+\((0\leq t \leq T)\) si las observaciones son continuas, y por \(x_t\)
+para \(t=1,\dots,N\) si las observaciones son discretas.
+\end{frame}
+
+\begin{frame}
+Una forma de describir un proceso estocástico es especificar la
+distribución de probabilidad conjunta de \(X(t_1),\dots, X(t_n)\) para
+cualquier conjunto de punto \(t_1,\dots,t_n\) y cualquier valor de
+\(n\). Sin embargo, esto es bastante complicado y no es usualmente
+aplicado en la práctica.
+
+Una forma más sencilla y útil para describir un proceso estocástico es
+dar los \textbf{momentos} del proceso, particularmente el primer y
+segundo momento, que son llamadas la media, la varianza y la función de
+autocovarianza. En lo que sigue utilizamos notación para tiempo
+continuo, pero las definición son análogas para tiempo discreto.
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Media}: la función de medias \(\mu(t)\) está definida como
+\end{itemize}
+
+\[\mu(t)=\mathbb{E}(\mathbf{X}(t))\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Varianza}: La función de varianza \(\sigma^2(t)\) está
+  definida como
+\end{itemize}
+
+\[\sigma^2(t)=\mathbb{V}(\mathbf{X}(t))\]
+\end{frame}
+
+\hypertarget{autocovarianza}{%
+\subsection{Autocovarianza}\label{autocovarianza}}
+
+\begin{frame}{Autocovarianza}
+La función de varianza por si sola no es suficiente para especificar los
+segundos momentos de una secuencia de variables aleatorias. Además,
+debemos definir la función de autovarianza \(\gamma(t_1,t_2)\), que es
+la covarianza de \(\mathbf{X}(t_1)\) y \(\mathbf{X}(t_2)\), esto es:
+
+\[\gamma(t_1,t_2)=\mathbb{E}\left([\mathbf{X}(t_1)-\mu(t_1)][\mathbf{X}(t_2)-\mu(t_2)]\right)\]
+Notas que la varianza es un caso especial de la función de
+autocovarianza cuando \(t_1=t_2\).
+
+Los siguientes momentos de un proceso estocástico pueden ser definidos
+de manera trivial, pero son rara vez usado en la práctica, ya que el
+conocer las dos funciones \(\mu(t)\) y \(\gamma(t_1,t_2)\) es usualmente
+suficiente.
+\end{frame}
+
+\hypertarget{proceso-estacionario}{%
+\subsection{Proceso estacionario}\label{proceso-estacionario}}
+
+\begin{frame}{Proceso estacionario}
+Una clase importante de procesos aleatorios son los
+\textbf{estacionarios}. Una idea heurística de estacionariedad es que no
+hayan cambios sistemáticos en la media (tendencia) o en la varianza, y
+que las variaciones estrictamente periódicas hayan sido eliminadas.
+
+Una serie de tiempo se dice \textbf{estrictamente estacionaria} si la
+distribución de probabilidad de
+\(\mathbf{X}(t_1),\dots,\mathbf{X}(t_n)\) es la misma que la
+distribución conjunta de
+\(\mathbf{X}(t_1+\tau),\dots,\mathbf{X}(t_n+\tau)\) para todo
+\(t_1,\dots,t_n\).
+
+En otras palabras, cambiar el tiempo inicial en una cantidad \(\tau\) no
+tiene efecto en la distribución conjunto, por lo que esta debe depender
+sólo de los intervalos entre \(t_1,t_2,\dots, t_n\). Lo anterior, para
+cualquier \(n\).
+\end{frame}
+
+\begin{frame}
+En particular, si \(n=1\), estacionariedad estricta implica que la
+distribución de \(\mathbf{X}(t)\) es la misma para todo \(t\), por lo
+que, asumiendo que los dos primeros momentos son finitos, se tiene
+
+\[\mu(t)=\mu \qquad \qquad \sigma^2(t)=\sigma^2\]
+
+que son dos constantes que no dependen del valor de \(t\).
+\end{frame}
+
+\begin{frame}
+Si \(n=2\), la distribución conjunta de \(\mathbf{X}(t_1)\) y
+\(\mathbf{X}(t_2)\) sólo depende de \((t_2-t_1)\), que es conocido como
+el \textbf{lag} (rezago). Por lo que la función de autocovarianza
+\(\gamma(t_1,t_2)\) también sólo depende de \((t_2-t_1)\) y puede ser
+escrita como \(\gamma(\tau)\), donde
+
+\begin{align*}
+\gamma(\tau)&= \mathbb{E}\left([\mathbf{X}(t)-\mu][\mathbf{X}(t+\tau)-\mu]\right)\\
+&= Cov[\mathbf{X}(t),\mathbf{X}(t+\tau)]
+\end{align*}
+
+es llamado el coeficiente de autocovarianza en el \textbf{lag} \(\tau\).
+\end{frame}
+
+\begin{frame}
+El tamaño del coeficiente de autocovarianza depende de las unidades en
+las cuales \(\mathbf{X}(t)\) es medido. Por lo que con el propósito de
+interpretar correctamente, es útil estandarizar la función de
+autocovarianza para producir una función llamada \textbf{función de
+autocorrelación}, dada por
+
+\[\rho(\tau)={\gamma (\tau) \over \gamma(0)}\] que mide la correlación
+entre \(\mathbf{X}(t)\) y \(\mathbf{X}(t+\tau)\).
+\end{frame}
+
+\hypertarget{proceso-duxe9bilmente-estacionario}{%
+\subsection{Proceso débilmente
+estacionario}\label{proceso-duxe9bilmente-estacionario}}
+
+\begin{frame}{Proceso débilmente estacionario}
+En la práctica, es útil definir un tipo de estacionariedad menos
+restrictiva que la que acabamos de definir. Un proceso es llamado
+\textbf{estacionario de segundo order} o \textbf{débilmente
+estacionario} si sus medias son constantes y su función de
+autocovarianza depende sólo del \textbf{lag}, por lo que
+
+\[
+\mathbb{E}(\mathbf{X}(t))=\mu
+\]
+
+y,
+
+\[
+Cov(\mathbf{X}(t),\mathbf{X}(t+\tau))=\gamma(\tau)
+\]
+
+No se asume nada sobre los momentos mayores al de segundo orden. Notar
+que si \(\tau=0\), debido a la función de autocovarianza, se tiene que
+la varianza y la media deben ser constantes. Además, estas dos últimas
+deben ser finitas.
+\end{frame}
+
+\hypertarget{funciuxf3n-de-autocorrelaciuxf3n}{%
+\subsection{Función de
+autocorrelación}\label{funciuxf3n-de-autocorrelaciuxf3n}}
+
+\begin{frame}{Función de autocorrelación}
+Como sabemos la función de autocorrelación está definida por
+
+\[\rho(\tau)={\gamma (\tau) \over \gamma(0)}\]
+
+Esta función es una herramienta principal en la descripción de una serie
+de tiempo, tal como la función de autocorrelación teórica es una
+herramienta importante para describir las propiedades de proceso
+estocástico.
+
+Supongamos que tenemos un proceso estocástico \(X(t)\) con media
+\(\mu\), varianza \(\sigma^2\), autocovarianza \(\gamma(\tau)\) y
+autocorrelación \(\rho(\tau)\), por lo que
+
+\[
+\rho(\tau)=\gamma(\tau)/\sigma^2
+\]
+
+Notar que \(\rho(0)=1\).
+\end{frame}
+
+\begin{frame}{Propiedades}
+\protect\hypertarget{propiedades}{}
+\begin{enumerate}
+\item
+  La función de autocorrelación es una función par del \textbf{lag},
+  esto es
+
+  \[
+  \rho(\tau)=\rho(-\tau)
+  \]
+\end{enumerate}
+
+Esta propiedad dice que la correlación entre \(X(t)\) y \(X(t+\tau)\) es
+la misma que la entre \(X(t)\) y \(X(t-\tau)\).
+
+Para demostrar esta propiedad usamos el hecho que
+\(\gamma(\tau)=\rho(\tau)\sigma^2\) y la estacionariedad de \(X(t)\).
+\end{frame}
+
+\begin{frame}
+\begin{enumerate}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \(|\rho(\tau)|\leq 1\)
+\end{enumerate}
+
+Esta propiedad es `usual' para las correlaciones. Se obtiene notando que
+
+\[
+\mathbb{V}(\lambda_1X(t)+\lambda_2X(t+\tau))\geq 0
+\]
+
+Para cualquier constantes \(\lambda_1,\lambda_2\), debido a que la
+varianza es siempre no negativa. Esta varianza es igual a \[
+\lambda_1^2 \mathbb{V}(X(t))+\lambda_{2}^{2}\mathbb{V}(X(t+\tau))+2\lambda_1\lambda_2 Cov(X(t),X(t+\tau))=(\lambda_1^2+\lambda_2^2)\sigma^2+2\lambda_1 \lambda_2 \gamma(\tau)
+\]
+
+Cuando \(\lambda_1=\lambda_2=1\), vemos que\[
+\gamma(\tau)\geq -\sigma^2 \Rightarrow \rho(\tau)\geq -1
+\]
+
+Cuando \(\lambda_1=1,\lambda_2=-1\), vamos que\[
+\sigma^2\geq \gamma(\tau) \Rightarrow \rho(\tau)\leq 1
+\]
+\end{frame}
+
+\begin{frame}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Falta de unicidad
+\end{enumerate}
+
+A pesar de que un proceso estocástico tenga una estructura de covarianza
+única, el converso no es verdadero en general.
+
+Incluso para procesos normales estacionarios, que están completamente
+determinados por su media, varianza y función de autocovarianza, las
+condiciones de invertibilidad (que veremos más adelante) requerirán que
+se asegure la unicidad
+\end{frame}
+
+\hypertarget{ruido-blanco}{%
+\subsection{Ruido blanco}\label{ruido-blanco}}
+
+\begin{frame}{Ruido blanco}
+En lo que sigue veremos, distintos tipos de procesos estocásticos que
+nos serán a lo largo del curso.
+
+Un proceso a tiempo discreto es llamado un proceso puramente aleatorio
+si consiste de una secuencia de variables aleatorias \(\{Z_t\}\) que son
+mutuamente independientes e idénticamente distribuidas. Desde la
+definición sigue que el proceso tiene media y varianza constante. y
+
+\begin{align*}
+\gamma(k)&=Cov(Z_t,Z_{t+k})\\
+&=0\quad \text{para }k=\pm 1,2,\dots
+\end{align*}
+\end{frame}
+
+\begin{frame}
+Como la media y la función de autocovarianza no dependen del tiempo, el
+proceso es débilmente estacionario. De hecho, el proceso es además
+estrictamente estacionario y su autocorrelación está dada por
+
+\[
+\rho(k)=\begin{cases}1 \quad k=0 \\ 0 \quad k=\pm 1,\pm 2,\dots
+\end{cases}
+\]
+
+Un proceso completamente aleatorio es llamado \textbf{ruido blanco} o
+\textbf{innovaciones}.
+\end{frame}
+
+\begin{frame}[fragile]{Simulación de un ruido blanco}
+\protect\hypertarget{simulaciuxf3n-de-un-ruido-blanco}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(ggfortify)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{414}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(y) }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Ruido Blanco"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-4.pdf}
+\end{frame}
+
+\hypertarget{paseo-aleatorio}{%
+\subsection{Paseo Aleatorio}\label{paseo-aleatorio}}
+
+\begin{frame}{Paseo Aleatorio}
+Supongamos que \(\{Z_t\}\) es un proceso puramente aleatorio discreto
+con media \(\mu\) y varianza \(\sigma_{Z}^{2}\). Un proceso
+\(\{X_{t}\}\) se dice que es un \textbf{paseo aleatorio} si
+
+\[
+X_t=X_{t-1}+Z_{t}
+\]
+
+El proceso es usualmente empezado en \(0\) cuando \(t=0\), por lo que
+
+\[
+X_1=Z_1
+\]
+
+y,\[
+X_t=\sum_{i=1}^{t} Z_i
+\]
+
+Así, \(\mathbb{E}(X_t)=t\mu\) y \(\mathbb{V}(X_t)=t\sigma_{Z}^{2}\).
+Como la media y la varianza cambian con el tiempo, el proceso no es
+estacionario.
+\end{frame}
+
+\begin{frame}
+Sin embargo, notamos que la primera diferencia de un paseo aleatorio
+está dada por
+
+\[
+\nabla X_t = X_t - X_{t-1}=Z_t
+\]
+
+que es un proceso puramente aleatorio, que sí es estacionario.
+\end{frame}
+
+\begin{frame}[fragile]{Simulación de un paseo aleatorio}
+\protect\hypertarget{simulaciuxf3n-de-un-paseo-aleatorio}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{414}\NormalTok{)}
+\NormalTok{random\_walk }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{number=}\DecValTok{1000}\NormalTok{)\{}
+  \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{rnorm}\NormalTok{(number),}
+             \AttributeTok{t =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{xt =} \FunctionTok{cumsum}\NormalTok{(x))}
+\NormalTok{\}}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ t, }\AttributeTok{y =}\NormalTok{ xt)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =} \FunctionTok{random\_walk}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-6.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{414}\NormalTok{)}
+\NormalTok{Xt }\OtherTok{=} \DecValTok{0}\NormalTok{; Yt }\OtherTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{  Xt[i] }\OtherTok{=}\NormalTok{ Xt[i}\DecValTok{{-}1}\NormalTok{] }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{  Yt[i] }\OtherTok{=}\NormalTok{ Yt[i}\DecValTok{{-}1}\NormalTok{] }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{\}}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Xt, }\AttributeTok{y =}\NormalTok{ Yt)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{x, }\AttributeTok{y=}\NormalTok{y)) }\SpecialCharTok{+} \FunctionTok{geom\_path}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{coord\_fixed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-8.pdf}
+\end{frame}
+
+\hypertarget{procesos-autorregresivos}{%
+\section{Procesos autorregresivos}\label{procesos-autorregresivos}}
+
+\begin{frame}{Procesos autorregresivos}
+Supongamos que \(\{Z_t\}\) es un proceso puramente aleatorio con media
+cero y varianza \(\sigma_{Z}^{2}\). Entonces, el proceso \(\{ X_t \}\)
+se dice que es un \textbf{proceso autorregresivo de orden p} si
+
+\[
+X_t = \alpha_1 X_{t-1} + \dots + \alpha_p X_{t-p} + Z_t 
+\]
+
+Es fácil ver que la ecuación anterior corresponde a un modelo de
+regresión múltiple, pero \(X_t\) no depende de variables independientes
+sino de valores pasados de \(X_t\). Un proceso de orden \(p\) lo
+abreviamos como \(AR(p)\).
+\end{frame}
+
+\hypertarget{ar1}{%
+\subsection{AR(1)}\label{ar1}}
+
+\begin{frame}{AR(1)}
+Supongamos que \(p=1\) por lo que
+
+\[
+X_t=\alpha X_{t-1}+Z_t
+\]
+
+Si \(X_0=h\) y sustituimos sucesivamente en la ecuación anterior, se
+tiene:
+
+\begin{align*} X_1 &= \alpha h + Z_1 \\
+X_2 &= \alpha^2 h + \alpha Z_1 + Z_2 \\
+&\vdots \\
+X_t &= \alpha^t h + \sum_{i=0}^{t-1} \alpha^i Z_{t-i}
+\end{align*}
+\end{frame}
+
+\begin{frame}
+Si calculamos la esperanza de \(X_t\), como \(Z_t\) es un ruido blanco,
+se tiene:
+
+\[
+\mathbb{E}(X_t)=\alpha^t h
+\]
+
+¿Cómo cambiarían estas expresiones si se define \(X_t\) con una
+constante fija?, esto es
+
+\[
+X_t = \beta + \alpha X_{t-1}+Z_t
+\]
+\end{frame}
+
+\begin{frame}
+El proceso \(AR(1)\) también puede ser escrito como
+
+\[
+(1-\alpha B)X_t = Z_t
+\]
+
+en donde el término \(B\) es el operador de retardo, definido como
+
+\[
+B X_t = X_{t-1}
+\]
+\end{frame}
+
+\begin{frame}
+Por lo que
+
+\begin{align*}
+X_t&=Z_t / (1-\alpha B) \\
+&= (1+\alpha B + \alpha^2 B^2+ \dots ) Z_t \\
+&= Z_t + \alpha Z_{t-1} + \alpha^2 Z_{t-2} + \dots
+\end{align*}
+
+Lo anterior debido a que la serie de MacLaurin de \({1 \over 1-x}\) es
+
+\[\sum_{n=0}^{\infty} x^n= 1+ x + x^2 +\dots\]
+\end{frame}
+
+\begin{frame}
+Cuando lo expresamos de esta manera, es claro ver que
+
+\[
+\mathbb{E}(X_t)=0
+\]
+
+y,
+
+\[
+\mathbb{V}(X_t)=\sigma_{Z}^{2}(1+\alpha^2+\alpha^4+\dots)
+\]
+
+De anterior se desprende que la varianza será finita si \(|\alpha|<1\),
+y en este caso
+
+\[
+\mathbb{V}(X_t)=\sigma_{X}^{2}={\sigma_{Z}^2\over (1-\alpha^2)}
+\]
+\end{frame}
+
+\begin{frame}{Función de autocovarianza}
+\protect\hypertarget{funciuxf3n-de-autocovarianza}{}
+La función de autocovarianza estará dada por
+
+\begin{align*}
+\gamma(k)&=\mathbb{E}(X_t X_{t+k})\\
+&=\mathbb{E}\left[(\sum_{i} \alpha^i Z_{t-i})(\sum_{i} \alpha^j Z_{t+k-j})\right]\\
+&=\alpha_{Z}^{2}\sum_{i=0}^{\infty}\alpha^i \alpha^{k+i} \quad \text{para }k\geq 0
+\end{align*}
+
+que converge para \(|\alpha|<1\) a
+
+\begin{align*}
+\gamma(k)&=\alpha^k \sigma_{Z}^{2}/(1-\alpha^2) \\
+&=\alpha^k \sigma_{X}^{2}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Función de autocorrelación}
+\protect\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-1}{}
+\textbf{Tarea:} Para \(k<0\) se tiene que \(\gamma(k)=\gamma(-k)\)
+
+Debido a que \(\gamma(k)\) no depende de \(t\), un proceso \(AR\) de
+orden 1 es \textbf{débilmente estacionario} sujeto a que \(|\alpha|<1\).
+Su función de autocorrelación estará dada por:
+
+\[
+\rho(k)=\alpha^k \quad k=0,1,2,\dots
+\]
+
+Para obtener una función par definida para todos los \(k\) enteros, se
+puede escribir
+
+\[
+\rho(k)=\alpha^{|k|} \quad k=0,\pm1,\pm2,\dots
+\]
+
+\textbf{Tarea:} Muestre que se tiene la recursión
+
+\[
+\rho(k)=\alpha \rho(k-1)
+\]
+\end{frame}
+
+\begin{frame}[fragile]{Simulación de AR(2)}
+\protect\hypertarget{simulaciuxf3n-de-ar2}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{414}\NormalTok{)}
+\NormalTok{ar1\_a}\OtherTok{\textless{}{-}}\FunctionTok{arima.sim}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\AttributeTok{ar=}\NormalTok{.}\DecValTok{9}\NormalTok{), }\AttributeTok{n=}\DecValTok{100}\NormalTok{)}
+\NormalTok{ar1\_b}\OtherTok{\textless{}{-}}\FunctionTok{arima.sim}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\AttributeTok{ar=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{9}\NormalTok{), }\AttributeTok{n=}\DecValTok{100}\NormalTok{)}
+\NormalTok{p1}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar1\_a, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(2) ar=c(1.3,{-}.4)\textquotesingle{}}\NormalTok{)}
+\NormalTok{p2}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar1\_b, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(2) ar=c(1.3,{-}.4)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/unnamed-chunk-10.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(}\FunctionTok{acf}\NormalTok{(ar1\_a, }\AttributeTok{lag.max =} \DecValTok{12}\NormalTok{,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-11.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(}\FunctionTok{acf}\NormalTok{(ar1\_b, }\AttributeTok{lag.max =} \DecValTok{12}\NormalTok{,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-12.pdf}
+\end{frame}
+
+\hypertarget{ar2}{%
+\subsection{AR(2)}\label{ar2}}
+
+\begin{frame}{AR(2)}
+Por definición el modelo autorregresivo de orden 2, que lo denotamos por
+AR(2), satisface
+
+\[
+X_t = c + \alpha_1 X_{t-1} + \alpha_2 X_{t-2} + Z_t
+\]
+
+en donde \(c,\alpha_1\) y \(\alpha_2\) son constantes y \(Z_t\) es un
+ruido blanco. Lo anterior lo podemos reescribir en términos del operador
+de lag
+
+\[
+(1-\alpha_1 B-\alpha_2 B^2)X_t = c + Z_t
+\]
+
+Si tomamos la esperanza en la primera ecuación obtenemos (e imponiendo
+que la media sea constante)
+
+\[
+\mu=c+\alpha_1 \mu + \alpha_2 \mu
+\]
+\end{frame}
+
+\begin{frame}
+que implica
+
+\[
+\mu=\dfrac{c}{1-\alpha_1-\alpha_2}
+\]
+
+y la condición para que el proceso tenga media finita es
+
+\[
+1-\alpha_1 -\alpha_2 \neq 0
+\]
+\end{frame}
+
+\begin{frame}
+Si sustituimos \(c\) por \(\mu(1-\alpha_1 -\alpha_2)\) y usando
+\(X_{t}^{*}=X_t -\mu\) al proceso en desviaciones a su media, entonces
+
+\[X_{t}^{*}=\alpha_1 X_{t-1}^{*}+\alpha_2X_{t-2}^{*}+Z_t\]
+
+Para estudiar las propiedades del proceso es conveniente utilizar la
+notación con operador de lag, esto es:
+
+\[
+(1-\alpha_1 B-\alpha_2 B^2)X_t = c + Z_t
+\]
+
+que tras la formación utilizada se convierte en
+
+\[
+(1-\alpha_1 B-\alpha_2 B^2)X_{t}^{*}=Z_t
+\]
+\end{frame}
+
+\begin{frame}
+El operador \((1-\alpha_1 B-\alpha_2 B^2)\) puede expresarse como
+\((1-G_{1} B)(1-G_{2} B)\), donde \(G_{1}^{-1}\) y \(G_{2}^{-1}\) son
+las raíces de la ecuación del operador considerando \(B\) como variable
+y resolviendo \(1-\alpha_1 B-\alpha_2 B^2=0\)
+
+Esta ecuación se denomina la \textbf{ecuación característica} del
+operador.
+
+En este caso, la condición de estacionariedad es que \(|G_i|<1, i=1,2\).
+Esta condición es análoga a la estudiada para el \(AR(1)\) y es
+coherente con la condición encontrada para que la media sea finita.
+\end{frame}
+
+\begin{frame}{Función de autocovarianza}
+\protect\hypertarget{funciuxf3n-de-autocovarianza-1}{}
+Tomando como inicio el proceso \(AR(2)\) definido por
+
+\[X_{t}^{*}=\alpha_1 X_{t-1}^{*}+\alpha_2X_{t-2}^{*}+Z_t\]
+
+elevando al cuadrado y tomando esperanza, obtenemos que su varianza debe
+satisfacer
+
+\[
+\gamma(0)=\alpha_{1}^{2}\gamma(0)+\alpha_{2}^{2} \gamma(0)+2\alpha_1 \alpha_2 \gamma(1) +\sigma^2
+\]
+
+Para calcular la autocovarianza multiplicamos el proceso inicial por
+\(X_{t-1}^{*}\) y tomamos esperanza, obteniendo
+
+\[
+\gamma(k)=\alpha_1 \gamma(k-1)+\alpha_2 \gamma(k-2) \quad k\geq 1
+\]
+\end{frame}
+
+\begin{frame}
+Si \(k=1\), como en un proceso estacionario \(\gamma(-1)=\gamma(1)\), se
+obtiene:
+
+\[
+\gamma(1)=\alpha_1\gamma(0)+\alpha_2 \gamma(1) \Rightarrow \gamma(1)=\dfrac{\alpha_1 \gamma(0)}{(1-\alpha_2)}
+\]
+
+Luego, sustituyendo en la ecuación de varianza, resulta la fórmula
+
+\[
+\sigma_{X^{*}}^{2}=\gamma(0)=\dfrac{(1-\alpha_2)\sigma^2}{(1+\alpha_2)(1-\alpha_1 -\alpha_2)(1+\alpha_1-\alpha_2)}
+\]
+\end{frame}
+
+\begin{frame}
+Para que el proceso sea estacionario, esta varianza debe ser positiva
+que sucede cuando el numerador y denominador tienen el mismo signo. Así,
+los parámetros que hacen que un proceso \(AR(2)\) sea estacionario son
+los incluidos en la región
+
+\[
+-1<\alpha_2 < 1,\quad \alpha_1+\alpha_2 < 1, \quad \alpha_2 - \alpha_1 <1
+\]
+\end{frame}
+
+\begin{frame}{Función de autocorrelación}
+\protect\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-2}{}
+De la función general de autocovarianza para el proceso \(AR(2)\), al
+dividir por la varianza, obtenemos la relación entre los coeficientes de
+autocorrelación
+
+\[
+\rho(k)=\alpha_1 \rho(k-1) +\alpha_2 \rho(k-2)
+\]
+
+Así, si \(k=1\), como en un proceso estacionario \(\rho(1)=\rho(-1)\),
+se obtiene:
+
+\[
+\rho(1)=\dfrac{\alpha_1}{1-\alpha_2}
+\]
+
+y para \(k=2\), utilizando la expresión anterior se obtiene
+
+\[
+\rho(2)=\dfrac{\alpha_{1}^{2}}{1-\alpha_2}+\alpha_2
+\]
+\end{frame}
+
+\begin{frame}
+Para \(k\geq 3\) los coeficientes de autocorrelación pueden obtenerse
+recursivamente a partir de la ecuación de \(\rho(k)\). Es posible
+mostrar que la solución general de esta ecuación es
+
+\[
+\rho(k)=A_1 G_{1}^{k} + A_2 G_{2}^{k}
+\]
+
+donde \(G_1\) y \(G_2\) son los factores del polinomio característico
+del proceso, y \(A_1\) y \(A_2\) constantes a determinar a partir de las
+condiciones iniciales.
+\end{frame}
+
+\begin{frame}{AR(2) como suma de innovaciones}
+\protect\hypertarget{ar2-como-suma-de-innovaciones}{}
+Como vimos antes, el proceso \(AR(2)\) puede expresarse como\[
+(1-\alpha_1 B-\alpha_2 B^2)X_{t}^{*}=Z_t
+\]
+
+que a su vez puede reescribirse como
+
+\[
+(1-G_1 B)(1-G_2 B) X_{t}^{*}=Z_t
+\]
+
+Invirtiendo estos operadores se tiene
+
+\[
+X_{t}^{*}=(1+G_1 B+G_{1}^{2}B^2+\dots)(1+G_2 B+G_{2}^{2}B^2+\dots) Z_t
+\]
+\end{frame}
+
+\begin{frame}
+Que conducirá a la expresión del proceso: (que luego llamaremos
+\(MA(\infty)\))
+
+\[
+X_{t}^{*}=Z_t + \psi_1 Z_{t-1}+\psi_2 Z_{t-2}+\dots
+\]
+
+Los coeficientes \(\psi_i\) los podemos obtener como función de las
+raíces igualando las últimas dos expresiones
+\end{frame}
+
+\begin{frame}[fragile]{Simulación de AR(2)}
+\protect\hypertarget{simulaciuxf3n-de-ar2-1}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggfortify)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{414}\NormalTok{)}
+\NormalTok{ar2\_a}\OtherTok{\textless{}{-}}\FunctionTok{arima.sim}\NormalTok{(}\AttributeTok{model=}\FunctionTok{list}\NormalTok{(}\AttributeTok{ar=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.3}\NormalTok{,}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{4}\NormalTok{)),}\DecValTok{100}\NormalTok{)}
+\NormalTok{ar2\_b}\OtherTok{\textless{}{-}}\FunctionTok{arima.sim}\NormalTok{(}\AttributeTok{model=}\FunctionTok{list}\NormalTok{(}\AttributeTok{ar=}\FunctionTok{c}\NormalTok{(.}\DecValTok{8}\NormalTok{,}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{7}\NormalTok{)),}\DecValTok{100}\NormalTok{)}
+\NormalTok{plot\_1}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar2\_a, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+                 \AttributeTok{ts.linetype =} \StringTok{\textquotesingle{}dashed\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(2) ar=c(1.3,{-}.4)\textquotesingle{}}\NormalTok{)}
+\NormalTok{plot\_2}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar2\_b, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}
+                 \AttributeTok{ts.linetype =} \StringTok{\textquotesingle{}dashed\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(2) ar=c(.8,{-}.7)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-14.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-15.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo}{}
+Partamos del proceso \(AR(2)\) definido por
+
+\[
+X_t = 1.2 X_{t-1} - 0.32 X_{t-2} + Z_t 
+\]
+
+que lo podemos simular como
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ar2\_c}\OtherTok{\textless{}{-}}\FunctionTok{arima.sim}\NormalTok{(}\AttributeTok{model=}\FunctionTok{list}\NormalTok{(}\AttributeTok{ar=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.2}\NormalTok{,}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{32}\NormalTok{)),}\DecValTok{100}\NormalTok{)}
+\NormalTok{plot\_3}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar2\_c, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{,}
+                 \AttributeTok{main =} \StringTok{\textquotesingle{}AR(2) ar=c(1.2,{-}.32)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_3}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-17.pdf}
+\end{frame}
+
+\begin{frame}
+La ecuación característica de este proceso es:
+
+\[
+0.32X^2-1.2X+1=0
+\]
+
+cuya solución es
+
+\[
+X=\dfrac{1.2\pm \sqrt{1.2^2-4*0.32}}{0.64}=\dfrac{1.2\pm 0.4}{0.64}
+\]
+
+Las soluciones son \(G^{-1}=2.5\) y \(G^{-1}=1.25\) y los factores serán
+\(G_1=0.4\) y \(G_2=0.8\). Así, la ecuación característica puede ser
+escrita como
+
+\[
+0.32X^2-1.2X+1=(1-0.4X)(1-0.8X)
+\]
+\end{frame}
+
+\begin{frame}
+Por lo tanto, el proceso es estacionario con raíces reales y los
+coeficientes de correlación verifican:
+
+\[
+\rho(k)=A_1 0.4^{k}+A_2 0.8^{k}
+\]
+
+Para determinar \(A_1\) y \(A_2\) imponemos las condiciones iniciales
+\(\rho(0)=1\) , \(\rho(1)=1.2/(1.32)=0.91\). Entonces, para \(k=0\)
+
+\[
+1=A_1+A_2
+\]
+
+y para \(k=1\)
+
+\[
+0.91=0.4 A_1+ 0.8 A_2
+\]
+\end{frame}
+
+\begin{frame}
+Resolviendo estas ecuaciones se obtiene \(A_2=0.51/0.4\) y
+\(A_1=-0.11/0.4\). Por tanto, la función de autocorrelación es
+
+\[
+\rho(k)=-\dfrac{0.11}{0.4}0.4^k+\dfrac{0.51}{0.4}0.8^k
+\]
+
+Obteniéndose la siguiente tabla:
+
+\begin{table}[]
+\begin{tabular}{l|lllllllll}
+$k$       & 0 & 1    & 2    & 3    & 4    & 5    & 6    & 7    & 8    \\ \hline
+$\rho(k)$ & 1 & 0.91 & 0.77 & 0.63 & 0.51 & 0.41 & 0.33 & 0.27 & 0.21
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+La representación en función de las innovaciones, escribiendo:
+
+\[
+(1-0.4B)(1-0.8B)X_t=Z_t
+\]
+
+e invirtiendo ambos operadores
+
+\[
+X_t= (1+0.4 B+0.16B^2+0.06B^3+\dots)(1+0.8B+0.64B^2+\dots)Z_t
+\]
+
+resulta
+
+\[
+X_t=(1+1.2B+1.12B^2+\dots)
+\]
+
+Tarea: Encuentre la función de autocorrelación para el proceso
+\(X_t=X_{t-1}-{1\over 2}X_{t-2}+Z_t\)
+\end{frame}
+
+\hypertarget{arp}{%
+\subsection{AR(p)}\label{arp}}
+
+\begin{frame}{AR(p)}
+Diremos que una serie de tiempo \(X_t\) estacionaria sigue un proceso
+autorregresivo de order \(p\) si
+
+\[
+X_{t}^{*}=\alpha_1 X_{t-1}^{*} +\dots+\alpha_p X_{t-p}^{*}+Z_t
+\]
+
+donde \(X_{t}^{*}=X_t -\mu\), siendo \(\mu\) la media del proceso
+estacionario \(X_t\) y \(Z_t\) un ruido blanco. Al igual que antes,
+podemos reescribir este proceso en términos de operador de lag como:
+
+\[
+(1-\alpha_1 B- \dots -\alpha_p B^p) X_{t}^{*}=Z_t
+\]
+
+en donde llamamos \(\phi(B)= 1-\phi_1 B-\dots - \phi_p B^p\) al
+polinomio de grado \(p\) del operador de lag con \(p\geq 1\).
+\end{frame}
+
+\begin{frame}
+Así, la expresión general de un proceso autorregresivo puede ser escrita
+como:
+
+\[
+\phi(B)X_{t}^{*}=Z_t
+\]
+
+La \textbf{ecuación característica} de este proceso autoregresivo la
+definimos como
+
+\[
+\phi(B)=0
+\]
+
+en donde consideramos el operador \(B\) como variable. Esta ecuación
+tendrá \(p\) raíces \(G_{i}^{-1},\dots,G_{p}^{-1}\), en general
+distintas, por lo que usando el \textbf{teorema fundamental del álgebra}
+podemos reescribir esta función como:\[
+\phi(B)=\prod_{i=1}^{p}(1-G_i B)
+\]
+
+Es posible mostrar que el proceso es estacionario si
+\(|G_i|<1, \forall i\).
+\end{frame}
+
+\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-3}{%
+\subsection{Función de
+autocorrelación}\label{funciuxf3n-de-autocorrelaciuxf3n-3}}
+
+\begin{frame}{Función de autocorrelación}
+De la forma general del proceso
+
+\[
+X_{t}^{*}=\alpha_1 X_{t-1}^{*} +\dots+\alpha_p X_{t-p}^{*}+Z_t
+\]
+
+Si multiplicamos la ecuación por el \(X_{t-k}^{*}\) con \(k>0\) ,
+tomando esperanzas y luego dividiendo por \(\gamma(0)\), es posible
+obtener la forma general para la autorrelación:
+
+\[
+\rho(k)=\alpha_1 \rho(k-1)+\dots + \alpha_p \rho(k-p),\quad k>0\]
+
+Que tiene la misma forma que en los casos \(k=1,2\) vistos
+anteriormente.
+\end{frame}
+
+\begin{frame}
+Los coeficientes de autocorrelación satisfacen la misma ecuación que el
+proceso
+
+\[
+\phi(B)\rho(k)=0 \quad k>0
+\]
+
+En donde la solución general de esta ecuación es:
+
+\[
+\rho(k)=\sum_{i=1}^{p} A_i G_{i}^{k}
+\]
+
+en donde \(A_i\) son constantes a determinar basado en las condiciones
+iniciales y los \(G_i\) son los factores de la ecuación característica.
+\end{frame}
+
+\hypertarget{ecuaciones-de-yule-walker}{%
+\subsection{Ecuaciones de Yule-Walker}\label{ecuaciones-de-yule-walker}}
+
+\begin{frame}{Ecuaciones de Yule-Walker}
+Evaluando la ecuación
+
+\[
+\rho(k)=\sum_{i=1}^{p} A_i G_{i}^{k}
+\]
+
+para los distintos \(k=1,\dots,p\), se obtiene un sistema de \(p\)
+ecuaciones que relacionan las \(p\) primeras autocorrelaciones con los
+parámetros del proceso.
+
+Así, llamaremos \textbf{ecuaciones de Yule-Walker} al sistema:
+
+\begin{align*}
+\rho(1) &= \alpha_1 + \alpha_2 \rho(1) + \dots + \alpha_p \rho(p-1) \\
+\rho(2) &= \alpha_1 \rho(1) + \alpha_2 + \dots + \alpha_p \rho(p-2) \\
+&\vdots \\
+\rho(p) &= \alpha_1 \rho(p-1) + \alpha_2\rho(p-2) + \dots + \alpha_p
+\end{align*}
+\end{frame}
+
+\begin{frame}
+Si definimos
+
+\[
+\bm{\phi}'=[\phi_1,\dots,\phi_p], \quad \bm{\rho}'=[\rho(1),\dots,\rho(p)]
+\]
+
+y
+
+\[
+\mathbf{R}=\begin{bmatrix}1 & \rho(1) & \dots & \rho(p-1)\\\vdots & \vdots & & \vdots \\
+\rho(p-1) & \rho(p-2) & \dots  & 1\end{bmatrix}
+\]
+
+El sistema de ecuaciones se escribe matricialmente como
+
+\[
+\bm{\rho = R \phi}
+\]
+\end{frame}
+
+\begin{frame}
+y los parámetros se determinan a partir de las autocorrelaciones
+mediante
+
+\[
+\bm{\phi = R^{-1} \rho}
+\]
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo-1}{}
+Obtener los parámetros de un proceso \(AR(3)\) cuyas primeras
+autocorrelaciones son \(\rho(1)=0.9, \rho(2)=0.8, \rho(3)=0.5\). ¿Es
+estacionario el proceso?
+
+Primero planteamos las ecuaciones de Yule-Walker:
+
+\[
+\begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 1 & 0.9 & 0.8 \\ 0.9 & 1 & 0.9 \\ 0.8 & 0.9 & 1 \end{bmatrix} \begin{bmatrix} \phi_1 \\ \phi_2 \\ \phi_3 \end{bmatrix}
+\]
+
+Cuya solución es
+
+\[
+\begin{bmatrix} \phi_1 \\ \phi_2 \\ \phi_3 \end{bmatrix} =\begin{bmatrix} 5.28 & -5 & 0.28 \\ -5 & 10 & -5 \\ 0.28 & -5 & 5.28 \end{bmatrix} \begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 0.89 \\ 1 \\ -1.11 \end{bmatrix}
+\]
+\end{frame}
+
+\begin{frame}
+Así, el proceso \(AR(3)\) con estas correlaciones es
+
+\[
+(1-0.89 B - B^2 + 1.11 B^3)X_t = Z_t
+\]
+
+Para comprobar que el proceso es estacionario debemos calcular los
+factores de la ecuación característica, por lo que debemos obtener las
+soluciones de
+
+\[
+X^3 - 0.89 X^2 - X + 1.11=0
+\]
+
+y comprobar que todas tienen módulo menor que la unidad.
+\end{frame}
+
+\hypertarget{arp-como-suma-de-innovaciones}{%
+\subsection{AR(p) como suma de
+innovaciones}\label{arp-como-suma-de-innovaciones}}
+
+\begin{frame}{AR(p) como suma de innovaciones}
+La forma de proceso \(AR(p)\) como suma de innovaciones (que después
+llamaremos \(MA(\infty)\), se obtiene invirtiendo el operador \(AR(p)\).
+Si definimos \(\psi(B)=\phi(B)^{-1}\), entonces se tiene
+
+\[
+(1-\phi_1 B -\dots -\phi_p B^p)(1+\psi_1 B + \psi_2 B^2 +\dots)=1
+\]
+
+en donde los coeficientes \(\psi_i\) se obtienen al igualar las
+potencias de \(B\) a cero. Por lo que, se tienen la relación
+
+\[
+\psi_k = \phi_1 \psi_{k-1}+\dots + \phi_p \psi_{k-1}
+\]
+
+que es análoga a la que verifican los coeficientes de autocorrelación
+del proceso.
+\end{frame}
+
+\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-parcial}{%
+\subsection{Función de autocorrelación
+parcial}\label{funciuxf3n-de-autocorrelaciuxf3n-parcial}}
+
+\begin{frame}{Función de autocorrelación parcial}
+tbd
+\end{frame}
+
+
+%\section[]{}
+%\frame{\small \frametitle{Table of Contents}
+%\tableofcontents}
+\end{document}

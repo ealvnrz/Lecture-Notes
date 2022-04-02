@@ -1,0 +1,1702 @@
+\documentclass[10pt,spanish,ignorenonframetext,,aspectratio=149]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage[]{}
+\else
+  \usepackage[shorthands=off,spanish]{babel}
+\fi
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{#1}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.48,0.65}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.48,0.65}{#1}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.48,0.65}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Comment these out if you don't want a slide with just the
+% part/section/subsection/subsubsection title:
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \let\insertsectionnumber\relax
+  \let\sectionname\relax
+  \frame{\sectionpage}
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\title{Machine Learning}
+\author{Eloy Alvarado Narváez}
+\date{}
+
+%% Here's everything I added.
+%%--------------------------
+
+\usepackage{graphicx}
+\usepackage{rotating}
+%\setbeamertemplate{caption}[numbered]
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+%\mode<presentation>
+\usepackage{wasysym}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+
+\usepackage{pgfplots} 
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+\pgfplotsset{
+    every non boxed x axis/.style={
+        xtick align=center,
+        enlarge x limits=true,
+        x axis line style={line width=0.8pt, -latex}
+},
+    every boxed x axis/.style={}, enlargelimits=false
+}
+\pgfplotsset{
+    every non boxed y axis/.style={
+        ytick align=center,
+        enlarge y limits=true,
+        y axis line style={line width=0.8pt, -latex}
+},
+    every boxed y axis/.style={}, enlargelimits=false
+}
+\usetikzlibrary{
+   arrows.meta,
+  intersections,
+}
+
+% Get rid of navigation symbols.
+%-------------------------------
+\setbeamertemplate{navigation symbols}{}
+
+% Optional institute tags and titlegraphic.
+% Do feel free to change the titlegraphic if you don't want it as a Markdown field.
+%----------------------------------------------------------------------------------
+\institute{Instituto de Estadística \newline Universidad de Valparaíso}
+
+% \titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~/Dropbox/teaching/clemson-academic.png}} % <-- if you want to know what this looks like without it as a Markdown field. 
+% -----------------------------------------------------------------------------------------------------
+\titlegraphic{\includegraphics[width=0.3\paperwidth]{logo.png}}
+
+% Some additional title page adjustments.
+%----------------------------------------
+\setbeamertemplate{title page}[]
+%\date{}
+\setbeamerfont{subtitle}{size=\small}
+
+\setbeamercovered{transparent}
+
+% Some optional colors. Change or add as you see fit.
+%---------------------------------------------------
+\definecolor{clemsonpurple}{HTML}{000000}
+\definecolor{clemsonorange}{HTML}{F66733}
+\definecolor{uiucblue}{HTML}{003C7D}
+\definecolor{uiucorange}{HTML}{F47F24}
+
+\definecolor{yellow}{HTML}{FFCC00}
+\definecolor{blue}{HTML}{003399}
+%\definecolor{black}{HTML}{000000}
+
+% Some optional color adjustments to Beamer. Change as you see fit.
+%------------------------------------------------------------------
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{title}{fg=black,bg=white}
+\setbeamercolor{local structure}{fg=black}
+\setbeamercolor{section in toc}{fg=black,bg=white}
+% \setbeamercolor{subsection in toc}{fg=clemsonorange,bg=white}
+\setbeamercolor{footline}{fg=black!50, bg=white}
+\setbeamercolor{block title}{fg=black,bg=white}
+
+
+\let\Tiny=\tiny
+
+
+% Sections and subsections should not get their own damn slide.
+%--------------------------------------------------------------
+\AtBeginPart{}
+\AtBeginSection{}
+\AtBeginSubsection{}
+\AtBeginSubsubsection{}
+
+% Suppress some of Markdown's weird default vertical spacing.
+%------------------------------------------------------------
+\setlength{\emergencystretch}{0em}  % prevent overfull lines
+\setlength{\parskip}{10pt}
+
+
+% Allow for those simple two-tone footlines I like. 
+% Edit the colors as you see fit.
+%--------------------------------------------------
+\defbeamertemplate*{footline}{my footline}{%
+    \ifnum\insertpagenumber=1
+    \hbox{%
+        \begin{beamercolorbox}[wd=\paperwidth,ht=.8ex,dp=1ex,center]{}%
+      % empty environment to raise height
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+    \else%
+        \Tiny{%
+            \hfill%
+		\vspace*{1pt}%
+            \insertframenumber/\inserttotalframenumber \hspace*{0.1cm}%
+            \newline%
+            \color{blue}{\rule{\paperwidth}{0.4mm}}\newline%
+            \color{yellow}{\rule{\paperwidth}{.4mm}}%
+        }%
+    \fi%
+}
+
+% Various cosmetic things, though I must confess I forget what exactly these do and why I included them.
+%-------------------------------------------------------------------------------------------------------
+\setbeamercolor{structure}{fg=blue}
+\setbeamercolor{local structure}{parent=structure}
+\setbeamercolor{item projected}{parent=item,use=item,fg=black,bg=white}
+\setbeamercolor{enumerate item}{parent=item}
+
+% Adjust some item elements. More cosmetic things.
+%-------------------------------------------------
+\setbeamertemplate{itemize item}{\color{black}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{black}\scriptsize{$\bullet$}}
+\setbeamertemplate{itemize/enumerate body end}{\vspace{.6\baselineskip}} % So I'm less inclined to use \medskip and \bigskip in Markdown.
+
+% Automatically center images
+% ---------------------------
+% Note: this is for ![](image.png) images
+% Use "fig.align = "center" for R chunks
+
+\usepackage{etoolbox}
+
+\AtBeginDocument{%
+  \letcs\oig{@orig\string\includegraphics}%
+  \renewcommand<>\includegraphics[2][]{%
+    \only#3{%
+      {\centering\oig[{#1}]{#2}\par}%
+    }%
+  }%
+}
+
+% I think I've moved to xelatex now. Here's some stuff for that.
+% --------------------------------------------------------------
+% I could customize/generalize this more but the truth is it works for my circumstances.
+
+\ifxetex
+\setbeamerfont{title}{family=\fontspec{Titillium Web}}
+\setbeamerfont{frametitle}{family=\fontspec{Titillium Web}}
+\usepackage[font=small,skip=0pt]{caption}
+ \else
+ \fi
+
+% Okay, and begin the actual document...
+
+
+
+\usepackage{tikz}
+\usebackgroundtemplate{
+  \tikz[overlay,remember picture] 
+  \node[opacity=0.3, at=(current page.south west),anchor=south west,inner sep=10pt]{
+    \includegraphics[width=1.5cm]{logo}};
+}
+
+\begin{document}
+\frame{\titlepage}
+
+
+
+\hypertarget{introducciuxf3n}{%
+\section{Introducción}\label{introducciuxf3n}}
+
+\begin{frame}{Introducción}
+\begin{itemize}
+\tightlist
+\item
+  El problema de buscar patrones
+\item
+  El reconocimiento de patrones se ocupa del descubrimiento automático
+  de regularidades en los datos mediante el uso de algoritmos, y usa
+  estas regularidades para tomar acciones.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\protect\hypertarget{ejemplo}{}
+Tomemos como ejemplo el reconocer dígitos escritos a mano.
+
+\begin{figure}
+\centering
+\includegraphics{./figs/zip_codes.png}
+\caption{Ejemplos de dígitos escritos a mano tomados desde códigos
+postales}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+Estos dígitos corresponden a imágenes de 28x28 pixeles, por lo que
+pueden ser representados en un vector \(\mathbf{x}\) que contiene 784
+números reales.
+
+El objetivo es construir una \textbf{máquina} que tome el vector
+\(\mathbf{x}\) como entrada y produzca la identidad del dígito
+\(0,\dots,9\) como salida.
+
+Este problema es claramente no-trivial debido a la gran variedad de
+escrituras. Podría abordarse utilizando reglas heurísticas para
+distinguir los dígitos en función de las formas de los trazos, pero en
+la práctica, tal enfoque conduce a una proliferación de reglas y de
+excepciones a las reglas, etc., e invariablemente da malos resultados.
+\end{frame}
+
+\begin{frame}
+Mejores resultados pueden ser obtenidos adoptando un enfoque de
+\textbf{meachine learning}, en donde un conjunto grande de datos de
+\(N\) dígitos \(\{x_1 ,\ldots, x_n\}\) llamados \textbf{conjunto de
+entrenamiento (training set)} se utiliza para ajustar los parámetros de
+un modelo adaptativo.
+
+Las categorías de los dígitos en el conjunto de entrenamiento se conocen
+de antemano, normalmente inspeccionándolos individualmente y
+etiquetándolos a mano.
+
+Podemos expresar la categoría de un dígito usando un \textbf{vector
+objetivo (target vector)} \(\mathbf{t}\), que representa la identidad
+del dígito correspondiente. Notar que hay un vector objetivo
+\(\mathbf{t}\) para cada dígito de la imágen \(\mathbf{x}\).
+\end{frame}
+
+\begin{frame}
+El resultado tras aplicar el algoritmo de \textbf{machine learning}
+puede ser expresado como una functión \(\mathbf{y}(\mathbf{x})\), que
+toma una nueva imagen del dígito \(\mathbf{x}\) como entrada y que
+genera como salida un vector \(\mathbf{y}\), codificada de la misma
+manera que los vector objetivos.
+
+La forma exacta de la función \(\mathbf{y}(\mathbf{x})\) es determinada
+durante la \textbf{fase de entrenamiento}, también conocida como la fase
+de aprendizaje, en base al conjunto de entrenamiento.
+
+Una vez que el modelo es entrenado, este puede ser usado para
+identificar nuevas imágenes de dígitos, que les llamamos
+\textbf{conjunto de prueba (test set)}.
+
+La habilidad de categorizar correctamente nuevos ejemplos que difieren
+de los utilizados en la fase de aprendizaje es conocido como
+\textbf{generalización}.
+\end{frame}
+
+\begin{frame}
+En la mayoría de las aplicaciones reales, las variables de entrada son
+típicamente preprocesadas para transformarlas a un n uevo espacio de
+variables donde, se espera que la problemática de reconocer patrones sea
+más fácil de resolver.
+
+Por ejemplo, en el reconocimiento de dígitos escritos a mano, las
+imágenes de los dígitos generalmente se transforman y escalan tal que
+cada dígito esté contenido dentro de un cuadro de tamaño fijo. Esto
+reduce en gran medida la variabilidad dentro de cada clase de dígito,
+debido a que la localización y la escala de todos los dígitos serán las
+mismas, por lo que la identificación de patrones se facilitará.
+
+La etapa de de \textbf{pre-procesamiento} es usualmente conocida como
+\textbf{extracción de características (feature extraction)}.
+
+Notar que los nuevos datos, incluidos en el conjunto de entrenamiento,
+deben ser preprocesados de igual manera que los del conjunto de
+entrenamiento.
+\end{frame}
+
+\begin{frame}
+La etapa de preprocesamiento también puede ser utilizada para acelerar
+el cálculo del algoritmo utilizado. Se debe tener especial cuidado en
+esta etapa debido a que usualmente, cierta información es descartada, y
+si esta es imporatnte para la solución del problema, la precisión
+general del sistema confeccionado puede verse afectada.
+
+Las aplicaciones en donde la entrada son los datos de entrenamiento
+(training set) en conjunto con sus correspondientes vectores objetivo
+son conocidas como \textbf{problemas de aprendizaje supervisado
+(supervised learning problems)}.
+
+Los casos en donde el objetivo es asignar a cada vector de entrada una
+categoría, se conocen como \textbf{problemas de clasificación}.
+
+Si se desean salidas que consisten en una o más variables continuas,
+entonces le llamamos \textbf{regresión}.
+\end{frame}
+
+\begin{frame}
+Las aplicaciones en donde la entrada son los datos de entrenamiento
+(training set) sin sus correspondientes vectores objetivos son conocidas
+como \textbf{problemas de aprendizaje no supervisado (unsupervised
+learning problems)}. Varios pueden ser los objetivos en este tipo de
+problemas:
+
+\begin{itemize}
+\tightlist
+\item
+  Descubrir grupos de elementos similares dentro de los datos, en este
+  caso le llamamos \textbf{agrupamiento (clustering)}
+\item
+  Estimar la distribución de los datos dentro del espacio de los datos,
+  a esto le llamamos \textbf{estimación de densidad}
+\item
+  Proyectar los datos desde un espacio multidimensional a uno de 2 o 3
+  dimensiones, para así poder visualizarlo, a esto le llamamos
+  \textbf{visualización}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Otra técnica utilizada en \textbf{machine learning} es el
+\textbf{aprendizaje reforzado (reinforcement learning)}, que se ocupa
+del problema de encontrar acciones adecuadas para tomar en una situación
+específica con el fin de maximizar una recompensa.
+
+En este caso, el algoritmo de aprendizaje no recibe ejemplos de
+resultados óptimos (como se tienen en el aprendizaje supervisado), sino
+que debe descubrirlos mediante un proceso de prueba y error.
+\end{frame}
+
+\hypertarget{optimizaciuxf3n-no-lineal}{%
+\subsection{Optimización no lineal}\label{optimizaciuxf3n-no-lineal}}
+
+\begin{frame}{Optimización no lineal}
+La forma estándar de un problema de optimización no lineal es:
+
+\begin{align*}
+\min_{x}\,& f(x) \\
+\text{donde } & g_1(x)  \leq 0\\
+& \vdots \\
+& g_l(x)  \leq 0\\
+& h_1(x)  = 0 \\
+& \vdots \\
+& h_m(x)  = 0 \\
+\end{align*}
+
+\(f(x)\) le llamamos la función objetivo, usualmente a minimizar. Todas
+las otras restricción son de la forma \(\leq\) o \(=\).
+\end{frame}
+
+\hypertarget{conjunto-convexo}{%
+\subsection{Conjunto convexo}\label{conjunto-convexo}}
+
+\begin{frame}{Conjunto convexo}
+El problema \textbf{general} de optimización no lineal (donde, \(f,g\) y
+\(h\) pueden ser cualquier función) es extremadamente dificil de
+resolver. Sin embargo, si la función objetivo y las restricción son lo
+suficientemente \emph{buenas}, existen algoritmos eficientes para
+encontrar un mínimo global.
+
+Una de estas \emph{buenas} condiciones, es la \textbf{convexidad}.
+
+Existen dos definiciones para convexidad, una para conjuntos y otra para
+funciones. Intuitivamente, un conjunto convexo no tiene ningún agujero.
+
+\includegraphics{./figs/convex_sets.png}
+\end{frame}
+
+\begin{frame}
+Una definición más precisa es:
+
+\textbf{Para dos puntos cualesquiera del conjunto, la línea recta que
+conecta esos dos puntos también se encuentra en el conjunto}.
+
+Especificamente, El conjunto \(X\) es convexo si, para cualquier
+\(x_1\in X, x_2 \in X\), y \(\lambda \in [0,1]\), el punto
+\(\lambda x_1 + (1-\lambda)x_2 \in X\) (este punto es una combinación
+convexa de \(x_1\) y \(x_2\)).
+
+\begin{itemize}
+\item
+  ¿El plano \(X=\{ (x,y,z): 3x+4y-3z=1\}\) es convexo?
+\item
+  ¿Es la región \(X=\{ (x,y): x^2+y^2\geq 1\}\) convexa?
+\end{itemize}
+
+\textbf{Para mostrar que un conjunto es convexo, se debe mostrar que
+toda combinación convexa de dos puntos en el conjunto está dentro del
+conjunto}.
+
+\textbf{Para mostrar que un conjunto no es convexo, basta mostrar un
+caso en donde no suceda}.
+\end{frame}
+
+\hypertarget{funciones-convexas}{%
+\subsection{Funciones convexas}\label{funciones-convexas}}
+
+\begin{frame}{Funciones convexas}
+Una definición clásica que se da en cálculo (aunque acotada), es que una
+función unidimensional, diferenciable dos veces, es convexa si
+\(f''(x)\geq 0\) en todo punto.
+
+Ahora, generalizaremos este definición a más dimensiones, y a funciones
+que no son dos veces diferenciables.
+
+Una función \(f:X\rightarrow \mathbb{R}\) es \textbf{convexa} si, para
+cada \(x_1,x_2 \in X\) y cada \(\lambda \in (0,1)\),
+
+\[f((1-\lambda)x_1+\lambda x_2))\leq (1-\lambda)f(x_1)+\lambda f(x_2)\]
+Si la desigualdad es estricta, entonces se llama \textbf{estrictamente
+convexa}.
+\end{frame}
+
+\begin{frame}
+\begin{tikzpicture}
+\begin{axis}[width=5in,axis equal image,
+    axis lines=middle,
+    xmin=0,xmax=8,
+    xlabel=$x$,ylabel=$y$,
+    ymin=-0.25,ymax=4,
+    xtick={\empty},ytick={\empty}, axis on top
+]
+
+% 
+\addplot[thick,domain=0.25:7,blue,name path = A]  {-x/3 + 2.75} coordinate[pos=0.4] (m) ;
+\draw[thick,blue, name path =B] (0.15,4) .. controls (1,1) and (4,0) .. (6,2) node[pos=0.95, color=black, right]  {$f(x)$} coordinate[pos=0.075] (a1)  coordinate[pos=0.95] (a2);
+\path [name intersections={of=A and B, by={a,b}}];
+
+% 
+\draw[densely dashed] (0,0) -| node[pos=0.5, color=black, label=below:$a$] {}(a1);
+\draw[densely dashed] (0,0) -| node[pos=0.5, color=black, label=below:$x_{1}$] {}(a);
+\draw[densely dashed, name path=D] (3,0) -|node[pos=0.5, color=black, label=below:$\lambda x_{1}+ (1-\lambda)x_{2}$] {} node[pos=1, fill,circle,inner sep=1pt] {}(m);
+\draw[densely dashed] (0,0) -|node[pos=0.5, color=black, label=below:$x_{2}$] {}(b);
+\draw[densely dashed] (0,0) -|node[pos=0.5, color=black, label=below:$b$] {}(a2);
+
+% 
+\path [name intersections={of=B and D, by={c}}] node[fill,circle,inner sep=1pt] at (c) {}; 
+
+% 
+\node[anchor=south west, text=black] (d) at (0.75,3) {$f[\lambda x_{1}+(1-\lambda)x_{2}]$};
+\node[anchor=south west, text=black] (e) at (5,2.5) {$\lambda f(x_{1})+(1-\lambda)f(x_{2})$};
+\draw[-{Latex[width=4pt,length=6pt]}, densely dashed] (d) -- (c);
+\draw[-{Latex[width=4pt,length=6pt]}, densely dashed] (e) -- (m);
+\end{axis}
+\end{tikzpicture}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Es \(f(x)=|x|\) convexa?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Esta definición puede ser difícil de manejar, por lo que hay una
+caracterización alternativa.
+
+Si la función es diferenciable, la convexidad puede ser caracterizada en
+términos de rectas tangentes a la función.
+
+\textbf{La función} \(f\) es convexa si está sobre todas sus rectas
+tangentes.
+
+Matemáticamente, si \(f\) es diferenciable en su dominio, entonces \(f\)
+es convexa si y solo si
+
+\[f(x_2)\geq f(x_1)+f'(x_1)(x_2-x_1)\]
+
+para todo \(x_1,x_2 \in X\).
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Es \(x^2\) convexa?
+\end{itemize}
+
+Si \(f\) es dos veces diferenciable en su dominio, entonces \(f\) es
+convexa si y solo si \(f''(x)\geq 0\) en todas partes.
+\end{frame}
+
+\begin{frame}
+Cuando \(f\) es una función de múltiples variables, las condiciones de
+convexidad que involucran la primera y segunda derivada deben cambiar.
+
+El análogo a la primera derivada es el \textbf{vector gradiente}.
+
+\[\nabla f=[\partial f / \partial x_1 \quad \partial f / \partial x_2 \cdots \partial f / \partial x_n]^T\]
+
+El análogo de la segunda derivada es la \textbf{matrix Hessiana}.
+
+\[H_f=\left[\begin{array}{cccc}
+\partial^{2} f / \partial x_{1}^{2} & \partial^{2} f / \partial x_{1} \partial x_{2} & \cdots & \partial^{2} f / \partial x_{1} \partial x_{n} \\
+\partial^{2} f / \partial x_{2} \partial x_{1} & \partial^{2} f / \partial x_{2}^{2} & \cdots & \partial^{2} f / \partial x_{2} \partial x_{n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\partial^{2} f / \partial x_{n} \partial x_{1} & \partial^{2} f / \partial x_{n} \partial x_{2} & \cdots & \partial^{2} f / \partial x_{n}^{2}
+\end{array}\right]\]
+\end{frame}
+
+\begin{frame}
+Para funciones multidimensionales dos veces diferenciables, \(f\) es
+convexa si cualquier de estas condiciones equivalentes se satisface.
+
+\begin{enumerate}
+\item
+  Para todo \(x_1\) y \(x_2\) en \(X\)
+  \[f(\lambda x_2+ (1-\lambda)x_1)\leq \lambda f(x_2)+(1-\lambda)f(x_1)\]
+\item
+  Para todo \(x_1\) y \(x_2\) en \(X\).
+  \[f(x_2)\geq f(x_1)+\nabla f(x_1)^T(x_2-x_1)\]
+\item
+  Para todo \(x \in X, H(x)\) es semidefinida positiva (esto es,
+  \(y^T H(x)y\geq 0\) para todos los vectores \(y\)).
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+Hay ciertas propiedades que se cumplen para las funciones convexas:
+
+\begin{itemize}
+\tightlist
+\item
+  Cualquier función lineal es convexa
+\item
+  Un múltiplo no negativo de una función convexa es convexa
+\item
+  La suma de funciones convexas es convexa
+\item
+  La composición de funciones convexas es convexa.
+\end{itemize}
+
+Un problema de optimización convexa, es un problema de optimización en
+donde la función objetivo es una función convexa, y la región factible
+es un conjunto convexo.
+\end{frame}
+
+\begin{frame}{Método de Lagrange}
+\protect\hypertarget{muxe9todo-de-lagrange}{}
+La idea del método de Lagrange o más usualmente conocido como
+multiplicadores de Lagrange, es mover las restricciones hacia la función
+objetivo, y luego resolver como si fuese un problema sin restricciones.
+
+\begin{align*}
+\min \quad -x_1-x_2 &\\
+\text{sujeto a} \quad x_{1}^{2}+x_{2}^{2}-1&=0
+\end{align*}
+
+¿Cómo solucionamos este problema?
+\end{frame}
+
+\begin{frame}
+Multiplicamos la restricción por \(\lambda\) y luego la agregamos a la
+función objetivo para formar la función lagrangiana:
+
+\[\mathcal{L}(x_1,x_2,\lambda)=-x_1-x_2+\lambda(x_{1}^{2}+x_{2}^{2}-1)\]
+
+Los puntos estacionarios de esta función son los puntos en donde todas
+sus derivadas parciales son cero.
+
+\begin{align*}
+\dfrac{\partial \mathcal{L}}{\partial x_1}&=-1+2\lambda x_1=0\\
+\dfrac{\partial \mathcal{L}}{\partial x_x}&=-1+2\lambda x_2=0\\
+\dfrac{\partial \mathcal{L}}{\partial \lambda}&=x_{1}^{2}+x_{2}^{2}-1=0\\
+\end{align*} Notar que la tercera ecuación nos entrega las restricciones
+iniciales.
+\end{frame}
+
+\begin{frame}
+Estas ecuaciones se resuelven cuando \(x_1=x_2=\lambda=1/\sqrt{2}\).
+
+Así, la solución óptima del problema original es \(x_1=x_2=1/\sqrt{2}\)
+
+Si hay más de una restricción, se introduce un multiplicador adicional
+diferente para cada una de estas.
+\end{frame}
+
+\begin{frame}{Tarea}
+\protect\hypertarget{tarea}{}
+Considere el siguiente problema de optimización
+
+\begin{align*}
+\min \quad x^2+y^2+z^2 &\\
+\text{sujeto a} \quad x^2+y^2-z^2&=0\\
+x-2z-3&=0
+\end{align*}
+\end{frame}
+
+\hypertarget{ejemplo-1}{%
+\subsection{Ejemplo}\label{ejemplo-1}}
+
+\begin{frame}[fragile]{Ejemplo}
+Se desea mejorar las ventas de un producto en particular. El siguiente
+conjunto de datos contiene datos de las ventas de aquel producto en 200
+mercados diferentes, junto con el presupuesto de publicidad para el
+producto en cada uno de los mercados para 3 medios de publicidad: TV,
+radio y diario.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ISLR)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\NormalTok{Advertising }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"./db/Advertising.csv"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(Advertising)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   X    TV Radio Newspaper Sales
+## 1 1 230.1  37.8      69.2  22.1
+## 2 2  44.5  39.3      45.1  10.4
+## 3 3  17.2  45.9      69.3   9.3
+## 4 4 151.5  41.3      58.5  18.5
+## 5 5 180.8  10.8      58.4  12.9
+## 6 6   8.7  48.9      75.0   7.2
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1}\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Advertising, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ TV, }\AttributeTok{y =}\NormalTok{ Sales))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{p2}\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Advertising, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Radio, }\AttributeTok{y =}\NormalTok{ Sales))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{p3}\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Advertising, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Newspaper, }\AttributeTok{y =}\NormalTok{ Sales))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grid.arrange}\NormalTok{(p1, p2, p3, }\AttributeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-3.pdf}
+\end{frame}
+
+\begin{frame}
+En este ejemplo, los presupuestos son las variables de entrada
+(\textbf{input}) mientras que las ventas es la variable de salida
+(\textbf{output}). Usualmente denotaremos a las variables de entrada por
+la letra \(X\), así \(X_1\) es el presupuesto en televisión, \(X_2\) en
+Radio y \(X_3\) en periódicos.
+
+Estas variables de entregada también se le conocen como
+\textbf{predictores, variables independientes, \emph{features}} o
+simplemente \textbf{variables}.
+
+La variable respuesta \textbf{Sales} es usualmente llamada
+\textbf{respuesta} o \textbf{variable dependiente}, y se denota por la
+leta \(Y\).
+\end{frame}
+
+\begin{frame}
+En general, supongamos que observamos una variable respuesta
+cuantitative \(Y\) y \(p\) diferentes predictores \(X_1,\dots,X_p\).
+Asumiremos que existe algún tipo de relación entre \(Y\) y
+\(X=(X_1,X_2,\dots,X_p)\) que puede ser escrito de forma general como
+
+\[Y=f(X)+\varepsilon\]
+
+Donde \(f\) es una función fija de \(X_1,\dots,X_p\) y \(\varepsilon\)
+es un error aleatorio, que es independiente de \(X\) y tiene media cero.
+En lo anterior, \(f\) representa la información sistemática que \(X\)
+provee sobre \(Y\).
+\end{frame}
+
+\hypertarget{aprendizaje-estaduxedstico}{%
+\subsection{Aprendizaje estadístico}\label{aprendizaje-estaduxedstico}}
+
+\begin{frame}{Aprendizaje estadístico}
+El aprendizaje estadístico refiere al conjunto de herramientas y
+enfoques para \textbf{estimar} \(f\).
+
+\textbf{¿Para qué estimar} \(f\)?
+\end{frame}
+
+\begin{frame}{Predicción}
+\protect\hypertarget{predicciuxf3n}{}
+En muchas situaciones, un conjunto de variables de entrada \(X\) son
+fácilmente obtenibles, pero las salidas \(Y\) tienen difícil acceso.
+Bajo esta configuración, debido a que el promedio de los errores tiene
+media cero, podemos predecir \(Y\) usando:
+
+\[
+\hat{Y}=\hat{f}(X)
+\]
+
+donde \(\hat{f}\) representa nuestra estimación para \(f\) e \(\hat{Y}\)
+representa la predicción obtenida para \(Y\). En este contexto,
+\(\hat{f}\) es usualmente tratada como una \textbf{caja negra}, en el
+sentido que no estamos usualmente preocupados con la forma exacta de
+\(\hat{f}\), si es que esta entrega predicciones precisas de \(Y\).
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(plot3D)}
+\NormalTok{Income2}\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"./db/Income2.csv"}\NormalTok{)}
+\CommentTok{\# Ajuste}
+\NormalTok{fit\_2\_3\_loess }\OtherTok{\textless{}{-}} \FunctionTok{loess}\NormalTok{(Income }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Education }\SpecialCharTok{+}\NormalTok{ Seniority, }\AttributeTok{data =}\NormalTok{ Income2) }
+\CommentTok{\# Predicción de valores}
+\NormalTok{x.pred }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(Income2}\SpecialCharTok{$}\NormalTok{Education), }\FunctionTok{max}\NormalTok{(Income2}\SpecialCharTok{$}\NormalTok{Education), }\AttributeTok{length.out =} \DecValTok{30}\NormalTok{)}
+\NormalTok{y.pred }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(Income2}\SpecialCharTok{$}\NormalTok{Seniority), }\FunctionTok{max}\NormalTok{(Income2}\SpecialCharTok{$}\NormalTok{Seniority), }\AttributeTok{length.out =} \DecValTok{30}\NormalTok{)}
+\NormalTok{xy     }\OtherTok{\textless{}{-}} \FunctionTok{expand.grid}\NormalTok{(}\AttributeTok{Education =}\NormalTok{ x.pred, }\AttributeTok{Seniority =}\NormalTok{ y.pred)}
+\NormalTok{z.pred }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{predict}\NormalTok{(fit\_2\_3\_loess, }\AttributeTok{newdata =}\NormalTok{ xy), }\AttributeTok{nrow =} \DecValTok{30}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Income2 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{scatter3D}\NormalTok{(}
+    \AttributeTok{type =} \StringTok{"p"}\NormalTok{,}
+    \AttributeTok{x =}\NormalTok{ Income2}\SpecialCharTok{$}\NormalTok{Education, }
+    \AttributeTok{y =}\NormalTok{ Income2}\SpecialCharTok{$}\NormalTok{Seniority, }
+    \AttributeTok{z =}\NormalTok{ Income2}\SpecialCharTok{$}\NormalTok{Income,}
+    \AttributeTok{colvar =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{pch =} \DecValTok{19}\NormalTok{, }\AttributeTok{col =} \StringTok{"gold"}\NormalTok{, }\AttributeTok{cex =} \FloatTok{1.75}\NormalTok{,}
+    \AttributeTok{phi =} \DecValTok{25}\NormalTok{, }\AttributeTok{theta =} \DecValTok{45}\NormalTok{, }\AttributeTok{expand =} \FloatTok{0.6}\NormalTok{,}
+    \AttributeTok{xlab =} \StringTok{"Years of Education"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Seniority"}\NormalTok{, }\AttributeTok{zlab =} \StringTok{"Income"}\NormalTok{,}
+    \AttributeTok{panel.first =} \FunctionTok{scatter3D}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Income2}\SpecialCharTok{$}\NormalTok{Education,}\AttributeTok{y =}\NormalTok{ Income2}\SpecialCharTok{$}\NormalTok{Seniority,}
+    \AttributeTok{z =}\NormalTok{ Income2}\SpecialCharTok{$}\NormalTok{Income,}\AttributeTok{colvar =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{col =} \StringTok{"black"}\NormalTok{, }\AttributeTok{add =}\NormalTok{ T,}
+    \AttributeTok{surf =} \FunctionTok{list}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x.pred, }\AttributeTok{y =}\NormalTok{ y.pred, }\AttributeTok{z =}\NormalTok{ z.pred, }
+    \AttributeTok{fit =} \FunctionTok{predict}\NormalTok{(fit\_2\_3\_loess), }\AttributeTok{facets =}\NormalTok{ T, }\AttributeTok{col =} \StringTok{"skyblue"}\NormalTok{,}
+    \AttributeTok{border =} \StringTok{"royalblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.45}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}
+\small
+
+\includegraphics{figs/unnamed-chunk-6.pdf}
+\end{frame}
+
+\begin{frame}
+Consideremos que un estimador \(\hat{f}\) y un conjunto de variables
+\(X\) entregan la predicción \(\hat{Y}=\hat{f}(X)\) . Asumiendo que
+\(\hat{f}\) y \(X\) son fijos, entonces se tiene:
+
+\begin{align*}
+\mathbb{E}(Y-\hat{Y})^2 &= \mathbb{E}(f(X)+\varepsilon - \hat{f}(X))^2 \\
+&= \underbrace{[f(X) - \hat{f}(X)]^2}_\text{Reducible} + \underbrace{\mathbb{V}(\varepsilon)}_\text{Irreducible}
+\end{align*}
+
+Nosotros nos concentraremos en técnicas para estimar \(f\) con el fin de
+poder minimizar el error reducible.
+\end{frame}
+
+\begin{frame}{Inferencia}
+\protect\hypertarget{inferencia}{}
+Usualmente estamos interesados en entender la forma en que \(Y\) se ve
+afectada conforme \(X_1,\dots,X_p\) cambia. En este tipo de situaciones,
+deseamos estimar \(f\), pero nuestro objetivo no es necesariamente hacer
+predicciones para \(Y\). En cambio, se quiere entender la relación entre
+\(X\) e \(Y\), por lo que ya no podemos tratar \(\hat{f}\) como una caja
+negra, debido a que para poder explicar el fenómeno debemos tener una
+\textbf{forma exacta}. Usualmente nos preguntamos:
+
+\begin{itemize}
+\item
+  ¿Qué predictores están asociados con la respuesta?
+\item
+  ¿Cuál es la relación entre la respuesta y cada predictor?
+\item
+  ¿La relación entre \(Y\) y cada predictor ser explicada adecuadamente
+  usando una ecuación lineal o la relación es más complicada?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{¿Cómo estimamos \(f\)?}
+\protect\hypertarget{cuxf3mo-estimamos-f}{}
+A lo largo del curso, veremos enfoques lineales y no lineales para
+estimar \(f\). Estos métodos usualmente comparten ciertas
+características.
+
+En general, la mayoría de las técnicas de aprendizaje estadístico pueden
+ser categorizadas como \textbf{paramétricas} o \textbf{no-paramétricas}.
+\end{frame}
+
+\begin{frame}{Métodos paramétricos}
+\protect\hypertarget{muxe9todos-paramuxe9tricos}{}
+Este enfoque tiene dos pasos y se base en modelos que reducen el
+problema de estimar \(f\) a estimar un conjunto de parámetros.
+
+\textbf{Pros}
+
+\begin{itemize}
+\tightlist
+\item
+  Es mucho más fácil que ajustar una función arbitraria cualquiera
+\end{itemize}
+
+\textbf{Contras}
+
+\begin{itemize}
+\item
+  El modelo usualmente no seguirá la forma real de \(f\)
+\item
+  Si el ajuste está muy lejano a la forma real, la estimación será mala
+\item
+  Se puede caer en sobreajuste
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+¿Cuales serían los pasos de un enfoque paramétrico?
+
+\begin{enumerate}
+\tightlist
+\item
+  Asumir la forma de \(f\)
+\item
+  Realizar un proceso que ajuste el conjunto de datos (\textbf{training
+  set}) para el modelo
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Métodos no paramétricos}
+\protect\hypertarget{muxe9todos-no-paramuxe9tricos}{}
+El enfoque no paramétrico se caracteriza por no asumir la forma de
+\(f\), pero en lugar de eso intenta obtener una estimación de \(f\) que
+sea lo más cercano al conjunto de datos sin llegar a un sobreajuste.
+
+\textbf{Pros}
+
+\begin{itemize}
+\tightlist
+\item
+  Al no asumir nada sobre \(f\), estos métodos permiten un vasto rango
+  de formas que se ajustan con precisión a \(f\)
+\end{itemize}
+
+\textbf{Contras}
+
+\begin{itemize}
+\tightlist
+\item
+  Un gran número de datos es necesario para estimar de forma precisa
+  \(f\), mucho más que bajo un enfoque paramétrico.
+\end{itemize}
+\end{frame}
+
+\hypertarget{compensaciuxf3n-entre-precisiuxf3n-vs-interpretabilidad}{%
+\subsection{Compensación entre precisión vs
+interpretabilidad}\label{compensaciuxf3n-entre-precisiuxf3n-vs-interpretabilidad}}
+
+\begin{frame}{Compensación entre precisión vs interpretabilidad}
+Como sabemos hay métodos de aprendizaje estadístico que son menos
+flexibles que otros, por ejemplo la regresión lineal. Sin embargo,
+existen razones para escoger estas metodologías en vez de una más
+flexible.
+
+\begin{itemize}
+\item
+  Si la inferencia es nuestro principal objetivo, los modelos más
+  restrictivos son recomendados debido a que la relación entre \(X\) e
+  \(Y\) es fácilmente interpretable.
+\item
+  Métodos más flexibles usualmente llegar a estimación más complejas que
+  dificultan el análisis de alguna relación individual entre un
+  predictor y la variable respuesta.
+\item
+  Incluso cuando la predicción es el único objetivo, modelos más
+  restrictivos pueden entregar mayor precisión que la mayoría de los
+  métodos más flexible, debido a que estos últimos pueden sobreajustar.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/inter_flex.png}
+\end{frame}
+
+\hypertarget{teorema-del-no-free-lunch}{%
+\subsection{Teorema del No-Free-Lunch}\label{teorema-del-no-free-lunch}}
+
+\begin{frame}{Teorema del No-Free-Lunch}
+¿Por qué no simplemente elegimos el \textbf{mejor} método para todos los
+problemas?
+
+El teorema de No-Free-Lunch establece que todos los algoritmos de
+optimización se desempeñan igualmente bien cuando su desempeño es
+promediado sobre todas las funciones objetivos posibles.
+\end{frame}
+
+\hypertarget{compromiso-sesgo-varianza}{%
+\subsection{Compromiso sesgo-varianza}\label{compromiso-sesgo-varianza}}
+
+\begin{frame}{Compromiso sesgo-varianza}
+Una de las herramientas que tenemos para cuantificar que tan bueno es
+nuestro ajuste es el Error cuadrático medio, lo notamos por sus siglas
+en inglés \textbf{MSE}. Para un valor \(x_0\) dado, es posible mostrar
+que el error cuadrático medio se puede descomponer de la forma
+
+\[
+\mathbb{E}\left(y_0 - \hat{f}(x_0)\right)^2=\mathbb{V}(\hat{f}(x_0))+[Bias(\hat{f}(x_0))]^2+\mathbb{V}(\varepsilon)
+\]
+
+En donde el lado izquierdo representa el error cuadrado medio esperado
+cuando se estima \(f\) y se evalúan en el punto \(x_0\).
+
+De la ecuación anterior se desprende que para minimizar el error
+cuadrático medio se debe seleccionar una metodología que simultáneamente
+logre una varianza baja y un bajo sesgo.
+\end{frame}
+
+\begin{frame}
+A esta relación le llamamos un compromiso, debido a que es fácil obtener
+un método con extremadamente bajo sesgo pero varianza alta o un modelo
+con baja varianza pero alto sesgo.
+
+Como regla general, si se utilizan metodologías más flexibles, la
+varianza crecerá y el sesgo disminuirá.
+\end{frame}
+
+\hypertarget{muxe9todos-supervisados}{%
+\section{Métodos supervisados}\label{muxe9todos-supervisados}}
+
+\begin{frame}{Métodos supervisados}
+Como hemos mencionado a lo largo del curso, una regresión lineal simple
+asume que la variable respuesta \(Y\) es \textbf{cuantitativa}, pero en
+muchas situaciones esta es \textbf{cualitativa} (también referida como
+categórica). En lo que sigue, veremos métodos para predecir respuestas
+cualitativas, más comúnmente llamado \textbf{clasificación}.
+
+Existen mucha técnicas de clasificación o \textbf{clasificadores}, que
+se pueden usar para predecir una variable cualitativa. Entre ellos se
+encuentras:
+
+\begin{itemize}
+\item
+  Regresión logística
+\item
+  Análisis discriminante lineal
+\item
+  \emph{k-NN (k- nearest neighbors / k-vecinos cercanos)}
+\item
+  Modelos generalizados aditivos
+\item
+  Árboles y bosques aleatorios
+\item
+  Boosting
+\item
+  SVM
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-2}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data}\OtherTok{\textless{}{-}}\NormalTok{Default}
+\FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   default student   balance    income
+## 1      No      No  729.5265 44361.625
+## 2      No     Yes  817.1804 12106.135
+## 3      No      No 1073.5492 31767.139
+## 4      No      No  529.2506 35704.494
+## 5      No      No  785.6559 38463.496
+## 6      No     Yes  919.5885  7491.559
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data) }\SpecialCharTok{+}
+ \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ balance, }\AttributeTok{y =}\NormalTok{ income, }\AttributeTok{colour =}\NormalTok{ default) }\SpecialCharTok{+}
+ \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \StringTok{"bullet"}\NormalTok{, }\AttributeTok{size =} \FloatTok{1.5}\NormalTok{) }\SpecialCharTok{+}
+ \FunctionTok{scale\_color\_hue}\NormalTok{(}\AttributeTok{direction =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+ \FunctionTok{theme\_gray}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/unnamed-chunk-9.pdf}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/unnamed-chunk-10.pdf}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/unnamed-chunk-11.pdf}
+\end{frame}
+
+\begin{frame}{¿Por qué no usar una regresión lineal?}
+\protect\hypertarget{por-quuxe9-no-usar-una-regresiuxf3n-lineal}{}
+Supongamos que se intenta predecir la condición médica de un paciente en
+la sala de emergencia con base a sus síntomas. Para simplificar,
+imaginemos que sólo que tienen 3 posibles diagnósticos: accidente
+cardiovascular, sobredosis y ataque epiléptico. Por lo que podríamos
+clasificar la variable respuesta como
+
+\[
+Y=\begin{cases} 1 \quad \text{si Accidente cardiovascular}\\
+2 \quad \text{si Sobredosis} \\
+3 \quad \text{si Ataque epiléptico}
+\end{cases}
+\]
+
+Usando esta codificación, se puede usar el método de mínimos cuadrados
+para ajustar una regresión lineal para predecir \(Y\) en base a los
+predictores \(X_1,\dots, X_p\).
+\end{frame}
+
+\begin{frame}
+Desafortunadamente, esta codificación implica un ordenamiento de las
+salidas, estableciendo sobredosis entre accidente cardiovascular y
+Ataque epiléptico, e inherentemente afirmando que la diferencia entre
+categorías contiguas son la misma.
+
+Es claro notar que si usamos otra codificación, el ajuste de regresión
+lineal obtenido será diferente al primero. En general, no hay una forma
+natural de convertir una variable respuesta cualitativa con más de dos
+niveles en una variable cuantitativa que esté lista para hacer una
+regresión lineal.
+\end{frame}
+
+\begin{frame}
+En el caso de variable respuesta binaria, la situación es algo más
+favorable, debido a que si se cambia la codificación, el ajuste de
+regresión obtenido será el mismo. Sin embargo, el método de mínimos
+cuadrados no tiene sentido, provocando que algunas de nuestras
+estimación estén fuera del intervalo {[}0,1{]}, haciendo difícil la
+interpretación de las probabilidades.
+
+Lo anterior debido a que se puede mostrar que el \(X\hat{\beta}\)
+obtenido con la regresión lineal con codificación binaria, es
+simplemente una estimación de \(\mathbb{P}(\text{ Sobredosis })\) si la
+codificación es
+
+\[
+Y = \begin{cases} 0 \quad \text{si Accidente cardiovascular}\\
+1 \quad \text{si Sobredosis} 
+\end{cases}
+\]
+\end{frame}
+
+\hypertarget{regresiuxf3n-loguxedstica}{%
+\subsection{Regresión logística}\label{regresiuxf3n-loguxedstica}}
+
+\begin{frame}[fragile]{Regresión logística}
+Usando el mismo conjunto de datos \texttt{Default}, donde la variable
+respuesta \texttt{default} cae dentro de dos categorías \texttt{Yes} y
+\texttt{No}. En vez de modelar la respuesta \(Y\) directamente, la
+\textbf{regresión logística} modela la probabilidad que \(Y\) pertenezca
+a una categoría particular.
+
+Para el conjunto de datos \texttt{Default}, la regresión logística
+modela la probabilidad de que haya default (morosidad). Por ejemplo, la
+probabilidad de default dado cierto \texttt{balance} puede ser escrito
+como
+
+\[
+\mathbb{P}( \text{default}=\text{Yes}|\text{balance})
+\]
+
+Los valores de esta probabilidad, que la abreviamos como
+\(p(\text{balance})\), estarán entre 0 y 1. Por lo que para un valor
+particular de \texttt{balance}, se puede hacer una predicción para
+\texttt{default}. Por ejemplo, se podría predecir que
+\texttt{default=Yes} para cualquier individuo cuyo
+\(p(\text{balance})>0.5\). Alternativamente, si una compañía quisiese
+ser más conservador en la predicción, podría definir
+\(p(\text{balance})>0.1\).
+\end{frame}
+
+\begin{frame}[fragile]{Modelo logístico}
+\protect\hypertarget{modelo-loguxedstico}{}
+¿Cómo deberíamos modelar la relación entre \(p(X)=\mathbb{P}(Y=1|X)\) y
+\(X\)?
+
+Podemos utilizar un enfoque de regresión lineal para representar estar
+probabilidades, esto es:
+
+\[
+p(X)=\beta_0 + \beta_1 X
+\]
+
+Si usamos este enfoque para predecir \texttt{default=Yes} usando
+\texttt{balance}, entonces obtendremos el siguiente modelo (izquierda).
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/lin_reg.png}
+\end{frame}
+
+\begin{frame}
+Para evitar lo anterior, debemos modelar \(p(X)\) usando una función que
+entregue salidas entre 0 y 1 para todos los valores de \(X\). Muchas
+funciones cumplen estas condiciones. En una \textbf{regresión
+logística}, usamos la \emph{función logística}.
+
+\[
+p(X)=\dfrac{\exp(\beta_0 + \beta_1 X)}{1+\exp(\beta_0 + \beta_1 X)}
+\]
+
+Para ajustar el modelo anterior, usamos máxima verosimilitud
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/log_reg.png}
+\end{frame}
+
+\begin{frame}[fragile]
+Manipulando un poco la fórmula anterior, se tiene que
+
+\[
+\dfrac{p(X)}{1-p(X)}=\exp(\beta_0 + \beta_1 X)
+\]
+
+La cantidad \({p(X) \over 1-p(X)}\) se le llaman \textbf{odds}, que
+pueden toman cualquier valor en \(\mathbb{R}^{+}\). Valores cercanos a
+cero y tendiendo a infinito, indican muy baja y alta probabilidad de
+\texttt{default}, respectivamente.
+\end{frame}
+
+\begin{frame}
+Tomando el logaritmo en ambos lados, se tiene
+
+\[
+\log \left(\dfrac{p(X)}{1-p(X)}\right)=\beta_0 + \beta_1 X
+\]
+
+a esta cantidad la llamamos \textbf{log-odds} o \textbf{logit}. Notamos
+que el modelo de regresión logística tiene un logit lineal en \(X\).
+\end{frame}
+
+\begin{frame}{Estimación de los coeficientes de regresión}
+\protect\hypertarget{estimaciuxf3n-de-los-coeficientes-de-regresiuxf3n}{}
+Los coeficiente \(\beta_0\) y \(\beta_1\) en la ecuación\[
+p(X)=\dfrac{\exp(\beta_0 + \beta_1 X)}{1+\exp(\beta_0 + \beta_1 X)}
+\]
+
+son desconocidos, por lo que deben ser estimados basándose en los datos
+de entrenamiento. Si bien podríamos ocupar una metodología de métodos
+cuadrados no lineales para ajustar el modelo:
+
+\[
+\log \left(\dfrac{p(X)}{1-p(X)}\right)=\beta_0 + \beta_1 X
+\]
+
+La metodología de máxima verosimilitud es usualmente preferida, debido a
+que tiene mejores propiedades estadísticas.
+\end{frame}
+
+\begin{frame}
+Formalmente, definimos la \textbf{función de verosimilitud} como:
+
+\[
+\ell(\beta_0,\beta_1)=\prod_{i:y_i=1}p(x_i)\prod_{i':y_{i'}=0}(1-p(x_{i'}))
+\]
+
+Las estimaciones \(\hat{\beta}_0\) y \(\hat{\beta}_1\) son escogidos
+para maximizar la función de verosimilitud.
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-3}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logit }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(default }\SpecialCharTok{\textasciitilde{}}\NormalTok{ balance, }\AttributeTok{data =}\NormalTok{ data, }\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(logit)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = default ~ balance, family = "binomial", data = data)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.2697  -0.1465  -0.0589  -0.0221   3.7589  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -1.065e+01  3.612e-01  -29.49   <2e-16 ***
+## balance      5.499e-03  2.204e-04   24.95   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2920.6  on 9999  degrees of freedom
+## Residual deviance: 1596.5  on 9998  degrees of freedom
+## AIC: 1600.5
+## 
+## Number of Fisher Scoring iterations: 8
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Predicciones}
+\protect\hypertarget{predicciones}{}
+Una vez que los coeficientes han sido estimados, lo que resta es
+calcular la probabilidad de \texttt{default} para una \texttt{balance}
+dado. Por ejemplo, la predicción para una persona con balance \(\$1000\)
+es
+
+\[
+\hat{p}(X)=\dfrac{\exp(-10.65+ 0.0055 \times 1000)}{1+\exp(-10.65+ 0.0055 \times 1000)}\approx 0.00576
+\]
+
+que es bajo \(1\%\). En contraste con alguien que adeuda \(\$2000\), en
+cuyo casi \(\hat{p}(X)=0.586\).
+\end{frame}
+
+\begin{frame}[fragile]
+Si utilizamos \emph{dummy variables} para el predictor \texttt{student}
+codificado como 0 y 1. tendremos el siguiente ajuste
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logit\_dummy}\OtherTok{\textless{}{-}}\FunctionTok{glm}\NormalTok{(default }\SpecialCharTok{\textasciitilde{}}\NormalTok{ student, }\AttributeTok{data =}\NormalTok{ data, }\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(logit\_dummy)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = default ~ student, family = "binomial", data = data)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.2970  -0.2970  -0.2434  -0.2434   2.6585  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -3.50413    0.07071  -49.55  < 2e-16 ***
+## studentYes   0.40489    0.11502    3.52 0.000431 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2920.6  on 9999  degrees of freedom
+## Residual deviance: 2908.7  on 9998  degrees of freedom
+## AIC: 2912.7
+## 
+## Number of Fisher Scoring iterations: 6
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+Así, podemos calcular las probabilidades
+
+\[
+\mathbb{P}\left( \text{default=Yes }| \text{ student=Yes}\right)=\dfrac{\exp(-3.5041+ 0.4049 \times 1)}{1+\exp(-3.5041+ 0.4049 \times 1)}\approx 0.0431
+\]
+
+y,
+
+\[
+\mathbb{P}\left( \text{default=Yes }| \text{ student=No}\right)=\dfrac{\exp(-3.5041+ 0.4049 \times 0)}{1+\exp(-3.5041+ 0.4049 \times 0)}\approx 0.0292
+\]
+\end{frame}
+
+\hypertarget{regresiuxf3n-loguxedstica-muxfaltiple}{%
+\subsection{Regresión logística
+múltiple}\label{regresiuxf3n-loguxedstica-muxfaltiple}}
+
+\begin{frame}{Regresión logística múltiple}
+Ahora consideramos el problema de predecir una respuesta binaria usando
+múltiples predictores. La extensión natural del modelo de regresión es
+
+\[
+\log \left(\dfrac{p(X)}{1-p(X)}\right)=\beta_0 + \beta_1 X_1 +\dots + \beta_p X_p
+\]
+
+donde \(X=(X_1,\dots,X_p)\) son \(p\) predictores. La ecuación anterior
+la podemos reescribir como
+
+\[
+p(X)=\dfrac{\exp(\beta_0 + \beta_1 X_1 +\dots + \beta_p X_p)}{1+ \exp(\beta_0 + \beta_1 X_1 +\dots + \beta_p X_p)}
+\]
+
+Al igual que antes, usamos método de máxima verosimilitud para estimar
+\(\mathbf{\beta}\)
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-4}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logit2 }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(default }\SpecialCharTok{\textasciitilde{}}\NormalTok{ balance }\SpecialCharTok{+}\NormalTok{ student }\SpecialCharTok{+}\NormalTok{ income, }\AttributeTok{data =}\NormalTok{ data,}
+             \AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(logit2)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\footnotesize
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = default ~ balance + student + income, family = "binomial", 
+##     data = data)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4691  -0.1418  -0.0557  -0.0203   3.7383  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -1.087e+01  4.923e-01 -22.080  < 2e-16 ***
+## balance      5.737e-03  2.319e-04  24.738  < 2e-16 ***
+## studentYes  -6.468e-01  2.363e-01  -2.738  0.00619 ** 
+## income       3.033e-06  8.203e-06   0.370  0.71152    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2920.6  on 9999  degrees of freedom
+## Residual deviance: 1571.5  on 9996  degrees of freedom
+## AIC: 1579.5
+## 
+## Number of Fisher Scoring iterations: 8
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/log_compare.pdf}
+\caption{Tasas de default, Estudiantes en naranjo, No-Estudiantes en
+azul.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Regresión logística para \(>2\) clases en la respuesta}
+\protect\hypertarget{regresiuxf3n-loguxedstica-para-2-clases-en-la-respuesta}{}
+En el caso en que tengamos más de dos clases en la variable respuesta,
+es posible extender la regresión lineal. En el ejemplo de determinación
+de diagnóstico en una sala de emergencia se tenían las categorías
+accidente cardiovascular, sobredosis y ataque epiléptico, por lo que se
+desearía modelar
+
+\[
+\mathbb{P}\left( Y= \text{ acc. card. }| X\right)
+\]
+
+y \[
+\mathbb{P}\left( Y= \text{ sobredosis }| X\right)
+\]
+
+siendo el remanente,\[
+\mathbb{P}\left( Y= \text{ ataque epiléptico }| X\right)= 1-\mathbb{P}\left( Y= \text{ acc. card }| X\right)-\mathbb{P}\left( Y= \text{ sobredosis }| X\right) 
+\]
+
+Si bien es posible la extensión, en la práctica no es frecuentemente
+usado, pues se prefiere realizar un \textbf{análisis discriminante}.
+\end{frame}
+
+\hypertarget{anuxe1lisis-discriminante-lineal}{%
+\subsection{Análisis discriminante
+lineal}\label{anuxe1lisis-discriminante-lineal}}
+
+\begin{frame}{Análisis discriminante lineal}
+La regresión logística que vimos antes involucra modelar directamente
+\(\mathbb{P}\left( Y=k|X=x\right)\) usando la función logística dada por
+\[
+p(X)=\dfrac{\exp(\beta_0 + \beta_1 X_1 +\dots + \beta_p X_p)}{1+ \exp(\beta_0 + \beta_1 X_1 +\dots + \beta_p X_p)}
+\]
+
+para el caso de dos clases en la variable respuesta. En lo que sigue,
+consideramos una manera alternativa y menos directa para estimar estas
+probabilidades. En esta metodología, modelamos la distribución de los
+predictores \(X\) por separado en cada una de las categorías de la
+variable respuesta \((Y)\), y luego usamos el teorema de Bayes para
+convertir estos resultados en estimaciones de
+\(\mathbb{P}\left(Y=k|X=x\right)\).
+
+Cuando estas distribuciones se asumen normales, la forma de este modelo
+es muy similar a una regresión logística.
+\end{frame}
+
+\begin{frame}{Teorema de Bayes para clasificación}
+\protect\hypertarget{teorema-de-bayes-para-clasificaciuxf3n}{}
+Supongamos que queremos clasificar una observación entre \(K\) clases,
+donde \(K\geq 2\). Esto es, que la variable respuesta \(Y\) puede tomar
+\(K\) posibles valores distintos y no-ordenados.
+
+Sea \(\pi_k\) la probabilidad \emph{apriori} que una observación
+escogida aleatoriamente provenga de la clase \(k-\)ésima. Sea
+\(f_k(X)=\mathbb{P}(X=x|Y=k)\) la \textbf{función de densidad} de \(X\)
+para una observación que proviene de la clase \(k-\)ésima. Luego, por el
+teorema de Bayes se tiene
+
+\[
+\mathbb{P}(Y=k|X=x)=\dfrac{\pi_k f_k(x)}{\sum_{l=1}^{K} \pi_l f_l(x)}
+\]
+
+al igual que antes usamos la notación \(p_k(X)=\mathbb{P}(Y=k|X)\).
+\end{frame}
+
+\begin{frame}
+La idea general, es estimar no estimar \(p_k(X)\) directamente, sino
+estimar \(\pi_k\) y \(f_k\) para obtener lo deseado.
+
+Usualmente \(\pi_k\) es fácil de obtener si se tiene una muestra
+aleatoria de \(Y\), pues obtenemos estas estimaciones como las
+proporciones de cada clase.
+
+En cambio, estimar \(f_k(X)\) tiende a ser más difícil, a menos que se
+asuman formas simples para las densidades.
+
+Llamamos a la cantidad \(p_k(x)\) la probabilidad \emph{posterior} que
+una observación \(X=x\) pertenezca a la clase \(k-\)ésima.
+\end{frame}
+
+\begin{frame}{Análisis discriminante lineal con \(p=1\)}
+\protect\hypertarget{anuxe1lisis-discriminante-lineal-con-p1}{}
+Primero asumiremos que \(p=1\), es decir, sólo tenemos un predictor.
+Deseamos obtener una estimación para \(f_k(x)\) para utilizarlo en la
+ecuación\[
+\mathbb{P}(Y=k|X=x)=\dfrac{\pi_k f_k(x)}{\sum_{l=1}^{K} \pi_l f_l(x)}
+\]
+
+y así poder estimar \(p_k(x)\). Para poder estimar \(f_k\), primero
+debemos asumir su forma, por lo que asumiremos que \(f_k\) es
+\emph{Gaussiana}. Por lo que,
+
+\[
+f_k(x)=\dfrac{1}{\sqrt{2\pi}\sigma_k}\exp\left( -\dfrac{1}{2\sigma_{k}^{2}}(x-\mu_k)^2\right)
+\]
+
+donde \(\mu_k\) y \(\sigma_{k}^{2}\) son la media y la varianza de la
+clase \(k-\)ésima. Por ahora, asumiremos que
+\(\sigma_{1}^{2}=\dots=\sigma_{K}^{2}=\sigma^2\)
+\end{frame}
+
+\begin{frame}
+Por lo anterior, se tendrá
+
+\[
+p_k(x)=\dfrac{\pi_k \dfrac{1}{\sqrt{2\pi}\sigma}\exp\left( -\dfrac{1}{2\sigma^{2}}(x-\mu_k)^2\right)}{\sum_{l=1}^{K}\pi_l\dfrac{1}{\sqrt{2\pi}\sigma}\exp\left( -\dfrac{1}{2\sigma^{2}}(x-\mu_l)^2\right) }
+\]
+
+El clasificador Bayesiano asigna una observacion \(X=x\) a la clase que
+su \(p_k(x)\) es más grande. Si tomamos el logaritmo y arreglamos
+términos en la expresión anterior, se tiene que el proceso es
+equivalente a asignar la observación a la clase en la que
+
+\[
+\delta_k(x)=x \dfrac{\mu_k}{\sigma^2}-\dfrac{\mu_{k}^{2}}{2\sigma^2}+\log \pi_k
+\]
+
+es más grande.
+\end{frame}
+
+\begin{frame}
+Por ejemplo, si \(K=2\) Y \(\pi_1=\pi_2\), entonces el clasificador
+Bayesiano asigna una observación a la clase 1 si
+\(2x(\mu_1-\mu_2)>\mu_{1}^{2}-\mu_{2}^{2}\) y a la clase 2 en caso
+contrario. En este caso, el límite de decisión de Bayes (\emph{Bayes
+decision boundary}) corresponde al punto donde
+
+\[
+x=\dfrac{\mu_{1}^{2}-\mu_{2}^{2}}{2(\mu_1-\mu_2)}=\dfrac{\mu_1+\mu_2}{2}
+\]
+
+Llamamos a este punto el punto (o área) en donde la clasificación es
+ambigua.
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p4}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{)), }\FunctionTok{aes}\NormalTok{(x)) }\SpecialCharTok{+}
+\FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \SpecialCharTok{{-}}\FloatTok{1.25}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{),}
+              \AttributeTok{color =} \StringTok{"firebrick"}\NormalTok{) }\SpecialCharTok{+} 
+\FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dnorm, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \FloatTok{1.25}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{), }\AttributeTok{color =} \StringTok{"green3"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"longdash"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/unnamed-chunk-19.pdf}
+\end{frame}
+
+\begin{frame}
+El análisis discriminante lineal (LDA) aproxima el clasificador
+bayesiano ingresando estimaciones para \(pi_k,\mu_k\) y \(\sigma^2\) en
+\(\delta_k(x)\). Particularmente, las siguientes estimaciones son
+usadas.
+
+\[
+\hat{\mu}_k=\dfrac{1}{n_k}\sum_{i:y_i=k}x_i
+\]
+
+y,
+
+\[
+\hat{\sigma}^{2}=\dfrac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_i=K}(x_i-\hat{\mu}_k)^2
+\]
+
+donde \(n\) es el número total de observaciones en el conjunto de
+entrenamiento, \(n_k\) es el número de observaciones en el conjunto de
+entrenamiento en la clase \(k-\)ésima.
+\end{frame}
+
+\begin{frame}
+En el caso de que no tengamos información de \(\pi_1,\dots,\pi_K\), el
+análisis discriminante lineal estima \(\pi_k\) usando la proporción de
+las observaciones en el conjunto de entrenamiento que pertenece a la
+clase \(k-\)ésima. Esto es,
+
+\[
+\hat{\pi}_k=\dfrac{n_k}{n}
+\]
+
+El clasificador \textbf{LDA} reemplaza las estimaciones anteriores en
+\(\delta_k(x)\) y asigna una observación \(X=x\) a la clase en la cual
+\[
+\hat{\delta}_k=x\dfrac{\hat{\mu}_k}{\hat{\sigma}^2}-\dfrac{\hat{\mu}_{k}^{2}}{\hat{2\sigma}^2}+\log \hat{\pi}_k
+\]
+
+es más grande. El nombre de \textbf{lineal} viene de la linealidad de la
+\emph{función discriminante} \(\hat{\delta}_k\) para \(x\).
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{411}\NormalTok{)}
+\NormalTok{grupo\_a }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \SpecialCharTok{{-}}\FloatTok{1.25}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+\NormalTok{grupo\_b }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \FloatTok{1.25}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
+\NormalTok{datos }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{valor =} \FunctionTok{c}\NormalTok{(grupo\_a, grupo\_b),}
+                    \AttributeTok{grupo =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{), }\AttributeTok{each =} \DecValTok{30}\NormalTok{))}
+
+\NormalTok{p5}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ datos, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ valor, }\AttributeTok{fill =}\NormalTok{ grupo)) }\SpecialCharTok{+}
+\FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{position =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"longdash"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ (}\FunctionTok{mean}\NormalTok{(grupo\_a) }\SpecialCharTok{+} \FunctionTok{mean}\NormalTok{(grupo\_b))}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)  }\SpecialCharTok{+}
+\FunctionTok{annotate}\NormalTok{(}\AttributeTok{geom =} \StringTok{"text"}\NormalTok{, }\AttributeTok{x =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{y =} \DecValTok{9}\NormalTok{, }\AttributeTok{label =} \StringTok{"Límite decisión Bayes"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{annotate}\NormalTok{(}\AttributeTok{geom =} \StringTok{"text"}\NormalTok{, }\AttributeTok{x =} \SpecialCharTok{{-}}\FloatTok{1.5}\NormalTok{, }\AttributeTok{y =} \DecValTok{10}\NormalTok{, }\AttributeTok{label =} \StringTok{"Límite decisión LDA"}\NormalTok{) }\SpecialCharTok{+}
+\FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} 
+\FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/unnamed-chunk-21.pdf}
+\end{frame}
+
+\begin{frame}{Análisis discriminante liean con \(p>1\)}
+\protect\hypertarget{anuxe1lisis-discriminante-liean-con-p1}{}
+tbd
+\end{frame}
+
+
+%\section[]{}
+%\frame{\small \frametitle{Table of Contents}
+%\tableofcontents}
+\end{document}

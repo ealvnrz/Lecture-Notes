@@ -1,0 +1,26 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Introducción}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Objetivos del análisis de series de tiempo}{3}{0}{1}
+\beamer@sectionintoc {2}{Modelado y pronóstico de la tendencia}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Modelo aditivo de componentes de Series de tiempo}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Modelo multiplicativo de componentes de Series de tiempo}{6}{0}{2}
+\beamer@subsectionintoc {2}{3}{Tendencia}{9}{0}{2}
+\beamer@subsectionintoc {2}{4}{Modelo log-lineal}{12}{0}{2}
+\beamer@subsectionintoc {2}{5}{Estimación de la tendencia}{13}{0}{2}
+\beamer@subsectionintoc {2}{6}{Pronóstico con base en la tendencia}{16}{0}{2}
+\beamer@sectionintoc {3}{Modelado y pronóstico de series estacionales}{18}{0}{3}
+\beamer@sectionintoc {4}{Procesos estocásticos}{21}{0}{4}
+\beamer@subsectionintoc {4}{1}{Autocovarianza}{26}{0}{4}
+\beamer@subsectionintoc {4}{2}{Proceso estacionario}{27}{0}{4}
+\beamer@subsectionintoc {4}{3}{Proceso débilmente estacionario}{31}{0}{4}
+\beamer@subsectionintoc {4}{4}{Función de autocorrelación}{32}{0}{4}
+\beamer@subsectionintoc {4}{5}{Ruido blanco}{36}{0}{4}
+\beamer@subsectionintoc {4}{6}{Paseo Aleatorio}{40}{0}{4}
+\beamer@sectionintoc {5}{Procesos autorregresivos}{46}{0}{5}
+\beamer@subsectionintoc {5}{1}{AR(1)}{47}{0}{5}
+\beamer@subsectionintoc {5}{2}{AR(2)}{58}{0}{5}
+\beamer@subsectionintoc {5}{3}{AR(p)}{78}{0}{5}
+\beamer@subsectionintoc {5}{4}{Función de autocorrelación}{80}{0}{5}
+\beamer@subsectionintoc {5}{5}{Ecuaciones de Yule-Walker}{82}{0}{5}
+\beamer@subsectionintoc {5}{6}{AR(p) como suma de innovaciones}{87}{0}{5}
+\beamer@subsectionintoc {5}{7}{Función de autocorrelación parcial}{88}{0}{5}
