@@ -1690,9 +1690,2117 @@ es más grande. El nombre de \textbf{lineal} viene de la linealidad de la
 \includegraphics{figs/unnamed-chunk-21.pdf}
 \end{frame}
 
-\begin{frame}{Análisis discriminante liean con \(p>1\)}
-\protect\hypertarget{anuxe1lisis-discriminante-liean-con-p1}{}
-tbd
+\begin{frame}{Análisis discriminante lineal con \(p>1\)}
+\protect\hypertarget{anuxe1lisis-discriminante-lineal-con-p1-1}{}
+En lo que sigue, vamos a extender las nociones de análisis discriminante
+cuando se tienen múltiples predictores, para ello asumiremos que
+\(X=(X_1,X_2,\dots,X_p)\) es obtenido desde una distribución Gaussiana
+multivariada, con medias por clase e igual matriz de
+varianza-covarianza.
+
+Recordar que si \(X\sim N(\mu,\Sigma)\) con \(\mathbb{E}(X)=\mu\)
+(vector de medias) y \(Cov(X)=\Sigma\) la matriz \(p\times p\) de
+covarianza de \(X\). Formalmente, la densidad de \(X\) se define como:
+
+\[
+f(x)=\dfrac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left( -\dfrac{1}{2}(x-\mu)^{T} \Sigma^{-1}(x-\mu)\right)
+\]
+
+En el caso de \(p>1\) predictores, el análisis discriminante lineal
+asume que las observaciones en la clase \(k-\)ésima son obtenidos desde
+una distribución normal multivariada.
+\end{frame}
+
+\begin{frame}
+Si reemplazamos la función de densidad para la clase \(k-\)ésima,
+\(f_k(X=x)\) en la ecuación
+
+\[
+\mathbb{P}(Y=k|X=x)=\dfrac{\pi_k f_k(x)}{\sum_{l=1}^{K} \pi_l f_l(x)}
+\]
+
+y usando un poco de álgebra, se puede reescribir \(\delta_k(x)\) como
+
+\[
+\delta_k(x)=x^T\Sigma^{-1} \mu_k-\dfrac{1}{2}\mu_{k}^{T} \Sigma^{-1} \mu_k +\log \pi_k
+\]
+
+y el clasificador bayesiano asigna la observación \(X=x\) a la clase que
+tienen mayor \(\delta_{k}(x)\)
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/lda_1.pdf}
+\caption{Ejemplo Análisis discriminante}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+En la figura anterior, las elipses representan las regiones que
+contienen \(95\%\) de la probabilidad de cada una de las clases. Al
+igual que antes, la línea punteada es el Límite de decisión Bayes. Es
+decir, representan el conjunto de valores \(x\) para los cuales
+\(\delta_k(x)=\delta_\ell(x)\), esto es:
+
+\[
+x^T\Sigma^{-1} \mu_k-\dfrac{1}{2}\mu_{k}^{T} \Sigma^{-1} \mu_k=x^T\Sigma^{-1} \mu_l-\dfrac{1}{2}\mu_{l}^{T} \Sigma^{-1} \mu_l
+\]
+
+para \(k\neq l\).
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-5}{}
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(MASS)}
+\NormalTok{mod\_lda }\OtherTok{\textless{}{-}} \FunctionTok{lda}\NormalTok{(Species }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sepal.Width }\SpecialCharTok{+}\NormalTok{ Sepal.Length }\SpecialCharTok{+}\NormalTok{ Petal.Length }\SpecialCharTok{+}
+\NormalTok{                  Petal.Width, }\AttributeTok{data =}\NormalTok{ iris)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_lda}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## lda(Species ~ Sepal.Width + Sepal.Length + Petal.Length + Petal.Width, 
+##     data = iris)
+## 
+## Prior probabilities of groups:
+##     setosa versicolor  virginica 
+##  0.3333333  0.3333333  0.3333333 
+## 
+## Group means:
+##            Sepal.Width Sepal.Length Petal.Length Petal.Width
+## setosa           3.428        5.006        1.462       0.246
+## versicolor       2.770        5.936        4.260       1.326
+## virginica        2.974        6.588        5.552       2.026
+## 
+## Coefficients of linear discriminants:
+##                     LD1         LD2
+## Sepal.Width   1.5344731  2.16452123
+## Sepal.Length  0.8293776  0.02410215
+## Petal.Length -2.2012117 -0.93192121
+## Petal.Width  -2.8104603  2.83918785
+## 
+## Proportion of trace:
+##    LD1    LD2 
+## 0.9912 0.0088
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predicciones }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(}\AttributeTok{object =}\NormalTok{ mod\_lda, }\AttributeTok{newdata =}\NormalTok{ iris[, }\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{])}
+\FunctionTok{table}\NormalTok{(iris}\SpecialCharTok{$}\NormalTok{Species, predicciones}\SpecialCharTok{$}\NormalTok{class, }\AttributeTok{dnn =} \FunctionTok{c}\NormalTok{(}\StringTok{"Clase real"}\NormalTok{, }\StringTok{"Clase predicha"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             Clase predicha
+## Clase real   setosa versicolor virginica
+##   setosa         50          0         0
+##   versicolor      0         48         2
+##   virginica       0          1        49
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(klaR)}
+\FunctionTok{partimat}\NormalTok{(Species }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Sepal.Width }\SpecialCharTok{+}\NormalTok{ Sepal.Length }\SpecialCharTok{+}\NormalTok{ Petal.Length }
+         \SpecialCharTok{+}\NormalTok{ Petal.Width,}
+         \AttributeTok{data =}\NormalTok{ iris, }\AttributeTok{method =} \StringTok{"lda"}\NormalTok{, }\AttributeTok{prec =} \DecValTok{200}\NormalTok{,}
+         \AttributeTok{image.colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"darkgoldenrod1"}\NormalTok{, }\StringTok{"snow2"}\NormalTok{, }\StringTok{"skyblue2"}\NormalTok{),}
+         \AttributeTok{col.mean =} \StringTok{"firebrick"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/unnamed-chunk-26.pdf}
+\end{frame}
+
+\hypertarget{anuxe1lisis-discriminante-cuadruxe1tico}{%
+\subsection{Análisis discriminante
+cuadrático}\label{anuxe1lisis-discriminante-cuadruxe1tico}}
+
+\begin{frame}{Análisis discriminante cuadrático}
+El \textbf{análisis discriminante cuadrático} es una alternativa a
+\emph{LDA}, en la que se asumía distribución normal e igual varianza en
+cada una de las clases. Si bien, en el análisis discriminante cuadrático
+(\textbf{QDA}) también se asume que los datos provienen desde una
+distribución normal y estima los parámetros para predecir. Sin embargo,
+el \textbf{QDA} asume que cada clase tienen su propia matriz de
+covarianza.
+
+Esto es, se asume que una observación proveniente de la clase
+\(k-\)ésima es de la forma \(X\sim N(\mu_k,\Sigma_k)\), donde
+\(\Sigma_k\) es la matriz de covarianza para la clase \(k-\)ésima.
+\end{frame}
+
+\begin{frame}
+Bajo estos supuestos, el clasificador bayesiano asigna una observación
+\(X=x\) a la clase en la que
+
+\begin{align*}
+\delta_k(x)&=-\dfrac{1}{2}(x-\mu_k)^{T}\Sigma_{k}^{-1}(x-\mu_k)+\log \pi_k \\
+&=-\dfrac{1}{2}x^{T} \Sigma_{k}^{-1}x+x^{T}\Sigma_{k}^{-1}\mu_k-\dfrac{1}{2}\mu_{k}^{T}\mu_k+\log \pi_k
+\end{align*}
+
+es mayor. Así, se requerirá estimar \(\Sigma_k,\mu_k\) y \(\pi_k\). El
+nombre de cuadrático viene debido a que \(x\) aparece como una función
+cuadrática en la ecuación anterior.
+\end{frame}
+
+\begin{frame}{¿LDA o QDA?}
+\protect\hypertarget{lda-o-qda}{}
+Si tenemos \(p\) predictores, estimar la matriz de covarianza requiere
+estimar \(p(p+1)/2\) parámetros. En el caso de \textbf{QDA} se estima
+una matriz de covarianza para cada clase, por lo que se deben estimar
+\(Kp(p+1)/2\) parámetros. Si asumimos que las \(K\) clases comparten la
+misma matriz de covarianza, el modelo de \textbf{LDA} es lineal en
+\(x\), lo que significa que se debe estimar \(Kp\) parámetros.
+
+En general, el discriminante lineal es menos flexible que su contraparte
+cuadrática, y tiene una varianza sustancialmente menor. Sin embargo, si
+el supuesto de igualdad de matrices de covarianza entre las clases es
+erróneo, provocará que el discriminante lineal tenga un enorme sesgo.
+\end{frame}
+
+\begin{frame}
+Usualmente, \textbf{LDA} tiende a ser mejor que \textbf{QDA} si se
+tienen pocas observaciones en el conjunto de entrenamiento, por lo que
+reducir la varianza es particularmente importante.
+
+En contraste, \textbf{QDA} es recomendado si el conjunto de
+entrenamiento es grande, de manera que la varianza del clasificador no
+sea tan relevante, o si el supuesto de igual matriz de covarianza en las
+distintas clases es claramente insostenible.
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/lda_qda.pdf}
+\caption{Comparación LDA y QDA, para supuestos de igual y desigualdad de
+matriz de covarianza}
+\end{figure}
+\end{frame}
+
+\hypertarget{k-vecinos-cercanos}{%
+\subsection{K-vecinos cercanos}\label{k-vecinos-cercanos}}
+
+\begin{frame}{K-vecinos cercanos}
+Como sabemos, un clasificador Bayesiano tiene la forma:
+
+\[
+\mathbb{P}(Y=j|X=x_o)
+\]
+
+que es simplemente una probabilidad condicional. Sin embargo, tomamos
+este clasificador como el idóneo no-obtenible, debido a que nos entrega
+el error de testeo. En la práctica, este clasificar no es obtenible
+debido a que no sabemos la distribución condicional de \(Y\) dado \(X\).
+\end{frame}
+
+\begin{frame}
+Una metodología que intenta estimar la probabilidad condicional para
+luego asignar la clase \(k-\)ésima a la observación que tenga la mayor
+probabilidad condicional es \textbf{K-vecinos cercanos} o \textbf{KNN}
+por sus sigles en inglés.
+
+Dada un entero positivo \(K\) una observación de testeo \(x_0\), el
+clasificador \(KNN\) primero identifica los \(K\) puntos más cercanos a
+\(x_0\) pertenecientes al conjunto de entrenamiento, representados por
+\(\mathcal{N}_0\). Luego estima la probabilidad condicional para la
+clase \(j-\)ésima como una fracción de puntos en \(\mathcal{N}_0\) cuyas
+respuestas son igual a la de \(j\), esto es:
+
+\[
+\mathbb{P}(Y=j|X=x_0)=\dfrac{1}{K}\sum_{i\in \mathcal{N}_0}I(y_i = j)
+\]
+
+Finalmente, \textbf{KNN} aplica la regla de bayes y clasifica la
+observación de prueba/testeo \(x_0\) a la clase con la mayor
+probabilidad
+\end{frame}
+
+\hypertarget{rl-vs-lda-vs-qda-vs-knn}{%
+\subsection{RL vs LDA vs QDA vs KNN}\label{rl-vs-lda-vs-qda-vs-knn}}
+
+\begin{frame}{RL vs LDA vs QDA vs KNN}
+Es natural preguntarse que técnica utilizar en distintas circunstancias,
+pues todas ellas tienen por finalidad clasificar observaciones. En lo
+que sigue se lista comentarios respecto a los nexos entre estas
+metodologías.
+
+\begin{itemize}
+\item
+  Debido a que RL y LDA producen límites de decisión lineales,
+  usualmente entregan resultados similares.
+\item
+  Debido a los supuestos distribucionales de LDA, si estos se cumplen,
+  suele entregar mejores resultados que una regresión logística. De no
+  cumplirse los supuestos, la regresión puede superar a LDA.
+\item
+  KNN al tener un enfoque enteramente no-paramétrico, esto es: no asume
+  nada sobre la forma del límite de decisión. Por lo anterior, si el
+  límite de decisión es altamente no-lineal, KNN superará a la regresión
+  logística y LDA. Sin embargo, no tendremos información de que
+  predictores son importantes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item
+  QDA puede ser visto como un punto medio entre KNN y LDA/RL. Como QDA
+  asume un límite de decisión cuadrático, puede modelar más problemas
+  que al asumir linealidad.
+\item
+  Si bien QDA no es tan flexible como KNN, puede entregar mejores
+  resultados bajo un número limitado de observaciones de entrenamiento
+  debido a que se hacen ciertos supuestos sobre la forma del límite de
+  decisión.
+\end{itemize}
+\end{frame}
+
+\hypertarget{ejemplos-para-un-mismo-conjunto-de-datos}{%
+\subsection{Ejemplos para un mismo conjunto de
+datos}\label{ejemplos-para-un-mismo-conjunto-de-datos}}
+
+\begin{frame}[fragile]{Ejemplos para un mismo conjunto de datos}
+Utilizaremos un conjunto de datos de rendimientos porcentuales de las
+acciones \textbf{S\&P 500} a lo largo de 1250 días, desde principios de
+2001 hasta finales de 2005. Para cada día, se registraron los
+rendimientos porcentuals para cada uno de los 5 días hábiles previos
+(\texttt{lag1} a \texttt{lag5}). También se registró el volumen de
+acciones tranzadas en el día anterior (en billones) (variable
+\texttt{Volume}), el rendimiento porcentual del día en cuestión
+(variable \texttt{Today}) y la dirección, que representa si el mercado
+va hacia la alta o baja.
+
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(Smarket)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Year"      "Lag1"      "Lag2"      "Lag3"      "Lag4"      "Lag5"     
+## [7] "Volume"    "Today"     "Direction"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(Smarket)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1250    9
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(Smarket)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Year   Lag1   Lag2   Lag3   Lag4   Lag5 Volume  Today Direction
+## 1 2001  0.381 -0.192 -2.624 -1.055  5.010 1.1913  0.959        Up
+## 2 2001  0.959  0.381 -0.192 -2.624 -1.055 1.2965  1.032        Up
+## 3 2001  1.032  0.959  0.381 -0.192 -2.624 1.4112 -0.623      Down
+## 4 2001 -0.623  1.032  0.959  0.381 -0.192 1.2760  0.614        Up
+## 5 2001  0.614 -0.623  1.032  0.959  0.381 1.2057  0.213        Up
+## 6 2001  0.213  0.614 -0.623  1.032  0.959 1.3491  1.392        Up
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(Smarket[,}\SpecialCharTok{{-}}\DecValTok{9}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              Year         Lag1         Lag2         Lag3         Lag4
+## Year   1.00000000  0.029699649  0.030596422  0.033194581  0.035688718
+## Lag1   0.02969965  1.000000000 -0.026294328 -0.010803402 -0.002985911
+## Lag2   0.03059642 -0.026294328  1.000000000 -0.025896670 -0.010853533
+## Lag3   0.03319458 -0.010803402 -0.025896670  1.000000000 -0.024051036
+## Lag4   0.03568872 -0.002985911 -0.010853533 -0.024051036  1.000000000
+## Lag5   0.02978799 -0.005674606 -0.003557949 -0.018808338 -0.027083641
+## Volume 0.53900647  0.040909908 -0.043383215 -0.041823686 -0.048414246
+## Today  0.03009523 -0.026155045 -0.010250033 -0.002447647 -0.006899527
+##                Lag5      Volume        Today
+## Year    0.029787995  0.53900647  0.030095229
+## Lag1   -0.005674606  0.04090991 -0.026155045
+## Lag2   -0.003557949 -0.04338321 -0.010250033
+## Lag3   -0.018808338 -0.04182369 -0.002447647
+## Lag4   -0.027083641 -0.04841425 -0.006899527
+## Lag5    1.000000000 -0.02200231 -0.034860083
+## Volume -0.022002315  1.00000000  0.014591823
+## Today  -0.034860083  0.01459182  1.000000000
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{attach}\NormalTok{(Smarket)}
+\NormalTok{p6}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(Smarket) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(Smarket), }\AttributeTok{y =}\NormalTok{ Volume) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \StringTok{"circle"}\NormalTok{, }\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{colour =} \StringTok{"\#4682B4"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p6}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-31.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Regresión logística}
+\protect\hypertarget{regresiuxf3n-loguxedstica-1}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm.fit}\OtherTok{=}\FunctionTok{glm}\NormalTok{(Direction}\SpecialCharTok{\textasciitilde{}}\NormalTok{Lag1}\SpecialCharTok{+}\NormalTok{Lag2}\SpecialCharTok{+}\NormalTok{Lag3}\SpecialCharTok{+}\NormalTok{Lag4}\SpecialCharTok{+}\NormalTok{Lag5}\SpecialCharTok{+}\NormalTok{Volume,}
+            \AttributeTok{data=}\NormalTok{ Smarket , }\AttributeTok{family =}\NormalTok{ binomial )}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(glm.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + 
+##     Volume, family = binomial, data = Smarket)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.446  -1.203   1.065   1.145   1.326  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)
+## (Intercept) -0.126000   0.240736  -0.523    0.601
+## Lag1        -0.073074   0.050167  -1.457    0.145
+## Lag2        -0.042301   0.050086  -0.845    0.398
+## Lag3         0.011085   0.049939   0.222    0.824
+## Lag4         0.009359   0.049974   0.187    0.851
+## Lag5         0.010313   0.049511   0.208    0.835
+## Volume       0.135441   0.158360   0.855    0.392
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1731.2  on 1249  degrees of freedom
+## Residual deviance: 1727.6  on 1243  degrees of freedom
+## AIC: 1741.6
+## 
+## Number of Fisher Scoring iterations: 3
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm.probs}\OtherTok{=}\FunctionTok{predict}\NormalTok{(glm.fit,}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\NormalTok{glm.probs[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1         2         3         4         5         6         7         8 
+## 0.5070841 0.4814679 0.4811388 0.5152224 0.5107812 0.5069565 0.4926509 0.5092292 
+##         9        10 
+## 0.5176135 0.4888378
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{contrasts}\NormalTok{(Direction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Up
+## Down  0
+## Up    1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm.pred}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Down"}\NormalTok{,}\DecValTok{1250}\NormalTok{)}
+\NormalTok{glm.pred[glm.probs}\SpecialCharTok{\textgreater{}}\NormalTok{.}\DecValTok{5}\NormalTok{]}\OtherTok{=}\StringTok{"Up"}
+\FunctionTok{table}\NormalTok{(glm.pred,Direction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Direction
+## glm.pred Down  Up
+##     Down  145 141
+##     Up    457 507
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{507}\SpecialCharTok{+}\DecValTok{145}\NormalTok{)}\SpecialCharTok{/}\DecValTok{1250}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5216
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(glm.pred}\SpecialCharTok{==}\NormalTok{Direction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5216
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train}\OtherTok{=}\NormalTok{(Year }\SpecialCharTok{\textless{}}\DecValTok{2005}\NormalTok{)}
+\NormalTok{Smarket}\FloatTok{.2005}\OtherTok{=}\NormalTok{Smarket[}\SpecialCharTok{!}\NormalTok{train,]}
+\FunctionTok{dim}\NormalTok{(Smarket}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 252   9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Direction}\FloatTok{.2005}\OtherTok{=}\NormalTok{Direction[}\SpecialCharTok{!}\NormalTok{train]}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm.fit}\OtherTok{=}\FunctionTok{glm}\NormalTok{(Direction}\SpecialCharTok{\textasciitilde{}}\NormalTok{Lag1}\SpecialCharTok{+}\NormalTok{Lag2}\SpecialCharTok{+}\NormalTok{Lag3}\SpecialCharTok{+}\NormalTok{Lag4}\SpecialCharTok{+}\NormalTok{Lag5}\SpecialCharTok{+}\NormalTok{Volume,}
+            \AttributeTok{data =}\NormalTok{Smarket,}\AttributeTok{family=}\NormalTok{binomial,}\AttributeTok{subset=}\NormalTok{train)}
+\NormalTok{glm.probs}\OtherTok{=}\FunctionTok{predict}\NormalTok{(glm.fit,Smarket}\FloatTok{.2005}\NormalTok{,}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm.pred}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Down"}\NormalTok{,}\DecValTok{252}\NormalTok{)}
+\NormalTok{glm.pred[glm.probs }\SpecialCharTok{\textgreater{}}\NormalTok{.}\DecValTok{5}\NormalTok{]}\OtherTok{=}\StringTok{"Up"}
+\FunctionTok{table}\NormalTok{(glm.pred, Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Direction.2005
+## glm.pred Down Up
+##     Down   77 97
+##     Up     34 44
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(glm.pred}\SpecialCharTok{==}\NormalTok{Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4801587
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(glm.pred}\SpecialCharTok{!=}\NormalTok{Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5198413
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm.fit}\OtherTok{=}\FunctionTok{glm}\NormalTok{(Direction}\SpecialCharTok{\textasciitilde{}}\NormalTok{Lag1}\SpecialCharTok{+}\NormalTok{Lag2,}\AttributeTok{data=}\NormalTok{Smarket,}\AttributeTok{family=}\NormalTok{binomial,}
+            \AttributeTok{subset=}\NormalTok{train)}
+\NormalTok{glm.probs}\OtherTok{=}\FunctionTok{predict}\NormalTok{(glm.fit,Smarket}\FloatTok{.2005}\NormalTok{,}\AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\NormalTok{glm.pred}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\StringTok{"Down"}\NormalTok{,}\DecValTok{252}\NormalTok{)}
+\NormalTok{glm.pred[glm.probs }\SpecialCharTok{\textgreater{}}\NormalTok{.}\DecValTok{5}\NormalTok{]}\OtherTok{=}\StringTok{"Up"}
+\FunctionTok{table}\NormalTok{(glm.pred,Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Direction.2005
+## glm.pred Down  Up
+##     Down   35  35
+##     Up     76 106
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(glm.pred}\SpecialCharTok{==}\NormalTok{Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5595238
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{106}\SpecialCharTok{/}\NormalTok{(}\DecValTok{106}\SpecialCharTok{+}\DecValTok{76}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5824176
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(glm.fit,}\AttributeTok{newdata=}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Lag1=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.2}\NormalTok{,}\FloatTok{1.5}\NormalTok{),}\AttributeTok{Lag2=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.1}\NormalTok{,}\SpecialCharTok{{-}}\FloatTok{0.8}\NormalTok{)),}
+        \AttributeTok{type=}\StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1         2 
+## 0.4791462 0.4960939
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Análisis discriminante lineal}
+\protect\hypertarget{anuxe1lisis-discriminante-lineal-1}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda.fit}\OtherTok{=}\FunctionTok{lda}\NormalTok{(Direction}\SpecialCharTok{\textasciitilde{}}\NormalTok{Lag1}\SpecialCharTok{+}\NormalTok{Lag2,}\AttributeTok{data=}\NormalTok{Smarket,}\AttributeTok{subset=}\NormalTok{train)}
+\NormalTok{lda.fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## lda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train)
+## 
+## Prior probabilities of groups:
+##     Down       Up 
+## 0.491984 0.508016 
+## 
+## Group means:
+##             Lag1        Lag2
+## Down  0.04279022  0.03389409
+## Up   -0.03954635 -0.03132544
+## 
+## Coefficients of linear discriminants:
+##             LD1
+## Lag1 -0.6420190
+## Lag2 -0.5135293
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(lda.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-42.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda.pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(lda.fit,Smarket}\FloatTok{.2005}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(lda.pred)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "class"     "posterior" "x"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda.class}\OtherTok{=}\NormalTok{lda.pred}\SpecialCharTok{$}\NormalTok{class}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(lda.class,Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Direction.2005
+## lda.class Down  Up
+##      Down   35  35
+##      Up     76 106
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(lda.class}\SpecialCharTok{==}\NormalTok{Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5595238
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(lda.pred}\SpecialCharTok{$}\NormalTok{posterior[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textgreater{}=}\NormalTok{.}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 70
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(lda.pred}\SpecialCharTok{$}\NormalTok{posterior[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textless{}}\NormalTok{.}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 182
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda.pred}\SpecialCharTok{$}\NormalTok{posterior[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{,}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       999      1000      1001      1002      1003      1004      1005      1006 
+## 0.4901792 0.4792185 0.4668185 0.4740011 0.4927877 0.4938562 0.4951016 0.4872861 
+##      1007      1008      1009      1010      1011      1012      1013      1014 
+## 0.4907013 0.4844026 0.4906963 0.5119988 0.4895152 0.4706761 0.4744593 0.4799583 
+##      1015      1016      1017      1018 
+## 0.4935775 0.5030894 0.4978806 0.4886331
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda.class[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] Up   Up   Up   Up   Up   Up   Up   Up   Up   Up   Up   Down Up   Up   Up  
+## [16] Up   Up   Down Up   Up  
+## Levels: Down Up
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(lda.pred}\SpecialCharTok{$}\NormalTok{posterior[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textgreater{}}\NormalTok{.}\DecValTok{9}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Análisis discriminante cuadrático}
+\protect\hypertarget{anuxe1lisis-discriminante-cuadruxe1tico-1}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{qda.fit}\OtherTok{=}\FunctionTok{qda}\NormalTok{(Direction}\SpecialCharTok{\textasciitilde{}}\NormalTok{Lag1}\SpecialCharTok{+}\NormalTok{Lag2,}\AttributeTok{data=}\NormalTok{Smarket,}\AttributeTok{subset=}\NormalTok{train)}
+\NormalTok{qda.fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## qda(Direction ~ Lag1 + Lag2, data = Smarket, subset = train)
+## 
+## Prior probabilities of groups:
+##     Down       Up 
+## 0.491984 0.508016 
+## 
+## Group means:
+##             Lag1        Lag2
+## Down  0.04279022  0.03389409
+## Up   -0.03954635 -0.03132544
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{qda.class}\OtherTok{=}\FunctionTok{predict}\NormalTok{(qda.fit,Smarket}\FloatTok{.2005}\NormalTok{)}\SpecialCharTok{$}\NormalTok{class}
+\FunctionTok{table}\NormalTok{(qda.class,Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Direction.2005
+## qda.class Down  Up
+##      Down   30  20
+##      Up     81 121
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(qda.class}\SpecialCharTok{==}\NormalTok{Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5992063
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{K-vecinos cercanos}
+\protect\hypertarget{k-vecinos-cercanos-1}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(class)}
+\NormalTok{train.X}\OtherTok{=}\FunctionTok{cbind}\NormalTok{(Lag1,Lag2)[train,]}
+\NormalTok{test.X}\OtherTok{=}\FunctionTok{cbind}\NormalTok{(Lag1,Lag2)[}\SpecialCharTok{!}\NormalTok{train,]}
+\NormalTok{train.Direction}\OtherTok{=}\NormalTok{Direction[train]}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knn.pred}\OtherTok{=}\FunctionTok{knn}\NormalTok{(train.X,test.X,train.Direction,}\AttributeTok{k=}\DecValTok{1}\NormalTok{)}
+\FunctionTok{table}\NormalTok{(knn.pred,Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Direction.2005
+## knn.pred Down Up
+##     Down   43 58
+##     Up     68 83
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{83}\SpecialCharTok{+}\DecValTok{43}\NormalTok{)}\SpecialCharTok{/}\DecValTok{252}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knn.pred}\OtherTok{=}\FunctionTok{knn}\NormalTok{(train.X,test.X,train.Direction,}\AttributeTok{k=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{table}\NormalTok{(knn.pred,Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Direction.2005
+## knn.pred Down Up
+##     Down   48 55
+##     Up     63 86
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(knn.pred}\SpecialCharTok{==}\NormalTok{Direction}\FloatTok{.2005}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.531746
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Ejercicio}
+\protect\hypertarget{ejercicio}{}
+Realizar \textbf{KNN} con el conjunto \texttt{Caravan} y comparar su
+desempeño con un modelo de regresión logística.
+\end{frame}
+
+\hypertarget{uxe1rbol-de-decisiuxf3n}{%
+\subsection{Árbol de decisión}\label{uxe1rbol-de-decisiuxf3n}}
+
+\begin{frame}{Árbol de decisión}
+Los árboles de decisión son una metodología que estratifica o segmenta
+el espacio de los predictores en distintas regiones, en donde se utiliza
+una serie de reglas de división para segmentar los espacios.
+
+En general, esta metodología no es lo suficientemente competitiva en
+contraste con otras técnicas supervisadas (en términos de su precisión).
+
+El árbol de decisión puede ser aplicada para problemas de regresión y
+clasificación, en lo que sigue sólo nos concentramos en esta metodología
+para problemas de clasificación.
+\end{frame}
+
+\begin{frame}
+En un árbol de decisión para problemas de clasificación se predice que
+cada observación pertenece a la clase más frecuente entre las
+observaciones de entrenamiento en la región en la que pertenece.
+
+Utilizamos la \textbf{tasa de error de clasificación} para separar los
+espacios a lo largo del árbol de decisión. Debido a que se planea
+asignar una observación en una región particular a la \emph{clase más
+frecuente} en el conjunto de entrenamiento, este error se define como:
+
+\[
+E=1-\max_{k}(\hat{p}_{mk})
+\]
+
+en donde \(\hat{p}_{mk}\) representa la proporción de observaciones de
+entrenamiento en la región \(m-\)ésima que son de la clase \(k-\)ésima.
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/tree1.pdf}
+\caption{Árbol de decisión para conjunto de datos Hitters}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+En general, usar sólo la tasa de error de clasifición no es lo
+suficientemente sensible para esta metodología, y se opta por dos
+medidas alternativas: índice de Gini y entropía cruzada.
+
+El \textbf{índice de Gini} está definido como:
+
+\[
+G=\sum_{k=1}^{K} \hat{p}_{mk}(1-\hat{p}_{mk})
+\]
+
+que es una medida de la varianza total a lo largo de las \(K\) clases.
+Es claro ver que este índice toma valores pequeños si todos los
+\(\hat{p}_{mk}\) son cercanos a cero.
+\end{frame}
+
+\begin{frame}
+Una alternativa al índice anterior es la \textbf{entropía cruzada}, dada
+por:
+
+\[
+D=-\sum_{k=1}^{K} \hat{p}_{mk}\log \hat{p}_{mk}.
+\]
+
+Debido a que \(0 \leq \hat{p}_{mk}\leq 1\), sigue que
+\(0\leq -\hat{p}_{mk}\log\hat{p}_{mk}\). Se puede mostrar que la
+entropía cruzada tomará valores cercanos a cero si todos los
+\(\hat{p}_{mk}\) están cercano a cero o a uno. Por lo que ambos índices
+tomaran valores pequeños si la \(m-\)ésimo \emph{nodo} es \emph{puro}.
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/tree2.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tree)}
+\FunctionTok{attach}\NormalTok{(Carseats)}
+\FunctionTok{require}\NormalTok{(ISLR)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(Carseats)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Sales CompPrice Income Advertising Population Price ShelveLoc Age Education
+## 1  9.50       138     73          11        276   120       Bad  42        17
+## 2 11.22       111     48          16        260    83      Good  65        10
+## 3 10.06       113     35          10        269    80    Medium  59        12
+## 4  7.40       117    100           4        466    97    Medium  55        14
+## 5  4.15       141     64           3        340   128       Bad  38        13
+## 6 10.81       124    113          13        501    72       Bad  78        16
+##   Urban  US
+## 1   Yes Yes
+## 2   Yes Yes
+## 3   Yes Yes
+## 4   Yes Yes
+## 5   Yes  No
+## 6    No Yes
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{High}\OtherTok{=}\FunctionTok{as.factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(Sales}\SpecialCharTok{\textless{}=}\DecValTok{8}\NormalTok{,}\StringTok{"No"}\NormalTok{,}\StringTok{"Yes"}\NormalTok{))}
+\NormalTok{Carseats}\OtherTok{=}\FunctionTok{data.frame}\NormalTok{(Carseats,High)}
+\NormalTok{Carseats\_tree}\OtherTok{=}\FunctionTok{tree}\NormalTok{(High}\SpecialCharTok{\textasciitilde{}}\NormalTok{ . }\SpecialCharTok{{-}}\NormalTok{Sales, }\AttributeTok{data=}\NormalTok{Carseats)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(Carseats\_tree)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## tree(formula = High ~ . - Sales, data = Carseats)
+## Variables actually used in tree construction:
+## [1] "ShelveLoc"   "Price"       "Income"      "CompPrice"   "Population" 
+## [6] "Advertising" "Age"         "US"         
+## Number of terminal nodes:  27 
+## Residual mean deviance:  0.4575 = 170.7 / 373 
+## Misclassification error rate: 0.09 = 36 / 400
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(Carseats\_tree)}
+\FunctionTok{text}\NormalTok{(Carseats\_tree, }\AttributeTok{pretty=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-56.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Alternativa}
+\FunctionTok{library}\NormalTok{(rpart)}
+\FunctionTok{library}\NormalTok{(rpart.plot)}
+\NormalTok{Carseats\_tree2}\OtherTok{\textless{}{-}}\FunctionTok{rpart}\NormalTok{(}\AttributeTok{formula=}\NormalTok{High}\SpecialCharTok{\textasciitilde{}}\NormalTok{ . }\SpecialCharTok{{-}}\NormalTok{Sales, }\AttributeTok{data=}\NormalTok{Carseats)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree\_plot}\OtherTok{\textless{}{-}}\FunctionTok{rpart.plot}\NormalTok{(Carseats\_tree2)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-58.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train}\OtherTok{=}\FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(Carseats), }\DecValTok{200}\NormalTok{)}
+\NormalTok{Carseats\_test}\OtherTok{=}\NormalTok{Carseats[}\SpecialCharTok{{-}}\NormalTok{train,]}
+\NormalTok{High\_test}\OtherTok{=}\NormalTok{High[}\SpecialCharTok{{-}}\NormalTok{train]}
+\NormalTok{Carseats\_tree}\OtherTok{=}\FunctionTok{tree}\NormalTok{(High}\SpecialCharTok{\textasciitilde{}}\NormalTok{ .}\SpecialCharTok{{-}}\NormalTok{Sales ,Carseats ,}\AttributeTok{subset =}\NormalTok{ train)}
+\NormalTok{tree\_pred}\OtherTok{=}\FunctionTok{predict}\NormalTok{(Carseats\_tree ,Carseats\_test , }\AttributeTok{type =}\StringTok{"class"}\NormalTok{)}
+\FunctionTok{table}\NormalTok{(tree\_pred,High\_test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          High_test
+## tree_pred  No Yes
+##       No  107  29
+##       Yes  16  48
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{92}\SpecialCharTok{+}\DecValTok{65}\NormalTok{)}\SpecialCharTok{/}\DecValTok{200}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.785
+\end{verbatim}
+\end{frame}
+
+\hypertarget{muxe1quina-de-vectores-de-soporte-svm}{%
+\subsection{Máquina de vectores de soporte
+(SVM)}\label{muxe1quina-de-vectores-de-soporte-svm}}
+
+\begin{frame}{Máquina de vectores de soporte (SVM)}
+Esta metodología fue desarrollada en lo '90 por la comunidad de ciencias
+computacionales. Consiste en la generalización de un clasificador
+llamado \textbf{clasificador de máximo margen}, que destaca por su
+simpleza, pero que en la práctica es difícil de utilizar debido a que
+requiere que las clases sean separables por un límite lineal.
+\end{frame}
+
+\begin{frame}{Clasificador de máximo margen}
+\protect\hypertarget{clasificador-de-muxe1ximo-margen}{}
+Antes de definidir el clasificador de máximo margen, debemos introducir
+dos conceptos primordiales:
+
+\begin{itemize}
+\item
+  Hiperplano
+\item
+  Hiperplano de separación óptimo
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hiperplano}
+\protect\hypertarget{hiperplano}{}
+En un espacio \(p-\)dimensional, un hiperplano es un subespacio afín
+plano de dimensión \(p-1\). Por ejemplo, en dos dimensiones, un
+hiperplano es una linea. En tres dimensiones, un hiperplano es un
+subespacio 2-dimensional plano.
+
+Matemáticamente, para el caso bidimensional, un hiperplano está definido
+por la ecuación:
+
+\[
+\beta_0+\beta_1 X_1 + \beta_2 X_2 = 0
+\]
+
+para parámetros \(\beta_0,\beta_1\) y \(\beta_2\). Naturalmente, la
+extensión a \(p\) dimensiones es:
+
+\[
+\beta_0+\beta_1 X_1 +\beta_2 X_2 + \dots + \beta_p X_p =0
+\]
+
+que define un hiperplano \(p-\)dimensional, en el sentido de que si un
+punto \(X=(X_1,X_2,\dots,X_p)^T\) en un espacio \(p-\)dimensional que
+satisface la ecuación anterior.
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/hyperplane.pdf}
+\caption{Hiperplano \$1+2X\_1+3X\_2=0\$}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Clasificando usando un hiperplano separable}
+\protect\hypertarget{clasificando-usando-un-hiperplano-separable}{}
+Supongamos que tenemos una matriz de datos \(\mathbf{X}\) de tamaño
+\(x\times p\) que consiste en \(n\) observaciones de entrenamiento en un
+espacio \(p-\)dimensional,
+
+\[
+x_1=\begin{pmatrix}x_{11} \\ \vdots \\ x_{1p}\end{pmatrix} , \dots,x_n=\begin{pmatrix} x_{n1} \\ \vdots \\ x_{np} \end{pmatrix}
+\]
+
+y que estas observaciones caen dentro de dos clases, esto es,
+\(y_1,\dots,y_n \in \{-1,1\}\) donde \(-1\) representa una clase y \(1\)
+la otra clase. También tenemos una observación de prueba, un
+\(p-\)vector de \emph{features} observadas
+\(x^*=(x_{1}^{*}\, \dots \,x_{p}^{*})^T\)
+\end{frame}
+
+\begin{frame}
+Nuestro objetivo es desarrollar un clasificador basado en este conjunto
+de entrenamiento que clasifique correctamente la observación de prueba
+usando las variables medidas, para esto nosotros ya hemos visto varias
+metodologías que podríamos usar: LDA, QDA, árboles de decisión y
+regresión logística.
+
+En lo que sigue veremos una metodología que se base en el concepto de
+hiperplano separable.
+\end{frame}
+
+\begin{frame}
+Supongamos que es posible construir un hiperplano que separe las
+observaciones de entrenamiento perfectamente de acuerdo a sus clases.
+Por lo que si utilizamos las clase como antes (\(\{-1,1\}\)) se tendrá
+la propiedad que
+
+\[
+\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip} > 0 \quad \text{si} \quad y_i=1
+\]
+
+y,
+
+\[
+\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip} < 0 \quad \text{si} \quad y_i=-1
+\]
+
+equivalentemente, un hiperplano separable tiene la propiedad que:
+
+\[
+y_i(\beta_0 +\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip})>0
+\]
+
+para todo \(i=1,\dots,n\).
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/hyperplane_sep.pdf}
+\caption{Hiperplanos separables}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+Si un hiperplano separable existe, podemos usarlo para construir un
+clasificador bastante natural: una observación de prueba es asignada una
+clase dependiendo de que lado del hiperplano está ubicada.
+
+Intuitivamente, podremos estar seguro de nuestra clasificación conforme
+la magnitud obtenida tras clasificar la observación de prueba.
+\end{frame}
+
+\begin{frame}{Clasificador de margen máximo}
+\protect\hypertarget{clasificador-de-margen-muxe1ximo}{}
+En general, si nuestros datos pueden ser perfectamente separados un
+hiperplano, entonces existiran un infinito número de aquellos
+hiperplanos. Para poder construir un clasificador basado en un
+hiperplano separable, debemos encontrar una forma razonable de decidir
+cual de estos infinitos hiperplanos separables usar.
+
+Una elecci ón natural es el \textbf{hiperplano de máximo margen}
+(también conocido como \emph{hiperplano separable máximo}), que es el
+hiperplano que está más lejos de las observaciones de entrenamiento.
+Esto es, podemos calcular la distancia (perpendicular) desde cada punto
+a un hiperplano separable dado; la menor de aquellas distancias es la
+mínima distancia entre las observaciones y el hiperplano, esta distancia
+es conocida como \textbf{margen}.
+\end{frame}
+
+\begin{frame}
+El hiperplano de margen máximo es el hiperplano separable en donde el
+margen es el más grande, esto es, es el hiperplano que tiene la
+distancia mínima más lejana a las observaciones de entrenamiento.
+
+Luego, podemos clasificar una observación de prueba basado en que lado
+del hiperplano de margen máximo recae.
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/support_vectors.pdf}
+\caption{Representación de vectores de suporte.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Construcción de un clasificador de margen máximo}
+\protect\hypertarget{construcciuxf3n-de-un-clasificador-de-margen-muxe1ximo}{}
+Ahora consideramos la tarea de construir el hiperplano de margen máximo
+basado en un conjunto de \(n\) observaciones de entrenamiento
+\(x_1,\dots, x_n \in \mathbb{R}^{p}\) y clases asociadas
+\(y_1,\dots,y_n \in \{-1,1\}\). En síntesis, este hiperplano es la
+solución de un problema de optimización dado por:
+
+\begin{align*}
+&\max_{\beta_0,\beta_1,\dots,\beta_p} \quad M\\
+&\text{ Sujeto a } \sum_{j=1}^{p} \beta_{j}^{2}=1 \\
+&y_i(\beta_0 +\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip})\geq M \quad \forall i=1,\dots,n
+\end{align*}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(e1071)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{411}\NormalTok{)}
+\NormalTok{coord }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{40}\NormalTok{), }\DecValTok{20}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(coord) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"X1"}\NormalTok{,}\StringTok{"X2"}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{10}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{10}\NormalTok{))}
+\NormalTok{coord[y }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, ] }\OtherTok{\textless{}{-}}\NormalTok{ coord[y }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, ] }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(coord, y)}
+\NormalTok{plot\_svm}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X1, }\AttributeTok{y =}\NormalTok{ X2, }\AttributeTok{color =} \FunctionTok{as.factor}\NormalTok{(y))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{y)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_svm }\OtherTok{\textless{}{-}} \FunctionTok{svm}\NormalTok{(}\AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X1 }\SpecialCharTok{+}\NormalTok{ X2, }\AttributeTok{data =}\NormalTok{ data, }\AttributeTok{kernel =} \StringTok{"linear"}\NormalTok{,}
+                  \AttributeTok{cost =} \DecValTok{10}\NormalTok{, }\AttributeTok{scale =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(mod\_svm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svm(formula = y ~ X1 + X2, data = data, kernel = "linear", cost = 10, 
+##     scale = FALSE)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  10 
+## 
+## Number of Support Vectors:  8
+## 
+##  ( 4 4 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_svm}\SpecialCharTok{$}\NormalTok{index}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  5  6  8 12 13 15 18
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(mod\_svm, data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-63.pdf}
+\end{frame}
+
+\begin{frame}{Clasificador de vectores de soporte}
+\protect\hypertarget{clasificador-de-vectores-de-soporte}{}
+\begin{figure}
+\centering
+\includegraphics{figs/hyperplane_non_sep.pdf}
+\caption{Dos clases no separables por hiperplano}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+En el caso anterior, un hiperplano separable no existe. En la figura
+siguiente, la adición de un solo dato provoca un cambio drástico en el
+margen máximo del hiperplano.
+
+\includegraphics{figs/hyperplane_non_sep_2.pdf}
+\end{frame}
+
+\begin{frame}
+Este cambio, reduce la confianza de la asignación de clases. Así,
+podemos concluir que nuestra metodología es extremadamente sensible a
+cambio, incluso de sólo una observación.
+
+En estos casos, quizás deberíamos considerar un clasificador basado en
+un hiperplano que no separe perfectamente las dos clases, con el fin de:
+
+\begin{itemize}
+\item
+  Tener mayor robustez a las observaciones individuales
+\item
+  Tener mayor clasificación para la mayoría de las observaciones de
+  entrenamiento
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Así, podría ser beneficioso clasificar erróneamente un par de
+observaciones de entrenamiento para realizar un mejor trabajo
+clasificando el resto de las observaciones.
+
+El Clasificador de vectores de soporte (\emph{support vector
+classifier}) o aveces llamado \emph{soft margin classifier}, hace
+exactamente lo anterior; en vez de buscar el marger más grande tal que
+cada observación que clasifique perfectamente, permite que ciertas
+observaciones estén en la lado incorrecto del margen, o del lado
+incorrecto del hiperplano.
+\end{frame}
+
+\begin{frame}
+Matemáticamente, corresponde a la solución del siguiente problema de
+optimización:
+
+\begin{align*}
+&\max_{\beta_0,\beta_1,\dots,\beta_p; \epsilon_1,\dots,\epsilon_n} \quad M\\
+&\text{ Sujeto a } \sum_{j=1}^{p} \beta_{j}^{2}=1 \\
+&y_i(\beta_0 +\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip})\geq M (1-\epsilon_i) \quad \forall i=1,\dots,n \\
+&\epsilon_i \geq 0, \sum_{i=1}^{n} \epsilon_i \leq C
+\end{align*}
+
+donde \(C\) es un parámetro de \emph{tunning} no negativo. Cuando este
+parámetro es grande, habrá una gran tolerancia a que las observaciones
+están al lado incorrecto del margen (y por ende el margen será grande)
+\end{frame}
+
+\begin{frame}{SVM}
+\protect\hypertarget{svm}{}
+Support Vector Machine (SVM) o Maquina de vectores de soporte es una
+extensión del clasificador de vectores de soporte que se obtiene tras
+aumentar el espacio de variables de una manera específica: usando
+\textbf{kernels}.
+
+En el caso del problema de optimización del clasificador de vectores de
+soporte, la solución involucra sólo \textbf{productos internos} de las
+observaciones (en contraste con las observaciones mismas).
+\end{frame}
+
+\begin{frame}
+El producto interno de dos \(r-\)vectores \(a\) y \(b\) se define como
+\(\langle a,b\rangle=\sum_{i=1}^{r} a_i b_i\). Por lo que el producto
+interno de dos observaciones \(x_i,x_{i'}\) está dado por:
+
+\[
+\langle x_i, x_{i'}\rangle=\sum_{j=1}^{p}x_{ij}x_{i'j}
+\]
+
+Más precisamente, se puede mostrar que:
+
+\begin{itemize}
+\item
+  El clasificador de vectores de soportes lineal se puede representar
+  como
+
+  \[
+  f(x)=\beta_0+\sum_{i=1}^{n}\alpha_i\langle x,x_i\rangle
+  \]
+\end{itemize}
+
+donde hay \(n\) parámetros \(\alpha_i, i=1,\dots,n\), uno para cada
+observación de entrenamiento.
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\tightlist
+\item
+  Para estimar los parámetros \(\alpha_1,\dots,\alpha_n\) y \(\beta_0\),
+  sólo necesitamos los \(\begin{pmatrix} n \\ 2 \end{pmatrix}\)
+  productos internos \(\langle x_i,x_{i'}\rangle\) entre todos los pares
+  de observaciones de entrenamiento. (esto es \(n(n-1)/2\) pares).
+\end{itemize}
+
+Supongamos que cada producto interno que hemos definido aparece en la
+representación del clasificador de vectores de soporte lineal, o en el
+cálculo del problema de optimización. Reemplazaremos este producto
+interno con una \textbf{generalización} de este, de la forma:
+
+\[
+K(x_i,x_{i'})
+\]
+
+donde \(K\) es una función que le llamaremos \textbf{kernel}.
+\end{frame}
+
+\begin{frame}
+Un \textbf{kernel} es una función que cuantifica la similitud entre dos
+observaciones. Por ejemplo, podemos tomar:
+
+\[
+K(x_i,x_{i'})=\sum_{j=1}^{p} x_{ij}x_{i'j}
+\]
+
+que nos entregaría el clasificar de vectores de soporte. Lo anterior se
+dice que es un kernel lineal porque el lineal para las \emph{features}.
+El kernel lineal esencialmente cuantifica la similitud de un par de
+observaciones usando la correlación de Pearson.
+\end{frame}
+
+\begin{frame}
+Alternativamente, podemos considerar otra forma de kernel, por ejemplo:
+
+\[
+K(x_i,x_{i'})=(1+\sum_{j=1}^{p} x_{ij}x_{i'j})^{d}
+\]
+
+Este kernel es conocido como el \textbf{kernel polinomial} de grado
+\(d\), donde \(d\) es un entero positivo. Cuando este parámetro es mayor
+a 1, el clasificador de vectores de soportes tiende a tener un límite de
+decisión bastante más flexible.
+\end{frame}
+
+\begin{frame}
+Cuando el clasificador de vectores de soporte es combinado con un kernel
+no lineal (como el anterior), el clasificador resultante se conoce como
+\textbf{support vector machine}.
+
+Otra opción popular de kernel es el \textbf{kernel radial}, que tiene la
+forma:
+
+\[
+K(x_i,x_{i'})=\exp(-\gamma \sum_{j=1}^{p}(x_{ij}-x_{i'j})^2)
+\]
+
+donde \(\gamma\) es una constante positiva.
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics{figs/radial_kernel.pdf}
+\caption{Ejemplo de SVM con kernel polinomial de grado 3 y SVM con
+kernel radial.}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-6}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{ (}\DecValTok{411}\NormalTok{)}
+\NormalTok{x}\OtherTok{=}\FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{200}\SpecialCharTok{*}\DecValTok{2}\NormalTok{), }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\NormalTok{x[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{,]}\OtherTok{=}\NormalTok{x[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{,]}\SpecialCharTok{+}\DecValTok{2}
+\NormalTok{x[}\DecValTok{101}\SpecialCharTok{:}\DecValTok{150}\NormalTok{,]}\OtherTok{=}\NormalTok{x[}\DecValTok{101}\SpecialCharTok{:}\DecValTok{150}\NormalTok{,]}\SpecialCharTok{{-}}\DecValTok{2}
+\NormalTok{y}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{150}\NormalTok{),}\FunctionTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{50}\NormalTok{))}
+\NormalTok{dat}\OtherTok{=}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\NormalTok{x,}\AttributeTok{y=}\FunctionTok{as.factor}\NormalTok{(y))}
+\NormalTok{plot\_radial}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(dat) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x}\FloatTok{.1}\NormalTok{, }\AttributeTok{y =}\NormalTok{ x}\FloatTok{.2}\NormalTok{, }\AttributeTok{colour =}\NormalTok{ y) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \StringTok{"circle"}\NormalTok{, }\AttributeTok{size =} \FloatTok{1.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_hue}\NormalTok{(}\AttributeTok{direction =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_radial}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-65.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{train}\OtherTok{=}\FunctionTok{sample}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{100}\NormalTok{)}
+\NormalTok{svmfit}\OtherTok{=}\FunctionTok{svm}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\NormalTok{., }\AttributeTok{data=}\NormalTok{dat[train,], }\AttributeTok{kernel=}\StringTok{"radial"}\NormalTok{, }\AttributeTok{gamma=}\DecValTok{1}\NormalTok{,}\AttributeTok{cost =}\DecValTok{1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(svmfit , dat[train ,])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-66.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(svmfit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svm(formula = y ~ ., data = dat[train, ], kernel = "radial", gamma = 1, 
+##     cost = 1)
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  radial 
+##        cost:  1 
+## 
+## Number of Support Vectors:  35
+## 
+##  ( 16 19 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  1 2
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(}\AttributeTok{true=}\NormalTok{dat[}\SpecialCharTok{{-}}\NormalTok{train,}\StringTok{"y"}\NormalTok{],}\AttributeTok{pred=}\FunctionTok{predict}\NormalTok{(svmfit, }\AttributeTok{newdata=}\NormalTok{dat[}\SpecialCharTok{{-}}\NormalTok{train,]))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     pred
+## true  1  2
+##    1 68  7
+##    2  9 16
+\end{verbatim}
+\end{frame}
+
+\hypertarget{muxe9todos-no-supervisados}{%
+\section{Métodos no supervisados}\label{muxe9todos-no-supervisados}}
+
+\begin{frame}{Métodos no supervisados}
+Como hemos mencionado antes, en los métodos no supervisados
+\textbf{sólo} tenemos las variables \(X_1,X_2,\dots,X_p\) medidas en
+\(n\) observaciones. No estaremos interesados en predecir, porque no
+tenemos una variable respuesta \(Y\) que esté asociada a nuestros datos.
+En cambio, nuestro objetivo será \emph{descubrir} características
+interesantes de las variables medidas.
+
+\begin{itemize}
+\item
+  ¿Hay alguna forma que nos entregue información de visualizar los
+  datos?
+\item
+  ¿Podemos encontrar subgrupos entre las variables u observaciones?
+\end{itemize}
+
+En lo que sigue nos concentraremos en 3 técnicas particulares:
+\emph{clustering}, análisis de componentes principales y descomposición
+de valores singulares.
+\end{frame}
+
+\begin{frame}
+En general, realizar técnicas no supervisadas tiende a ser más difícil
+que realizar un método supervisado, pues no se tiene un objetivo claro
+para el análisis (como lo es predecir en el caso supervisado).
+
+Usualmente, las metodologías no supervisadas se realizar como parte del
+análisis exploratorio de dato. Además, no existe un consenso en la mejor
+forma de evaluar las técnicas implementadas en datos de prueba. En el
+caso supervisados, podemos probar nuestro modelo creado con un conjunto
+de prueba, pero en el caso no supervisado no es posible debido a que no
+sabemos el respuesta \textbf{verdadera}.
+\end{frame}
+
+\begin{frame}
+Ejemplos de aplicación de estas metodologías son vastas:
+
+\begin{itemize}
+\item
+  Identificación de cáncer
+\item
+  Historiales de compras
+\item
+  Etc.
+\end{itemize}
+\end{frame}
+
+\hypertarget{anuxe1lisis-de-componentes-principales}{%
+\subsection{Análisis de componentes
+principales}\label{anuxe1lisis-de-componentes-principales}}
+
+\begin{frame}{Análisis de componentes principales}
+El análisis de componentes principales nos permite resumir, ante un
+conjunto grande de variables correlacionadas, un subconjunto con menor
+número de variables representativas que colectivamente explican la
+mayoría de la variabilidad del conjunto original.
+
+Además de producir variables que pueden ser usadas para métodos
+supervisados, \textbf{PCA} (por sus siglas en inglés, \emph{principal
+component analysis}) sirve como herramienta para visualizar datos.
+\end{frame}
+
+\begin{frame}{Qué son las componentes principales?}
+\protect\hypertarget{quuxe9-son-las-componentes-principales}{}
+Supongamos que deseamos visualizar \(n\) observaciones con mediciones en
+un conjunto de \(a\) variables/características/\emph{features},
+\(X_1,X_2,\dots,X_p\), como parte de un análisis exploratorio de datos.
+Podemos examinar los gráficos bidimensionales de dispersión de los
+datos, que cada una contiene \(n\) mediciones de observaciones de 2
+variables. Sin embargo, hay
+\(\begin{pmatrix} p \\ 2 \end{pmatrix}=p(p-1)/2\) de tales gráficos.
+
+Por ejemplo, para \(p=10\) habrán 45 gráficos. Por lo que si, \(p\) es
+grande no nos será posible mostrarlos todos, y además ninguno de ellos
+será informativo debido a que sólo tienen un pequeña fracción del total
+de información disponible en los datos.
+
+Así, necesitamos una mejor metodología para poder visualizar las \(n\)
+observaciones cuando \(p\) es grande.
+\end{frame}
+
+\begin{frame}
+En particular, quisieramos encontrar una presentación de baja
+dimensionalidad de los datos que capture la mayor cantidad de
+información posible. Por ejemplo, si podemos obtener un diagrama
+bidimensional de los datos que capture la mayoría de la información,
+entonces podemos graficar las observaciones en aquel espacio.
+
+PCA nos entrega una herramienta para hacer justamento esto. Encuentra
+una representación de baja dimensionalidad del conjunto de datos que
+contiene la mayor variabilidad posible. La idea es que cada una de las
+\(n\) observaciones vive en un espacio \(p-\)dimensional, pero no todas
+estas dimensiones son igualmente interesantes.
+\end{frame}
+
+\begin{frame}
+PCA busca un pequeño número de dimensiones que sean lo más interesantes
+posibles, donde el concepto de \emph{interesante} es medido por la
+cantidad que varían las observaciones en cada uno de las dimensiones.
+
+Cada una de las dimensiones encontradas por PCA es una combinación
+lineal de \(p\) variables.
+
+Ahora nos enfocamos en la manera en que PCA encuentra estas dimensiones
+o componentes principales.
+\end{frame}
+
+\begin{frame}
+El \textbf{primer componente principal} de un conjunto de variables
+\(X_1,X_2,\dots,X_p\) es la combinación lineal normalizada de las
+variables\[
+Z_1=\phi_{11}X_1+\phi_{21}X_2+\dots+\phi_{p1}X_p
+\]
+
+que tenga la \textbf{mayor varianza}. Por \emph{normalizada}, se refiere
+a que
+
+\[
+\sum_{j=1}^{p} \phi_{j1}^{2}=1.
+\]
+
+Llamamos a los elementos \(\phi_{11},\phi_{2 1},\dots,\phi_{p1}\)reciben
+en el nombre de \emph{loadings} y son los que definen a la componente.
+Así, estos elementos conforman el vector de \emph{loadings} de los
+componentes principales \(\phi_1=(\phi_{11}\,\phi_{21}\dots\phi_{p1})'\)
+\end{frame}
+
+\begin{frame}
+Dado un conjunto de datos \(\mathbf{X}\) de tamaño \(n\times p\). ¿Cómo
+calculamos la primera componente principal?
+
+Debido a que sólo estamos interesado en la varianza, asumiremos que cada
+variable de \(\mathbf{X}\) ha sido centrada en cero ( esto es, que las
+medias de las columnas sean cero). Luego, buscamos la combinación lineal
+de las variables medidas con forma:
+
+\[
+z_{i1}=\phi_{11}x_{i1}+\phi_{21}x_{i2}+\dots+\phi_{p1}x_{ip}
+\]
+
+que tenga la mayor varianza muestral, sujeto a la restricción que
+\(\sum_{j=1}^{p} \phi_{j1}^{2}=1\). En otras palabras, el vector de
+\emph{loadings} de la primera componente principal resuelve el siguiente
+problema de optimización:
+
+\[\max_{\phi_{11},\dots,\phi_{p1}}\Bigg\{ \dfrac{1}{n}\sum_{i=1}^{n} \left( \sum_{j=1}^{p} \phi_{j1}x_{ij}\right)\Bigg\} \text{ sujeto a }\sum_{j=1}^{p}\phi_{j1}^2=1
+\]
+\end{frame}
+
+\begin{frame}{Reproducibilidad de las componentes}
+\protect\hypertarget{reproducibilidad-de-las-componentes}{}
+El proceso de PCA genera siempre las mismas componentes principales
+independientemente del software utilizado, es decir, el valor de los
+\emph{loadings} resultantes es el mismo.
+
+La única discrepancia que podría suceder es que los signos estén
+invertidos, pues los \emph{loadings} determinan la dirección de la
+componente.
+\end{frame}
+
+\begin{frame}{Influencia de outliers}
+\protect\hypertarget{influencia-de-outliers}{}
+Al trabajar con varianzas, el método PCA es altamente sensible a
+\emph{outliers}, por lo que es altamente recomendable estudiar si los
+hay. La detección de valores atípicos con respecto a una determinada
+dimensión es algo relativamente sencillo de hacer mediante
+comprobaciones gráficas.
+
+Las técnicas diagnóstico de datos anómalos escapa de los objetivos del
+curso, pero son estudiados en análisis multivariado o modelos lineales
+(dentro del contexto de regresión)
+\end{frame}
+
+\begin{frame}{Proporción de varianza explicada}
+\protect\hypertarget{proporciuxf3n-de-varianza-explicada}{}
+Una de las preguntas más frecuentes que surge tras realizar un PCA es:
+¿Cuánta información presente en el set de datos original se pierde al
+proyectar las observaciones en un espacio de menor dimensión? o lo que
+es lo mismo ¿Cuanta información es capaz de capturar cada una de las
+componentes principales obtenidas? Para contestar a estas preguntas se
+recurre a la proporción de varianza explicada por cada componente
+principal.
+
+Asumiendo que las variables se han estandarizado para tener media cero,
+la varianza total presente en el set de datos se define como:
+
+\[
+\sum_{j=1}^p Var(X_j) = \sum_{j=1}^p \dfrac{1}{n} \sum_{i=1}^n x^{2}_{ij}
+\]
+\end{frame}
+
+\begin{frame}
+y la varianza explicada por la componente \(m\) es:
+
+\[
+\dfrac{1}{n} \sum_{i=1}^n z^{2}_{im} = \dfrac{1}{n} \sum_{i=1}^n  \left( \sum_{j=1}^p \phi_{jm}x_{ij} \right)^2
+\]
+
+Así, la proporción de varianza explicada por la componente \(m\) viene
+dada por
+
+\[
+\dfrac{\sum_{i=1}^n  \left( \sum_{j=1}^p \phi_{jm}x_{ij} \right)^2} {\sum_{j=1}^p \sum_{i=1}^n x^{2}_{ij}}
+\]
+
+Esta proporción y su forma acumulada (a lo largo de las componentes) nos
+entrega información crucial a la hora de elegir cuantas componentes
+principales utilizar en nuestro análisis.
+\end{frame}
+
+\begin{frame}{Número óptimo de componentes principales}
+\protect\hypertarget{nuxfamero-uxf3ptimo-de-componentes-principales}{}
+Por lo general, dada una matriz de datos de dimensiones \(n \times p\),
+el número de componentes principales que se pueden calcular es como
+máximo de \(\min\{n-1,p\}\). Sin embargo, siendo el objetivo del PCA
+reducir la \textbf{dimensionalidad}, suelen ser de interés utilizar el
+número mínimo de componentes que resultan suficientes para explicar los
+datos.
+
+No existe una respuesta o método único que permita identificar cual es
+el número óptimo de componentes principales a utilizar. Una forma de
+proceder muy extendida consiste en evaluar la proporción de varianza
+explicada acumulada y seleccionar el número de componentes mínimo a
+partir del cual el incremento deja de ser sustancial.
+\end{frame}
+
+\begin{frame}
+\includegraphics{figs/optimal_pca.png}
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo}
+\protect\hypertarget{ejemplo-7}{}
+Datos del porcentaje de asaltos, asesinatos y secuestros por cada 100
+mil habitantes para cada uno de los estos de US, en el año 1973.
+Adicionalmente, se incluye el porcentaje de la población de cada estado
+que vive en zonas rurales.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(}\StringTok{"USArrests"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(USArrests)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Murder Assault UrbanPop Rape
+## Alabama      13.2     236       58 21.2
+## Alaska       10.0     263       48 44.5
+## Arizona       8.1     294       80 31.0
+## Arkansas      8.8     190       50 19.5
+## California    9.0     276       91 40.6
+## Colorado      7.9     204       78 38.7
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{apply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ USArrests, }\AttributeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\AttributeTok{FUN =}\NormalTok{ mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Murder  Assault UrbanPop     Rape 
+##    7.788  170.760   65.540   21.232
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{apply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ USArrests, }\AttributeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\AttributeTok{FUN =}\NormalTok{ var)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Murder    Assault   UrbanPop       Rape 
+##   18.97047 6945.16571  209.51878   87.72916
+\end{verbatim}
+
+Si no estandarizamos, la variable \emph{Assault} será la que dominará
+nuestro PCA.
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca }\OtherTok{\textless{}{-}} \FunctionTok{prcomp}\NormalTok{(USArrests, }\AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(pca)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "sdev"     "rotation" "center"   "scale"    "x"
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+Elementos \emph{center} y \emph{scale} contienen la media y desviación
+en escala original.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca}\SpecialCharTok{$}\NormalTok{center}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Murder  Assault UrbanPop     Rape 
+##    7.788  170.760   65.540   21.232
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca}\SpecialCharTok{$}\NormalTok{scale}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Murder   Assault  UrbanPop      Rape 
+##  4.355510 83.337661 14.474763  9.366385
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+Elemento \emph{rotation} contiene el valor de los loadings para cada
+componente
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca}\SpecialCharTok{$}\NormalTok{rotation}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 PC1        PC2        PC3         PC4
+## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
+## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
+## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
+## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+Valor de las componentes principales para cada observación
+(\emph{principal component scores})
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(pca}\SpecialCharTok{$}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   PC1        PC2         PC3          PC4
+## Alabama    -0.9756604  1.1220012 -0.43980366  0.154696581
+## Alaska     -1.9305379  1.0624269  2.01950027 -0.434175454
+## Arizona    -1.7454429 -0.7384595  0.05423025 -0.826264240
+## Arkansas    0.1399989  1.1085423  0.11342217 -0.180973554
+## California -2.4986128 -1.5274267  0.59254100 -0.338559240
+## Colorado   -1.4993407 -0.9776297  1.08400162  0.001450164
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(pca}\SpecialCharTok{$}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 50  4
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{biplot}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pca, }\AttributeTok{scale =} \DecValTok{0}\NormalTok{, }\AttributeTok{cex =} \FloatTok{0.6}\NormalTok{, }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"blue4"}\NormalTok{, }\StringTok{"brown3"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-75.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca}\SpecialCharTok{$}\NormalTok{rotation }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{pca}\SpecialCharTok{$}\NormalTok{rotation}
+\NormalTok{pca}\SpecialCharTok{$}\NormalTok{x        }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{pca}\SpecialCharTok{$}\NormalTok{x}
+\FunctionTok{biplot}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pca, }\AttributeTok{scale =} \DecValTok{0}\NormalTok{, }\AttributeTok{cex =} \FloatTok{0.6}\NormalTok{, }\AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"blue4"}\NormalTok{, }\StringTok{"brown3"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-76.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca}\SpecialCharTok{$}\NormalTok{sdev}\SpecialCharTok{\^{}}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.4802416 0.9897652 0.3565632 0.1734301
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prop\_varianza }\OtherTok{\textless{}{-}}\NormalTok{ pca}\SpecialCharTok{$}\NormalTok{sdev}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(pca}\SpecialCharTok{$}\NormalTok{sdev}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{prop\_varianza}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.62006039 0.24744129 0.08914080 0.04335752
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ej\_pca}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =} \FunctionTok{data.frame}\NormalTok{(prop\_varianza, }\AttributeTok{pc =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{),}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pc, }\AttributeTok{y =}\NormalTok{ prop\_varianza)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Componente principal"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Prop. de varianza explicada"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ej\_pca}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-79.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prop\_varianza\_acum }\OtherTok{\textless{}{-}} \FunctionTok{cumsum}\NormalTok{(prop\_varianza)}
+\NormalTok{prop\_varianza\_acum}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6200604 0.8675017 0.9566425 1.0000000
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ej\_pca2}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =} \FunctionTok{data.frame}\NormalTok{(prop\_varianza\_acum, }\AttributeTok{pc =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{),}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ pc, }\AttributeTok{y =}\NormalTok{ prop\_varianza\_acum, }\AttributeTok{group =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Componente principal"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Prop. varianza explicada acumulada"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ej\_pca2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-82.pdf}
+\end{frame}
+
+\hypertarget{muxe9todos-de-agrupamiento}{%
+\subsection{Métodos de agrupamiento}\label{muxe9todos-de-agrupamiento}}
+
+\begin{frame}{Métodos de agrupamiento}
+TBD
 \end{frame}
 
 

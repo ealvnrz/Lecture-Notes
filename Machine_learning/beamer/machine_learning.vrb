@@ -1,20 +1,7 @@
-\small
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{411}\NormalTok{)}
-\NormalTok{grupo\_a }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \SpecialCharTok{{-}}\FloatTok{1.25}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
-\NormalTok{grupo\_b }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \FloatTok{1.25}\NormalTok{, }\AttributeTok{sd =} \DecValTok{1}\NormalTok{)}
-\NormalTok{datos }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{valor =} \FunctionTok{c}\NormalTok{(grupo\_a, grupo\_b),}
-                    \AttributeTok{grupo =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{), }\AttributeTok{each =} \DecValTok{30}\NormalTok{))}
-
-\NormalTok{p5}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ datos, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ valor, }\AttributeTok{fill =}\NormalTok{ grupo)) }\SpecialCharTok{+}
-\FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{position =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
-\FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"longdash"}\NormalTok{) }\SpecialCharTok{+}
-\FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ (}\FunctionTok{mean}\NormalTok{(grupo\_a) }\SpecialCharTok{+} \FunctionTok{mean}\NormalTok{(grupo\_b))}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)  }\SpecialCharTok{+}
-\FunctionTok{annotate}\NormalTok{(}\AttributeTok{geom =} \StringTok{"text"}\NormalTok{, }\AttributeTok{x =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{y =} \DecValTok{9}\NormalTok{, }\AttributeTok{label =} \StringTok{"Límite decisión Bayes"}\NormalTok{) }\SpecialCharTok{+}
-\FunctionTok{annotate}\NormalTok{(}\AttributeTok{geom =} \StringTok{"text"}\NormalTok{, }\AttributeTok{x =} \SpecialCharTok{{-}}\FloatTok{1.5}\NormalTok{, }\AttributeTok{y =} \DecValTok{10}\NormalTok{, }\AttributeTok{label =} \StringTok{"Límite decisión LDA"}\NormalTok{) }\SpecialCharTok{+}
-\FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-\FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{)}
+\NormalTok{ej\_pca2}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-82.pdf}

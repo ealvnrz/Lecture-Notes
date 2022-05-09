@@ -961,6 +961,1044 @@ theme(legend.position = "top")
 p5
 ```
 
-### Análisis discriminante liean con $p>1$
+### Análisis discriminante lineal con $p>1$
 
-tbd
+En lo que sigue, vamos a extender las nociones de análisis discriminante cuando se tienen múltiples predictores, para ello asumiremos que $X=(X_1,X_2,\dots,X_p)$ es obtenido desde una distribución Gaussiana multivariada, con medias por clase e igual matriz de varianza-covarianza.
+
+Recordar que si $X\sim N(\mu,\Sigma)$ con $\mathbb{E}(X)=\mu$ (vector de medias) y $Cov(X)=\Sigma$ la matriz $p\times p$ de covarianza de $X$. Formalmente, la densidad de $X$ se define como:
+
+$$
+f(x)=\dfrac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp\left( -\dfrac{1}{2}(x-\mu)^{T} \Sigma^{-1}(x-\mu)\right)
+$$
+
+En el caso de $p>1$ predictores, el análisis discriminante lineal asume que las observaciones en la clase $k-$ésima son obtenidos desde una distribución normal multivariada.
+
+------------------------------------------------------------------------
+
+Si reemplazamos la función de densidad para la clase $k-$ésima, $f_k(X=x)$ en la ecuación
+
+$$
+\mathbb{P}(Y=k|X=x)=\dfrac{\pi_k f_k(x)}{\sum_{l=1}^{K} \pi_l f_l(x)}
+$$
+
+y usando un poco de álgebra, se puede reescribir $\delta_k(x)$ como
+
+$$
+\delta_k(x)=x^T\Sigma^{-1} \mu_k-\dfrac{1}{2}\mu_{k}^{T} \Sigma^{-1} \mu_k +\log \pi_k
+$$
+
+y el clasificador bayesiano asigna la observación $X=x$ a la clase que tienen mayor $\delta_{k}(x)$
+
+------------------------------------------------------------------------
+
+![Ejemplo Análisis discriminante](figs/lda_1.pdf)
+
+------------------------------------------------------------------------
+
+En la figura anterior, las elipses representan las regiones que contienen $95\%$ de la probabilidad de cada una de las clases. Al igual que antes, la línea punteada es el Límite de decisión Bayes. Es decir, representan el conjunto de valores $x$ para los cuales $\delta_k(x)=\delta_\ell(x)$, esto es:
+
+$$
+x^T\Sigma^{-1} \mu_k-\dfrac{1}{2}\mu_{k}^{T} \Sigma^{-1} \mu_k=x^T\Sigma^{-1} \mu_l-\dfrac{1}{2}\mu_{l}^{T} \Sigma^{-1} \mu_l
+$$
+
+para $k\neq l$.
+
+### Ejemplo
+
+\small
+
+```{r}
+library(MASS)
+mod_lda <- lda(Species ~ Sepal.Width + Sepal.Length + Petal.Length +
+                  Petal.Width, data = iris)
+```
+
+------------------------------------------------------------------------
+
+\footnotesize
+
+```{r}
+mod_lda
+```
+
+------------------------------------------------------------------------
+
+```{r}
+predicciones <- predict(object = mod_lda, newdata = iris[, -5])
+table(iris$Species, predicciones$class, dnn = c("Clase real", "Clase predicha"))
+```
+
+------------------------------------------------------------------------
+
+```{r, eval=FALSE}
+library(klaR)
+partimat(Species ~ Sepal.Width + Sepal.Length + Petal.Length 
+         + Petal.Width,
+         data = iris, method = "lda", prec = 200,
+         image.colors = c("darkgoldenrod1", "snow2", "skyblue2"),
+         col.mean = "firebrick")
+```
+
+------------------------------------------------------------------------
+
+```{r, echo=FALSE}
+library(klaR)
+partimat(Species ~ Sepal.Width + Sepal.Length + Petal.Length + Petal.Width,
+         data = iris, method = "lda", prec = 200,
+         image.colors = c("darkgoldenrod1", "snow2", "skyblue2"),
+         col.mean = "firebrick")
+```
+
+## Análisis discriminante cuadrático
+
+El **análisis discriminante cuadrático** es una alternativa a *LDA*, en la que se asumía distribución normal e igual varianza en cada una de las clases. Si bien, en el análisis discriminante cuadrático (**QDA**) también se asume que los datos provienen desde una distribución normal y estima los parámetros para predecir. Sin embargo, el **QDA** asume que cada clase tienen su propia matriz de covarianza.
+
+Esto es, se asume que una observación proveniente de la clase $k-$ésima es de la forma $X\sim N(\mu_k,\Sigma_k)$, donde $\Sigma_k$ es la matriz de covarianza para la clase $k-$ésima.
+
+------------------------------------------------------------------------
+
+Bajo estos supuestos, el clasificador bayesiano asigna una observación $X=x$ a la clase en la que
+
+```{=tex}
+\begin{align*}
+\delta_k(x)&=-\dfrac{1}{2}(x-\mu_k)^{T}\Sigma_{k}^{-1}(x-\mu_k)+\log \pi_k \\
+&=-\dfrac{1}{2}x^{T} \Sigma_{k}^{-1}x+x^{T}\Sigma_{k}^{-1}\mu_k-\dfrac{1}{2}\mu_{k}^{T}\mu_k+\log \pi_k
+\end{align*}
+```
+es mayor. Así, se requerirá estimar $\Sigma_k,\mu_k$ y $\pi_k$. El nombre de cuadrático viene debido a que $x$ aparece como una función cuadrática en la ecuación anterior.
+
+### ¿LDA o QDA?
+
+Si tenemos $p$ predictores, estimar la matriz de covarianza requiere estimar $p(p+1)/2$ parámetros. En el caso de **QDA** se estima una matriz de covarianza para cada clase, por lo que se deben estimar $Kp(p+1)/2$ parámetros. Si asumimos que las $K$ clases comparten la misma matriz de covarianza, el modelo de **LDA** es lineal en $x$, lo que significa que se debe estimar $Kp$ parámetros.
+
+En general, el discriminante lineal es menos flexible que su contraparte cuadrática, y tiene una varianza sustancialmente menor. Sin embargo, si el supuesto de igualdad de matrices de covarianza entre las clases es erróneo, provocará que el discriminante lineal tenga un enorme sesgo.
+
+------------------------------------------------------------------------
+
+Usualmente, **LDA** tiende a ser mejor que **QDA** si se tienen pocas observaciones en el conjunto de entrenamiento, por lo que reducir la varianza es particularmente importante.
+
+En contraste, **QDA** es recomendado si el conjunto de entrenamiento es grande, de manera que la varianza del clasificador no sea tan relevante, o si el supuesto de igual matriz de covarianza en las distintas clases es claramente insostenible.
+
+------------------------------------------------------------------------
+
+![Comparación LDA y QDA, para supuestos de igual y desigualdad de matriz de covarianza](figs/lda_qda.pdf)
+
+## K-vecinos cercanos
+
+Como sabemos, un clasificador Bayesiano tiene la forma:
+
+$$
+\mathbb{P}(Y=j|X=x_o)
+$$
+
+que es simplemente una probabilidad condicional. Sin embargo, tomamos este clasificador como el idóneo no-obtenible, debido a que nos entrega el error de testeo. En la práctica, este clasificar no es obtenible debido a que no sabemos la distribución condicional de $Y$ dado $X$.
+
+------------------------------------------------------------------------
+
+Una metodología que intenta estimar la probabilidad condicional para luego asignar la clase $k-$ésima a la observación que tenga la mayor probabilidad condicional es **K-vecinos cercanos** o **KNN** por sus sigles en inglés.
+
+Dada un entero positivo $K$ una observación de testeo $x_0$, el clasificador $KNN$ primero identifica los $K$ puntos más cercanos a $x_0$ pertenecientes al conjunto de entrenamiento, representados por $\mathcal{N}_0$. Luego estima la probabilidad condicional para la clase $j-$ésima como una fracción de puntos en $\mathcal{N}_0$ cuyas respuestas son igual a la de $j$, esto es:
+
+$$
+\mathbb{P}(Y=j|X=x_0)=\dfrac{1}{K}\sum_{i\in \mathcal{N}_0}I(y_i = j)
+$$
+
+Finalmente, **KNN** aplica la regla de bayes y clasifica la observación de prueba/testeo $x_0$ a la clase con la mayor probabilidad
+
+## RL vs LDA vs QDA vs KNN
+
+Es natural preguntarse que técnica utilizar en distintas circunstancias, pues todas ellas tienen por finalidad clasificar observaciones. En lo que sigue se lista comentarios respecto a los nexos entre estas metodologías.
+
+-   Debido a que RL y LDA producen límites de decisión lineales, usualmente entregan resultados similares.
+
+-   Debido a los supuestos distribucionales de LDA, si estos se cumplen, suele entregar mejores resultados que una regresión logística. De no cumplirse los supuestos, la regresión puede superar a LDA.
+
+-   KNN al tener un enfoque enteramente no-paramétrico, esto es: no asume nada sobre la forma del límite de decisión. Por lo anterior, si el límite de decisión es altamente no-lineal, KNN superará a la regresión logística y LDA. Sin embargo, no tendremos información de que predictores son importantes.
+
+------------------------------------------------------------------------
+
+-   QDA puede ser visto como un punto medio entre KNN y LDA/RL. Como QDA asume un límite de decisión cuadrático, puede modelar más problemas que al asumir linealidad.
+
+-   Si bien QDA no es tan flexible como KNN, puede entregar mejores resultados bajo un número limitado de observaciones de entrenamiento debido a que se hacen ciertos supuestos sobre la forma del límite de decisión.
+
+## Ejemplos para un mismo conjunto de datos
+
+Utilizaremos un conjunto de datos de rendimientos porcentuales de las acciones **S&P 500** a lo largo de 1250 días, desde principios de 2001 hasta finales de 2005. Para cada día, se registraron los rendimientos porcentuals para cada uno de los 5 días hábiles previos (`lag1` a `lag5`). También se registró el volumen de acciones tranzadas en el día anterior (en billones) (variable `Volume`), el rendimiento porcentual del día en cuestión (variable `Today`) y la dirección, que representa si el mercado va hacia la alta o baja.
+
+\small
+
+```{r}
+names(Smarket)
+dim(Smarket)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+head(Smarket)
+```
+
+------------------------------------------------------------------------
+
+\small
+
+```{r}
+cor(Smarket[,-9])
+```
+
+------------------------------------------------------------------------
+
+```{r, message=FALSE}
+attach(Smarket)
+p6<-ggplot(Smarket) +
+  aes(x = 1:nrow(Smarket), y = Volume) +
+  geom_point(shape = "circle", size = 1.5, colour = "#4682B4") +
+  theme_bw()
+```
+
+------------------------------------------------------------------------
+
+```{r}
+p6
+```
+
+### Regresión logística
+
+```{r}
+glm.fit=glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+            data= Smarket , family = binomial )
+```
+
+------------------------------------------------------------------------
+
+\small
+
+```{r}
+summary(glm.fit)
+```
+
+------------------------------------------------------------------------
+
+\small
+
+```{r}
+glm.probs=predict(glm.fit,type="response")
+glm.probs[1:10]
+contrasts(Direction)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+glm.pred=rep("Down",1250)
+glm.pred[glm.probs>.5]="Up"
+table(glm.pred,Direction)
+(507+145)/1250
+mean(glm.pred==Direction)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+train=(Year <2005)
+Smarket.2005=Smarket[!train,]
+dim(Smarket.2005)
+Direction.2005=Direction[!train]
+```
+
+------------------------------------------------------------------------
+
+```{r}
+glm.fit=glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume,
+            data =Smarket,family=binomial,subset=train)
+glm.probs=predict(glm.fit,Smarket.2005,type="response")
+```
+
+------------------------------------------------------------------------
+
+```{r}
+glm.pred=rep("Down",252)
+glm.pred[glm.probs >.5]="Up"
+table(glm.pred, Direction.2005)
+mean(glm.pred==Direction.2005)
+mean(glm.pred!=Direction.2005)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+glm.fit=glm(Direction~Lag1+Lag2,data=Smarket,family=binomial,
+            subset=train)
+glm.probs=predict(glm.fit,Smarket.2005,type="response")
+glm.pred=rep("Down",252)
+glm.pred[glm.probs >.5]="Up"
+table(glm.pred,Direction.2005)
+mean(glm.pred==Direction.2005)
+106/(106+76)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+predict(glm.fit,newdata=data.frame(Lag1=c(1.2,1.5),Lag2=c(1.1,-0.8)),
+        type="response")
+```
+
+### Análisis discriminante lineal
+
+```{r}
+lda.fit=lda(Direction~Lag1+Lag2,data=Smarket,subset=train)
+lda.fit
+```
+
+------------------------------------------------------------------------
+
+```{r}
+plot(lda.fit)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+lda.pred=predict(lda.fit,Smarket.2005)
+names(lda.pred)
+lda.class=lda.pred$class
+```
+
+------------------------------------------------------------------------
+
+```{r}
+table(lda.class,Direction.2005)
+mean(lda.class==Direction.2005)
+sum(lda.pred$posterior[,1] >=.5)
+sum(lda.pred$posterior[,1] <.5)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+lda.pred$posterior[1:20,1]
+lda.class[1:20]
+```
+
+------------------------------------------------------------------------
+
+```{r}
+sum(lda.pred$posterior[,1] >.9)
+```
+
+### Análisis discriminante cuadrático
+
+```{r}
+qda.fit=qda(Direction~Lag1+Lag2,data=Smarket,subset=train)
+qda.fit
+```
+
+------------------------------------------------------------------------
+
+```{r}
+qda.class=predict(qda.fit,Smarket.2005)$class
+table(qda.class,Direction.2005)
+mean(qda.class==Direction.2005)
+```
+
+### K-vecinos cercanos
+
+```{r,warning=FALSE}
+library(class)
+train.X=cbind(Lag1,Lag2)[train,]
+test.X=cbind(Lag1,Lag2)[!train,]
+train.Direction=Direction[train]
+```
+
+------------------------------------------------------------------------
+
+```{r}
+knn.pred=knn(train.X,test.X,train.Direction,k=1)
+table(knn.pred,Direction.2005)
+(83+43)/252
+```
+
+------------------------------------------------------------------------
+
+```{r}
+knn.pred=knn(train.X,test.X,train.Direction,k=3)
+table(knn.pred,Direction.2005)
+mean(knn.pred==Direction.2005)
+```
+
+### Ejercicio
+
+Realizar **KNN** con el conjunto `Caravan` y comparar su desempeño con un modelo de regresión logística.
+
+## Árbol de decisión
+
+Los árboles de decisión son una metodología que estratifica o segmenta el espacio de los predictores en distintas regiones, en donde se utiliza una serie de reglas de división para segmentar los espacios.
+
+En general, esta metodología no es lo suficientemente competitiva en contraste con otras técnicas supervisadas (en términos de su precisión).
+
+El árbol de decisión puede ser aplicada para problemas de regresión y clasificación, en lo que sigue sólo nos concentramos en esta metodología para problemas de clasificación.
+
+------------------------------------------------------------------------
+
+En un árbol de decisión para problemas de clasificación se predice que cada observación pertenece a la clase más frecuente entre las observaciones de entrenamiento en la región en la que pertenece.
+
+Utilizamos la **tasa de error de clasificación** para separar los espacios a lo largo del árbol de decisión. Debido a que se planea asignar una observación en una región particular a la *clase más frecuente* en el conjunto de entrenamiento, este error se define como:
+
+$$
+E=1-\max_{k}(\hat{p}_{mk})
+$$
+
+en donde $\hat{p}_{mk}$ representa la proporción de observaciones de entrenamiento en la región $m-$ésima que son de la clase $k-$ésima.
+
+------------------------------------------------------------------------
+
+![Árbol de decisión para conjunto de datos Hitters](figs/tree1.pdf)
+
+------------------------------------------------------------------------
+
+En general, usar sólo la tasa de error de clasifición no es lo suficientemente sensible para esta metodología, y se opta por dos medidas alternativas: índice de Gini y entropía cruzada.
+
+El **índice de Gini** está definido como:
+
+$$
+G=\sum_{k=1}^{K} \hat{p}_{mk}(1-\hat{p}_{mk})
+$$
+
+que es una medida de la varianza total a lo largo de las $K$ clases. Es claro ver que este índice toma valores pequeños si todos los $\hat{p}_{mk}$ son cercanos a cero.
+
+------------------------------------------------------------------------
+
+Una alternativa al índice anterior es la **entropía cruzada**, dada por:
+
+$$
+D=-\sum_{k=1}^{K} \hat{p}_{mk}\log \hat{p}_{mk}.
+$$
+
+Debido a que $0 \leq \hat{p}_{mk}\leq 1$, sigue que $0\leq -\hat{p}_{mk}\log\hat{p}_{mk}$. Se puede mostrar que la entropía cruzada tomará valores cercanos a cero si todos los $\hat{p}_{mk}$ están cercano a cero o a uno. Por lo que ambos índices tomaran valores pequeños si la $m-$ésimo *nodo* es *puro*.
+
+------------------------------------------------------------------------
+
+![](figs/tree2.pdf)
+
+------------------------------------------------------------------------
+
+```{r, warning=FALSE,message=FALSE}
+library(tree)
+attach(Carseats)
+require(ISLR)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+head(Carseats)
+```
+
+------------------------------------------------------------------------
+
+```{r,warning=FALSE}
+High=as.factor(ifelse(Sales<=8,"No","Yes"))
+Carseats=data.frame(Carseats,High)
+Carseats_tree=tree(High~ . -Sales, data=Carseats)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+summary(Carseats_tree)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+plot(Carseats_tree)
+text(Carseats_tree, pretty=0)
+```
+
+------------------------------------------------------------------------
+
+```{r, warnings=FALSE}
+#Alternativa
+library(rpart)
+library(rpart.plot)
+Carseats_tree2<-rpart(formula=High~ . -Sales, data=Carseats)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+tree_plot<-rpart.plot(Carseats_tree2)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+train=sample(1:nrow(Carseats), 200)
+Carseats_test=Carseats[-train,]
+High_test=High[-train]
+Carseats_tree=tree(High~ .-Sales ,Carseats ,subset = train)
+tree_pred=predict(Carseats_tree ,Carseats_test , type ="class")
+table(tree_pred,High_test)
+(92+65)/200
+```
+
+## Máquina de vectores de soporte (SVM)
+
+Esta metodología fue desarrollada en lo '90 por la comunidad de ciencias computacionales. Consiste en la generalización de un clasificador llamado **clasificador de máximo margen**, que destaca por su simpleza, pero que en la práctica es difícil de utilizar debido a que requiere que las clases sean separables por un límite lineal.
+
+### Clasificador de máximo margen
+
+Antes de definidir el clasificador de máximo margen, debemos introducir dos conceptos primordiales:
+
+-   Hiperplano
+
+-   Hiperplano de separación óptimo
+
+### Hiperplano
+
+En un espacio $p-$dimensional, un hiperplano es un subespacio afín plano de dimensión $p-1$. Por ejemplo, en dos dimensiones, un hiperplano es una linea. En tres dimensiones, un hiperplano es un subespacio 2-dimensional plano.
+
+Matemáticamente, para el caso bidimensional, un hiperplano está definido por la ecuación:
+
+$$
+\beta_0+\beta_1 X_1 + \beta_2 X_2 = 0
+$$
+
+para parámetros $\beta_0,\beta_1$ y $\beta_2$. Naturalmente, la extensión a $p$ dimensiones es:
+
+$$
+\beta_0+\beta_1 X_1 +\beta_2 X_2 + \dots + \beta_p X_p =0
+$$
+
+que define un hiperplano $p-$dimensional, en el sentido de que si un punto $X=(X_1,X_2,\dots,X_p)^T$ en un espacio $p-$dimensional que satisface la ecuación anterior.
+
+------------------------------------------------------------------------
+
+![Hiperplano \$1+2X_1+3X_2=0\$](figs/hyperplane.pdf)
+
+### Clasificando usando un hiperplano separable
+
+Supongamos que tenemos una matriz de datos $\mathbf{X}$ de tamaño $x\times p$ que consiste en $n$ observaciones de entrenamiento en un espacio $p-$dimensional,
+
+$$
+x_1=\begin{pmatrix}x_{11} \\ \vdots \\ x_{1p}\end{pmatrix} , \dots,x_n=\begin{pmatrix} x_{n1} \\ \vdots \\ x_{np} \end{pmatrix}
+$$
+
+y que estas observaciones caen dentro de dos clases, esto es, $y_1,\dots,y_n \in \{-1,1\}$ donde $-1$ representa una clase y $1$ la otra clase. También tenemos una observación de prueba, un $p-$vector de *features* observadas $x^*=(x_{1}^{*}\, \dots \,x_{p}^{*})^T$
+
+------------------------------------------------------------------------
+
+Nuestro objetivo es desarrollar un clasificador basado en este conjunto de entrenamiento que clasifique correctamente la observación de prueba usando las variables medidas, para esto nosotros ya hemos visto varias metodologías que podríamos usar: LDA, QDA, árboles de decisión y regresión logística.
+
+En lo que sigue veremos una metodología que se base en el concepto de hiperplano separable.
+
+------------------------------------------------------------------------
+
+Supongamos que es posible construir un hiperplano que separe las observaciones de entrenamiento perfectamente de acuerdo a sus clases. Por lo que si utilizamos las clase como antes ($\{-1,1\}$) se tendrá la propiedad que
+
+$$
+\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip} > 0 \quad \text{si} \quad y_i=1
+$$
+
+y,
+
+$$
+\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip} < 0 \quad \text{si} \quad y_i=-1
+$$
+
+equivalentemente, un hiperplano separable tiene la propiedad que:
+
+$$
+y_i(\beta_0 +\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip})>0
+$$
+
+para todo $i=1,\dots,n$.
+
+------------------------------------------------------------------------
+
+![Hiperplanos separables](figs/hyperplane_sep.pdf)
+
+------------------------------------------------------------------------
+
+Si un hiperplano separable existe, podemos usarlo para construir un clasificador bastante natural: una observación de prueba es asignada una clase dependiendo de que lado del hiperplano está ubicada.
+
+Intuitivamente, podremos estar seguro de nuestra clasificación conforme la magnitud obtenida tras clasificar la observación de prueba.
+
+### Clasificador de margen máximo
+
+En general, si nuestros datos pueden ser perfectamente separados un hiperplano, entonces existiran un infinito número de aquellos hiperplanos. Para poder construir un clasificador basado en un hiperplano separable, debemos encontrar una forma razonable de decidir cual de estos infinitos hiperplanos separables usar.
+
+Una elecci ón natural es el **hiperplano de máximo margen** (también conocido como *hiperplano separable máximo*), que es el hiperplano que está más lejos de las observaciones de entrenamiento. Esto es, podemos calcular la distancia (perpendicular) desde cada punto a un hiperplano separable dado; la menor de aquellas distancias es la mínima distancia entre las observaciones y el hiperplano, esta distancia es conocida como **margen**.
+
+------------------------------------------------------------------------
+
+El hiperplano de margen máximo es el hiperplano separable en donde el margen es el más grande, esto es, es el hiperplano que tiene la distancia mínima más lejana a las observaciones de entrenamiento.
+
+Luego, podemos clasificar una observación de prueba basado en que lado del hiperplano de margen máximo recae.
+
+------------------------------------------------------------------------
+
+![Representación de vectores de suporte.](figs/support_vectors.pdf)
+
+### Construcción de un clasificador de margen máximo
+
+Ahora consideramos la tarea de construir el hiperplano de margen máximo basado en un conjunto de $n$ observaciones de entrenamiento $x_1,\dots, x_n \in \mathbb{R}^{p}$ y clases asociadas $y_1,\dots,y_n \in \{-1,1\}$. En síntesis, este hiperplano es la solución de un problema de optimización dado por:
+
+```{=tex}
+\begin{align*}
+&\max_{\beta_0,\beta_1,\dots,\beta_p} \quad M\\
+&\text{ Sujeto a } \sum_{j=1}^{p} \beta_{j}^{2}=1 \\
+&y_i(\beta_0 +\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip})\geq M \quad \forall i=1,\dots,n
+\end{align*}
+```
+
+------------------------------------------------------------------------
+
+```{r}
+library(e1071)
+library(ggplot2)
+set.seed(411)
+coord <- matrix(rnorm(40), 20, 2)
+colnames(coord) <- c("X1","X2")
+y <- c(rep(-1,10), rep(1,10))
+coord[y == 1, ] <- coord[y == 1, ] + 1
+data <- data.frame(coord, y)
+plot_svm<-ggplot(data = data, aes(x = X1, y = X2, color = as.factor(y))) +
+  geom_point(size = 6) +
+  theme_bw() +
+  theme(legend.position = "none")
+
+data$y <- as.factor(data$y)
+```
+
+------------------------------------------------------------------------
+
+\footnotesize
+
+```{r}
+mod_svm <- svm(formula = y ~ X1 + X2, data = data, kernel = "linear",
+                  cost = 10, scale = FALSE)
+summary(mod_svm)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+mod_svm$index
+```
+
+------------------------------------------------------------------------
+
+```{r}
+plot(mod_svm, data)
+```
+
+### Clasificador de vectores de soporte
+
+![Dos clases no separables por hiperplano](figs/hyperplane_non_sep.pdf)
+
+------------------------------------------------------------------------
+
+En el caso anterior, un hiperplano separable no existe. En la figura siguiente, la adición de un solo dato provoca un cambio drástico en el margen máximo del hiperplano.
+
+![](figs/hyperplane_non_sep_2.pdf)
+
+------------------------------------------------------------------------
+
+Este cambio, reduce la confianza de la asignación de clases. Así, podemos concluir que nuestra metodología es extremadamente sensible a cambio, incluso de sólo una observación.
+
+En estos casos, quizás deberíamos considerar un clasificador basado en un hiperplano que no separe perfectamente las dos clases, con el fin de:
+
+-   Tener mayor robustez a las observaciones individuales
+
+-   Tener mayor clasificación para la mayoría de las observaciones de entrenamiento
+
+------------------------------------------------------------------------
+
+Así, podría ser beneficioso clasificar erróneamente un par de observaciones de entrenamiento para realizar un mejor trabajo clasificando el resto de las observaciones.
+
+El Clasificador de vectores de soporte (*support vector classifier*) o aveces llamado *soft margin classifier*, hace exactamente lo anterior; en vez de buscar el marger más grande tal que cada observación que clasifique perfectamente, permite que ciertas observaciones estén en la lado incorrecto del margen, o del lado incorrecto del hiperplano.
+
+------------------------------------------------------------------------
+
+Matemáticamente, corresponde a la solución del siguiente problema de optimización:
+
+```{=tex}
+\begin{align*}
+&\max_{\beta_0,\beta_1,\dots,\beta_p; \epsilon_1,\dots,\epsilon_n} \quad M\\
+&\text{ Sujeto a } \sum_{j=1}^{p} \beta_{j}^{2}=1 \\
+&y_i(\beta_0 +\beta_0+\beta_1 x_{i1} +\beta_2 x_{i2}+\dots+\beta_p x_{ip})\geq M (1-\epsilon_i) \quad \forall i=1,\dots,n \\
+&\epsilon_i \geq 0, \sum_{i=1}^{n} \epsilon_i \leq C
+\end{align*}
+```
+donde $C$ es un parámetro de *tunning* no negativo. Cuando este parámetro es grande, habrá una gran tolerancia a que las observaciones están al lado incorrecto del margen (y por ende el margen será grande)
+
+### SVM
+
+Support Vector Machine (SVM) o Maquina de vectores de soporte es una extensión del clasificador de vectores de soporte que se obtiene tras aumentar el espacio de variables de una manera específica: usando **kernels**.
+
+En el caso del problema de optimización del clasificador de vectores de soporte, la solución involucra sólo **productos internos** de las observaciones (en contraste con las observaciones mismas).
+
+------------------------------------------------------------------------
+
+El producto interno de dos $r-$vectores $a$ y $b$ se define como $\langle a,b\rangle=\sum_{i=1}^{r} a_i b_i$. Por lo que el producto interno de dos observaciones $x_i,x_{i'}$ está dado por:
+
+$$
+\langle x_i, x_{i'}\rangle=\sum_{j=1}^{p}x_{ij}x_{i'j}
+$$
+
+Más precisamente, se puede mostrar que:
+
+-   El clasificador de vectores de soportes lineal se puede representar como
+
+    $$
+    f(x)=\beta_0+\sum_{i=1}^{n}\alpha_i\langle x,x_i\rangle
+    $$
+
+donde hay $n$ parámetros $\alpha_i, i=1,\dots,n$, uno para cada observación de entrenamiento.
+
+------------------------------------------------------------------------
+
+-   Para estimar los parámetros $\alpha_1,\dots,\alpha_n$ y $\beta_0$, sólo necesitamos los $\begin{pmatrix} n \\ 2 \end{pmatrix}$ productos internos $\langle x_i,x_{i'}\rangle$ entre todos los pares de observaciones de entrenamiento. (esto es $n(n-1)/2$ pares).
+
+Supongamos que cada producto interno que hemos definido aparece en la representación del clasificador de vectores de soporte lineal, o en el cálculo del problema de optimización. Reemplazaremos este producto interno con una **generalización** de este, de la forma:
+
+$$
+K(x_i,x_{i'})
+$$
+
+donde $K$ es una función que le llamaremos **kernel**.
+
+------------------------------------------------------------------------
+
+Un **kernel** es una función que cuantifica la similitud entre dos observaciones. Por ejemplo, podemos tomar:
+
+$$
+K(x_i,x_{i'})=\sum_{j=1}^{p} x_{ij}x_{i'j}
+$$
+
+que nos entregaría el clasificar de vectores de soporte. Lo anterior se dice que es un kernel lineal porque el lineal para las *features*. El kernel lineal esencialmente cuantifica la similitud de un par de observaciones usando la correlación de Pearson.
+
+------------------------------------------------------------------------
+
+Alternativamente, podemos considerar otra forma de kernel, por ejemplo:
+
+$$
+K(x_i,x_{i'})=(1+\sum_{j=1}^{p} x_{ij}x_{i'j})^{d}
+$$
+
+Este kernel es conocido como el **kernel polinomial** de grado $d$, donde $d$ es un entero positivo. Cuando este parámetro es mayor a 1, el clasificador de vectores de soportes tiende a tener un límite de decisión bastante más flexible.
+
+------------------------------------------------------------------------
+
+Cuando el clasificador de vectores de soporte es combinado con un kernel no lineal (como el anterior), el clasificador resultante se conoce como **support vector machine**.
+
+Otra opción popular de kernel es el **kernel radial**, que tiene la forma:
+
+$$
+K(x_i,x_{i'})=\exp(-\gamma \sum_{j=1}^{p}(x_{ij}-x_{i'j})^2)
+$$
+
+donde $\gamma$ es una constante positiva.
+
+------------------------------------------------------------------------
+
+![Ejemplo de SVM con kernel polinomial de grado 3 y SVM con kernel radial.](figs/radial_kernel.pdf)
+
+### Ejemplo
+
+```{r}
+set.seed (411)
+x=matrix(rnorm(200*2), ncol=2)
+x[1:100,]=x[1:100,]+2
+x[101:150,]=x[101:150,]-2
+y=c(rep(1,150),rep(2,50))
+dat=data.frame(x=x,y=as.factor(y))
+plot_radial<-ggplot(dat) +
+  aes(x = x.1, y = x.2, colour = y) +
+  geom_point(shape = "circle", size = 1.5) +
+  scale_color_hue(direction = 1) +
+  theme_bw()
+```
+
+------------------------------------------------------------------------
+
+\small
+
+```{r}
+plot_radial
+```
+
+------------------------------------------------------------------------
+
+```{r}
+train=sample(200,100)
+svmfit=svm(y~., data=dat[train,], kernel="radial", gamma=1,cost =1)
+plot(svmfit , dat[train ,])
+```
+
+------------------------------------------------------------------------
+
+\small
+
+```{r}
+summary(svmfit)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+table(true=dat[-train,"y"],pred=predict(svmfit, newdata=dat[-train,]))
+```
+
+# Métodos no supervisados
+
+Como hemos mencionado antes, en los métodos no supervisados **sólo** tenemos las variables $X_1,X_2,\dots,X_p$ medidas en $n$ observaciones. No estaremos interesados en predecir, porque no tenemos una variable respuesta $Y$ que esté asociada a nuestros datos. En cambio, nuestro objetivo será *descubrir* características interesantes de las variables medidas.
+
+-   ¿Hay alguna forma que nos entregue información de visualizar los datos?
+
+-   ¿Podemos encontrar subgrupos entre las variables u observaciones?
+
+En lo que sigue nos concentraremos en 3 técnicas particulares: *clustering*, análisis de componentes principales y descomposición de valores singulares.
+
+------------------------------------------------------------------------
+
+En general, realizar técnicas no supervisadas tiende a ser más difícil que realizar un método supervisado, pues no se tiene un objetivo claro para el análisis (como lo es predecir en el caso supervisado).
+
+Usualmente, las metodologías no supervisadas se realizar como parte del análisis exploratorio de dato. Además, no existe un consenso en la mejor forma de evaluar las técnicas implementadas en datos de prueba. En el caso supervisados, podemos probar nuestro modelo creado con un conjunto de prueba, pero en el caso no supervisado no es posible debido a que no sabemos el respuesta **verdadera**.
+
+------------------------------------------------------------------------
+
+Ejemplos de aplicación de estas metodologías son vastas:
+
+-   Identificación de cáncer
+
+-   Historiales de compras
+
+-   Etc.
+
+## Análisis de componentes principales
+
+El análisis de componentes principales nos permite resumir, ante un conjunto grande de variables correlacionadas, un subconjunto con menor número de variables representativas que colectivamente explican la mayoría de la variabilidad del conjunto original.
+
+Además de producir variables que pueden ser usadas para métodos supervisados, **PCA** (por sus siglas en inglés, *principal component analysis*) sirve como herramienta para visualizar datos.
+
+### Qué son las componentes principales?
+
+Supongamos que deseamos visualizar $n$ observaciones con mediciones en un conjunto de $a$ variables/características/*features*, $X_1,X_2,\dots,X_p$, como parte de un análisis exploratorio de datos. Podemos examinar los gráficos bidimensionales de dispersión de los datos, que cada una contiene $n$ mediciones de observaciones de 2 variables. Sin embargo, hay $\begin{pmatrix} p \\ 2 \end{pmatrix}=p(p-1)/2$ de tales gráficos.
+
+Por ejemplo, para $p=10$ habrán 45 gráficos. Por lo que si, $p$ es grande no nos será posible mostrarlos todos, y además ninguno de ellos será informativo debido a que sólo tienen un pequeña fracción del total de información disponible en los datos.
+
+Así, necesitamos una mejor metodología para poder visualizar las $n$ observaciones cuando $p$ es grande.
+
+------------------------------------------------------------------------
+
+En particular, quisieramos encontrar una presentación de baja dimensionalidad de los datos que capture la mayor cantidad de información posible. Por ejemplo, si podemos obtener un diagrama bidimensional de los datos que capture la mayoría de la información, entonces podemos graficar las observaciones en aquel espacio.
+
+PCA nos entrega una herramienta para hacer justamento esto. Encuentra una representación de baja dimensionalidad del conjunto de datos que contiene la mayor variabilidad posible. La idea es que cada una de las $n$ observaciones vive en un espacio $p-$dimensional, pero no todas estas dimensiones son igualmente interesantes.
+
+------------------------------------------------------------------------
+
+PCA busca un pequeño número de dimensiones que sean lo más interesantes posibles, donde el concepto de *interesante* es medido por la cantidad que varían las observaciones en cada uno de las dimensiones.
+
+Cada una de las dimensiones encontradas por PCA es una combinación lineal de $p$ variables.
+
+Ahora nos enfocamos en la manera en que PCA encuentra estas dimensiones o componentes principales.
+
+------------------------------------------------------------------------
+
+El **primer componente principal** de un conjunto de variables $X_1,X_2,\dots,X_p$ es la combinación lineal normalizada de las variables$$
+Z_1=\phi_{11}X_1+\phi_{21}X_2+\dots+\phi_{p1}X_p
+$$
+
+que tenga la **mayor varianza**. Por *normalizada*, se refiere a que
+
+$$
+\sum_{j=1}^{p} \phi_{j1}^{2}=1.
+$$
+
+Llamamos a los elementos $\phi_{11},\phi_{2 1},\dots,\phi_{p1}$reciben en el nombre de *loadings* y son los que definen a la componente. Así, estos elementos conforman el vector de *loadings* de los componentes principales $\phi_1=(\phi_{11}\,\phi_{21}\dots\phi_{p1})'$
+
+------------------------------------------------------------------------
+
+Dado un conjunto de datos $\mathbf{X}$ de tamaño $n\times p$. ¿Cómo calculamos la primera componente principal?
+
+Debido a que sólo estamos interesado en la varianza, asumiremos que cada variable de $\mathbf{X}$ ha sido centrada en cero ( esto es, que las medias de las columnas sean cero). Luego, buscamos la combinación lineal de las variables medidas con forma:
+
+$$
+z_{i1}=\phi_{11}x_{i1}+\phi_{21}x_{i2}+\dots+\phi_{p1}x_{ip}
+$$
+
+que tenga la mayor varianza muestral, sujeto a la restricción que $\sum_{j=1}^{p} \phi_{j1}^{2}=1$. En otras palabras, el vector de *loadings* de la primera componente principal resuelve el siguiente problema de optimización:
+
+$$\max_{\phi_{11},\dots,\phi_{p1}}\Bigg\{ \dfrac{1}{n}\sum_{i=1}^{n} \left( \sum_{j=1}^{p} \phi_{j1}x_{ij}\right)\Bigg\} \text{ sujeto a }\sum_{j=1}^{p}\phi_{j1}^2=1
+$$
+
+### Reproducibilidad de las componentes
+
+El proceso de PCA genera siempre las mismas componentes principales independientemente del software utilizado, es decir, el valor de los *loadings* resultantes es el mismo.
+
+La única discrepancia que podría suceder es que los signos estén invertidos, pues los *loadings* determinan la dirección de la componente.
+
+### Influencia de outliers
+
+Al trabajar con varianzas, el método PCA es altamente sensible a *outliers*, por lo que es altamente recomendable estudiar si los hay. La detección de valores atípicos con respecto a una determinada dimensión es algo relativamente sencillo de hacer mediante comprobaciones gráficas.
+
+Las técnicas diagnóstico de datos anómalos escapa de los objetivos del curso, pero son estudiados en análisis multivariado o modelos lineales (dentro del contexto de regresión)
+
+### Proporción de varianza explicada
+
+Una de las preguntas más frecuentes que surge tras realizar un PCA es: ¿Cuánta información presente en el set de datos original se pierde al proyectar las observaciones en un espacio de menor dimensión? o lo que es lo mismo ¿Cuanta información es capaz de capturar cada una de las componentes principales obtenidas? Para contestar a estas preguntas se recurre a la proporción de varianza explicada por cada componente principal.
+
+Asumiendo que las variables se han estandarizado para tener media cero, la varianza total presente en el set de datos se define como:
+
+$$
+\sum_{j=1}^p Var(X_j) = \sum_{j=1}^p \dfrac{1}{n} \sum_{i=1}^n x^{2}_{ij}
+$$
+
+------------------------------------------------------------------------
+
+y la varianza explicada por la componente $m$ es:
+
+$$
+\dfrac{1}{n} \sum_{i=1}^n z^{2}_{im} = \dfrac{1}{n} \sum_{i=1}^n  \left( \sum_{j=1}^p \phi_{jm}x_{ij} \right)^2
+$$
+
+Así, la proporción de varianza explicada por la componente $m$ viene dada por
+
+$$
+\dfrac{\sum_{i=1}^n  \left( \sum_{j=1}^p \phi_{jm}x_{ij} \right)^2} {\sum_{j=1}^p \sum_{i=1}^n x^{2}_{ij}}
+$$
+
+Esta proporción y su forma acumulada (a lo largo de las componentes) nos entrega información crucial a la hora de elegir cuantas componentes principales utilizar en nuestro análisis.
+
+### Número óptimo de componentes principales
+
+Por lo general, dada una matriz de datos de dimensiones $n \times p$, el número de componentes principales que se pueden calcular es como máximo de $\min\{n-1,p\}$. Sin embargo, siendo el objetivo del PCA reducir la **dimensionalidad**, suelen ser de interés utilizar el número mínimo de componentes que resultan suficientes para explicar los datos.
+
+No existe una respuesta o método único que permita identificar cual es el número óptimo de componentes principales a utilizar. Una forma de proceder muy extendida consiste en evaluar la proporción de varianza explicada acumulada y seleccionar el número de componentes mínimo a partir del cual el incremento deja de ser sustancial.
+
+------------------------------------------------------------------------
+
+![](figs/optimal_pca.png)
+
+### Ejemplo
+
+Datos del porcentaje de asaltos, asesinatos y secuestros por cada 100 mil habitantes para cada uno de los estos de US, en el año 1973. Adicionalmente, se incluye el porcentaje de la población de cada estado que vive en zonas rurales.
+
+```{r}
+data("USArrests")
+head(USArrests)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+apply(X = USArrests, MARGIN = 2, FUN = mean)
+apply(X = USArrests, MARGIN = 2, FUN = var)
+```
+
+Si no estandarizamos, la variable *Assault* será la que dominará nuestro PCA.
+
+------------------------------------------------------------------------
+
+```{r}
+pca <- prcomp(USArrests, scale = TRUE)
+names(pca)
+```
+
+------------------------------------------------------------------------
+
+Elementos *center* y *scale* contienen la media y desviación en escala original.
+
+```{r}
+pca$center
+pca$scale
+```
+
+------------------------------------------------------------------------
+
+Elemento *rotation* contiene el valor de los loadings para cada componente
+
+```{r}
+pca$rotation
+```
+
+------------------------------------------------------------------------
+
+Valor de las componentes principales para cada observación (*principal component scores*)
+
+```{r}
+head(pca$x)
+dim(pca$x)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+biplot(x = pca, scale = 0, cex = 0.6, col = c("blue4", "brown3"))
+```
+
+------------------------------------------------------------------------
+
+```{r}
+pca$rotation <- -pca$rotation
+pca$x        <- -pca$x
+biplot(x = pca, scale = 0, cex = 0.6, col = c("blue4", "brown3"))
+```
+
+------------------------------------------------------------------------
+
+```{r}
+pca$sdev^2
+prop_varianza <- pca$sdev^2 / sum(pca$sdev^2)
+prop_varianza
+```
+
+------------------------------------------------------------------------
+
+```{r}
+ej_pca<-ggplot(data = data.frame(prop_varianza, pc = 1:4),
+       aes(x = pc, y = prop_varianza)) +
+  geom_col(width = 0.3) +
+  scale_y_continuous(limits = c(0,1)) +
+  theme_bw() +
+  labs(x = "Componente principal",
+       y = "Prop. de varianza explicada")
+```
+
+------------------------------------------------------------------------
+
+```{r}
+ej_pca
+```
+
+------------------------------------------------------------------------
+
+```{r}
+prop_varianza_acum <- cumsum(prop_varianza)
+prop_varianza_acum
+```
+
+------------------------------------------------------------------------
+
+```{r}
+ej_pca2<-ggplot(data = data.frame(prop_varianza_acum, pc = 1:4),
+       aes(x = pc, y = prop_varianza_acum, group = 1)) +
+  geom_point() +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Componente principal",
+       y = "Prop. varianza explicada acumulada")
+```
+
+------------------------------------------------------------------------
+
+```{r}
+ej_pca2
+```
+
+## Métodos de agrupamiento
+
+TBD

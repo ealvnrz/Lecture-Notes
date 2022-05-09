@@ -1135,15 +1135,15 @@ puede escribir
 \]
 \end{frame}
 
-\begin{frame}[fragile]{Simulación de AR(2)}
-\protect\hypertarget{simulaciuxf3n-de-ar2}{}
+\begin{frame}[fragile]{Simulación de AR(1)}
+\protect\hypertarget{simulaciuxf3n-de-ar1}{}
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{414}\NormalTok{)}
 \NormalTok{ar1\_a}\OtherTok{\textless{}{-}}\FunctionTok{arima.sim}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\AttributeTok{ar=}\NormalTok{.}\DecValTok{9}\NormalTok{), }\AttributeTok{n=}\DecValTok{100}\NormalTok{)}
 \NormalTok{ar1\_b}\OtherTok{\textless{}{-}}\FunctionTok{arima.sim}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\AttributeTok{ar=}\SpecialCharTok{{-}}\NormalTok{.}\DecValTok{9}\NormalTok{), }\AttributeTok{n=}\DecValTok{100}\NormalTok{)}
-\NormalTok{p1}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar1\_a, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(2) ar=c(1.3,{-}.4)\textquotesingle{}}\NormalTok{)}
-\NormalTok{p2}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar1\_b, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(2) ar=c(1.3,{-}.4)\textquotesingle{}}\NormalTok{)}
+\NormalTok{p1}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar1\_a, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(1) alpha=0.9\textquotesingle{}}\NormalTok{)}
+\NormalTok{p2}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ar1\_b, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}AR(1) alpha={-}0.9\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 \end{frame}
@@ -1364,7 +1364,7 @@ raíces igualando las últimas dos expresiones
 \end{frame}
 
 \begin{frame}[fragile]{Simulación de AR(2)}
-\protect\hypertarget{simulaciuxf3n-de-ar2-1}{}
+\protect\hypertarget{simulaciuxf3n-de-ar2}{}
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(ggfortify)}
@@ -1532,7 +1532,7 @@ podemos reescribir este proceso en términos de operador de lag como:
 (1-\alpha_1 B- \dots -\alpha_p B^p) X_{t}^{*}=Z_t
 \]
 
-en donde llamamos \(\phi(B)= 1-\phi_1 B-\dots - \phi_p B^p\) al
+en donde llamamos \(\phi(B)= 1-\alpha_1 B-\dots - \alpha_p B^p\) al
 polinomio de grado \(p\) del operador de lag con \(p\geq 1\).
 \end{frame}
 
@@ -1562,11 +1562,8 @@ Es posible mostrar que el proceso es estacionario si
 \(|G_i|<1, \forall i\).
 \end{frame}
 
-\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-3}{%
-\subsection{Función de
-autocorrelación}\label{funciuxf3n-de-autocorrelaciuxf3n-3}}
-
 \begin{frame}{Función de autocorrelación}
+\protect\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-3}{}
 De la forma general del proceso
 
 \[
@@ -1602,10 +1599,8 @@ en donde \(A_i\) son constantes a determinar basado en las condiciones
 iniciales y los \(G_i\) son los factores de la ecuación característica.
 \end{frame}
 
-\hypertarget{ecuaciones-de-yule-walker}{%
-\subsection{Ecuaciones de Yule-Walker}\label{ecuaciones-de-yule-walker}}
-
 \begin{frame}{Ecuaciones de Yule-Walker}
+\protect\hypertarget{ecuaciones-de-yule-walker}{}
 Evaluando la ecuación
 
 \[
@@ -1630,7 +1625,7 @@ Así, llamaremos \textbf{ecuaciones de Yule-Walker} al sistema:
 Si definimos
 
 \[
-\bm{\phi}'=[\phi_1,\dots,\phi_p], \quad \bm{\rho}'=[\rho(1),\dots,\rho(p)]
+\bm{\phi}'=[\alpha_1,\dots,\alpha_p], \quad \bm{\rho}'=[\rho(1),\dots,\rho(p)]
 \]
 
 y
@@ -1665,13 +1660,13 @@ estacionario el proceso?
 Primero planteamos las ecuaciones de Yule-Walker:
 
 \[
-\begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 1 & 0.9 & 0.8 \\ 0.9 & 1 & 0.9 \\ 0.8 & 0.9 & 1 \end{bmatrix} \begin{bmatrix} \phi_1 \\ \phi_2 \\ \phi_3 \end{bmatrix}
+\begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 1 & 0.9 & 0.8 \\ 0.9 & 1 & 0.9 \\ 0.8 & 0.9 & 1 \end{bmatrix} \begin{bmatrix} \alpha_1 \\ \alpha_2 \\ \alpha_3 \end{bmatrix}
 \]
 
 Cuya solución es
 
 \[
-\begin{bmatrix} \phi_1 \\ \phi_2 \\ \phi_3 \end{bmatrix} =\begin{bmatrix} 5.28 & -5 & 0.28 \\ -5 & 10 & -5 \\ 0.28 & -5 & 5.28 \end{bmatrix} \begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 0.89 \\ 1 \\ -1.11 \end{bmatrix}
+\begin{bmatrix} \alpha_1 \\ \alpha_2 \\ \alpha_3 \end{bmatrix} =\begin{bmatrix} 5.28 & -5 & 0.28 \\ -5 & 10 & -5 \\ 0.28 & -5 & 5.28 \end{bmatrix} \begin{bmatrix} 0.9 \\ 0.8 \\ 0.5\end{bmatrix}=\begin{bmatrix} 0.89 \\ 1 \\ -1.11 \end{bmatrix}
 \]
 \end{frame}
 
@@ -1693,35 +1688,959 @@ X^3 - 0.89 X^2 - X + 1.11=0
 y comprobar que todas tienen módulo menor que la unidad.
 \end{frame}
 
-\hypertarget{arp-como-suma-de-innovaciones}{%
-\subsection{AR(p) como suma de
-innovaciones}\label{arp-como-suma-de-innovaciones}}
-
 \begin{frame}{AR(p) como suma de innovaciones}
+\protect\hypertarget{arp-como-suma-de-innovaciones}{}
 La forma de proceso \(AR(p)\) como suma de innovaciones (que después
 llamaremos \(MA(\infty)\), se obtiene invirtiendo el operador \(AR(p)\).
 Si definimos \(\psi(B)=\phi(B)^{-1}\), entonces se tiene
 
 \[
-(1-\phi_1 B -\dots -\phi_p B^p)(1+\psi_1 B + \psi_2 B^2 +\dots)=1
+(1-\alpha_1 B -\dots -\alpha_p B^p)(1+\psi_1 B + \psi_2 B^2 +\dots)=1
 \]
 
 en donde los coeficientes \(\psi_i\) se obtienen al igualar las
 potencias de \(B\) a cero. Por lo que, se tienen la relación
 
 \[
-\psi_k = \phi_1 \psi_{k-1}+\dots + \phi_p \psi_{k-1}
+\psi_k = \alpha_1 \psi_{k-1}+\dots + \alpha_p \psi_{k-1}
 \]
 
 que es análoga a la que verifican los coeficientes de autocorrelación
 del proceso.
 \end{frame}
 
-\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-parcial}{%
-\subsection{Función de autocorrelación
-parcial}\label{funciuxf3n-de-autocorrelaciuxf3n-parcial}}
+\begin{frame}{Función de autocorrelación parcial}
+\protect\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-parcial}{}
+Determinar el orden \(p\) de un proceso autorregresivo a partir de su
+función de autocorrelación usual es difícil, por lo que para poder
+resolver este problema introduciremos la noción de función de
+autocorrelación parcial.
+
+En general, un \(AR(p)\) presenta efectos \textbf{directos} de
+observaciones separadas por \(1,2,\dots,p\) retardos y los efectos
+\textbf{directos} de las observaciones separadas por más de \(p\)
+retardos son nulos. Esta idea es la clave para la utilización de la
+función de autocorrelación parcial.
+\end{frame}
+
+\begin{frame}
+Se define el \textbf{coeficiente de autocorrelación parcial} de orden
+\(k, \rho_k^p\) como el coeficiente de correlación entre observaciones
+separadas \(k\) periodos, cuando eliminamos de la relación entre las dos
+variables la dependencia lineal debida a los valores intermedios. Lo
+calculamos como:
+
+\begin{enumerate}
+\item
+  Se elimina de \(X_{t}^{*}\) el efecto de
+  \(X_{t-1}^{*},\dots, X_{t-k+1}^{*}\) mediante la regresión:
+
+  \[X_{t}^{*}=\beta X_{t-1}^{*} + \dots + \beta_{k-1} X_{t-k+1}^{*}+u_t\]
+  donde la variable \(u_t\) recoge la parte de \(X_{t}^{*}\) no común
+  \(X_{t-1}^{*},\dots,X_{t-k+1}^{*}\)
+\item
+  Se elimina de \(X_{t-k}^{*}\) el efecto de
+  \(X_{t-1}^{*},\dots,X_{t-k+1}^{*}\) mediante la regresión:
+
+  \[X_{t-k}^{*}=\gamma_1 X_{t-1}^{*}+\dots+\gamma_{k-1}X_{t-k+1}^{*}+v_t\]
+
+  donde la variable \(v_t\) contiene la parte de \(X_{t-1}^{*}\) no
+  común con las observaciones intermedias.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{enumerate}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Se calcula el coeficiente de correlación simple entre \(u_t\) y
+  \(v_t\), y este será el \textbf{coeficiente de autocorrelación parcial
+  de orden} \(k\)
+\end{enumerate}
+
+Es posible mostrar que las etapas anteriores equivalen a ajustar la
+regresión múltiple
+
+\[
+X_{t}^{*}=\alpha_{k1}X_{t-1}^{*}+\dots+\alpha_{kk}X_{t-k}^{*}+\eta_t
+\]
+
+y así,
+
+\[
+\rho_k^p=\alpha_{kk}
+\]
+
+Es decir, el coeficiente de autocorrelación parcial de orden \(k\) es el
+coeficiente \(a_kk\) de la variable \(X_{t-k}^{*}\) al ajustar a los
+datos de la serie un \(AR(k)\). Llamamos \textbf{función de
+autocorrelación parcial} a la representación de los coeficientes de
+autocorrelación parcial en función del retardo (\(k\)).
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_3}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-18.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(}\FunctionTok{acf}\NormalTok{(ar2\_c, }\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-19.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(}\FunctionTok{pacf}\NormalTok{(ar2\_c,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-20.pdf}
+\end{frame}
+
+\hypertarget{procesos-de-media-muxf3vil}{%
+\section{Procesos de media móvil}\label{procesos-de-media-muxf3vil}}
+
+\begin{frame}{Procesos de media móvil}
+Los modelos que hemos estudiado antes se caracterizan por tener una
+memoria relativamente larga, ya que el valor actual está relacionado con
+todos los anteriores, aunque con coeficientes decrecientes. Esto se
+traduce en que podemos escribir un proceso autorregresivo como una
+función lineal de todas las innovaciones que le han generado, con pesos
+que tienden a cero con el retardo.
+
+Los procesos AR no pueden representar series de tiempo de memoria muy
+corta, donde el valor actual de la serie sólo está correlacionado con un
+número pequeño de valores anteriores, de manera que la función de
+autocorrelación tenga sólo unas pocas correlaciones distintas de cero.
+\end{frame}
+
+\begin{frame}
+Una familia de procesos que tienen esta propiedad de \emph{memoria
+corta} son los procesos de media móvil, que le llamamos \textbf{MA} por
+su siglas sen inglés: \emph{moving average}.
+
+Estos procesos \textbf{MA} son función de un número finito, y
+generalmente pequeño, de las innovaciones pasadas.
+\end{frame}
+
+\hypertarget{ma1}{%
+\subsection{MA(1)}\label{ma1}}
+
+\begin{frame}{MA(1)}
+Un procesos de media móvil de orden 1 está definido como:
+
+\[
+X_{t}^{*}=Z_t-\theta Z_{t-1}
+\]
+
+donde \(X_{t}^{*}=X_t-\mu\) siendo \(\mu\) la media del proceso y
+\(Z_t\) es un proceso de ruido blanco con varianza \(\sigma^2\). De
+igual manera que antes, podemos escribir el proceso usando el operador
+de lag, como:
+
+\[
+X_{t}^{*}=(1-\theta B)Z_t
+\]
+
+Este proceso es la suma de dos procesos estacionarios (\(Z_t\) y
+\(-\theta Z_{t-1}\)), y por lo tanto, siempre será estacionario, para
+cualquier valor del parámetro \(\theta\) (a diferencia de los procesos
+AR).
+\end{frame}
+
+\begin{frame}
+En las aplicaciones de este proceso asumiremos que \(|\theta|<1\), de
+manera que la innovación pasada tenga menos peso que la presente.
+Entonces, diremos que el proceso es \textbf{invertible} y tiene la
+propiedad que el efecto de los valores pasados decrece en el tiempo.
+Para justificar eso, reescribiremos \(Z_{t-1}\) como función de
+\(X_{t}^{*}\), esto es:
+
+\[
+X_{t}^{*}= Z_t-\theta(X_{t-1}^{*}+\theta Z_{t-2})=-\theta X_{t-1}^{*}-\theta^2 Z_{t-2}+Z_t
+\]
+
+Si repetimos esta operación para \(Z_{t-2}\), se obtiene:
+
+\[
+X_{t}^{*}=-\theta X_{t-1}^{*}-\theta^2 (X_{t-2}^{*}+\theta Z_{t-3})+Z_t=-\theta X_{t-1}^{*}-\theta^2 X_{t-2}^{*}-\theta^3 Z_{t-3}^{*} + Z_t
+\]
+
+Si seguimos reemplazando, se puede ver que:
+
+\[
+X_{t}^{*}=-\sum_{i=1}^{t-1}\theta^iX_{t-i}^{*}-\theta^{t} Z_0 + Z_{t}
+\]
+\end{frame}
+
+\begin{frame}
+Observamos que si \(|\theta|<1\), el efecto \(X_{t-k}^{*}\) tiende a
+cero y el proceso se denomina \textbf{inverstible}. Si
+\(|\theta|\geq 1\) se daría la situación paradójica en que el efecto de
+las observaciones pasadas aumentaría con la distancia, y aunque el
+proceso seguiría siendo estacionario, es poco adecuado para representar
+series reales. En lo que sigue, asumiremos que el proceso es invertible.
+
+Como \(|\theta|<1\), exite el operador inverso \((1-\theta B)^{-1}\) y
+podemos reescribir el proceso como
+
+\[
+(1+\theta B +\theta^2 B^2 + \dots ) X_{t}^{*}= Z_t
+\]
+
+que equivale a
+
+\[
+X_{t}^{*}=-\sum_{i=1}^{\infty}\theta^i X_{t-j}^{*}+Z_t
+\]
+
+que es la misma ecuación de antes, asumiendo que el proceso comienza en
+el pasado infinito. Esta ecuación representa el proceso \(MA(1)\)
+invertible como un \(AR(\infty)\) con coeficientes que decrecen en
+progresión geométrica.
+\end{frame}
+
+\begin{frame}
+Podemos calcular la varianza del proceso a partir de
+
+\[
+X_{t}^{*}=Z_t-\theta Z_{t-1}
+\]
+
+Elevando al cuadrado y tomando esperanzas, en donde se obtiene:
+
+\[
+\mathbb{E}(X_{t}^{2})=\mathbb{E}(Z_{t}^{2})+\theta^2 \mathbb{E}(Z_{t-1}^{2})-2\theta \mathbb{E}(Z_t Z_{t-1})
+\]
+
+En donde, como \(\mathbb{E}(Z_t Z_{t-1})=0\) (por ser un proceso de
+ruido blanco) y
+\(\mathbb{E}(Z_{t}^{2})=\mathbb{E}(Z_{t-1}^{2})=\sigma^2\), se tiene
+que:
+
+\[
+\sigma_{X}^{2}=\sigma^2(1+\theta^2)
+\]
+
+Esta ecuación nos indica que la varianza marginal del proceso,
+\(\sigma_{X}^{2}\), es siempre mayor que la varianza de las
+innovaciones, \(\sigma^2\), y aumenta conforme \(\theta^2\) crece.
+\end{frame}
+
+\begin{frame}{Función de autocorrelación}
+\protect\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-4}{}
+Para obtener la función de autocorrelación simple de un proceso
+\(MA(1)\) comenzamos calculando las covarianzas. La de primer order se
+obtiene multiplicando \[
+X_{t}^{*}=Z_t-\theta Z_{t-1}
+\]por \(X_{t-1}^{*}\) y tomando esperanzas, por lo que se obtiene:\[
+\gamma(1)=\mathbb{E}(X_{t}^{*}X_{t-1}^{*})=\mathbb{E}(Z_t X_{t-1}^{*})-\alpha\mathbb{E}(Z_{t-1}X_{t-1}^{*})
+\]
+
+En esta expresión, el primer término es cero debido a que
+\(X_{t-1}^{*}\) sólo depende de su innovación en el tiempo \(t-1\) y
+\(t-2\), y no en el tiempo \(t\). Para calcular el segundo término,
+sustituimos \(X_{t-1}^{*}\),
+obteniéndose:\[\mathbb{E}(Z_{t-1} X_{t-1}^{*})=\mathbb{E}(Z_{t-1}(Z_{t-1}-\alpha Z_{t-2}))=\sigma^2\]
+\end{frame}
+
+\begin{frame}
+Así,\[
+\gamma(1)=-\theta \sigma^2
+\]
+
+Luego, para calcular la autocovarianza de segundo orden:
+
+\[
+\gamma(2)=\mathbb{E}(X_{t}^{*}X_{t-2}^{*})=\mathbb{E}(Z_t X_{t-2}^{*})- \alpha \mathbb{E}(Z_{t-1}X_{t-2}^{*})=0
+\]
+
+Ya que la serie no está correlacionada con sus innovaciones futuras.
+Siguiendo el mismo procedimiento se pueden obtener las covarianzas de
+orden superior a dos, ya que al multiplicar la forma general del
+\(MA(1)\) por \(X_{t-j}^{*}\) donde \(j>1\), tendremos productos de la
+serie por sus innovaciones futuras y las esperanzas de estos son nulas.
+Por lo que, podemos afirmar que
+
+\[
+\gamma_j=0,\quad j>1
+\]
+\end{frame}
+
+\begin{frame}
+Finalmente, al dividir las covarianzas por la varianza del proceso, se
+obtiene la función de autocorrelación simple, siendo esta:
+
+\[
+\rho(1)=\dfrac{-\theta}{1+\theta^2}, \quad \rho(k)=0 \quad k>1
+\]
+
+Por lo que la función de autocorrelación sólo tiene un valor distinto de
+cero en el primer retardo.
+
+Como \(|\theta|<1\) el valor del coeficiente de autocorrelación en un
+\(MA(1)\) invertible es siempre menor que 0.5.
+\end{frame}
+
+\begin{frame}
+En cuanto a la función de autocorrelación parcial notamos de
+
+\[
+(1+\theta B +\theta^2 B^2 + \dots ) X_{t}^{*}= Z_t
+\]
+
+que al escribir un \(MA(1)\) en forma autorregresiva, hay un efecto
+directo de \(X_{t-k}^{*}\) sobre \(X_{t}^{*}\) de magnitud
+\(\theta^{k}\), para cualquier \(k\). Por lo que, la función de
+autocorrelación parcial tendrá todos los coeficientos no nulos y que
+decrecen geométricamente con \(k\) (que es la estructura de una función
+de autocorrelación de un \(AR(1)\)). Así, la función de autocorrelación
+parcial de un \(MA(1)\) tiene la misma estructura que la función de
+autocorrelación de un \(AR(1)\).
+\end{frame}
+
+\begin{frame}[fragile]{Simulación de un MA(1)}
+\protect\hypertarget{simulaciuxf3n-de-un-ma1}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ma1 }\OtherTok{\textless{}{-}} \FunctionTok{arima.sim}\NormalTok{(}\AttributeTok{n =} \DecValTok{100}\NormalTok{, }\FunctionTok{list}\NormalTok{(}\AttributeTok{ma=}\FloatTok{0.8}\NormalTok{))}
+\NormalTok{plot\_4}\OtherTok{\textless{}{-}}\FunctionTok{autoplot}\NormalTok{(ma1, }\AttributeTok{ts.colour =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}MA(1) theta=0.8\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_4}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-22.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(}\FunctionTok{acf}\NormalTok{(ma1,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-23.pdf}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{autoplot}\NormalTok{(}\FunctionTok{pacf}\NormalTok{(ma1,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figs/unnamed-chunk-24.pdf}
+\end{frame}
+
+\hypertarget{maq}{%
+\subsection{MA(q)}\label{maq}}
+
+\begin{frame}{MA(q)}
+Generalizando la idea de un \(MA(1)\), podemos escribir procesos cuyo
+valor actual dependa no sólo de la última innovación, sino de las \(q\)
+últimas innovaciones. Un proceso \(MA(q)\) está definido como:
+
+\[
+X_{t}^{*}=Z_{t}-\theta_1 Z_{t-1}-\theta_2 Z_{t-2} - \dots -\theta_q Z_{t-q}
+\]
+
+o equivalentemente, en notación de operador de lag:
+
+\[
+X_{t}^{*}=(1-\theta_1 B - \theta_2 B^2 - \dots - \theta_q B^q) Z_t
+\]
+
+que lo escribimos de manera más compacta como:
+
+\[
+X_{t}^{*}=\theta(B)Z_t
+\]
+\end{frame}
+
+\begin{frame}
+Un proceso \(MA(q)\) es siempre estacionario, por ser la suma de
+procesos estacionarios.
+
+Diremos que el proceso es \textbf{invertible} si las raíces del operador
+\(\theta(B)=0\), son (en módulo) mayores que la unidad.
+
+Las propiedades de este proceso las obtenemos a partir de
+
+\[
+X_{t}^{*}=(1-\theta_1 B - \theta_2 B^2 - \dots - \theta_q B^q) Z_t
+\]
+
+Multiplicando convenientemente.
+\end{frame}
+
+\begin{frame}{Función de autocovarianza}
+\protect\hypertarget{funciuxf3n-de-autocovarianza-2}{}
+Multiplicando la ecuación anterior
+
+\[
+X_{t}^{*}=(1-\theta_1 B - \theta_2 B^2 - \dots - \theta_q B^q) Z_t
+\]
+
+por \(X_{t-k}^{*}\) para \(k\geq 0\) y tomando esperanzas, se obtienen
+las siguiente autocovarianzas:
+
+\begin{align*}
+\gamma(0) &= (1+\theta_{1}^{2}+\dots+\theta_{q}^{2})\sigma^2\\
+\gamma(k) &= ( -\theta_{k} + \theta_1 \theta_{k+1} +\dots + \theta_{q-k} \theta_q)\sigma^2 \quad k=1,\dots,q\\
+\gamma(k) &= 0 \quad k>q
+\end{align*}
+
+Por lo que un proceso \(MA(q)\) tiene exactamente los \(q\) primeros
+coeficientes de la función de autocovarianzas distintos de cero.
+\end{frame}
+
+\begin{frame}{Función de autocorrelación}
+\protect\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-5}{}
+Dividiendo las covarianzas por \(\gamma(0)\) y utilizando una notación
+más compacta, la función de autocorrelación será:
+
+\begin{align*}
+\rho_k &= \dfrac{\sum_{i=0}^{i=q}\theta_i \theta_{k+i}}{\sum_{i=0}^{i=q} \theta_{i}^{2}}, \quad k=1,\dots,q \\
+\rho_k &= 0, \quad k>q,
+\end{align*}
+
+donde \(\theta_0=-1\), y \(\theta_k=0\) para \(k\geq q+1\). En
+particular, para \(q=k=1\) obtenemos la autocorrelación para el
+\(MA(1)\).
+\end{frame}
 
 \begin{frame}{Función de autocorrelación parcial}
+\protect\hypertarget{funciuxf3n-de-autocorrelaciuxf3n-parcial-1}{}
+Para calcular la función de autocorrelación parcial de un \(MA(q)\)
+expresaremos el proceso como un \(AR(\infty)\):\[
+\theta^{-1}(B)X_{t}^{*}=Z_t
+\]
+
+y llamando \(\theta^{-1}(B)=\pi(B)\), donde:
+
+\[
+\pi(B)=1-\pi_1 B - \dots - \pi_k B^k - \dots
+\]
+
+y los coeficientes de \(\pi(B)\) se obtienen imponiendo que
+\(\pi(B)\theta(B)=1\).
+\end{frame}
+
+\begin{frame}
+Suponer que el proceso es invertible implica que las raíces de
+\(\theta(B)=0\) están fuera del círculo unitario, y la serie \(\pi(B)\)
+será convergente. Igualando las potencias de \(B\) a cero, se obtiene
+que los coeficientes \(\pi_i\) verifican la siguiente relación:\[
+\pi_k=\theta_1 \pi_{k-1}+\dots + \theta_q\pi_{k-q}
+\]
+
+donde \(\pi_0=-1\) y \(\pi_j=0\) para \(j<0\). La solución de esta
+ecuación será de la forma \(\sum A_i G_{i}^{k}\), donde ahora los
+\(G_{i}^{-1}\) son las raíces del operador de media móvil.
+
+Tras obtener los coeficientes \(\pi_i\) de la representación
+\(AR(\infty)\), podemos escribir el proceso \(MA\) como:
+
+\[
+X_{t}^{*}=\sum_{i=1}^{\infty} \pi_i X_{t-i}^{*} + Z_t
+\]
+\end{frame}
+
+\begin{frame}
+De la expresión anterior, podemos concluir que la función de
+autocorrelación parcial de un \(MA\) será no nula para todo retardo, ya
+que existe un efecto directo de \(X_{t-i}^{*}\) sobre \(X_{t}^{*}\) para
+todo \(i\).
+
+La función de autocorrelación parcial de un proceso \(MA\) tendrá la
+misma estructura que la función de autocorrelación de un proceso \(AR\)
+del mismo orden.
+
+Así, existe una dualidad entre procesos \(AR\) y \(MA\), de manera que
+la función de autocorrelación parcial de un \(MA(q)\) tiene la
+estructura de la función de autocorrelación de un \(AR(q)\), y la
+función de autocorrelación de un \(MA(q)\) tiene la estructura de la
+función de autocorrelación parcial de un \(AR(q)\).
+\end{frame}
+
+\hypertarget{mainfty-descomposiciuxf3n-de-wold}{%
+\subsection{\texorpdfstring{MA(\(\infty\)), Descomposición de
+Wold}{MA(\textbackslash infty), Descomposición de Wold}}\label{mainfty-descomposiciuxf3n-de-wold}}
+
+\begin{frame}{MA(\(\infty\)), Descomposición de Wold}
+Los procesos autorregresivos y de media móvil estudiados antes son casos
+particulares de una representación general de procesos estacionarios
+obtenida por Wold (1983), quien mostró que todo proceso estocástico
+débilmente estacionario, \(X_t\), de media finita \(\mu\), que no
+contenga componentes deterministas, puede escribirse como una función
+lineal de variables aleatorias no correlacionadas, \(Z_t\), como:
+
+\[
+X_t=\mu+Z_t+\psi_1Z_{t-1}+\psi Z_{t-2}+\dots=\mu + \sum_{i=0}^{\infty}\psi_i Z_{t-i}, \quad (\psi_0=1)
+\]
+
+donde
+\(\mathbb{E}(X_t)=\mu, \mathbb{E}(Z_t)=0,\mathbb{V}(Z_t)=\sigma^2\) y
+\(\mathbb{E}(Z_tZ_{t-k})=0, k>1\)
+\end{frame}
+
+\begin{frame}
+Si llamamos, nuevamente, \(X_{t}^{*}=X_t-\mu\) y utilizamos el operador
+de lag, podemos escribir:
+
+\[
+X_{t}^{*}=\psi(B)Z_t
+\]
+
+siendo \(\psi(B)=1+\psi_1 B+ \psi_2 B^2 + \dots\) un polinomio
+indefinido en el operador de retardo \(B\). Llamaremos a la ecuación
+anterior la representación lineal general de un proceso estacionario no
+determinista.
+
+Esta representación es importante porque nos garantiza que cualquier
+proceso estacionario admite una presentación lineal.
+\end{frame}
+
+\begin{frame}
+En general, las variables \(Z_t\) forman un proceso de ruido blanco,
+esto es: no correlacionadas, con media cero y varianza constante. En
+ciertos casos particulares el proceso puede escribirse en función de
+variables \(\{ Z_t \}\) normales independientes. Entonces la variable
+\(X_{t}^{*}\) tendrá una distribución normal, y la estacionariedad débil
+coincidirá con la estricta.
+\end{frame}
+
+\begin{frame}
+Las propiedades del proceso se obtienen como en los casos de un modelo
+\(MA\). La varianza de \(X_t\) en:\[
+X_t=\mu+Z_t+\psi_1Z_{t-1}+\psi Z_{t-2}+\dots=\mu + \sum_{i=0}^{\infty}\psi_i Z_{t-i}, \quad (\psi_0=1)
+\]
+
+estará dada por:
+
+\[
+\mathbb{V}(Z_t)=\gamma(0)=\sigma^2 \sum_{i=0}^{\infty}\psi_{i}^{2}
+\]
+
+y para que el proceso tenga varianza finita, la serie
+\(\{ \psi_{i}^{2} \}\) debe ser convergente. Notar que si los
+coeficientes \(\psi_i\) se anulan a partir de un retardo \(q\), el
+modelo general se reduce a un \(MA(q)\) y la fórmula anterior coincide
+con la obtenida anteriormente.
+\end{frame}
+
+\begin{frame}
+Las covarianzas se obtienen con
+
+\[
+\gamma(k)=\mathbb{E}(X_{t}^{*}X_{t-k}^{*})=\sigma^2\sum_{i=0}^{\infty}\psi_i \psi_{i+k}
+\]
+
+que para \(k=0\) proporcionan, como caso particular, \(\gamma(0)\),
+Nuevamente, si los coeficientes \(\psi_i\) se anulan a partir de un
+retardo \(q\), esta expresión proporciona las autocovarianzas de un
+proceso \(MA(q)\). Los coeficientes de autocorrelación vendrán dados
+por:
+
+\[
+\rho(k)=\dfrac{\sum_{i=0}^{\infty}\psi_i \psi_{i+k}}{\sum_{i=0}^{\infty}\psi_{i}^{2}}
+\]
+
+que generaliza la expresión de autocorrelación de un \(MA(q)\).
+\end{frame}
+
+\begin{frame}
+Una consecuencia de la representación de Wold, es que todo proceso
+estacionario admite también una representación autorregresiva, que puede
+ser de orden infinito. Esta representación es la inversa de la de Wold,
+y escribiremos:
+
+\[
+X_{t}^{*}=\pi_1 X_{t-1}^{*} + \pi_2 X_{t-2}^{*} + \dots + Z_t
+\]
+
+que en notación de operadores de lag, se reduce a:
+
+\[
+\pi(B)X_{t}^{*}=Z_t
+\]
+
+La representación \(AR(\infty)\) es la dual de la \(MA(\infty)\) y se
+verifica:
+
+\[
+\pi(B)\psi(B)=1
+\]
+
+con lo que, igualando las potencias de B a cero, podemos obtener los
+coeficientes de una representación a partir de los de la otra.
+\end{frame}
+
+\hypertarget{ar-ma-y-proceso-general}{%
+\subsection{AR, MA y proceso general}\label{ar-ma-y-proceso-general}}
+
+\begin{frame}{AR, MA y proceso general}
+Es inmediato comprobar que un proceso \(MA\) es un caso particular de la
+representación de Wold. Esto también lo es en los \(AR\). Por ejemplo el
+proceso \(AR(1)\):
+
+\[
+(1-\alpha B)X_{t}^{*}=Z_t
+\]
+
+puede escribirse (al multiplicar por el operador inverso
+\((1-\alpha B)^{-1}\) como:
+
+\[
+X_{t}^{*}=(1+\alpha B + \alpha^2 B^2 + \dots ) Z_t
+\]
+
+que representa al proceso \(AR(1)\) como un caso particular de la forma
+\(MA(\infty)\) del proceso lineal general, con coeficientes \(\psi_i\)
+que decaen en progresión geométrica. La condición de estacionariedad y
+varianza finita, serie de coeficientes \(\psi_{i}^{2}\) convergente,
+equivale ahora a que \(|\alpha|<1\).
+\end{frame}
+
+\begin{frame}
+Para procesos \(AR\) de orden mayor, resulta más cómodo obtener los
+coeficiente de la representación \(MA(\infty)\) imponiendo la condición
+de que, al ser resultado de invertir un proceso \(AR\), el producto de
+ambos operadores deber la unidad. Por ejemplo para un \(AR(2)\) la
+condición será:
+
+\[
+(1-\alpha_1 B - \alpha_2 B^2)(1+\psi B + \psi_2 B^2+ \dots )=1
+\]
+
+Imponiendo la anulación de las potencias de \(B\), se obtienen los
+coeficientes:
+
+\begin{align*}
+\psi_1 &= \alpha_1 \\
+\psi_2 &= \alpha_1 \psi_1 + \alpha_2 \\
+\psi_i &= \alpha_1 \psi_{i-1} + \alpha_2 \psi_{i-2} \quad i\geq 2
+\end{align*}
+
+donde \(\psi_0=1\).
+\end{frame}
+
+\begin{frame}
+Análogamente, para un \(AR(p)\) los coeficientes \(\psi_i\) de la
+representación general se calculan mediante:
+
+\[
+(1-\alpha_1 B - \dots - \alpha_p B^p)(1+\psi_1 B + \psi_2 B^2 +\dots)=1
+\]
+
+y para \(i\geq p\) deben verificar la condición:
+
+\[
+\psi_i=\alpha_i1 \psi_{i-1}+\dots + \alpha_p \psi_{i-p} \quad i\geq p
+\]
+\end{frame}
+
+\begin{frame}
+La condición de estacionariedad implica que las raíces de la ecuación
+característica del proceso \(AR(p), \phi(B)=0\), deben estar fuera del
+círculo unitario. Escribiendo el operador \(\phi(B)\) como:
+
+\[
+\phi(B)=\prod_{i=1}^{p}(1-G_iB)
+\]
+
+donde \(G_{i}^{-1}\) son las raíces de \(\phi(B)=0\), se verifica que,
+desarrollando en fracciones parciales:
+
+\[\phi^{-1}(B)=\sum \dfrac{k_i}{(1-G_i B)}\]
+
+será convergente si \(|G_i|<1\).
+\end{frame}
+
+\begin{frame}
+En síntesis, los procesos \(AR\) pueden considerarse casos particulares
+de la representación del proceso lineal general que se caracterizan
+porque:
+
+\begin{enumerate}
+\tightlist
+\item
+  Todos los \(\psi_i\) son distintos de cero
+\item
+  Existen restricciones sobre los \(\psi_i\), que dependen del orden del
+  proceso. En general, verifican la secuencia
+  \(\psi_i=\alpha_1 \psi_{i-1}+\dots + \alpha_p \psi_{i-p}\), con
+  condiciones iniciales que dependen del orden del proceso.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+Esta relación entre los coeficientes \(\psi_i\) y los del proceso
+permiten concluir que los coeficientes \(\psi_i\) tienen la misma
+estructura que los coeficientes de autocorrelación simple. De hecho,
+para un \(AR(p)\) hemos visto que satisfacen la ecuación de un proceso,
+como ocurría con las autocorrelaciones, y para un \(MA(q)\) el número de
+coeficientes de autocorrelación no nulos es el orden del proceso.
+\end{frame}
+
+\hypertarget{procesos-arma}{%
+\section{Procesos ARMA}\label{procesos-arma}}
+
+\begin{frame}{Procesos ARMA}
+El proceso \(ARMA(p,q)\) está definido como:
+
+\[
+(1-\alpha_1B-\dots-\alpha_pB^p)\tilde{X}_t=(1-\theta_1B-\dots-\theta_qB^q)Z_t
+\]
+
+o equivalentemente,
+
+\[
+\phi_p(B)\tilde{X}_t=\theta_q(B)Z_t
+\]
+
+El proceso será estacionario si las raíces de \(\phi_p(B)=0\) están
+fuera del círculo unitario, e invertible si lo están las de
+\(\theta_q(B)=0\). Supondremos además, que no hay raíces comunes que
+pueden cancelarse entre los operadores \(AR\) y \(MA\).
+\end{frame}
+
+\begin{frame}
+Para obtener los coeficientes \(\psi_i\) de la representación general
+del modelo \(MA(\infty)\), escribimos:
+
+\[
+\tilde{X}_t=\phi_p(B)^{-1}\theta_q(B)Z_t=\psi(B)Z_t
+\]
+
+e igualamos las potencias de \(B\) en \(\psi(B)\phi_p(B)\) a las de
+\(\theta_q (B)\). Análogamente, podemos representar un \(ARMA(p,q)\)
+como un modelo \(AR(\infty)\) haciendo:
+
+\[
+\theta_{q}^{-q}(B)\phi_p(B)\tilde{X}_t=\pi(B)\tilde{X}_t=Z_t
+\]
+
+y los coeficientes \(\pi_i\) resultarán \(\phi_p(B)=\theta_q(B)\pi(B)\).
+\end{frame}
+
+\begin{frame}
+Para calcular las autocovarianzas, multiplicamos la forma general por
+\(\tilde{X}_{t-k}\) y tomamos esperanzas, quedando:
+
+\[
+(1-\alpha_1B-\dots-\alpha_pB^p)\tilde{X}_t \tilde{X}_{t-k}=\mathbb{E}(Z_t\tilde{X}_{t-k})-\theta_1\mathbb{E}(Z_{t-1}\tilde{X}_{t-k})-\dots-\mathbb{E}(Z_{t-q}\tilde{X}_{t-k})
+\]
+
+para todo \(k>q\), todos los términos de la derecha se anulan, y
+dividiendo por \(\gamma(0)\) :
+
+\[
+\rho(k)-\alpha_1\rho_{k-1}-\dots-\alpha_p\rho(k-p)=0
+\]
+
+es decir:
+
+\[
+\phi_p(B)\rho(k)=0 \quad k>q
+\]
+\end{frame}
+
+\begin{frame}
+y concluimos que los coeficientes de autocorrelación para \(k>q\)
+seguirán un decrecimiento determinado únicamente por la parte
+autorregresiva. Los primeros \(q\) coeficientes dependen de los
+parámetros \(MA\) y \(AR\), y de ellos \(p\) proporcionarán los valores
+iniciales para el decrecimiento posterior (para \(k>q\)).
+
+Así, si \(p>q\) toda la función de autocorrelación mostrará un
+decrecimiento dictado por la ecuación anterior. En resumen, la función
+de autocorrelación:
+
+\begin{enumerate}
+\tightlist
+\item
+  Tendrá \(q-p+1\) valores iniciales con una estructura que depende de
+  los parámetros \(AR\) y \(MA\)
+\item
+  Decrecerá a partir del coeficiente \(q-p\) como una mezcla de
+  exponenciales y sinusoides, determinada exclusivamente por la parte
+  autorregresiva.
+\end{enumerate}
+
+Para el caso de la autocorrelación parcial, se tendrá una estructura
+similar.
+\end{frame}
+
+\begin{frame}
+La función de autocorrelación simple y parcial de los procesos ARMA es
+el resultado de la superposición de sus propiedades \(AR\) y \(MA\): en
+la función de autocorrelación simple ciertos coeficientes iniciales que
+dependen del orden de la parte \(MA\) y después un decrecimiento dictado
+por la parte \(AR\).
+
+En la función de autocorrelación parcial, valores iniciales dependientes
+del orden del \(AR\) seguidos del decrecimiento debido a la parte
+\(MA\).
+
+\textbf{Esta estructura compleja hace que el orden un proceso ARMA sea
+dificil de indentificar en la práctica}
+
+$\begin{array}{ccc}
+\hline & \text { F.A. Simple } & \text { F.A. parcial } \\
+\hline \text { AR(p) } & \text { Muchos coeficientes no nulos } & \text { Primeros p no nulos, resto 0 } \\
+\text { MA (q) } & \text { Primeros q no nulos, resto 0 } & \text { Muchos coeficientes no nulos } \\
+\text { ARMA }(\mathrm{p}, \mathrm{q}) & \text { Muchos coeficientes no nulos } & \text { Muchos coeficientes no nulos } \\
+\hline
+\end{array}$
+\end{frame}
+
+\hypertarget{procesos-integrados}{%
+\section{Procesos Integrados}\label{procesos-integrados}}
+
+\begin{frame}{Procesos Integrados}
+La mayoría de las series con las que nos encontramos en la práctica no
+son estacionarias, y su nivel medio varía con el tiempo. Una de las
+formas que podemos solucionar este problema es diferenciar la serie, por
+ejemplo si tenemos nuestra serie de tiempo original \(X_t\), podemos
+construir un nuevo modelo como:
+
+\[
+W_t=\nabla X_t
+\]
+
+esta serie tiende a oscilar alrededor de una media constante y ser
+estacionaria. Llamaremos a este tipo de series de tiempo
+\textbf{integradas}. Llamaremos orden de integración al número de
+diferencias necesarias para obtener un proceso estacionario.
+\end{frame}
+
+\begin{frame}
+Generalizando, diremos que un proceso es \textbf{integrado de orden}
+\(h\geq 0\), y lo representaremos por \(I(h)\), cuando al diferenciarlo
+\(h\) veces se obtiene un proceso estacionario.
+
+Así, un proceso estacionario es siempre \(I(0)\). En la práctica, la
+mayoría de las series no estacionario que son integradas tienen un orden
+\(h\leq 3\).
+\end{frame}
+
+\hypertarget{paseo-aleatorio-1}{%
+\subsection{Paseo aleatorio}\label{paseo-aleatorio-1}}
+
+\begin{frame}{Paseo aleatorio}
+Analizaremos nuevamente el proceso paseo aleatorio para ejemplificar los
+procesos integrados. Sabemos que los procesos \(MA\) finitos son siempre
+estacionarios y que los \(AR\) sólo lo sin si las raíces de
+\(\phi(B)=0\) están fuera del círculo unitario. Consideremos el
+\(AR(1)\):
+
+\[
+X_t=c+\alpha X_{t-1}+Z_t
+\]
+
+Si \(|\alpha|<1\) el proceso es estacionario. Si \(|\alpha|>1\) es fácil
+comprobar que se obtiene un proceso explosivo, donde los valores de la
+variable crecen sin límite hacia el infinito. Un caso interesante es
+cuando \(|\alpha|=1\), pues el proceso no es estacionario, pero tampoco
+es explosivo, y pertenece a la clase de procesos integrados de orden
+uno. Esto debido a que:
+
+\[
+W_t=\nabla X_t=c+Z_t
+\]
+
+Si es un proceso estacionario.
+\end{frame}
+
+\begin{frame}
+Una característica importe que diferencia los procesos estacionario y
+los no estacionarios es el papel de las constantes . En un proceso
+estacionario la constante no es importante. Sin embargo, en un proceso
+no estacionario las constantes, si existen, son muy importantes y
+presentan alguna propiedad permanente del proceso.
+\end{frame}
+
+\hypertarget{procesos-integrados-de-orden-dos}{%
+\subsection{Procesos integrados de orden
+dos}\label{procesos-integrados-de-orden-dos}}
+
+\begin{frame}{Procesos integrados de orden dos}
+Muchas series reales con tendencia pueden representarse con un modelo
+con dos diferencias, o integrado de orden dos. Un modelo simple que
+aparece en muchas aplicaciones es:
+
+\[
+\nabla^2 X_t = (1-\theta B)Z_t
+\]
+
+Para justificar este modelo, supongamos un paseo aleatorio con una
+\emph{deriva} que va cambiando en el tiempo, como:
+
+\[\nabla X_t=c_t + u_t\] donde la media de \(\nabla X_t\), que es el
+crecimiento de \(X_t\), evoluciona en el tiempo. Sustituyendo
+sucesivamente en la ecuación anterior, supondiendo que el proceso
+comienza en \(t=0\) y que \(X_0=u_0=0\), se obtiene:
+
+\[
+X_t=(c_t+\dots+c_1)+u_t+\dots+u_1
+\]
+\end{frame}
+
+\begin{frame}
+Supongamos que la evolución del coeficiente del crecimiento en cada
+instante, \(c_t\), es suave, de manera que:
+
+\[
+c_t=c_{t-1}+\varepsilon_t
+\]
+
+donde \(\varepsilon_t\) es un proceso de ruido blanco, independiente de
+\(u_t\). Entonces:
+
+\begin{align*}
+\nabla^2 X_t&=\nabla X_t - \nabla X_{t-1}\\
+&=c_t+u_t - (c_{t-1}+u_{t-1})\\
+&= \varepsilon_t + u_t - u_{t-1}\\
+&=(1-\theta B)Z_t
+\end{align*}
+\end{frame}
+
+\begin{frame}
+ya que la suma de un ruido blanco y un \(MA(1)\) no invertible será un
+\(MA(1)\) invertible.
+
+Así, el proceso integrado de orden dos es una generalización del paseo
+aleatorio que permite que la deriva varíe suavemente en el tiempo. En
+general, los procesos integrados de orden dos puede verse como una
+generalización de los procesos integrados de orden uno, pero donde la
+pendiente de la recta de crecimiento en lugar de ser fija va cambiando
+con el tiempo.
+\end{frame}
+
+\hypertarget{procesos-integrados-arima}{%
+\subsection{Procesos integrados ARIMA}\label{procesos-integrados-arima}}
+
+\begin{frame}{Procesos integrados ARIMA}
 tbd
 \end{frame}
 

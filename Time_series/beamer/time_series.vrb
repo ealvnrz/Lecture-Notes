@@ -1,7 +1,7 @@
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{plot\_3}
+\FunctionTok{autoplot}\NormalTok{(}\FunctionTok{pacf}\NormalTok{(ma1,}\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figs/unnamed-chunk-17.pdf}
+\includegraphics{figs/unnamed-chunk-24.pdf}

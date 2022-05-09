@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.29)  1 APR 2022 00:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.9.29)  9 MAY 2022 01:10
 entering extended mode
 **./machine_learning.tex
 (machine_learning.tex
@@ -1157,7 +1157,7 @@ Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
 (machine_learning.nav)
-<logo.png, id=64, 1204.5pt x 564.1075pt>
+<logo.png, id=100, 1204.5pt x 564.1075pt>
 File: logo.png Graphic file (type png)
 <use logo.png>
 Package pdftex.def Info: logo.png  used on input line 284.
@@ -1231,7 +1231,7 @@ Package pdftex.def Info: logo.png  used on input line 301.
 [2
 
 ]
-<./figs/zip_codes.png, id=82, 335.75438pt x 141.52875pt>
+<./figs/zip_codes.png, id=118, 335.75438pt x 141.52875pt>
 File: ./figs/zip_codes.png Graphic file (type png)
 <use ./figs/zip_codes.png>
 Package pdftex.def Info: ./figs/zip_codes.png  used on input line 313.
@@ -1305,7 +1305,7 @@ Package pdftex.def Info: logo.png  used on input line 459.
 [11
 
 ]
-<./figs/convex_sets.png, id=137, 467.49657pt x 112.92188pt>
+<./figs/convex_sets.png, id=173, 467.49657pt x 112.92188pt>
 File: ./figs/convex_sets.png Graphic file (type png)
 <use ./figs/convex_sets.png>
 Package pdftex.def Info: ./figs/convex_sets.png  used on input line 477.
@@ -1425,7 +1425,7 @@ Package pdftex.def Info: logo.png  used on input line 741.
 \openout4 = `machine_learning.vrb'.
 
 (machine_learning.vrb
-<figs/unnamed-chunk-3.pdf, id=219, 722.7pt x 505.89pt>
+<figs/unnamed-chunk-3.pdf, id=255, 722.7pt x 505.89pt>
 File: figs/unnamed-chunk-3.pdf Graphic file (type pdf)
 <use figs/unnamed-chunk-3.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-3.pdf  used on input line 7.
@@ -1502,7 +1502,7 @@ Package pdftex.def Info: logo.png  used on input line 850.
 [32
 
 ]
-<figs/unnamed-chunk-6.pdf, id=263, 722.7pt x 505.89pt>
+<figs/unnamed-chunk-6.pdf, id=299, 722.7pt x 505.89pt>
 File: figs/unnamed-chunk-6.pdf Graphic file (type pdf)
 <use figs/unnamed-chunk-6.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-6.pdf  used on input line 856.
@@ -1569,7 +1569,7 @@ Package pdftex.def Info: logo.png  used on input line 990.
 [40
 
 ]
-<figs/inter_flex.png, id=318, 415.5525pt x 261.97874pt>
+<figs/inter_flex.png, id=354, 415.5525pt x 261.97874pt>
 File: figs/inter_flex.png Graphic file (type png)
 <use figs/inter_flex.png>
 Package pdftex.def Info: figs/inter_flex.png  used on input line 994.
@@ -1629,7 +1629,7 @@ Package pdftex.def Info: logo.png  used on input line 1100.
 [47
 
 ]
-<figs/unnamed-chunk-9.pdf, id=357, 722.7pt x 505.89pt>
+<figs/unnamed-chunk-9.pdf, id=393, 722.7pt x 505.89pt>
 File: figs/unnamed-chunk-9.pdf Graphic file (type pdf)
 <use figs/unnamed-chunk-9.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-9.pdf  used on input line 1104.
@@ -1641,7 +1641,7 @@ Package pdftex.def Info: logo.png  used on input line 1104.
 [48
 
  <./figs/unnamed-chunk-9.pdf>]
-<figs/unnamed-chunk-10.pdf, id=368, 722.7pt x 505.89pt>
+<figs/unnamed-chunk-10.pdf, id=404, 722.7pt x 505.89pt>
 File: figs/unnamed-chunk-10.pdf Graphic file (type pdf)
 <use figs/unnamed-chunk-10.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-10.pdf  used on input line 1108.
@@ -1653,7 +1653,7 @@ Package pdftex.def Info: logo.png  used on input line 1108.
 [49
 
  <./figs/unnamed-chunk-10.pdf>]
-<figs/unnamed-chunk-11.pdf, id=380, 722.7pt x 505.89pt>
+<figs/unnamed-chunk-11.pdf, id=416, 722.7pt x 505.89pt>
 File: figs/unnamed-chunk-11.pdf Graphic file (type pdf)
 <use figs/unnamed-chunk-11.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-11.pdf  used on input line 1112.
@@ -1706,7 +1706,7 @@ Package pdftex.def Info: logo.png  used on input line 1210.
 [55
 
 ]
-<figs/lin_reg.png, id=419, 652.68843pt x 522.45187pt>
+<figs/lin_reg.png, id=455, 652.68843pt x 522.45187pt>
 File: figs/lin_reg.png Graphic file (type png)
 <use figs/lin_reg.png>
 Package pdftex.def Info: figs/lin_reg.png  used on input line 1214.
@@ -1725,7 +1725,7 @@ Package pdftex.def Info: logo.png  used on input line 1227.
 [57
 
 ]
-<figs/log_reg.png, id=431, 650.43pt x 517.18219pt>
+<figs/log_reg.png, id=467, 650.43pt x 517.18219pt>
 File: figs/log_reg.png Graphic file (type png)
 <use figs/log_reg.png>
 Package pdftex.def Info: figs/log_reg.png  used on input line 1231.
@@ -1869,7 +1869,7 @@ Package pdftex.def Info: logo.png  used on input line 1459.
 [71
 
 ]
-<figs/log_compare.pdf, id=514, 579.16376pt x 263.98625pt>
+<figs/log_compare.pdf, id=550, 579.16376pt x 263.98625pt>
 File: figs/log_compare.pdf Graphic file (type pdf)
 <use figs/log_compare.pdf>
 Package pdftex.def Info: figs/log_compare.pdf  used on input line 1468.
@@ -1945,7 +1945,7 @@ Package pdftex.def Info: logo.png  used on input line 1619.
 [80
 
 ]
-<figs/unnamed-chunk-19.pdf, id=574, 722.7pt x 505.89pt>
+<figs/unnamed-chunk-19.pdf, id=610, 722.7pt x 505.89pt>
 File: figs/unnamed-chunk-19.pdf Graphic file (type pdf)
 <use figs/unnamed-chunk-19.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-19.pdf  used on input line 1623.
@@ -1981,7 +1981,7 @@ Package pdftex.def Info: logo.png  used on input line 1687.
 [84
 
 ]
-<figs/unnamed-chunk-21.pdf, id=600, 722.7pt x 505.89pt>
+<figs/unnamed-chunk-21.pdf, id=636, 722.7pt x 505.89pt>
 File: figs/unnamed-chunk-21.pdf Graphic file (type pdf)
 <use figs/unnamed-chunk-21.pdf>
 Package pdftex.def Info: figs/unnamed-chunk-21.pdf  used on input line 1691.
@@ -1995,9 +1995,1332 @@ Package pdftex.def Info: logo.png  used on input line 1691.
  <./figs/unnamed-chunk-21.pdf>]
 File: logo.png Graphic file (type png)
 <use logo.png>
-Package pdftex.def Info: logo.png  used on input line 1696.
+Package pdftex.def Info: logo.png  used on input line 1712.
 (pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
 [86
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1730.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[87
+
+]
+<figs/lda_1.pdf, id=663, 651.43375pt x 322.20375pt>
+File: figs/lda_1.pdf Graphic file (type pdf)
+<use figs/lda_1.pdf>
+Package pdftex.def Info: figs/lda_1.pdf  used on input line 1738.
+(pdftex.def)             Requested size: 341.44125pt x 168.87926pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1738.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[88
+
+ <./figs/lda_1.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1752.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[89
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1765.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[90
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+Overfull \vbox (9.42513pt too high) detected at line 1802
+ []
+
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1802.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[91
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1819.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[92
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1832.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[93
+
+]
+<figs/unnamed-chunk-26.pdf, id=712, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-26.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-26.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-26.pdf  used on input line 1836.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1836.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[94
+
+ <./figs/unnamed-chunk-26.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1854.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[95
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1868.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[96
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1883.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[97
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1894.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[98
+
+]
+<figs/lda_qda.pdf, id=746, 579.16376pt x 286.06876pt>
+File: figs/lda_qda.pdf Graphic file (type pdf)
+<use figs/lda_qda.pdf>
+Package pdftex.def Info: figs/lda_qda.pdf  used on input line 1903.
+(pdftex.def)             Requested size: 341.42969pt x 168.64378pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1903.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[99
+
+ <./figs/lda_qda.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1919.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[100
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1941.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[101
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1967.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[102
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 1981.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[103
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+Overfull \hbox (3.49124pt too wide) in paragraph at lines 21--21
+[]\T1/lmtt/m/n/9 ## [1] "Year"      "Lag1"      "Lag2"      "Lag3"      "Lag4" 
+     "Lag5"[] 
+ []
+
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2020.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[104
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+Overfull \hbox (15.56587pt too wide) in paragraph at lines 8--8
+[]\T1/lmtt/m/n/10 ##   Year   Lag1   Lag2   Lag3   Lag4   Lag5 Volume  Today Di
+rection[] 
+ []
+
+
+Overfull \hbox (15.56587pt too wide) in paragraph at lines 9--9
+[]\T1/lmtt/m/n/10 ## 1 2001  0.381 -0.192 -2.624 -1.055  5.010 1.1913  0.959   
+     Up[] 
+ []
+
+
+Overfull \hbox (15.56587pt too wide) in paragraph at lines 10--10
+[]\T1/lmtt/m/n/10 ## 2 2001  0.959  0.381 -0.192 -2.624 -1.055 1.2965  1.032   
+     Up[] 
+ []
+
+
+Overfull \hbox (15.56587pt too wide) in paragraph at lines 11--11
+[]\T1/lmtt/m/n/10 ## 3 2001  1.032  0.959  0.381 -0.192 -2.624 1.4112 -0.623   
+   Down[] 
+ []
+
+
+Overfull \hbox (15.56587pt too wide) in paragraph at lines 12--12
+[]\T1/lmtt/m/n/10 ## 4 2001 -0.623  1.032  0.959  0.381 -0.192 1.2760  0.614   
+     Up[] 
+ []
+
+
+Overfull \hbox (15.56587pt too wide) in paragraph at lines 13--13
+[]\T1/lmtt/m/n/10 ## 5 2001  0.614 -0.623  1.032  0.959  0.381 1.2057  0.213   
+     Up[] 
+ []
+
+
+Overfull \hbox (15.56587pt too wide) in paragraph at lines 14--14
+[]\T1/lmtt/m/n/10 ## 6 2001  0.213  0.614 -0.623  1.032  0.959 1.3491  1.392   
+     Up[] 
+ []
+
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2038.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[105
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2069.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[106
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2081.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[107
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-31.pdf, id=805, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-31.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-31.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-31.pdf  used on input line 7.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2091.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[108
+
+ <./figs/unnamed-chunk-31.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2101.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[109
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+Overfull \vbox (70.92513pt too high) detected at line 2140
+ []
+
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2140.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[110
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+Overfull \hbox (46.01616pt too wide) in paragraph at lines 11--11
+[]\T1/lmtt/m/n/9 ##         1         2         3         4         5         6
+         7         8[] 
+ []
+
+
+Overfull \hbox (46.01616pt too wide) in paragraph at lines 12--12
+[]\T1/lmtt/m/n/9 ## 0.5070841 0.4814679 0.4811388 0.5152224 0.5107812 0.5069565
+ 0.4926509 0.5092292[] 
+ []
+
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2170.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[111
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2207.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[112
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2227.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[113
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2237.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[114
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2274.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[115
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2314.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[116
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2328.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[117
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+Overfull \vbox (18.81926pt too high) detected at line 2357
+ []
+
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2357.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[118
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-42.pdf, id=870, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-42.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-42.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-42.pdf  used on input line 7.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2367.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[119
+
+ <./figs/unnamed-chunk-42.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2386.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[120
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2431.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[121
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+Overfull \hbox (89.06566pt too wide) in paragraph at lines 8--8
+[]\T1/lmtt/m/n/10 ##       999      1000      1001      1002      1003      100
+4      1005      1006[] 
+ []
+
+
+Overfull \hbox (89.06566pt too wide) in paragraph at lines 9--9
+[]\T1/lmtt/m/n/10 ## 0.4901792 0.4792185 0.4668185 0.4740011 0.4927877 0.493856
+2 0.4951016 0.4872861[] 
+ []
+
+
+Overfull \hbox (89.06566pt too wide) in paragraph at lines 10--10
+[]\T1/lmtt/m/n/10 ##      1007      1008      1009      1010      1011      101
+2      1013      1014[] 
+ []
+
+
+Overfull \hbox (89.06566pt too wide) in paragraph at lines 11--11
+[]\T1/lmtt/m/n/10 ## 0.4907013 0.4844026 0.4906963 0.5119988 0.4895152 0.470676
+1 0.4744593 0.4799583[] 
+ []
+
+
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 23--23
+[]\T1/lmtt/m/n/10 ##  [1] Up   Up   Up   Up   Up   Up   Up   Up   Up   Up   Up 
+  Down Up   Up   Up[] 
+ []
+
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2460.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[122
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2472.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[123
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2496.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[124
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2522.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[125
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2534.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[126
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2560.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[127
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2586.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[128
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2592.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[129
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2608.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[130
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2626.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[131
+
+]
+<figs/tree1.pdf, id=946, 579.16376pt x 506.89375pt>
+File: figs/tree1.pdf Graphic file (type pdf)
+<use figs/tree1.pdf>
+Package pdftex.def Info: figs/tree1.pdf  used on input line 2634.
+(pdftex.def)             Requested size: 226.75668pt x 198.46123pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2634.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[132
+
+ <./figs/tree1.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2650.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[133
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2665.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[134
+
+]
+<figs/tree2.pdf, id=970, 579.16376pt x 643.40375pt>
+File: figs/tree2.pdf Graphic file (type pdf)
+<use figs/tree2.pdf>
+Package pdftex.def Info: figs/tree2.pdf  used on input line 2669.
+(pdftex.def)             Requested size: 178.64633pt x 198.46152pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2669.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[135
+
+ <./figs/tree2.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2679.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[136
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 8--8
+[]\T1/lmtt/m/n/10 ##   Sales CompPrice Income Advertising Population Price Shel
+veLoc Age Education[] 
+ []
+
+
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 9--9
+[]\T1/lmtt/m/n/10 ## 1  9.50       138     73          11        276   120     
+  Bad  42        17[] 
+ []
+
+
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 10--10
+[]\T1/lmtt/m/n/10 ## 2 11.22       111     48          16        260    83     
+ Good  65        10[] 
+ []
+
+
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 11--11
+[]\T1/lmtt/m/n/10 ## 3 10.06       113     35          10        269    80    M
+edium  59        12[] 
+ []
+
+
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 12--12
+[]\T1/lmtt/m/n/10 ## 4  7.40       117    100           4        466    97    M
+edium  55        14[] 
+ []
+
+
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 13--13
+[]\T1/lmtt/m/n/10 ## 5  4.15       141     64           3        340   128     
+  Bad  38        13[] 
+ []
+
+
+Overfull \hbox (78.56569pt too wide) in paragraph at lines 14--14
+[]\T1/lmtt/m/n/10 ## 6 10.81       124    113          13        501    72     
+  Bad  78        16[] 
+ []
+
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2704.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[137
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2714.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[138
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+Overfull \hbox (52.31577pt too wide) in paragraph at lines 12--12
+[]\T1/lmtt/m/n/10 ## [1] "ShelveLoc"   "Price"       "Income"      "CompPrice" 
+  "Population"[] 
+ []
+
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2734.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[139
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-56.pdf, id=1005, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-56.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-56.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-56.pdf  used on input line 8.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2745.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[140
+
+ <./figs/unnamed-chunk-56.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2756.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[141
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-58.pdf, id=1021, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-58.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-58.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-58.pdf  used on input line 7.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2766.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[142
+
+ <./figs/unnamed-chunk-58.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2796.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[143
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2808.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[144
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2821.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[145
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2847.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[146
+
+]
+<figs/hyperplane.pdf, id=1057, 506.89375pt x 506.89375pt>
+File: figs/hyperplane.pdf Graphic file (type pdf)
+<use figs/hyperplane.pdf>
+Package pdftex.def Info: figs/hyperplane.pdf  used on input line 2855.
+(pdftex.def)             Requested size: 198.46123pt x 198.46123pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2855.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[147
+
+ <./figs/hyperplane.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2872.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[148
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2883.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[149
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2908.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[150
+
+]
+<figs/hyperplane_sep.pdf, id=1093, 651.43375pt x 326.21875pt>
+File: figs/hyperplane_sep.pdf Graphic file (type pdf)
+<use figs/hyperplane_sep.pdf>
+Package pdftex.def Info: figs/hyperplane_sep.pdf  used on input line 2916.
+(pdftex.def)             Requested size: 341.44125pt x 170.98367pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2916.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[151
+
+ <./figs/hyperplane_sep.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2925.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[152
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2942.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[153
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2951.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[154
+
+]
+<figs/support_vectors.pdf, id=1128, 506.89375pt x 497.86pt>
+File: figs/support_vectors.pdf Graphic file (type pdf)
+<use figs/support_vectors.pdf>
+Package pdftex.def Info: figs/support_vectors.pdf  used on input line 2959.
+(pdftex.def)             Requested size: 202.06554pt x 198.46436pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2959.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[155
+
+ <./figs/support_vectors.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2974.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[156
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 2995.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[157
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3030.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[158
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3042.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[159
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-63.pdf, id=1168, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-63.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-63.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-63.pdf  used on input line 7.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3052.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[160
+
+ <./figs/unnamed-chunk-63.pdf>]
+<figs/hyperplane_non_sep.pdf, id=1180, 506.89375pt x 506.89375pt>
+File: figs/hyperplane_non_sep.pdf Graphic file (type pdf)
+<use figs/hyperplane_non_sep.pdf>
+Package pdftex.def Info: figs/hyperplane_non_sep.pdf  used on input line 3061.
+(pdftex.def)             Requested size: 198.46123pt x 198.46123pt.
+
+Overfull \vbox (14.55826pt too high) detected at line 3061
+ []
+
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3061.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[161
+
+ <./figs/hyperplane_non_sep.pdf>]
+<figs/hyperplane_non_sep_2.pdf, id=1199, 579.16376pt x 290.08376pt>
+File: figs/hyperplane_non_sep_2.pdf Graphic file (type pdf)
+<use figs/hyperplane_non_sep_2.pdf>
+Package pdftex.def Info: figs/hyperplane_non_sep_2.pdf  used on input line 3069
+.
+(pdftex.def)             Requested size: 341.42969pt x 171.01071pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3069.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[162
+
+ <./figs/hyperplane_non_sep_2.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3086.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[163
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3099.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[164
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3115.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[165
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3127.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[166
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3152.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[167
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3174.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[168
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3188.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[169
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3201.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[170
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3216.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[171
+
+]
+<figs/radial_kernel.pdf, id=1265, 506.89375pt x 246.9225pt>
+File: figs/radial_kernel.pdf Graphic file (type pdf)
+<use figs/radial_kernel.pdf>
+Package pdftex.def Info: figs/radial_kernel.pdf  used on input line 3225.
+(pdftex.def)             Requested size: 341.44241pt x 166.32639pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3225.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[172
+
+ <./figs/radial_kernel.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3244.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[173
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-65.pdf, id=1291, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-65.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-65.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-65.pdf  used on input line 9.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3256.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[174
+
+ <./figs/unnamed-chunk-65.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-66.pdf, id=1302, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-66.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-66.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-66.pdf  used on input line 9.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+Overfull \vbox (0.60925pt too high) detected at line 3268
+ []
+
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3268.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[175
+
+ <./figs/unnamed-chunk-66.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+Overfull \hbox (8.21623pt too wide) in paragraph at lines 12--12
+[]\T1/lmtt/m/n/9 ## svm(formula = y ~ ., data = dat[train, ], kernel = "radial"
+, gamma = 1,[] 
+ []
+
+)
+Overfull \vbox (2.92513pt too high) detected at line 3301
+ []
+
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3301.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[176
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3316.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[177
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3340.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[178
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3353.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[179
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3366.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[180
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3381.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[181
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3400.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[182
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3414.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[183
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3426.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[184
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3446.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[185
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3468.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[186
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3479.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[187
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3492.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[188
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3510.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[189
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3529.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[190
+
+]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3545.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[191
+
+]
+<figs/optimal_pca.png, id=1402, 361.35pt x 231.11343pt>
+File: figs/optimal_pca.png Graphic file (type png)
+<use figs/optimal_pca.png>
+Package pdftex.def Info: figs/optimal_pca.png  used on input line 3549.
+(pdftex.def)             Requested size: 341.43344pt x 218.37514pt.
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3549.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[192
+
+ <./figs/optimal_pca.png>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3574.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[193
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3601.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[194
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3614.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[195
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3641.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[196
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3660.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[197
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3691.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[198
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-75.pdf, id=1441, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-75.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-75.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-75.pdf  used on input line 7.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3701.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[199
+
+ <./figs/unnamed-chunk-75.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-76.pdf, id=1453, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-76.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-76.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-76.pdf  used on input line 9.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+Overfull \vbox (0.60925pt too high) detected at line 3713
+ []
+
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3713.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[200
+
+ <./figs/unnamed-chunk-76.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3736.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[201
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3750.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[202
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-79.pdf, id=1474, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-79.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-79.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-79.pdf  used on input line 7.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3760.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[203
+
+ <./figs/unnamed-chunk-79.pdf>]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3773.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[204
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3787.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[205
+
+]
+\openout4 = `machine_learning.vrb'.
+
+(machine_learning.vrb
+<figs/unnamed-chunk-82.pdf, id=1496, 722.7pt x 505.89pt>
+File: figs/unnamed-chunk-82.pdf Graphic file (type pdf)
+<use figs/unnamed-chunk-82.pdf>
+Package pdftex.def Info: figs/unnamed-chunk-82.pdf  used on input line 7.
+(pdftex.def)             Requested size: 283.51701pt x 198.4619pt.
+)
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3797.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[206
+
+ <./figs/unnamed-chunk-82.pdf>]
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 3804.
+(pdftex.def)             Requested size: 42.67642pt x 19.98679pt.
+[207
 
 ]
 \tf@nav=\write7
@@ -2014,38 +3337,42 @@ LaTeX Info: Redefining \. on input line 24.
 LaTeX Info: Redefining \% on input line 24.
 )
 Package rerunfilecheck Info: File `machine_learning.out' has not changed.
-(rerunfilecheck)             Checksum: 01A1CBA0459A3FCB09066C6D6761302E;2283.
+(rerunfilecheck)             Checksum: 233C8CF7640DB63F0F7330F7A00C933A;4163.
  ) 
 Here is how much of TeX's memory you used:
- 43626 strings out of 478927
- 989600 string characters out of 2862395
- 1455013 words of memory out of 3000000
- 60227 multiletter control sequences out of 15000+600000
- 494452 words of font info for 173 fonts, out of 8000000 for 9000
+ 44726 strings out of 478927
+ 1013558 string characters out of 2862395
+ 1468601 words of memory out of 3000000
+ 60878 multiletter control sequences out of 15000+600000
+ 496339 words of font info for 189 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,17n,427p,742b,2393s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTe
-X/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/
+{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/M
+iKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/
 lm-ts1.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Fi
 les/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX/fonts/enc/
-dvips/lm/lm-mathex.enc}<C:/Program Files/MiKTeX/fonts/type1/public/lm/lmex10.pf
-b><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Program Files/M
-iKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/pub
-lic/lm/lmss10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:
-/Program Files/MiKTeX/fonts/type1/public/lm/lmss8.pfb><C:/Program Files/MiKTeX/
-fonts/type1/public/lm/lmss9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/
-lmssbo10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Pr
-ogram Files/MiKTeX/fonts/type1/public/lm/lmsso10.pfb><C:/Program Files/MiKTeX/f
-onts/type1/public/lm/lmsso12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm
-/lmsso8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Progr
-am Files/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Program Files/MiKTeX/fonts/
-type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10
-.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt8.pfb><C:/Program Files
-/MiKTeX/fonts/type1/public/lm/lmtt9.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
-blic/amsfonts/symbols/msbm10.pfb>
-Output written on machine_learning.pdf (86 pages, 1357422 bytes).
+dvips/lm/lm-mathex.enc}<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C
+:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fil
+es/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/font
+s/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmm
+i10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Program F
+iles/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Program Files/MiKTeX/fonts/type
+1/public/lm/lmss10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmss12.pf
+b><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmss8.pfb><C:/Program Files/Mi
+KTeX/fonts/type1/public/lm/lmss9.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
+c/lm/lmssbo10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><
+C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsso10.pfb><C:/Program Files/MiK
+TeX/fonts/type1/public/lm/lmsso12.pfb><C:/Program Files/MiKTeX/fonts/type1/publ
+ic/lm/lmsso8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/
+Program Files/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Program Files/MiKTeX/f
+onts/type1/public/lm/lmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/l
+mtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt8.pfb><C:/Program 
+Files/MiKTeX/fonts/type1/public/lm/lmtt9.pfb><C:/Program Files/MiKTeX/fonts/typ
+e1/public/amsfonts/symbols/msbm10.pfb>
+Output written on machine_learning.pdf (207 pages, 4795645 bytes).
 PDF statistics:
- 762 PDF objects out of 1000 (max. 8388607)
- 205 named destinations out of 1000 (max. 500000)
- 53465 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 1720 PDF objects out of 1728 (max. 8388607)
+ 477 named destinations out of 1000 (max. 500000)
+ 53652 words of extra memory for PDF output out of 61914 (max. 10000000)
 

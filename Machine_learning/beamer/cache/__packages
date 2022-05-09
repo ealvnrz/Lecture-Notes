@@ -11,3 +11,9 @@ MASS
 ISLR
 gridExtra
 plot3D
+klaR
+class
+tree
+rpart
+rpart.plot
+e1071
